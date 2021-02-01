@@ -1,0 +1,115 @@
+package vendorapplication.Controllers;
+
+
+import vendorapplication.entities.RolesEntity;
+import vendorapplication.entities.UserEntity;
+import vendorapplication.form.RegisterUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import vendorapplication.services.RoleService;
+import vendorapplication.services.UserService;
+import vendorapplication.validators.UserValidator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+public class UserController {
+
+    @Autowired
+    private UserService userservice;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private UserValidator userValidator;
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @RequestMapping(value = "/createUser", method = RequestMethod.GET)
+    public String createUser(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+            model.addAttribute("registerUser", new RegisterUser());
+            return "createuser";
+        }
+    }
+
+    @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
+    @Transactional
+    public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        userValidator.validate(registerUser, bindingResult);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+            if (bindingResult.hasErrors()) {
+                return "createuser";
+            }
+            try {
+                UserEntity user = new UserEntity();
+                PasswordEncoder encoder = new BCryptPasswordEncoder();
+                user.setActive(true);
+                user.setIs_deleted(false);
+                user.setMobileNumber(Long.valueOf(registerUser.getMobileNumber()));
+                user.setUsername(registerUser.getUsername());
+                user.setPassword(encoder.encode(registerUser.getPassword()));
+                String roleIid = registerUser.getRoleId();
+                user.setEmail(registerUser.getEmailAddress());
+                user.setGender(registerUser.getGender());
+
+                Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
+                if (role.get() != null) {
+                    List<RolesEntity> list = new ArrayList<RolesEntity>();
+                    list.add(role.get());
+                    user.setRoles(list);
+                    UserEntity savedData = userservice.saveUser(user);
+
+                    request.getSession().setAttribute("successMessage", savedData.getUsername() + "  Successfully Saved. ID is" + savedData.getUserId());
+                    registerUser.setMobileNumber("");
+                    registerUser.setPasswordConfirm("");
+                    registerUser.setPassword("");
+                    registerUser.setUsername("");
+                    registerUser.setRoleId("0");
+                    return "createuser";
+                } else {
+                    registerUser.setMobileNumber("");
+                    registerUser.setPasswordConfirm("");
+                    registerUser.setPassword("");
+                    registerUser.setUsername("");
+                    registerUser.setRoleId("0");
+                    model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
+                    return "createuser";
+                }
+
+            } catch (Exception ex) {
+                registerUser.setMobileNumber("");
+                registerUser.setPasswordConfirm("");
+                registerUser.setUsername("");
+                registerUser.setPassword("");
+                model.addAttribute("serverError", ex.toString());
+                return "createuser";
+            }
+        }
+    }
+
+}

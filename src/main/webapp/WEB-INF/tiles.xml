@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+
+    <definition name="baselayoutdashboard" template="/WEB-INF/views/layout_dashboard.jsp">
+        <put-attribute name="content" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/header_dashboard.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer_dashboard.jsp" />
+    </definition>
+
+    <definition name="baselayoutdashboardnonav" template="/WEB-INF/views/layout_dashboard.jsp">
+        <put-attribute name="content" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/header_dashboard_without_nav.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer_dashboard.jsp" />
+    </definition>
+
+    <definition name="main" template="/WEB-INF/views/main_page.jsp">
+        <put-attribute name="content" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/header_mainpage.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer_mainpage.jsp" />
+    </definition>
+
+    <definition name="error" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/errorpage.jsp" />
+    </definition>
+
+    <definition name="flightapplication" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/flight_application_form.jsp" />
+    </definition>
+
+    <definition name="checkStatus" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/checkStatus.jsp" />
+    </definition>
+
+    <definition name="paymentpage" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/paymentProceed.jsp" />
+    </definition>
+
+    <definition name="nopaymentpage" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/nopaymentProceed.jsp" />
+    </definition>
+
+
+
+    <definition name="gallery" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/gallery.jsp" />
+    </definition>
+
+    <definition name="contactus" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/contactus.jsp" />
+    </definition>
+
+    <definition name="refundpage" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/refund.jsp" />
+    </definition>
+
+    <definition name="privacypolicy" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/privacypolicy.jsp" />
+    </definition>
+
+    <definition name="termsandconditions" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/termsandconditions.jsp" />
+    </definition>
+
+
+
+    <definition name="postPayment" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/postpayment.jsp" />
+    </definition>
+
+
+    <definition name="paymentResponse" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/paymentresponse.jsp" />
+    </definition>
+
+    <definition name="mainpage" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/mainpage.jsp" />
+    </definition>
+
+    <definition name="homepage_new" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/views/home_dashboard.jsp" />
+    </definition>
+
+    <definition name="checkpayment" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/verify_payment.jsp" />
+    </definition>
+
+
+
+    <definition name="createuser" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/registration.jsp" />
+    </definition>
+
+
+    <definition name="createrole" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/rolesmaster.jsp" />
+    </definition>
+
+    <definition name="applications" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/applications.jsp" />
+    </definition>
+
+    <definition name="applications_all" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/applications_all.jsp" />
+    </definition>
+
+
+    <definition name="userdetails" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/userDetails.jsp" />
+    </definition>
+
+
+    <definition name="login" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />
+    </definition>
+
+
+
+
+
+</tiles-definitions>
