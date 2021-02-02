@@ -136,7 +136,7 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getFlightDistrictToGoFrom() throws Exception {
         Map<String, Object> map = null;
-        List<District> listRegistrationType = districtService.getDistricts();
+        List<GenderEntity> listRegistrationType = districtService.getDistricts();
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, listRegistrationType);

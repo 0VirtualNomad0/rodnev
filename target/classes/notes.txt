@@ -2,18 +2,7 @@
 ############################## Vendor Application Database Queries #######################################
 ##########################################################################################################
 
--- States
-CREATE TABLE states(
-role_id SERIAL PRIMARY KEY NOT NULL,
-role_name character varying (15),
-role_description character varying (55),
-active boolean DEFAULT true NOT NULL,
-isDeleted boolean DEFAULT false NOT NULL,
-createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-lastmodifieddate timestamp without time zone
-)
-
---Roles
+-- Roles
 CREATE TABLE roles(
 role_id SERIAL PRIMARY KEY NOT NULL,
 role_name character varying (15),
@@ -24,17 +13,24 @@ createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
 lastmodifieddate timestamp without time zone
 )
 
-
--- Users
+ -- Users
 CREATE TABLE users(
 user_id SERIAL PRIMARY KEY NOT NULL,
-username character varying (50),
+firstname character varying (50) NOT NULL,
+lastname character varying (50) NOT NULL,
+username character varying (50) NOT NULL unique,
 password character varying (50),
-mobile_number INTEGER,
+mobile_number INTEGER NOT NULL,
+age INTEGER NOT NULL,
 email character varying(100),
 gender character varying(1),
+p_address character varying(255),
+c_address character varying(255),
+aadhaar_doc character varying(255),
 active boolean DEFAULT true NOT NULL,
-createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+isDeleted boolean DEFAULT false NOT NULL,
+createddate timestamp without time zone DEFAULT ('now'::text)::date,
+updatedDate timestamp without time zone ,
 lastmodifieddate timestamp without time zone
 );
 
