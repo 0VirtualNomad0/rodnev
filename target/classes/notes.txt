@@ -1,45 +1,29 @@
-SELECT * FROM public.mst_vehicle_owner_documents;
-SELECT * FROM public.mst_vehicle_owner_entries;
+##########################################################################################################
+############################## Vendor Application Database Queries #######################################
+##########################################################################################################
 
-alter table public.mst_vehicle_owner_entries alter createddate set default now();
+-- States
+CREATE TABLE states(
+role_id SERIAL PRIMARY KEY NOT NULL,
+role_name character varying (15),
+role_description character varying (55),
+active boolean DEFAULT true NOT NULL,
+isDeleted boolean DEFAULT false NOT NULL,
+createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+lastmodifieddate timestamp without time zone
+)
 
-ALTER SEQUENCE public.mst_vehicle_owner_entries_vehicle_owner_id_seq RESTART;
-
-SELECT last_value FROM public.mst_vehicle_owner_entries_vehicle_owner_id_seq;
-
-
-SELECT currval('public.mst_vehicle_owner_entries_vehicle_owner_id_seq')
-
-SELECT setval('public.mst_vehicle_owner_entries_vehicle_owner_id_seq', 1);
-UPDATE public.mst_vehicle_owner_entries SET vehicle_owner_id = DEFAULT;
-
-SELECT nextval('public.mst_vehicle_owner_type_vehicle_owner_type_id_seq');
-SELECT nextval('public.mst_vehicle_owner_entries_vehicle_owner_id_seq');
-
-
-SELECT to_date("id_valid_from", 'dd-MM-yyyy') as fromDate FROM public.mst_vehicle_owner_entries;
-
-
-SELECT barrier_name FROM public.mst_barrier WHERE barrier_id = 1
-
-SELECT * FROM public.user_role_mapping
-
-SELECT * FROM public.users
-SELECT * FROM public.roles
-SELECT * FROM public.user_role_mapping
-
--- New Tables go Here
--- New Tables Go Here
 --Roles
 CREATE TABLE roles(
 role_id SERIAL PRIMARY KEY NOT NULL,
 role_name character varying (15),
 role_description character varying (55),
 active boolean DEFAULT true NOT NULL,
+isDeleted boolean DEFAULT false NOT NULL,
 createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
 lastmodifieddate timestamp without time zone
-
 )
+
 
 -- Users
 CREATE TABLE users(
@@ -52,7 +36,6 @@ gender character varying(1),
 active boolean DEFAULT true NOT NULL,
 createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
 lastmodifieddate timestamp without time zone
-
 );
 
 

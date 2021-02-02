@@ -39,9 +39,6 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
     @Autowired
     private CaptchaAuthenticationProvider authenticationProvider;
 
@@ -49,50 +46,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider);
     }
-
     @Autowired
     private CaptchaDetailsSource detailsSource;
 
-//    @Autowired
-//    private DataSource dataSource;
-
-//    @Qualifier("userDetailsServiceImpl")
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
-
-
-//    @Bean
-//    PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
-        // http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-        // http.addFilterAfter(new CsrfTokenResponseHeaderBindingFilter(), CsrfFilter.class);
-        // http.csrf().disable();
         http.csrf()
                 .csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
         http.csrf().ignoringAntMatchers("/nocsrf", "/paymentResponse/**");
-        //  http.csrf().ignoringAntMatchers("/nocsrf", "/vendorapplication.ajax/**");
-
-        //.anonymous()
-        //.and()
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .antMatchers("/downloadFile/**").permitAll()
@@ -117,15 +89,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-               // .defaultSuccessUrl("/index")
-                //.permitAll()
                 .successHandler(loginSuccessHandler())
                 .failureHandler(loginFailureHandler())
                 .authenticationDetailsSource(detailsSource).permitAll().and()
                 .logout().logoutSuccessHandler(logoutSuccessHandler())
-               // .and()
-               // .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-               // .logoutSuccessUrl("/login")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
@@ -159,6 +126,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 response.setContentType("text/html; charset=UTF-8");
                 response.setHeader("pragma", "no-cache");
                 response.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
+               // response.setHeader("Set-Cookie", "SameSite=lax");
                 //  response.setHeader("Set-Cookie", "locale=de;  SameSite=same-origin");  //HttpOnly;
                 filterChain.doFilter(request, response);
             }
