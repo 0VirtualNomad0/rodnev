@@ -1,6 +1,7 @@
 package vendorapplication.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,14 @@ public class UserEntity {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "username")
+    @Column(name = "firstname")
     private String username;
+
+    @Column(name = "username")
+    private String firstName;
+
+    @Column(name = "lastname")
+    private String lastName;
 
 
     @Column(name = "password")
@@ -26,20 +33,45 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "gender")
-    private String gender;
+    @Column(name = "p_address")
+    private String pAddress;
+
+    @Column(name = "c_address")
+    private String cAddress;
+
+//    @Column(name = "gender")
+   // private Integer gender;
+
+    @OneToOne
+    @JoinColumn(name="gender_id" )
+    private GenderEntity genderID;
+
+    @Column(name = "age")
+    private Integer age;
 
     @Column(name = "active")
     private boolean active;
 
-    @Column(name = "is_deleted")
+    @Column(name = "isdeleted")
     private boolean is_deleted;
+
+    @Column(name = "createddate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+
+    @Column(name = "updateddate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedDate;
+
+
+    @Column(name = "lastmodifieddate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastmodifieddate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "rm_user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "rm_role_id", referencedColumnName = "role_id"))
-
-    //   @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RolesEntity> roles;
 
 
@@ -57,6 +89,22 @@ public class UserEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -83,12 +131,36 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getGender() {
-        return gender;
+    public String getpAddress() {
+        return pAddress;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setpAddress(String pAddress) {
+        this.pAddress = pAddress;
+    }
+
+    public String getcAddress() {
+        return cAddress;
+    }
+
+    public void setcAddress(String cAddress) {
+        this.cAddress = cAddress;
+    }
+
+    public GenderEntity getGenderID() {
+        return genderID;
+    }
+
+    public void setGenderID(GenderEntity genderID) {
+        this.genderID = genderID;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public boolean isActive() {
@@ -107,6 +179,30 @@ public class UserEntity {
         this.is_deleted = is_deleted;
     }
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public Date getLastmodifieddate() {
+        return lastmodifieddate;
+    }
+
+    public void setLastmodifieddate(Date lastmodifieddate) {
+        this.lastmodifieddate = lastmodifieddate;
+    }
+
     public List<RolesEntity> getRoles() {
         return roles;
     }
@@ -120,12 +216,20 @@ public class UserEntity {
         return "UserEntity{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", mobileNumber=" + mobileNumber +
                 ", email='" + email + '\'' +
-                ", gender='" + gender + '\'' +
+                ", pAddress='" + pAddress + '\'' +
+                ", cAddress='" + cAddress + '\'' +
+                ", genderID=" + genderID +
+                ", age=" + age +
                 ", active=" + active +
                 ", is_deleted=" + is_deleted +
+                ", createdDate=" + createdDate +
+                ", updatedDate=" + updatedDate +
+                ", lastmodifieddate=" + lastmodifieddate +
                 ", roles=" + roles +
                 '}';
     }

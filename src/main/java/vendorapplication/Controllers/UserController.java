@@ -75,7 +75,7 @@ public class UserController {
                 user.setPassword(encoder.encode(registerUser.getPassword()));
                 String roleIid = registerUser.getRoleId();
                 user.setEmail(registerUser.getEmailAddress());
-                user.setGender(registerUser.getGender());
+               // user.setGender(registerUser.getGender());
 
                 Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
                 if (role.get() != null) {
