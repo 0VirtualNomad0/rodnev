@@ -33,23 +33,23 @@ public class RolesController {
 
     @RequestMapping(value = "/createRole", method = RequestMethod.GET)
     public String createRole(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "login";
+//        } else {
             model.addAttribute("rolesForm", new RolesForm());
             return "createrole";
-        }
+//        }
     }
 
 
     @RequestMapping(value = "/saveRole", method = RequestMethod.POST)
     public String saveRole(@ModelAttribute("rolesForm") RolesForm roleForm, BindingResult bindingResult, Model model, HttpServletRequest request) {
         roleValidator.validate(roleForm, bindingResult);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "login";
+//        } else {
             if (bindingResult.hasErrors()) {
                 return "createrole";
             }
@@ -69,7 +69,7 @@ public class RolesController {
                 model.addAttribute("serverError", ex.toString());
                 return "createrole";
             }
-        }
+      //  }
 
 
     }

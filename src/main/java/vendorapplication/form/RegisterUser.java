@@ -4,13 +4,58 @@ import java.io.Serializable;
 
 public class RegisterUser implements Serializable {
 
+    private String firstname;
+    private String lastname;
     private String username;
     private String password;
     private String passwordConfirm;
     private String mobileNumber;
+    private String age;
+    private String p_address;
+    private String c_address;
     private String emailAddress;
     private String gender;
     private String roleId;
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getP_address() {
+        return p_address;
+    }
+
+    public void setP_address(String p_address) {
+        this.p_address = p_address;
+    }
+
+    public String getC_address() {
+        return c_address;
+    }
+
+    public void setC_address(String c_address) {
+        this.c_address = c_address;
+    }
 
     public String getMobileNumber() {
         return mobileNumber;

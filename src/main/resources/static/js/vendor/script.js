@@ -64,6 +64,30 @@ function getroles() {
     });
 }
 
+// Get Gender
+function getgender() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getGender",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#gender'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].genderId + " >" + data.RESPONSE[i].genderName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+
 
 function getdistricts() {
     $.ajax({

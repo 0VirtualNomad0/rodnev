@@ -15,7 +15,7 @@ public class GenderService {
     private GenderRepository genderRepository;
 
     //@Cacheable("genders")
-    public List<GenderEntity> getGenders(){
+    public List<Object[]> getGenders(){
         return genderRepository.getGender();
     }
 }

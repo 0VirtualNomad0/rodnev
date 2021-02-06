@@ -7,7 +7,7 @@
 
 
 
-<main class="app-content">
+<div class="content-wrapper">
 
         <form:form method="POST" modelAttribute="rolesForm" action="${pageContext.request.contextPath}/saveRole" class="form-signin">
             <h2 class="form-signin-heading">Create Roles</h2>
@@ -40,6 +40,6 @@
 
 
     </div>
-    </main>
+    </div>
 
 

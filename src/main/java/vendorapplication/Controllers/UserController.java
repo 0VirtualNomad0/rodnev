@@ -44,13 +44,13 @@ public class UserController {
 
     @RequestMapping(value = "/createUser", method = RequestMethod.GET)
     public String createUser(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
+       // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "login";
+//        } else {
             model.addAttribute("registerUser", new RegisterUser());
             return "createuser";
-        }
+       // }
     }
 
     @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
@@ -58,10 +58,10 @@ public class UserController {
     public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request) {
         userValidator.validate(registerUser, bindingResult);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "login";
+//        } else {
             if (bindingResult.hasErrors()) {
                 return "createuser";
             }
@@ -108,7 +108,7 @@ public class UserController {
                 registerUser.setPassword("");
                 model.addAttribute("serverError", ex.toString());
                 return "createuser";
-            }
+            //}
         }
     }
 

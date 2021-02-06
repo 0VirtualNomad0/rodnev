@@ -15,9 +15,9 @@ public class VendorManagementApplicationTests {
     GenderService genderService;
 
 
-        @Test
-    public void getGenders() {
-            List<GenderEntity> genderList = genderService.getGenders();
-            System.out.println(genderList.toString());
-        }
+//        @Test
+//    public void getGenders() {
+//            List<GenderEntity> genderList = genderService.getGenders();
+//            System.out.println(genderList.toString());
+//        }
 }

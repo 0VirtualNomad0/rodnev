@@ -4,6 +4,7 @@ package vendorapplication.ajax;
 
 import org.springframework.stereotype.Repository;
 import vendorapplication.entities.*;
+import vendorapplication.modal.GenderModal;
 import vendorapplication.modal.RolesModal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,16 +64,41 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getGender() {
         Map<String, Object> map = null;
-        List<GenderEntity > gender = genderRepository.getGender();
+        List<Object[] > gender = genderRepository.getGender();
+        List<GenderModal> modelGender = new ArrayList<>();
 
+
+        for (Object[] result : gender) {
+            GenderModal pojo = new GenderModal();
+            pojo.setGenderId((Integer) result[0]);
+            pojo.setGenderName((String) result[1]);
+            modelGender.add(pojo);
+        }
+
+        //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, gender);
+        map.put(Constants.keyResponse, modelGender);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }
+
+//    @RequestMapping(value = "/ajax/getGender", method = RequestMethod.GET,  produces="application/json")
+//    public @ResponseBody
+//    ResponseEntity<?> getGender() {
+//        Map<String, Object> map = null;
+//        List<GenderEntity > gender = genderRepository.getGender();
+//
+//        map = new HashMap<String, Object>();
+//        map.put(Constants.keyResponse, gender);
+//        map.put(Constants.keyMessage, Constants.valueMessage);
+//        map.put(Constants.keyStatus, HttpStatus.OK);
+//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//
+//
+//    }
 
 //    @RequestMapping(value = "/ajax/getUserType", method = RequestMethod.GET,  produces="application/json")
 //    public @ResponseBody

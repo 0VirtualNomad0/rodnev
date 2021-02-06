@@ -1,5 +1,6 @@
 package vendorapplication.repositories;
 
+import org.springframework.cache.annotation.CacheConfig;
 import vendorapplication.entities.UserEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
