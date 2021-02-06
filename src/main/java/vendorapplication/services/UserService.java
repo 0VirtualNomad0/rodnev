@@ -3,6 +3,7 @@ package vendorapplication.services;
 import java.util.List;
 
 
+import org.springframework.cache.annotation.Cacheable;
 import vendorapplication.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	//@Cacheable("books")
 
-	
 
 	public UserRepository getUserRepository() {
 		return userRepository;

@@ -23,16 +23,18 @@ password character varying (50),
 mobile_number INTEGER NOT NULL,
 age INTEGER NOT NULL,
 email character varying(100),
-gender character varying(1),
+gender_id INTEGER,
 p_address character varying(255),
 c_address character varying(255),
-aadhaar_doc character varying(255),
 active boolean DEFAULT true NOT NULL,
 isDeleted boolean DEFAULT false NOT NULL,
 createddate timestamp without time zone DEFAULT ('now'::text)::date,
 updatedDate timestamp without time zone ,
-lastmodifieddate timestamp without time zone
+lastmodifieddate timestamp without time zone,
+FOREIGN KEY (gender_id) REFERENCES gender(gender_id)
 );
+
+
 
 
 
@@ -51,18 +53,20 @@ FOREIGN KEY (role_id) REFERENCES roles(role_id)
 
 
 
--- emergency/normal
-CREATE TABLE mst_category(
-     category_id serial PRIMARY KEY NOT NULL,
-     category_name character varying(50) NOT NULL,
+-- gender Table
+CREATE TABLE gender(
+     gender_id serial PRIMARY KEY NOT NULL,
+     gender_name character varying(50) NOT NULL,
      active boolean DEFAULT true NOT NULL,
      createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
      lastmodifieddate timestamp with time zone
-
 );
 
-INSERT INTO mst_category ( category_name, active) VALUES ('Emergency' ,true);
-INSERT INTO mst_category ( category_name, active) VALUES ('Normal' ,true);
+INSERT INTO gender ( gender_name, active) VALUES ('Male' ,true);
+INSERT INTO gender ( gender_name, active) VALUES ('Female' ,true);
+INSERT INTO gender ( gender_name, active) VALUES ('Other' ,true);
+
+
 
 CREATE TABLE mst_reservationtype(
      reservationtype_id serial PRIMARY KEY NOT NULL,

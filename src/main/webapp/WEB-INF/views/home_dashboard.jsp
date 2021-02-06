@@ -4,75 +4,55 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
+<div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content fade-in-up">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-success color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">201</h2>
+                                <div class="m-b-5">NEW ORDERS</div><i class="ti-shopping-cart widget-stat-icon"></i>
+                                <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-info color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">1250</h2>
+                                <div class="m-b-5">UNIQUE VIEWS</div><i class="ti-bar-chart widget-stat-icon"></i>
+                                <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-warning color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">$1570</h2>
+                                <div class="m-b-5">TOTAL INCOME</div><i class="fa fa-money widget-stat-icon"></i>
+                                <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="ibox bg-danger color-white widget-stat">
+                            <div class="ibox-body">
+                                <h2 class="m-b-5 font-strong">108</h2>
+                                <div class="m-b-5">NEW USERS</div><i class="ti-user widget-stat-icon"></i>
+                                <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
 
-<main class="app-content">
-      <div class="app-title">
-        <div>
-          <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
-          <p>Lahaul and Spiti Flight Service</p>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="row">
-       <sec:authorize access="hasAuthority('Admin')">
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-id-badge fa-3x"></i>
-            <div class="info">
-            <a href="${pageContext.request.contextPath}/applications_all" style=" text-decoration: none !important;">
-                          <h4>View Applications</h4></a>
+
+
 
             </div>
-          </div>
+
         </div>
-         </sec:authorize>
 
- <sec:authorize access="hasAuthority('Admin')">
-         <div class="col-md-6 col-lg-3">
-                  <div class="widget-small primary coloured-icon"><i class="icon fa fa-id-badge fa-3x"></i>
-                    <div class="info">
-                    <a href="${pageContext.request.contextPath}/applications" style=" text-decoration: none !important;">
-                                  <h4>Filter Applications</h4></a>
-
-                    </div>
-                  </div>
-                </div>
-                 </sec:authorize>
-
-         <sec:authorize access="hasAuthority('Admin')">
-           <div class="col-md-6 col-lg-3">
-                  <div class="widget-small warning coloured-icon"><i class="icon fa fa-user fa-3x"></i>
-                    <div class="info">
-                     <a href="${pageContext.request.contextPath}/createUser" style=" text-decoration: none !important;">
-                                   <h4>Create User</h4></a>
-
-                    </div>
-                  </div>
-                </div>
-                </sec:authorize>
- <sec:authorize access="hasAuthority('Admin')">
-   <div class="col-md-6 col-lg-3">
-          <div class="widget-small danger coloured-icon"><i class="icon fa fa-file-excel-o fa-3x"></i>
-            <div class="info">
-             <a href="${pageContext.request.contextPath}/generateReport" style=" text-decoration: none !important;">
-                           <h4>Generate Reports</h4></a>
-
-            </div>
-          </div>
-        </div>
- </sec:authorize>
-
-
-
-
-      </div>
-
-
-
-      </div>
-    </main>

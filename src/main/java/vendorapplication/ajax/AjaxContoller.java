@@ -2,6 +2,7 @@ package vendorapplication.ajax;
 
 
 
+import org.springframework.stereotype.Repository;
 import vendorapplication.entities.*;
 import vendorapplication.modal.RolesModal;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import vendorapplication.repositories.GenderRepository;
 import vendorapplication.repositories.RolesRepository;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
@@ -23,6 +25,10 @@ public class AjaxContoller {
 
     @Autowired
     RolesRepository rolesRepository;
+
+    @Autowired
+    GenderRepository genderRepository;
+
 
 
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
@@ -46,6 +52,21 @@ public class AjaxContoller {
       //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, modelRole);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    @RequestMapping(value = "/ajax/getGender", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getGender() {
+        Map<String, Object> map = null;
+        List<GenderEntity > gender = genderRepository.getGender();
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, gender);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

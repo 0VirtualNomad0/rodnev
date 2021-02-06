@@ -1,5 +1,7 @@
 package vendorapplication;
 
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import vendorapplication.captcha.CaptchaDetailsSource;
 import vendorapplication.captcha.CaptchaGenServlet;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +15,8 @@ import vendorapplication.property.FileStorageProperties;
 import java.io.UnsupportedEncodingException;
 
 @SpringBootApplication
+@EnableCaching
+@EnableScheduling
 @EnableConfigurationProperties({FileStorageProperties.class})
 public class VendorManagementApplication {
 

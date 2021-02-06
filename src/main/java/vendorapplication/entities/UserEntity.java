@@ -11,14 +11,14 @@ public class UserEntity {
     @Id
     @GeneratedValue(generator = "users_user_id_seq", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "users_user_id_seq", sequenceName = "public.users_user_id_seq", initialValue = 1, allocationSize = 1)
-    @Column(name = "user_id")
+    @Column(name = "user_id", unique = true)
     private Long userId;
 
     @Column(name = "firstname")
-    private String username;
+    private String firstName;
 
     @Column(name = "username")
-    private String firstName;
+    private String username;
 
     @Column(name = "lastname")
     private String lastName;
@@ -39,11 +39,9 @@ public class UserEntity {
     @Column(name = "c_address")
     private String cAddress;
 
-//    @Column(name = "gender")
-   // private Integer gender;
 
-    @OneToOne
-    @JoinColumn(name="gender_id" )
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="gender_id", updatable = false )
     private GenderEntity genderID;
 
     @Column(name = "age")

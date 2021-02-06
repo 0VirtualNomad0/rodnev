@@ -4,20 +4,16 @@
 
 
     <definition name="baselayoutdashboard" template="/WEB-INF/views/layout_dashboard.jsp">
-        <put-attribute name="content" value="" />
         <put-attribute name="header" value="/WEB-INF/views/header_dashboard.jsp" />
+        <put-attribute name="content" value="" />
         <put-attribute name="footer" value="/WEB-INF/views/footer_dashboard.jsp" />
     </definition>
 
-    <definition name="baselayoutdashboardnonav" template="/WEB-INF/views/layout_dashboard.jsp">
-        <put-attribute name="content" value="" />
-        <put-attribute name="header" value="/WEB-INF/views/header_dashboard_without_nav.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/views/footer_dashboard.jsp" />
-    </definition>
+
 
     <definition name="main" template="/WEB-INF/views/main_page.jsp">
-        <put-attribute name="content" value="" />
         <put-attribute name="header" value="/WEB-INF/views/header_mainpage.jsp" />
+        <put-attribute name="content" value="" />
         <put-attribute name="footer" value="/WEB-INF/views/footer_mainpage.jsp" />
     </definition>
 
