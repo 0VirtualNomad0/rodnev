@@ -55,13 +55,13 @@
                         <li class="dropdown dropdown-user">
                             <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
                                 <img src="${pageContext.request.contextPath}/resources/images/admin-avatar.png" />
-                                <span></span>Admin<i class="fa fa-angle-down m-l-5"></i></a>
+                                <span></span>${pageContext.request.userPrincipal.name}<i class="fa fa-angle-down m-l-5"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                <!-- <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a>
                                 <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
                                 <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
                                 <li class="dropdown-divider"></li> -->
-                                <a class="dropdown-item" href="login.html"><i class="fa fa-power-off"></i>Logout</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><i class="fa fa-power-off"></i>Logout</a>
                             </ul>
                         </li>
                     </ul>
@@ -77,15 +77,24 @@
                             <img src="${pageContext.request.contextPath}/resources/images/admin-avatar.png" width="45px" />
                         </div>
                         <div class="admin-info">
-                            <div class="font-strong">James Brown</div><small>Administrator</small></div>
+                            <div class="font-strong">${pageContext.request.userPrincipal.name}</div>
+                            <small>
+                             <c:forEach var="role" varStatus="status_" items="${user.getAuthorities()}">
+                                             <c:out value="${role}" />
+                                             </c:forEach>
+
+                            </small></div>
                     </div>
                     <ul class="side-menu metismenu">
+                    <sec:authorize access="hasAuthority('Super Admin')">
                         <li>
                             <a class="active" href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
                                 <span class="nav-label">Dashboard</span>
                             </a>
                         </li>
+                        </sec:authorize>
                         <li class="heading">OPTIONS</li>
+                         <sec:authorize access="hasAuthority('Super Admin')">
                         <li>
                             <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
                                 <span class="nav-label">Super Admin Features</span><i class="fa fa-angle-left arrow"></i></a>
@@ -99,6 +108,7 @@
 
                             </ul>
                         </li>
+                         </sec:authorize>
                         <li>
                             <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                                 <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>

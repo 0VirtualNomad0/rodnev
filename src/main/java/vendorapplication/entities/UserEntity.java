@@ -51,7 +51,7 @@ public class UserEntity {
     private boolean active;
 
     @Column(name = "isdeleted")
-    private boolean is_deleted;
+    private boolean isDeleted;
 
     @Column(name = "createddate")
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,8 +68,8 @@ public class UserEntity {
     private Date lastmodifieddate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "rm_user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "rm_role_id", referencedColumnName = "role_id"))
+    @JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private List<RolesEntity> roles;
 
 
@@ -169,12 +169,12 @@ public class UserEntity {
         this.active = active;
     }
 
-    public boolean isIs_deleted() {
-        return is_deleted;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setIs_deleted(boolean is_deleted) {
-        this.is_deleted = is_deleted;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public Date getCreatedDate() {
@@ -224,7 +224,7 @@ public class UserEntity {
                 ", genderID=" + genderID +
                 ", age=" + age +
                 ", active=" + active +
-                ", is_deleted=" + is_deleted +
+                ", is_deleted=" + isDeleted +
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
                 ", lastmodifieddate=" + lastmodifieddate +

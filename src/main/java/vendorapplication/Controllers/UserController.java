@@ -1,6 +1,7 @@
 package vendorapplication.Controllers;
 
 
+import vendorapplication.entities.GenderEntity;
 import vendorapplication.entities.RolesEntity;
 import vendorapplication.entities.UserEntity;
 import vendorapplication.form.RegisterUser;
@@ -44,13 +45,13 @@ public class UserController {
 
     @RequestMapping(value = "/createUser", method = RequestMethod.GET)
     public String createUser(Model model) {
-       // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "login";
-//        } else {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
             model.addAttribute("registerUser", new RegisterUser());
             return "createuser";
-       // }
+        }
     }
 
     @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
@@ -58,24 +59,32 @@ public class UserController {
     public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request) {
         userValidator.validate(registerUser, bindingResult);
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "login";
-//        } else {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
             if (bindingResult.hasErrors()) {
                 return "createuser";
             }
             try {
                 UserEntity user = new UserEntity();
+                GenderEntity genderEntity = new GenderEntity();
+                genderEntity.setGenderId(Integer.parseInt(registerUser.getGender()));
                 PasswordEncoder encoder = new BCryptPasswordEncoder();
                 user.setActive(true);
-                user.setIs_deleted(false);
+                user.setDeleted(false);
                 user.setMobileNumber(Long.valueOf(registerUser.getMobileNumber()));
                 user.setUsername(registerUser.getUsername());
                 user.setPassword(encoder.encode(registerUser.getPassword()));
+                user.setFirstName(registerUser.getFirstname());
+                user.setLastName(registerUser.getLastname());
+                user.setpAddress(registerUser.getP_address());
+                user.setcAddress(registerUser.getC_address());
+                user.setAge(Integer.parseInt(registerUser.getAge()));
+
                 String roleIid = registerUser.getRoleId();
                 user.setEmail(registerUser.getEmailAddress());
-               // user.setGender(registerUser.getGender());
+               user.setGenderID(genderEntity);
 
                 Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
                 if (role.get() != null) {
@@ -89,14 +98,24 @@ public class UserController {
                     registerUser.setPasswordConfirm("");
                     registerUser.setPassword("");
                     registerUser.setUsername("");
-                    registerUser.setRoleId("0");
+                    registerUser.setFirstname("");
+                    registerUser.setLastname("");
+                    registerUser.setAge("");
+                    registerUser.setEmailAddress("");
+                    registerUser.setP_address("");
+                    registerUser.setC_address("");
                     return "createuser";
                 } else {
                     registerUser.setMobileNumber("");
                     registerUser.setPasswordConfirm("");
                     registerUser.setPassword("");
                     registerUser.setUsername("");
-                    registerUser.setRoleId("0");
+                    registerUser.setFirstname("");
+                    registerUser.setLastname("");
+                    registerUser.setAge("");
+                    registerUser.setEmailAddress("");
+                    registerUser.setP_address("");
+                    registerUser.setC_address("");
                     model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
                     return "createuser";
                 }
@@ -104,11 +123,17 @@ public class UserController {
             } catch (Exception ex) {
                 registerUser.setMobileNumber("");
                 registerUser.setPasswordConfirm("");
-                registerUser.setUsername("");
                 registerUser.setPassword("");
+                registerUser.setUsername("");
+                registerUser.setFirstname("");
+                registerUser.setLastname("");
+                registerUser.setAge("");
+                registerUser.setEmailAddress("");
+                registerUser.setP_address("");
+                registerUser.setC_address("");
                 model.addAttribute("serverError", ex.toString());
                 return "createuser";
-            //}
+            }
         }
     }
 

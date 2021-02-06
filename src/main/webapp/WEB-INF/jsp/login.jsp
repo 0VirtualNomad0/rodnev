@@ -39,7 +39,10 @@
             </div>
             <div class="form-group">
                <c:if test="${error != null}">
-                  <p>${error}</p>
+                <div id="serverError" class="alert alert-warning alert-dismissable fade show plErroMessage">
+                           <button class="close" data-dismiss="alert" aria-label="Close">×</button>
+                           <strong>Warning!</strong> ${error}</div>
+
                </c:if>
             </div>
          </form>

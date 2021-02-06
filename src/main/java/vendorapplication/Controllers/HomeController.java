@@ -32,26 +32,26 @@ public class HomeController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String homePage(Model model) {
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            return "login";
-//        } else {
-//            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-//            String username;
-//            if (principal instanceof UserDetails) {
-//                username = ((UserDetails) principal).getUsername();
-//            } else {
-//                username = principal.toString();
-//            }
-//            for (GrantedAuthority authority : authorities) {
-//                System.out.println(authority.getAuthority().toString());
-//            }
-//
-//            System.out.println(username);
-//            return "homepage_new";
-  //      }
-         return "homepage_new";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+            String username;
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails) principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            for (GrantedAuthority authority : authorities) {
+                System.out.println(authority.getAuthority().toString());
+            }
+
+            System.out.println(username);
+            return "homepage_new";
+        }
+        // return "homepage_new";
     }
 
     @RequestMapping(value = "/gallery", method = RequestMethod.GET)

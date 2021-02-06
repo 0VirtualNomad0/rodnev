@@ -17,11 +17,16 @@
    <form:form method="POST" modelAttribute="registerUser" action="${pageContext.request.contextPath}/saveuser" class="form-signin">
       <h2 class="form-signin-heading">Create User</h2>
       <c:if test="${not empty successMessage}">
-         <div id="serverError" class="successMessage">${successMessage}</div>
+       <div id="serverError" class="alert alert-success alert-dismissable fade show successMessage">
+          <button class="close" data-dismiss="alert" aria-label="Close">×</button>
+          <strong>Success!</strong> ${successMessage}</div>
       </c:if>
       <br>
       <c:if test="${not empty serverError}">
-         <div id="serverError" class="plErroMessage">${serverError}</div>
+       <div id="serverError" class="alert alert-warning alert-dismissable fade show plErroMessage">
+            <button class="close" data-dismiss="alert" aria-label="Close">×</button>
+            <strong>Warning!</strong> ${serverError}</div>
+
       </c:if>
 
       <div class="row">
