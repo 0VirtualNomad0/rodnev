@@ -2,7 +2,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/flight_application_form.js"></script>
 <section class="container" style="margin-top:30px; margin-bottom:30px;">
    <div class="row">
-      <h2 class="col-lg-12 text-center"  style="color:#77332F;"> Official Login </h2>
+      <h2 class="col-lg-12 text-center"  style="color:#77332F;"> Login </h2>
       <br>
    </div>
    <div class="row">

@@ -27,7 +27,9 @@
                      <li> <a  href="#">A</a></li>
                      <li > <a   href="#">A<sub>+</sub></a></li>
                   </ul>
-                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/login" >Department Login</a> </div>
+                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/login" >Login</a> </div>
+                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/registration" >Register/ Sign Up</a> </div>
+
                   <div class="form-group col-lg-5">
                      <select class="form-control" id="locales">
                         <option value="">
@@ -47,6 +49,7 @@
       </section>
       <!-- Top Bar Ends-->
       <!-- Navigation and Header-->
+      <div class="header_logo_megamenu back_pg" >
       <div class="header_logo_megamenu back_pg" >
          <div class="row ">
             <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" style="margin-left: 50px;"> <img src="${pageContext.request.contextPath}/resources/images/logo_gov_hp.png"  class="logo_hp"   alt="Himachal Pradesh Government"></div>

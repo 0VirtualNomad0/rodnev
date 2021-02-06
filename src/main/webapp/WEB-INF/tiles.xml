@@ -21,6 +21,11 @@
         <put-attribute name="content" value="/WEB-INF/jsp/errorpage.jsp" />
     </definition>
 
+
+    <definition name="vendorRegistration" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/vendorRegistration.jsp" />
+    </definition>
+
     <definition name="flightapplication" extends="main">
         <put-attribute name="content" value="/WEB-INF/jsp/flight_application_form.jsp" />
     </definition>
