@@ -23,4 +23,8 @@ public interface RolesRepository extends CrudRepository<RolesEntity, Long> {
     @Query(value = "SELECT * from roles where active = true AND role_name =:role_name_" , nativeQuery = true)
     RolesEntity checkRole(@Param("role_name_") String rolenmae);
 
+    @Query(value = "SELECT role_id, role_name from roles where active = true AND role_name='Vendor'", nativeQuery = true)
+    @Cacheable
+    List<Object[]> getRoleVendor();
+
 }

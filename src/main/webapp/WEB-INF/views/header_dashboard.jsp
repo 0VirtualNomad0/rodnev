@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <title>eVendor Dashboard</title>
-        <!-- GLOBAL MAINLY STYLES-->
+        <!-- GLOBAL MdINLY STYLES-->
         <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/css/vendor/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/css/vendor/font-awesome.min.css" rel="stylesheet" />
         <link  rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/css/vendor/themify-icons.css" rel="stylesheet" />

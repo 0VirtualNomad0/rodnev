@@ -24,6 +24,7 @@ import vendorapplication.services.UserService;
 import vendorapplication.validators.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,85 +57,104 @@ public class UserController {
 
     @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
     @Transactional
-    public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request) {
-        userValidator.validate(registerUser, bindingResult);
+    public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request, HttpSession session) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-            if (bindingResult.hasErrors()) {
-                return "createuser";
-            }
-            try {
-                UserEntity user = new UserEntity();
-                GenderEntity genderEntity = new GenderEntity();
-                genderEntity.setGenderId(Integer.parseInt(registerUser.getGender()));
-                PasswordEncoder encoder = new BCryptPasswordEncoder();
-                user.setActive(true);
-                user.setDeleted(false);
-                user.setMobileNumber(Long.valueOf(registerUser.getMobileNumber()));
-                user.setUsername(registerUser.getUsername());
-                user.setPassword(encoder.encode(registerUser.getPassword()));
-                user.setFirstName(registerUser.getFirstname());
-                user.setLastName(registerUser.getLastname());
-                user.setpAddress(registerUser.getP_address());
-                user.setcAddress(registerUser.getC_address());
-                user.setAge(Integer.parseInt(registerUser.getAge()));
+        String captcha=(String)session.getAttribute("CAPTCHA");
+        if(captcha==null || (captcha!=null && !captcha.equals(registerUser.getCaptcha()))){
+            registerUser.setCaptcha("");
+            model.addAttribute("serverError", "Captcha Mismatch");
+            return "createuser";
+        }else {
+            userValidator.validate(registerUser, bindingResult);
 
-                String roleIid = registerUser.getRoleId();
-                user.setEmail(registerUser.getEmailAddress());
-               user.setGenderID(genderEntity);
-
-                Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
-                if (role.get() != null) {
-                    List<RolesEntity> list = new ArrayList<RolesEntity>();
-                    list.add(role.get());
-                    user.setRoles(list);
-                    UserEntity savedData = userservice.saveUser(user);
-
-                    request.getSession().setAttribute("successMessage", savedData.getUsername() + "  Successfully Saved. ID is" + savedData.getUserId());
-                    registerUser.setMobileNumber("");
-                    registerUser.setPasswordConfirm("");
-                    registerUser.setPassword("");
-                    registerUser.setUsername("");
-                    registerUser.setFirstname("");
-                    registerUser.setLastname("");
-                    registerUser.setAge("");
-                    registerUser.setEmailAddress("");
-                    registerUser.setP_address("");
-                    registerUser.setC_address("");
-                    return "createuser";
-                } else {
-                    registerUser.setMobileNumber("");
-                    registerUser.setPasswordConfirm("");
-                    registerUser.setPassword("");
-                    registerUser.setUsername("");
-                    registerUser.setFirstname("");
-                    registerUser.setLastname("");
-                    registerUser.setAge("");
-                    registerUser.setEmailAddress("");
-                    registerUser.setP_address("");
-                    registerUser.setC_address("");
-                    model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+                return "login";
+            } else {
+                if (bindingResult.hasErrors()) {
                     return "createuser";
                 }
+                try {
+                    UserEntity user = new UserEntity();
+                    GenderEntity genderEntity = new GenderEntity();
+                    genderEntity.setGenderId(Integer.parseInt(registerUser.getGender()));
+                    PasswordEncoder encoder = new BCryptPasswordEncoder();
+                    user.setActive(true);
+                    user.setDeleted(false);
+                    user.setMobileNumber(Long.valueOf(registerUser.getMobileNumber()));
+                    user.setUsername(registerUser.getUsername());
+                    user.setPassword(encoder.encode(registerUser.getPassword()));
+                    user.setFirstName(registerUser.getFirstname());
+                    user.setLastName(registerUser.getLastname());
+                    user.setpAddress(registerUser.getP_address());
+                    user.setcAddress(registerUser.getC_address());
+                    user.setAge(Integer.parseInt(registerUser.getAge()));
 
-            } catch (Exception ex) {
-                registerUser.setMobileNumber("");
-                registerUser.setPasswordConfirm("");
-                registerUser.setPassword("");
-                registerUser.setUsername("");
-                registerUser.setFirstname("");
-                registerUser.setLastname("");
-                registerUser.setAge("");
-                registerUser.setEmailAddress("");
-                registerUser.setP_address("");
-                registerUser.setC_address("");
-                model.addAttribute("serverError", ex.toString());
-                return "createuser";
+                    String roleIid = registerUser.getRoleId();
+                    user.setEmail(registerUser.getEmailAddress());
+                    user.setGenderID(genderEntity);
+
+                    Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
+                    if (role.get() != null) {
+                        List<RolesEntity> list = new ArrayList<RolesEntity>();
+                        list.add(role.get());
+                        user.setRoles(list);
+                        UserEntity savedData = userservice.saveUser(user);
+
+                        request.getSession().setAttribute("successMessage", savedData.getUsername() + "  Successfully Saved. ID is" + savedData.getUserId());
+                        registerUser.setMobileNumber("");
+                        registerUser.setPasswordConfirm("");
+                        registerUser.setPassword("");
+                        registerUser.setUsername("");
+                        registerUser.setFirstname("");
+                        registerUser.setLastname("");
+                        registerUser.setAge("");
+                        registerUser.setEmailAddress("");
+                        registerUser.setP_address("");
+                        registerUser.setC_address("");
+                        registerUser.setCaptcha("");
+                        return "createuser";
+                    } else {
+                        registerUser.setMobileNumber("");
+                        registerUser.setPasswordConfirm("");
+                        registerUser.setPassword("");
+                        registerUser.setUsername("");
+                        registerUser.setFirstname("");
+                        registerUser.setLastname("");
+                        registerUser.setAge("");
+                        registerUser.setEmailAddress("");
+                        registerUser.setP_address("");
+                        registerUser.setC_address("");
+                        registerUser.setCaptcha("");
+                        model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
+                        return "createuser";
+                    }
+
+                } catch (Exception ex) {
+                    registerUser.setMobileNumber("");
+                    registerUser.setPasswordConfirm("");
+                    registerUser.setPassword("");
+                    registerUser.setUsername("");
+                    registerUser.setFirstname("");
+                    registerUser.setLastname("");
+                    registerUser.setAge("");
+                    registerUser.setEmailAddress("");
+                    registerUser.setP_address("");
+                    registerUser.setC_address("");
+                    registerUser.setCaptcha("");
+                    model.addAttribute("serverError", ex.toString());
+                    return "createuser";
+                }
             }
+
         }
+
+
+
+
+
+
+
     }
 
 }

@@ -20,4 +20,6 @@ public interface GenderRepository extends CrudRepository<GenderEntity,Integer> {
     @Query(value = "SELECT gender_id, gender_name from gender where active = true", nativeQuery = true)
     @Cacheable
     List<Object[]> getGender();
+
+
 }

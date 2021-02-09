@@ -20,9 +20,11 @@ import vendorapplication.entities.UserEntity;
 import vendorapplication.form.RegisterUser;
 import vendorapplication.services.RoleService;
 import vendorapplication.services.UserService;
+import vendorapplication.utilities.Constants;
 import vendorapplication.validators.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +56,15 @@ public class vendorRegistrationController {
 
     @RequestMapping(value = "/savevendor", method = RequestMethod.POST)
     @Transactional
-    public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request) {
-        userValidator.validate(registerUser, bindingResult);
+    public String saveUser(@ModelAttribute("registerUser") RegisterUser registerUser, BindingResult bindingResult, Model model, HttpServletRequest request, HttpSession session) {
+
+        String captcha=(String)session.getAttribute("CAPTCHA");
+        if(captcha==null || (captcha!=null && !captcha.equals(registerUser.getCaptcha()))){
+            registerUser.setCaptcha("");
+            model.addAttribute("serverError", "Captcha Mismatch");
+            return "vendorRegistration";
+        }else {
+            userValidator.validate(registerUser, bindingResult);
 
 
             if (bindingResult.hasErrors()) {
@@ -88,7 +97,7 @@ public class vendorRegistrationController {
                     user.setRoles(list);
                     UserEntity savedData = userservice.saveUser(user);
 
-                    request.getSession().setAttribute("successMessage", savedData.getUsername() + "  Successfully Saved. ID is" + savedData.getUserId());
+                    request.getSession().setAttribute("successMessage", Constants.SuccessRegistration+"\n\t\t"+savedData.getUsername() + "  Successfully Saved. ID is:-  " + savedData.getUserId() + "\n" );
                     registerUser.setMobileNumber("");
                     registerUser.setPasswordConfirm("");
                     registerUser.setPassword("");
@@ -99,7 +108,8 @@ public class vendorRegistrationController {
                     registerUser.setEmailAddress("");
                     registerUser.setP_address("");
                     registerUser.setC_address("");
-                    return "login";
+                    registerUser.setCaptcha("");
+                    return "vendorRegistration";
                 } else {
                     registerUser.setMobileNumber("");
                     registerUser.setPasswordConfirm("");
@@ -111,6 +121,7 @@ public class vendorRegistrationController {
                     registerUser.setEmailAddress("");
                     registerUser.setP_address("");
                     registerUser.setC_address("");
+                    registerUser.setCaptcha("");
                     model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
                     return "vendorRegistration";
                 }
@@ -126,9 +137,17 @@ public class vendorRegistrationController {
                 registerUser.setEmailAddress("");
                 registerUser.setP_address("");
                 registerUser.setC_address("");
+                registerUser.setCaptcha("");
                 model.addAttribute("serverError", ex.toString());
                 return "vendorRegistration";
             }
+
+        }
+
+
+
+
+
         }
 
 

@@ -32,6 +32,8 @@ public class Constants {
     public static final String APPROVED = "A";
     public static final String REJECTED = "R";
 
+    public static final String SuccessRegistration = "Registration Successful. Please Login using your credentials to fill the vendor application form. ";
+
 
     public static boolean isValid(String email)
     {

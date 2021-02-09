@@ -16,6 +16,15 @@ public class RegisterUser implements Serializable {
     private String emailAddress;
     private String gender;
     private String roleId;
+    private String captcha;
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -116,13 +125,19 @@ public class RegisterUser implements Serializable {
     @Override
     public String toString() {
         return "RegisterUser{" +
-                "username='" + username + '\'' +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
+                ", age='" + age + '\'' +
+                ", p_address='" + p_address + '\'' +
+                ", c_address='" + c_address + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", gender='" + gender + '\'' +
                 ", roleId='" + roleId + '\'' +
+                ", captcha='" + captcha + '\'' +
                 '}';
     }
 }

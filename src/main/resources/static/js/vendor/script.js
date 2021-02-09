@@ -87,6 +87,28 @@ function getgender() {
     });
 }
 
+//getrolesVendor
+function getrolesVendor() {
+
+   $.ajax({
+           type: "GET",
+           url: formURL + "/ajax/getrolesVendor",
+           success: function(data) {
+               console.log(data.RESPONSE)
+               var selectRole = $('#roles'); // the state select element
+               selectRole.find('option').remove();
+               for (i = 0; i < data.RESPONSE.length; i++) {
+                   selectRole.append("<option value=" + data.RESPONSE[i].role_id + " >" + data.RESPONSE[i].role_name + "</option>")
+               }
+
+           },
+           error: function(data) {
+               console.log(data)
+           }
+
+       });
+}
+
 
 
 function getdistricts() {

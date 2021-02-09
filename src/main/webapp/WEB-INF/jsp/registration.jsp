@@ -126,6 +126,30 @@
             <form:errors path="passwordConfirm"></form:errors>
          </div>
       </spring:bind>
+
+      <!-- Captcha -->
+                        <table >
+                        <tbody>
+                        <tr>
+                        <td>
+                        <div>
+                        <img id="captcha_id" name="imgCaptcha" src="captcha.jpg">
+                        </div>
+                        </td>
+                        <td align="left"><a href="javascript:;"
+                           title="change captcha text"
+                           onclick="document.getElementById('captcha_id').src = 'captcha.jpg?' + Math.random();  return false">
+                        <i class="fa fa-refresh"></i>
+                        </a></td>
+                        </tr>
+                        <tr>
+                        <td>Enter Image Text</td>
+                        <td><form:input onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" /></td>
+                        <form:errors style="color:red;" path="captcha"></form:errors>
+                        </tr>
+                        </tbody>
+                        </table>
+                        <!-- Captcha -->
       <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
       <c:remove var="successMessage" scope="session" />
    </form:form>

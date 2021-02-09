@@ -18,6 +18,7 @@ import vendorapplication.repositories.RolesRepository;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 
+import javax.management.relation.Role;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -84,6 +85,33 @@ public class AjaxContoller {
 
 
     }
+
+    @RequestMapping(value = "/ajax/getrolesVendor", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getrolesVendor() {
+        Map<String, Object> map = null;
+        List<Object[] > roles = rolesRepository.getRoleVendor();
+        List<RolesModal> rolesModals = new ArrayList<>();
+
+
+        for (Object[] result : roles) {
+            RolesModal pojo = new RolesModal();
+            pojo.setRole_id((BigInteger) result[0]);
+            pojo.setRole_name((String) result[1]);
+            rolesModals.add(pojo);
+        }
+
+        //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, rolesModals);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getrolesVendor
 
 //    @RequestMapping(value = "/ajax/getGender", method = RequestMethod.GET,  produces="application/json")
 //    public @ResponseBody

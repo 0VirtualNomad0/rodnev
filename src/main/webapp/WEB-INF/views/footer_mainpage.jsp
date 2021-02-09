@@ -14,6 +14,7 @@
                   <li ><a href="https://www.himachal.nic.in/en-IN/" target="_blank">Government of Himachal Pradesh</a></li>
                   <li ><a href="https://cmsankalp.hp.gov.in/" target="_blank">CM Helpline</a></li>
                   <li ><a href="http://cmhimachal.nic.in/" target="_blank">CM Relief Refund</a></li>
+                  <li ><a href="http://eflight.hp.gov.in/" target="_blank">eFlight</a></li>
 
                </ul>
             </div>
@@ -34,10 +35,19 @@
 
       </div>
       <!-- Footer Ends -->
-     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
-     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/vendor/bootstrap.min.js"></script>
-     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/internationalization.js"></script>
-     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/vendor/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/popper.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/bootstrap.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/metisMenu.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <!-- PAGE LEVEL PLUGINS-->
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/Chart.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-jvectormap-us-aea-en.js" type="text/javascript"></script>
+        <!-- CORE SCRIPTS-->
+        <script src="${pageContext.request.contextPath}/resources/js/vendor/app.min.js" type="text/javascript"></script>
+         <script src="${pageContext.request.contextPath}/resources/js/vendor/app.js" type="text/javascript"></script>
 
 
 
