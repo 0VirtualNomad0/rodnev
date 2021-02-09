@@ -34,7 +34,7 @@
                      <li > <a   href="#">A<sub>+</sub></a></li>
                   </ul>
                   <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/login" >Login</a> </div>
-                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/registration" >Register/ Sign Up</a> </div>
+                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/registration" >Register as a Vendor</a> </div>
                   <div class="form-group col-lg-5">
                      <select class="form-control" id="locales">
                         <option value="">
@@ -59,7 +59,7 @@
             <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" style="margin-left: 50px;"> <img src="${pageContext.request.contextPath}/resources/images/logo_gov_hp.png"  class="logo_hp"   alt="Himachal Pradesh Government"></div>
             <div class="col-xl-5 col-lg-5 col-md-10 col-sm-9 col-9 padding_">
                <div>
-                  <p class="text-left text_logo_one">eFlight (V1.0)</p>
+                  <p class="text-left text_logo_one">eVendor (V1.0)</p>
                </div>
                <div>
                   <p class="text_logo_two">Department of Information Technology, Government of Himachal Pradesh  </p>
@@ -69,6 +69,8 @@
                <nav class="navbar_" style="margin-top: 15px;">
                   <ul >
                      <li><a href="${pageContext.request.contextPath}/"> <img src="${pageContext.request.contextPath}/resources/images/vector/house.svg" class="icon_mega_menu"><span class="parent-menga-menu">Home</span></a></li>
+                     <li><a href="${pageContext.request.contextPath}/login"> <img src="${pageContext.request.contextPath}/resources/images/vector/login.svg" class="icon_mega_menu"><span class="parent-menga-menu">Login</span></a></li>
+                     <li><a href="${pageContext.request.contextPath}/registration"> <img src="${pageContext.request.contextPath}/resources/images/vector/registration.svg" class="icon_mega_menu"><span class="parent-menga-menu">Registration</span></a></li>
                      <li>
                         <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/vector/information.svg" class="icon_mega_menu"><span class="parent-menga-menu">Information</span></a>
                         <div class="mega-menu">
@@ -107,8 +109,7 @@
                   <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
-                  <li><a href="${pageContext.request.contextPath}/applicationform">Flight Application Form</a></li>
-                  <li><a href="${pageContext.request.contextPath}/checkStatus">Check Application Status</a></li>
+                  <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
                </ul>
             </div>
             <div class="topnav">
@@ -118,8 +119,7 @@
                   <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
-                  <li><a href="${pageContext.request.contextPath}/applicationform">Flight Application Form</a></li>
-                  <li><a href="${pageContext.request.contextPath}/checkStatus">Check Application Status</a></li>
+                  <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
                </div>
                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
                <a href="javascript:void(0);" class="icon" onclick="myFunction()">

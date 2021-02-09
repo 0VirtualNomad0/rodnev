@@ -14,7 +14,7 @@
                   <li ><a href="https://www.himachal.nic.in/en-IN/" target="_blank">Government of Himachal Pradesh</a></li>
                   <li ><a href="https://cmsankalp.hp.gov.in/" target="_blank">CM Helpline</a></li>
                   <li ><a href="http://cmhimachal.nic.in/" target="_blank">CM Relief Refund</a></li>
-                  <li ><a href="http://eflight.hp.gov.in/" target="_blank">eFlight</a></li>
+                  <li ><a href="https://eflight.hp.gov.in/" target="_blank">eFlight</a></li>
 
                </ul>
             </div>
