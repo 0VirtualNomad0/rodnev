@@ -110,6 +110,7 @@
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
                   <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
+                  <li><a href="${pageContext.request.contextPath}/registration">Register as Vendor </a></li>
                </ul>
             </div>
             <div class="topnav">
@@ -120,6 +121,7 @@
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
                   <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
+                   <li><a href="${pageContext.request.contextPath}/registration">Register as Vendor </a></li>
                </div>
                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
                <a href="javascript:void(0);" class="icon" onclick="myFunction()">

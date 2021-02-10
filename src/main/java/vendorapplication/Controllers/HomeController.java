@@ -32,6 +32,8 @@ public class HomeController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String homePage(Model model) {
 
+        String authority_ = null;
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
@@ -45,11 +47,13 @@ public class HomeController {
                 username = principal.toString();
             }
             for (GrantedAuthority authority : authorities) {
+                authority_ = authority.getAuthority().toString();
                 System.out.println(authority.getAuthority().toString());
             }
+       if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin"))  return "homepage_new";
+       else return "redirect:/vendorForm";
 
-            System.out.println(username);
-            return "homepage_new";
+
         }
         // return "homepage_new";
     }

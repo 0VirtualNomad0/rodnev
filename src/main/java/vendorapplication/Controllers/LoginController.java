@@ -17,7 +17,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout, HttpSession httpSession) {
- //       System.out.println("This is Login Controller");
+
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
         }
@@ -27,6 +27,8 @@ public class LoginController {
             model.addAttribute("message", message);
             httpSession.removeAttribute("message");
         }
+
+
 
         return "login";
     }

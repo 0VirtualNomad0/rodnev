@@ -78,12 +78,7 @@
                         </div>
                         <div class="admin-info">
                             <div class="font-strong">${pageContext.request.userPrincipal.name}</div>
-                            <small>
-                             <c:forEach var="role" varStatus="status_" items="${user.getAuthorities()}">
-                                             <c:out value="${role}" />
-                                             </c:forEach>
-
-                            </small></div>
+                           </div>
                     </div>
                     <ul class="side-menu metismenu">
                     <sec:authorize access="hasAuthority('Super Admin')">
@@ -94,7 +89,7 @@
                         </li>
                         </sec:authorize>
                         <li class="heading">OPTIONS</li>
-                         <sec:authorize access="hasAuthority('Super Admin')">
+                         <sec:authorize access="hasAnyAuthority('Super Admin', 'Admin')">
                         <li>
                             <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
                                 <span class="nav-label">Super Admin Features</span><i class="fa fa-angle-left arrow"></i></a>
@@ -109,39 +104,20 @@
                             </ul>
                         </li>
                          </sec:authorize>
+
+                          <sec:authorize access="hasAuthority('Vendor')">
                         <li>
-                            <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                                <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
-                            <ul class="nav-2-level collapse">
-                                <li>
-                                    <a href="form_basic.html">Basic Forms</a>
-                                </li>
-                                <li>
-                                    <a href="form_advanced.html">Advanced Plugins</a>
-                                </li>
-                                <li>
-                                    <a href="form_masks.html">Form input masks</a>
-                                </li>
-                                <li>
-                                    <a href="form_validation.html">Form Validation</a>
-                                </li>
-                                <li>
-                                    <a href="text_editors.html">Text Editors</a>
-                                </li>
-                            </ul>
+                            <a href="${pageContext.request.contextPath}/vendorForm"><i class="sidebar-item-icon fa fa-edit"></i>
+                                <span class="nav-label">Vendor Application Form</span><i class="fa fa-angle-left arrow"></i></a>
+
                         </li>
-                        <li>
-                            <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
-                                <span class="nav-label">Tables</span><i class="fa fa-angle-left arrow"></i></a>
-                            <ul class="nav-2-level collapse">
-                                <li>
-                                    <a href="table_basic.html">Basic Tables</a>
-                                </li>
-                                <li>
-                                    <a href="datatables.html">Datatables</a>
-                                </li>
-                            </ul>
-                        </li>
+                         <li>
+                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-dashboard"></i>
+                         <span class="nav-label">Vendor Dashboard</span></a>
+
+                         </li>
+                        </sec:authorize>
+
                         <li>
                             <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
                                 <span class="nav-label">Charts</span><i class="fa fa-angle-left arrow"></i></a>

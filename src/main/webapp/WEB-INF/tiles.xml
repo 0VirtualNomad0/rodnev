@@ -83,6 +83,10 @@
         <put-attribute name="content" value="/WEB-INF/views/home_dashboard.jsp" />
     </definition>
 
+    <definition name="vendorForm" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/vendorForm.jsp" />
+    </definition>
+
     <definition name="checkpayment" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/verify_payment.jsp" />
     </definition>

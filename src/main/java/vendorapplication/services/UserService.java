@@ -43,4 +43,8 @@ public class UserService {
 		return userRepository.getUserID(username);
 	}
 
+	public UserEntity getUserDetailsViaUsername(String username){
+		return userRepository.findByUsername(username);
+	}
+
 }

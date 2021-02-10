@@ -40,7 +40,7 @@ public class UserEntity {
     private String cAddress;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name="gender_id", updatable = false )
     private GenderEntity genderID;
 
