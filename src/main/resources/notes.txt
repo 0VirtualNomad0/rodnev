@@ -67,6 +67,54 @@ INSERT INTO gender ( gender_name, active) VALUES ('Female' ,true);
 INSERT INTO gender ( gender_name, active) VALUES ('Other' ,true);
 
 
+CREATE TABLE mst_nationality (
+    nationality_id serial PRIMARY KEY  NOT NULL,
+    nationality_name character varying(50) NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone
+);
+INSERT INTO mst_nationality ( nationality_name, active) VALUES ('Indian' ,true);
+INSERT INTO mst_nationality ( nationality_name, active) VALUES ('Nepali' ,true);
+INSERT INTO mst_nationality ( nationality_name, active) VALUES ('Other' ,true);
+
+
+CREATE TABLE mst_vendor (
+    venType_id serial PRIMARY KEY  NOT NULL,
+    venType_name character varying(50) NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone
+);
+INSERT INTO mst_vendor ( venType_name, active) VALUES ('Stationary' ,true);
+INSERT INTO mst_vendor ( venType_name, active) VALUES ('Movable' ,true);
+
+
+CREATE TABLE mst_vendorType (
+    vendorType_id serial PRIMARY KEY  NOT NULL,
+    venType_id Integer NOT NULL,
+    vendorType_name character varying(50) NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone,
+    FOREIGN KEY (venType_id) REFERENCES mst_vendor(venType_id)
+);
+INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Tent' ,true);
+INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Food Van' ,true);
+INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Dhaba' ,true);
+INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Clothing Shop' ,true);
+INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (2, 'Photographers' ,true);
+INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (2, 'Chai Hawkers' ,true);
+
+
+
+
+
+
+########################################################################################################################
+########################################################################################################################
+
+
 
 CREATE TABLE mst_reservationtype(
      reservationtype_id serial PRIMARY KEY NOT NULL,

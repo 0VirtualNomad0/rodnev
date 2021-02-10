@@ -60,13 +60,13 @@
       </div>
       <div class="form-group col-lg-4">
          <label >Permanent Address</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.pAddress}" readonly  class="form-control"
-            autofocus="true"></input>
+         <textarea rows="4" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.pAddress}" readonly  class="form-control"
+            autofocus="true">${user.pAddress}</textarea>
       </div>
       <div class="form-group col-lg-4">
          <label >Correspondence Address</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.cAddress}" readonly  class="form-control"
-            autofocus="true"></input>
+         <textarea rows="4" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.cAddress}" readonly  class="form-control"
+            autofocus="true">${user.cAddress}</textarea>
       </div>
    </div>
 </div>
