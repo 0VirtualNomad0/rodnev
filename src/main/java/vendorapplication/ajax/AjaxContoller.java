@@ -4,8 +4,7 @@ package vendorapplication.ajax;
 
 import org.springframework.stereotype.Repository;
 import vendorapplication.entities.*;
-import vendorapplication.modal.GenderModal;
-import vendorapplication.modal.RolesModal;
+import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import vendorapplication.repositories.GenderRepository;
-import vendorapplication.repositories.RolesRepository;
+import vendorapplication.repositories.*;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 
@@ -30,6 +28,15 @@ public class AjaxContoller {
 
     @Autowired
     GenderRepository genderRepository;
+
+    @Autowired
+    NationalityRepository nationalityRepository;
+
+    @Autowired
+    VendorRepository vendorRepository;
+
+    @Autowired
+    VendorTypeRepository vendorTypeRepository;
 
 
 
@@ -86,6 +93,32 @@ public class AjaxContoller {
 
     }
 
+    //getNationality
+    @RequestMapping(value = "/ajax/getNationality", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getNationality() {
+        Map<String, Object> map = null;
+        List<Object[] > nationality = nationalityRepository.getNationalality();
+        List<NationalityModal> modelNationality = new ArrayList<>();
+
+
+        for (Object[] result : nationality) {
+            NationalityModal pojo = new NationalityModal();
+            pojo.setNationalityId((Integer) result[0]);
+            pojo.setNationalityName((String) result[1]);
+            modelNationality.add(pojo);
+        }
+
+        //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, modelNationality);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
     @RequestMapping(value = "/ajax/getrolesVendor", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
     ResponseEntity<?> getrolesVendor() {
@@ -111,113 +144,61 @@ public class AjaxContoller {
 
     }
 
-    //getrolesVendor
+    //getVendor
+    @RequestMapping(value = "/ajax/getVendor", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getVendor() {
+        Map<String, Object> map = null;
+        List<Object[] > vendors = vendorRepository.getVendors();
+        List<VendorModal> vendorModal = new ArrayList<>();
 
-//    @RequestMapping(value = "/ajax/getGender", method = RequestMethod.GET,  produces="application/json")
-//    public @ResponseBody
-//    ResponseEntity<?> getGender() {
-//        Map<String, Object> map = null;
-//        List<GenderEntity > gender = genderRepository.getGender();
-//
-//        map = new HashMap<String, Object>();
-//        map.put(Constants.keyResponse, gender);
-//        map.put(Constants.keyMessage, Constants.valueMessage);
-//        map.put(Constants.keyStatus, HttpStatus.OK);
-//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//
-//
-//    }
 
-//    @RequestMapping(value = "/ajax/getUserType", method = RequestMethod.GET,  produces="application/json")
-//    public @ResponseBody
-//    ResponseEntity<?> getUserType() throws Exception {
-//        Map<String, Object> map = null;
-//        List<UserType> getUserType = userTypeService.getActiveUserType();
-//
-//        map = new HashMap<String, Object>();
-//        map.put(Constants.keyResponse, getUserType);
-//        map.put(Constants.keyMessage, Constants.valueMessage);
-//        map.put(Constants.keyStatus, HttpStatus.OK);
-//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//
-//
-//    }
-//
-//
-//    @RequestMapping(value = "/ajax/registrationType", method = RequestMethod.GET,  produces="application/json")
-//    public @ResponseBody
-//    ResponseEntity<?> getRegistrationType() throws Exception {
-//        Map<String, Object> map = null;
-//        List<RegistrationType> listRegistrationType = reservationTypeService.getResevationType();
-//
-//        map = new HashMap<String, Object>();
-//        map.put(Constants.keyResponse, listRegistrationType);
-//        map.put(Constants.keyMessage, Constants.valueMessage);
-//        map.put(Constants.keyStatus, HttpStatus.OK);
-//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//
-//
-//    }
-//
-//    @RequestMapping(value = "/ajax/relationshipPrefix", method = RequestMethod.GET,  produces="application/json")
-//    public @ResponseBody
-//    ResponseEntity<?> getRelationshipPrefix() throws Exception {
-//        Map<String, Object> map = null;
-//        List<RelationshipPrefix> listRegistrationType = relationshipPrefixService.getRelationshipPrefixes();
-//
-//        map = new HashMap<String, Object>();
-//        map.put(Constants.keyResponse, listRegistrationType);
-//        map.put(Constants.keyMessage, Constants.valueMessage);
-//        map.put(Constants.keyStatus, HttpStatus.OK);
-//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//
-//
-//    }
-//
-//    @RequestMapping(value = "/ajax/reasonAvailingFlightService", method = RequestMethod.GET,  produces="application/json")
-//    public @ResponseBody
-//    ResponseEntity<?> getReasonAvailingFlightService() throws Exception {
-//        Map<String, Object> map = null;
-//        List<ReasonAvailingFlight> listRegistrationType = reasonAvailingFlightService.getReasonAvailingFlight();
-//
-//        map = new HashMap<String, Object>();
-//        map.put(Constants.keyResponse, listRegistrationType);
-//        map.put(Constants.keyMessage, Constants.valueMessage);
-//        map.put(Constants.keyStatus, HttpStatus.OK);
-//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//
-//
-//    }
-//
-//
-//    @RequestMapping(value = "/ajax/flightDistrictToGoFrom", method = RequestMethod.GET,  produces="application/json")
-//    public @ResponseBody
-//    ResponseEntity<?> getFlightDistrictToGoFrom() throws Exception {
-//        Map<String, Object> map = null;
-//        List<GenderEntity> listRegistrationType = districtService.getDistricts();
-//
-//        map = new HashMap<String, Object>();
-//        map.put(Constants.keyResponse, listRegistrationType);
-//        map.put(Constants.keyMessage, Constants.valueMessage);
-//        map.put(Constants.keyStatus, HttpStatus.OK);
-//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//
-//
-//    }
-//
-//    @RequestMapping(value = "/ajax/flightHelipadNameToGoFrom", method = RequestMethod.GET,  produces="application/json")
-//    public @ResponseBody
-//    ResponseEntity<?> getFlightHelipadNameToGoFrom(@RequestParam(value = "id", required = true) String id) throws Exception {
-//        Map<String, Object> map = null;
-//        List<Helipad> barriers = helipadService.getDistricts(Integer.parseInt(id));
-//
-//        map = new HashMap<String, Object>();
-//        map.put(Constants.keyResponse, barriers);
-//        map.put(Constants.keyMessage, Constants.valueMessage);
-//        map.put(Constants.keyStatus, HttpStatus.OK);
-//        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//
-//
-//    }
+        for (Object[] result : vendors) {
+            VendorModal pojo = new VendorModal();
+            pojo.setVendorId((Integer) result[0]);
+            pojo.setVendorName((String) result[1]);
+            vendorModal.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, vendorModal);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+
+    //getVendorCategory
+        @RequestMapping(value = "/ajax/getVendorCategory", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getVendorCategory(@RequestParam(value = "id", required = true) String id) throws Exception {
+
+
+            Map<String, Object> map = null;
+            List<Object[] > vendorsCategorys = vendorTypeRepository.getVendorCategory(Integer.parseInt(id));
+            List<VendorCategoryModal> vendorCatModal = new ArrayList<>();
+
+
+            for (Object[] result : vendorsCategorys) {
+                VendorCategoryModal pojo = new VendorCategoryModal();
+                pojo.setVendorCategoryId((Integer) result[0]);
+                pojo.setVendorCategoryName((String) result[1]);
+                vendorCatModal.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, vendorCatModal);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+
+
+
 
 }
