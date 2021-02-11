@@ -5,21 +5,21 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="mst_vendorType")
+@Table(name="mst_vendortype")
 public class VendorTypeEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "mst_vendortype_vendortype_id_seq", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "mst_vendortype_vendortype_id_seq", sequenceName = "public.mst_vendortype_vendortype_id_seq", initialValue = 1, allocationSize = 1)
-    @Column(name = "vendorType_id")
+    @Column(name = "vendortype_id")
     private Integer vendorTypeId;
 
 
     @OneToOne
-    @JoinColumn(name="venType_id" )
+    @JoinColumn(name="ventype_id" )
     private VendorEntity venTypeId;
 
-    @Column(name = "vendorType_name")
+    @Column(name = "vendortype_name")
     private String vendorTypeName;
 
     @Column(name = "active")

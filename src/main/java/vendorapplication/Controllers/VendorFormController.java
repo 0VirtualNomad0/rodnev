@@ -6,33 +6,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import vendorapplication.entities.UserEntity;
-import vendorapplication.form.RegisterUser;
+import vendorapplication.entities.*;
 import vendorapplication.form.vendorApplicationForm;
-import vendorapplication.services.FileStorageService;
-import vendorapplication.services.RoleService;
-import vendorapplication.services.UserService;
+import vendorapplication.services.*;
+import vendorapplication.utilities.Constants;
+import vendorapplication.validators.VendorApplicationFormValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Collection;
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class VendorFormController {
 
-    //vendorForm
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(VendorFormController.class);
 
     @Autowired
     UserService userService;
@@ -43,8 +45,18 @@ public class VendorFormController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    UserApplicationService userApplicationService;
+
+    @Autowired
+    ApplicatioRoutsService applicatioRoutsService;
+
+
+    @Autowired
+    private VendorApplicationFormValidator vendorApplicationFormValidator;
+
     @RequestMapping(value = "/vendorForm", method = RequestMethod.GET)
-    public String createUser(Model model, HttpServletRequest request ) {
+    public String createUser(Model model, HttpServletRequest request) {
         request.getSession().setAttribute("successMessage", "");
         model.addAttribute("vendorApplicationForm", new vendorApplicationForm());
         String authority_ = null;
@@ -53,17 +65,20 @@ public class VendorFormController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-             String username = ((UserDetails) principal).getUsername();;
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails) principal).getUsername();
+
 
             UserEntity user = userService.getUserDetailsViaUsername(username);
             System.out.println(user);
 
-            if(user!=null) {
+            if (user != null) {
+                //Set Session UserID
+                request.getSession().setAttribute("user_Id", user.getUserId());
                 model.addAttribute("user", user);
                 model.addAttribute("vendorApplicationForm", new vendorApplicationForm());
                 return "vendorForm";
-            }else{
+            } else {
                 return "errorPage";
             }
 
@@ -74,21 +89,156 @@ public class VendorFormController {
 
     @RequestMapping(value = "/saveapplication",
             method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String saveForm(@ModelAttribute("vendorApplicationForm") vendorApplicationForm  vendorForm,
+    @Transactional
+    public String saveForm(@ModelAttribute("vendorApplicationForm") vendorApplicationForm vendorForm,
                            BindingResult bindingResult, Model model,
                            HttpServletRequest request, HttpSession session,
                            RedirectAttributes redirectAttributes) {
 
         String authority_ = null;
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            System.out.println(vendorForm.toString());
-           return null;
+
+            vendorApplicationFormValidator.validate(vendorForm, bindingResult);
+            if (bindingResult.hasErrors()) {
+                return "vendorForm";
+            }
+            try {
+                System.out.println(vendorForm.toString());
+                UserApplicationEntity vendorApplication = new UserApplicationEntity();
+                vendorApplication  =   populateBean(vendorForm, session);
+                if (vendorApplication != null) {
+
+                    try {
+                        UserApplicationEntity savedData = userApplicationService.saveUser(vendorApplication);
+                        if (!vendorForm.getLocationAvailable().isEmpty()) {
+                            //Check if there is value or not inside the list
+                            List<ApplicationRoutesEntity> availedServices = new ArrayList<>();
+                            ApplicationRoutesEntity datax = null;
+                            AvailableAreaEntity area = null;
+
+                            for (int i = 0; i < vendorForm.getLocationAvailable().size(); i++) {
+                                datax = new ApplicationRoutesEntity();
+                                area = new AvailableAreaEntity();
+                                UserApplicationEntity app_id = new UserApplicationEntity();
+                                app_id.setAppId(savedData.getAppId());
+
+                                if (vendorForm.getLocationAvailable().get(i) != null) {
+
+                                    System.out.println(vendorForm.getLocationAvailable().get(i));
+                                    area.setAreaId(vendorForm.getLocationAvailable().get(i));
+                                    datax.setAreaId(area);
+                                    datax.setAppId(app_id);
+                                    datax.setActive(true);
+                                    availedServices.add(datax);
+
+                                }
+                            }
+                            System.out.println(availedServices.toString());
+                            applicatioRoutsService.saveData(availedServices);
+
+                        }
+
+                        //Payment Data
+                        request.getSession().setAttribute("successMessage", "Successfully Saved:- " + savedData.getAppId() );
+                        return "vendorForm";
+                    } catch (Exception ex) {
+                        request.getSession().setAttribute("serverError", ex.getLocalizedMessage().toString());
+                        return "vendorForm";
+                    }
+
+
+                } else {
+                    request.getSession().setAttribute("successMessage", "Unable to Save the Data. Please try again");
+                    return "vendorForm";
+                }
+
+
+            } catch (Exception ex) {
+                model.addAttribute("serverError", ex.toString());
+                return "vendorForm";
+            }
+
 
         }
+
+    }
+
+    private UserApplicationEntity populateBean(vendorApplicationForm vendorForm, HttpSession session) {
+
+        logger.info("Inside Populate Function");
+
+        UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+        UserEntity user = new UserEntity();
+        NationalityEntity nationality = new NationalityEntity();
+        VendorEntity vendorEntity = new VendorEntity();
+        VendorTypeEntity ventorTypeEntity = new VendorTypeEntity();
+        DistrictEntity district = new DistrictEntity();
+
+
+        try {
+
+            userApplicationEntity.setActive(true);
+
+            user.setUserId((Long) session.getAttribute("user_Id"));
+            userApplicationEntity.setUserId(user);
+            logger.info(user.toString());
+
+            nationality.setNationalityId(Integer.parseInt(vendorForm.getNationality()));
+            userApplicationEntity.setNationalityEntity(nationality);
+            logger.info(nationality.toString());
+
+            vendorEntity.setVenTypeID(Integer.parseInt(vendorForm.getVendor()));
+            userApplicationEntity.setVendorId(vendorEntity);
+            logger.info(vendorEntity.toString());
+
+            ventorTypeEntity.setVendorTypeId(Integer.parseInt(vendorForm.getVendorType()));
+            userApplicationEntity.setVendorTypeId(ventorTypeEntity);
+            logger.info(ventorTypeEntity.toString());
+
+            district.setDistrictId(Integer.parseInt(vendorForm.getDistrict()));
+            userApplicationEntity.setDistrictId(district);
+            logger.info(district.toString());
+
+            userApplicationEntity.setTentNumber(Integer.parseInt(vendorForm.getTentNumber()));
+            userApplicationEntity.setVendorComments(vendorForm.getComments());
+
+            userApplicationEntity.setAppActionBdo(Constants.PENDING);
+            userApplicationEntity.setBdoComments("");
+
+            userApplicationEntity.setAppActionDc(Constants.PENDING);
+            userApplicationEntity.setDcComments("");
+
+            userApplicationEntity.setAppActionDfo(Constants.PENDING);
+            userApplicationEntity.setDfoComments("");
+
+
+
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(timestamp.getTime());
+            userApplicationEntity.setCreatedDate(date);
+
+            if (!vendorForm.getIdentityDoc().getOriginalFilename().isEmpty()) {
+                String fileName = StringUtils.cleanPath(vendorForm.getIdentityDoc().getOriginalFilename());
+                fileName = fileName.toLowerCase().replaceAll(" ", "_");
+                fileName = System.currentTimeMillis() + "__" + fileName;
+                userApplicationEntity.setIdentityDoc(fileName);
+                fileStorageService.storeFile(vendorForm.getIdentityDoc(), fileName);
+            } else {
+                userApplicationEntity.setIdentityDoc("");
+            }
+
+
+
+        } catch (Exception ex) {
+            userApplicationEntity = null;
+        }
+
+        logger.info(userApplicationEntity.toString());
+        return userApplicationEntity;
 
     }
 }

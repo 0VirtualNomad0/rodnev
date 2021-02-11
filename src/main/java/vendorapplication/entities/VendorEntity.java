@@ -11,10 +11,10 @@ public class VendorEntity implements Serializable {
     @Id
     @GeneratedValue(generator = "mst_vendor_ventype_id_seq", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "mst_vendor_ventype_id_seq", sequenceName = "public.mst_vendor_ventype_id_seq", initialValue = 1, allocationSize = 1)
-    @Column(name = "venType_id")
+    @Column(name = "ventype_id")
     private Integer venTypeID;
 
-    @Column(name = "venType_name")
+    @Column(name = "ventype_name")
     private String venTypeName;
 
     @Column(name = "active")

@@ -15,19 +15,19 @@ public class UserApplicationEntity implements Serializable {
     private Integer appId;
 
     @OneToOne
-    @JoinColumn(name="user_id" )
+    @JoinColumn(name="user_id" ,updatable = false)
     private UserEntity userId;
 
     @OneToOne
-    @JoinColumn(name = "nationality_id")
+    @JoinColumn(name = "nationality_id",updatable = false)
     private NationalityEntity nationalityEntity;
 
     @OneToOne
-    @JoinColumn(name = "venType_id")
+    @JoinColumn(name = "ventype_id",updatable = false)
     private VendorEntity vendorId;
 
     @OneToOne
-    @JoinColumn(name = "vendorType_id")
+    @JoinColumn(name = "vendortype_id",updatable = false)
     private VendorTypeEntity vendorTypeId;
 
     @Column(name = "tent_number")
@@ -35,12 +35,12 @@ public class UserApplicationEntity implements Serializable {
 
 
     @OneToOne
-    @JoinColumn(name = "district_id")
+    @JoinColumn(name = "district_id", updatable = false)
     private DistrictEntity districtId;
 
 
     @Column(name = "identity_doc")
-    private Integer identityDoc;
+    private String identityDoc;
 
     @Column(name = "app_action_dc")
     private String appActionDc;
@@ -131,11 +131,11 @@ public class UserApplicationEntity implements Serializable {
         this.districtId = districtId;
     }
 
-    public Integer getIdentityDoc() {
+    public String getIdentityDoc() {
         return identityDoc;
     }
 
-    public void setIdentityDoc(Integer identityDoc) {
+    public void setIdentityDoc(String identityDoc) {
         this.identityDoc = identityDoc;
     }
 

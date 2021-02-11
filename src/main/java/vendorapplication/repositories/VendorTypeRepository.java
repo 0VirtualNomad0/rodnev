@@ -17,7 +17,7 @@ public interface VendorTypeRepository extends CrudRepository<VendorTypeEntity,In
 
 
 
-        @Query(value = "SELECT vendortype_id, vendortype_name from mst_vendorType where active = true AND ventype_id =:id", nativeQuery = true)
+        @Query(value = "SELECT vendortype_id, vendortype_name from mst_vendortype where active = true AND ventype_id =:id", nativeQuery = true)
         @Cacheable
         List<Object[]> getVendorCategory(@Param("id") Integer mobile);
 

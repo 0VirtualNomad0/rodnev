@@ -80,31 +80,33 @@ INSERT INTO mst_nationality ( nationality_name, active) VALUES ('Other' ,true);
 
 
 CREATE TABLE mst_vendor (
-    venType_id serial PRIMARY KEY  NOT NULL,
-    venType_name character varying(50) NOT NULL,
+    ventype_id serial PRIMARY KEY  NOT NULL,
+    ventype_name character varying(50) NOT NULL,
     active boolean DEFAULT true NOT NULL,
     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
     lastmodifieddate timestamp without time zone
 );
-INSERT INTO mst_vendor ( venType_name, active) VALUES ('Stationary' ,true);
-INSERT INTO mst_vendor ( venType_name, active) VALUES ('Movable' ,true);
+INSERT INTO mst_vendor ( ventype_name, active) VALUES ('Stationary' ,true);
+INSERT INTO mst_vendor ( ventype_name, active) VALUES ('Movable' ,true);
 
 
-CREATE TABLE mst_vendorType (
-    vendorType_id serial PRIMARY KEY  NOT NULL,
-    venType_id Integer NOT NULL,
-    vendorType_name character varying(50) NOT NULL,
+CREATE TABLE mst_vendortype (
+    vendortype_id serial PRIMARY KEY  NOT NULL,
+    ventype_id Integer NOT NULL,
+    vendortype_name character varying(50) NOT NULL,
     active boolean DEFAULT true NOT NULL,
     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
     lastmodifieddate timestamp without time zone,
     FOREIGN KEY (venType_id) REFERENCES mst_vendor(venType_id)
 );
-INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Tent' ,true);
-INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Food Van' ,true);
-INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Dhaba' ,true);
-INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (1, 'Clothing Shop' ,true);
-INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (2, 'Photographers' ,true);
-INSERT INTO mst_vendorType ( venType_id,vendorType_name,active) VALUES (2, 'Chai Hawkers' ,true);
+INSERT INTO mst_vendortype ( ventype_id,vendortype_name,active) VALUES (1, 'Tent' ,true);
+INSERT INTO mst_vendortype ( ventype_id,vendortype_name,active) VALUES (1, 'Food Van' ,true);
+INSERT INTO mst_vendortype ( ventype_id,vendortype_name,active) VALUES (1, 'Dhaba' ,true);
+INSERT INTO mst_vendortype ( ventype_id,vendortype_name,active) VALUES (1, 'Clothing Shop' ,true);
+INSERT INTO mst_vendortype ( ventype_id,vendortype_name,active) VALUES (2, 'Photographers' ,true);
+INSERT INTO mst_vendortype ( ventype_id,vendortype_name,active) VALUES (2, 'Chai Hawkers' ,true);
+
+
 
 
 CREATE TABLE mst_district (
@@ -138,8 +140,8 @@ CREATE TABLE user_application (
     app_id serial PRIMARY KEY  NOT NULL,
     user_id Integer NOT NULL,
     nationality_id INTEGER NOT NULL,
-    venType_id INTEGER NOT NULL,
-    vendorType_id INTEGER NOT NULL,
+    ventype_id INTEGER NOT NULL,
+    vendortype_id INTEGER NOT NULL,
     tent_number INTEGER,
     district_id INTEGER NOT NULL,
     identity_doc character varying(255) NOT NULL,
@@ -155,8 +157,8 @@ CREATE TABLE user_application (
     lastmodifieddate timestamp without time zone,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (nationality_id) REFERENCES mst_nationality(nationality_id),
-    FOREIGN KEY (venType_id) REFERENCES mst_vendor(venType_id),
-    FOREIGN KEY (vendorType_id) REFERENCES mst_vendorType(vendorType_id),
+    FOREIGN KEY (ventype_id) REFERENCES mst_vendor(ventype_id),
+    FOREIGN KEY (vendortype_id) REFERENCES mst_vendortype(vendortype_id),
     FOREIGN KEY (district_id) REFERENCES mst_district(district_id)
 );
 

@@ -5,7 +5,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import vendorapplication.entities.NationalityEntity;
 import vendorapplication.entities.VendorEntity;
 
 import java.util.List;
