@@ -16,6 +16,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-jvectormap-us-aea-en.js" type="text/javascript"></script>
+
     <!-- CORE SCRIPTS-->
     <script src="${pageContext.request.contextPath}/resources/js/vendor/app.min.js" type="text/javascript"></script>
 

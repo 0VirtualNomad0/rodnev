@@ -1,9 +1,5 @@
 package vendorapplication.ajax;
 
-
-
-import org.springframework.stereotype.Repository;
-import vendorapplication.entities.*;
 import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vendorapplication.repositories.*;
-import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 
-import javax.management.relation.Role;
+import java.awt.geom.Area;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -38,6 +33,12 @@ public class AjaxContoller {
     @Autowired
     VendorTypeRepository vendorTypeRepository;
 
+    @Autowired
+    DistrictRepository districtRepository;
+
+    @Autowired
+    AvailableAreaRepository availableAreaRepository;
+
 
 
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
@@ -58,7 +59,6 @@ public class AjaxContoller {
             modelRole.add(pojo);
         }
 
-      //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, modelRole);
         map.put(Constants.keyMessage, Constants.valueMessage);
@@ -83,7 +83,6 @@ public class AjaxContoller {
             modelGender.add(pojo);
         }
 
-        //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, modelGender);
         map.put(Constants.keyMessage, Constants.valueMessage);
@@ -109,7 +108,7 @@ public class AjaxContoller {
             modelNationality.add(pojo);
         }
 
-        //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
+
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, modelNationality);
         map.put(Constants.keyMessage, Constants.valueMessage);
@@ -134,7 +133,6 @@ public class AjaxContoller {
             rolesModals.add(pojo);
         }
 
-        //  System.out.println(roles.get(0).getId() + " fdfdfd" + roles.get(0).getName());
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, rolesModals);
         map.put(Constants.keyMessage, Constants.valueMessage);
@@ -193,6 +191,58 @@ public class AjaxContoller {
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
             return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getDistrict
+    @RequestMapping(value = "/ajax/getDistrict", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getDistrict() {
+        Map<String, Object> map = null;
+        List<Object[] > districts = districtRepository.getDistricts();
+        List<DistrictModal> districtModal = new ArrayList<>();
+
+
+        for (Object[] result : districts) {
+            DistrictModal pojo = new DistrictModal();
+            pojo.setDistrictId((Integer) result[0]);
+            pojo.setDistrictName((String) result[1]);
+            districtModal.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, districtModal);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getArea
+    @RequestMapping(value = "/ajax/getArea", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getArea(@RequestParam(value = "id", required = true) String id) throws Exception {
+
+
+        Map<String, Object> map = null;
+        List<Object[] > areaDistrictWise = availableAreaRepository.getAvailableAreaDistrict(Integer.parseInt(id));
+        List<AreaModal> areaModal = new ArrayList<>();
+
+
+        for (Object[] result : areaDistrictWise) {
+            AreaModal pojo = new AreaModal();
+            pojo.setAreaId((Integer) result[0]);
+            pojo.setAreaName((String) result[1]);
+            areaModal.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, areaModal);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }

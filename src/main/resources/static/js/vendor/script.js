@@ -161,6 +161,34 @@ function getVendorCategory(id) {
     });
     }
 
+    //getArea
+    function getArea(id) {
+
+        $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getArea",
+            data: {
+                "id": id
+            },
+            success: function(data) {
+                console.log(data.RESPONSE)
+                var selectRole = $('#locationAvailable'); // the state select element
+                selectRole.find('option').remove();
+
+                for (i = 0; i < data.RESPONSE.length; i++) {
+                    selectRole.append("<option  value=" + data.RESPONSE[i].areaId + " >" + data.RESPONSE[i].areaName + "</option>")
+
+
+                };
+
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+        }
+
 
 //getrolesVendor
 function getrolesVendor() {
@@ -184,3 +212,27 @@ function getrolesVendor() {
        });
 }
 
+//getDistrict
+function getDistrict() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getDistrict",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#district'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option  value=" + data.RESPONSE[i].districtId + " >" + data.RESPONSE[i].districtName + "</option>")
+
+
+            };
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+    }

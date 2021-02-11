@@ -70,8 +70,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/downloadFile/**").permitAll()
                 .antMatchers("/gallery/**").permitAll()
                 .antMatchers("/contactus/**").permitAll()
+                .antMatchers("/saveapplication/").hasAnyRole("Admin","Super Admin", "Vendor")
                 .antMatchers("/paymentpage/**").permitAll()
-                //.antMatchers("/paymentResponse/**").permitAll()
+                //.antMatchers("/paymentResponse/**").permitAll()  saveApp
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/vendorapplication.ajax/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("Admin","Super Admin")
