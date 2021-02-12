@@ -89,6 +89,14 @@
                         </ul>
                      </li>
                   </sec:authorize>
+
+                   <sec:authorize access="hasAnyAuthority('BDO', 'DFO')">
+                                   <li>
+                                   <a href="${pageContext.request.contextPath}/bdo_dfo"><i class="sidebar-item-icon fa fa-dashboard"></i>
+                                   <span class="nav-label">Applications List </span></a>
+                                   </li>
+                                    </sec:authorize>
+
                   <sec:authorize access="hasAuthority('Vendor')">
                      <li>
                         <a href="${pageContext.request.contextPath}/vendorIndex"><i class="sidebar-item-icon fa fa-dashboard"></i>

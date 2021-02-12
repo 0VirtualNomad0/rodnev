@@ -50,8 +50,9 @@ public class HomeController {
                 authority_ = authority.getAuthority().toString();
                 System.out.println(authority.getAuthority().toString());
             }
-       if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin"))  return "homepage_new";
-       else return "redirect:/vendorIndex";
+       if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin")) { return "homepage_new";}
+         else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("BDO")) { return "redirect:/bdo_dfo"; }
+         else { return "redirect:/vendorIndex";}
 
 
         }

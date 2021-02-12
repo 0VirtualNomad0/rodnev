@@ -137,6 +137,50 @@ public class VendorFormController {
 
     }
 
+    //bdo_dfo
+    @RequestMapping(value = "/bdo_dfo", method = RequestMethod.GET)
+    public String bdo_dfo(Model model, HttpServletRequest request) {
+        request.getSession().setAttribute("successMessage", "");
+
+        String authority_ = null;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails) principal).getUsername();
+
+
+            UserEntity user = userService.getUserDetailsViaUsername(username);
+            System.out.println(user);
+
+            if (user != null) {
+
+                //Get Applications via USer Details
+                List<UserApplicationEntity> userApplications = userApplicationService.getApplications();
+
+                //Set Session UserID
+                request.getSession().setAttribute("user_Id", user.getUserId());
+                request.getSession().setAttribute("user_Name_First", user.getFirstName());
+                request.getSession().setAttribute("user_Name_LAst", user.getLastName());
+                request.getSession().setAttribute("user_Name_LAst", user.getUsername());
+                request.getSession().setAttribute("user_age", user.getAge());
+                request.getSession().setAttribute("Mobile_Number", user.getMobileNumber());
+                request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
+                request.getSession().setAttribute("address", user.getpAddress());
+                model.addAttribute("userApplications", userApplications);
+
+                return "bdo_dfo";
+            } else {
+                return "errorPage";
+            }
+
+
+        }
+
+    }
+
     @RequestMapping(value = "/saveapplication",
             method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
@@ -215,6 +259,9 @@ public class VendorFormController {
         }
 
     }
+
+
+    //getApplicationDetails
 
     private UserApplicationEntity populateBean(vendorApplicationForm vendorForm, HttpSession session) {
 

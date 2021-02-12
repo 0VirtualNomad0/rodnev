@@ -89,8 +89,18 @@
         <put-attribute name="content" value="/WEB-INF/jsp/vendorForm.jsp" />
     </definition>
 
+
+    <definition name="vendorFormDetails" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/vendorFormDetails.jsp" />
+    </definition>
+
     <definition name="vendorIndex" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/vendorIndex.jsp" />
+    </definition>
+
+
+    <definition name="bdo_dfo" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/bdo_dfo.jsp" />
     </definition>
 
     <definition name="checkpayment" extends="baselayoutdashboard">
