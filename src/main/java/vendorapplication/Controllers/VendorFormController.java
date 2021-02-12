@@ -87,6 +87,56 @@ public class VendorFormController {
 
     }
 
+    //vendorForm
+    @RequestMapping(value = "/vendorIndex", method = RequestMethod.GET)
+    public String vendorIndex(Model model, HttpServletRequest request) {
+        request.getSession().setAttribute("successMessage", "");
+
+        String authority_ = null;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        } else {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails) principal).getUsername();
+
+
+            UserEntity user = userService.getUserDetailsViaUsername(username);
+            System.out.println(user);
+
+            if (user != null) {
+
+                //Get Applications via USer Details
+                List<UserApplicationEntity> userApplications = userApplicationService.getApplicationsUserId(user.getUserId());
+
+                    //Set Session UserID
+                    request.getSession().setAttribute("user_Id", user.getUserId());
+                    request.getSession().setAttribute("user_Name_First", user.getFirstName());
+                    request.getSession().setAttribute("user_Name_LAst", user.getLastName());
+                    request.getSession().setAttribute("user_Name_LAst", user.getUsername());
+                    request.getSession().setAttribute("user_age", user.getAge());
+                    request.getSession().setAttribute("Mobile_Number", user.getMobileNumber());
+                    request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
+                    request.getSession().setAttribute("address", user.getpAddress());
+                model.addAttribute("userApplications", userApplications);
+
+
+
+
+
+
+
+                return "vendorIndex";
+            } else {
+                return "errorPage";
+            }
+
+
+        }
+
+    }
+
     @RequestMapping(value = "/saveapplication",
             method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
@@ -142,8 +192,8 @@ public class VendorFormController {
                         }
 
                         //Payment Data
-                        request.getSession().setAttribute("successMessage", "Successfully Saved:- " + savedData.getAppId() );
-                        return "vendorForm";
+                      //  request.getSession().setAttribute("successMessage", "Successfully Saved:- " + savedData.getAppId() );
+                        return "vendorIndex";
                     } catch (Exception ex) {
                         request.getSession().setAttribute("serverError", ex.getLocalizedMessage().toString());
                         return "vendorForm";
@@ -151,7 +201,7 @@ public class VendorFormController {
 
 
                 } else {
-                    request.getSession().setAttribute("successMessage", "Unable to Save the Data. Please try again");
+                    request.getSession().setAttribute("serverError", "Unable to Save the Data. Please try again");
                     return "vendorForm";
                 }
 
@@ -202,7 +252,14 @@ public class VendorFormController {
             userApplicationEntity.setDistrictId(district);
             logger.info(district.toString());
 
-            userApplicationEntity.setTentNumber(Integer.parseInt(vendorForm.getTentNumber()));
+            if(vendorForm.getTentNumber().isEmpty() || vendorForm.getTentNumber()==null){
+                userApplicationEntity.setTentNumber(Integer.parseInt("0"));
+            }else{
+                userApplicationEntity.setTentNumber(Integer.parseInt(vendorForm.getTentNumber()));
+            }
+
+
+
             userApplicationEntity.setVendorComments(vendorForm.getComments());
 
             userApplicationEntity.setAppActionBdo(Constants.PENDING);
@@ -241,4 +298,7 @@ public class VendorFormController {
         return userApplicationEntity;
 
     }
+
+
+
 }

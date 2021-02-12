@@ -8,6 +8,8 @@
     <!-- CORE PLUGINS-->
     <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/js/vendor/popper.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/vendor/datatables.min.js"></script>
+
     <script src="${pageContext.request.contextPath}/resources/js/vendor/bootstrap.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/js/vendor/metisMenu.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.slimscroll.min.js" type="text/javascript"></script>

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.repositories.UserApplicationRepository;
 
+import java.util.List;
+
 @Service
 public class UserApplicationService {
 
@@ -13,5 +15,10 @@ public class UserApplicationService {
 
     public UserApplicationEntity saveUser(UserApplicationEntity vendorApplication) {
         return userApplicationRepository.save(vendorApplication);
+    }
+
+    public List<UserApplicationEntity> getApplicationsUserId(Long id){
+
+        return userApplicationRepository.getUserApplications(id);
     }
 }

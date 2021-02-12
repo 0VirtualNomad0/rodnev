@@ -22,7 +22,7 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
-import sun.tools.java.Environment;
+
 import vendorapplication.captcha.CaptchaAuthenticationProvider;
 import vendorapplication.captcha.CaptchaDetailsSource;
 
@@ -86,7 +86,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/applications_all/**").hasAnyRole("Admin","Super Admin")
                 .antMatchers("/checkpayment/**").hasAnyRole("Admin","Super Admin")
                 .antMatchers("/index/**").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/index/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

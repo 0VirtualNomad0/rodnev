@@ -51,7 +51,7 @@ public class HomeController {
                 System.out.println(authority.getAuthority().toString());
             }
        if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin"))  return "homepage_new";
-       else return "redirect:/vendorForm";
+       else return "redirect:/vendorIndex";
 
 
         }
