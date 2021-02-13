@@ -3,7 +3,6 @@ package vendorapplication.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,18 +10,17 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.csrf.*;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.WebUtils;
-
 import vendorapplication.captcha.CaptchaAuthenticationProvider;
 import vendorapplication.captcha.CaptchaDetailsSource;
 
@@ -32,12 +30,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+
 
     @Autowired
     private CaptchaAuthenticationProvider authenticationProvider;
@@ -143,23 +142,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-
     private AuthenticationSuccessHandler loginSuccessHandler() {
         return (request, response, authentication) -> response
-                .sendRedirect("/index");
+                .sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path("/index").toUriString());
     }
 
     private AuthenticationFailureHandler loginFailureHandler() {
         return (request, response, exception) -> {
             request.getSession().setAttribute("error", "Please Enter valid User Credentials and Captcha");
-            response.sendRedirect( "/login");
+            response.sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
         };
     }
 
     private LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, authentication) -> {
             request.getSession().setAttribute("message", "Logout Successful.");
-            response.sendRedirect("/login");
+            response.sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
         };
     }
+
+
+
 }

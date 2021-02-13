@@ -11,8 +11,8 @@ import java.util.List;
 @SpringBootTest
 public class VendorManagementApplicationTests {
 
-    @Autowired
-    GenderService genderService;
+  //  @Autowired
+  //  GenderService genderService;
 
 
 //        @Test

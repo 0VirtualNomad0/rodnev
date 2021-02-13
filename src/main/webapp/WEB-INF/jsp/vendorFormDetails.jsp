@@ -114,7 +114,7 @@
    <!-- Row Two ends-->
 
    <!-- Row Three Permission by DFO -->
-    <sec:authorize access="hasAnyAuthority('DFO')">
+    <sec:authorize access="hasAuthority('DFO')">
      <!-- Section Five -->
          <c:if test="${userdata.appActionDfo == 'P'}">
             <div class="row user">
@@ -175,7 +175,7 @@
    <!-- Row Ends Permession by DFO-->
 
 
-   <sec:authorize access="hasAnyAuthority('BDO')">
+   <sec:authorize access="hasAuthority('BDO')">
         <!-- Section Five -->
             <c:if test="${userdata.appActionBfo == 'P'}">
                <div class="row user">
@@ -238,7 +238,7 @@
 
       <!-- Row Three Permission by DC -->
            <!-- Section Five -->
-           <sec:authorize access="hasAnyAuthority('Admin')">
+           <sec:authorize access="hasAuthority('Admin')">
                <c:if test="${userdata.appActionDc == 'P'}">
                   <div class="row user">
                      <div class="col-md-12">
