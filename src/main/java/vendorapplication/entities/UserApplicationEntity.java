@@ -74,6 +74,17 @@ public class UserApplicationEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
 
+    @Column(name = "app_bdo_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date appBdoDate;
+
+    @Column(name = "app_dfo_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date appDfoDate;
+
+    @Column(name = "app_dc_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date appDcDate;
 
     public Integer getAppId() {
         return appId;
@@ -219,6 +230,30 @@ public class UserApplicationEntity implements Serializable {
         this.lastModified = lastModified;
     }
 
+    public Date getAppBdoDate() {
+        return appBdoDate;
+    }
+
+    public void setAppBdoDate(Date appBdoDate) {
+        this.appBdoDate = appBdoDate;
+    }
+
+    public Date getAppDfoDate() {
+        return appDfoDate;
+    }
+
+    public void setAppDfoDate(Date appDfoDate) {
+        this.appDfoDate = appDfoDate;
+    }
+
+    public Date getAppDcDate() {
+        return appDcDate;
+    }
+
+    public void setAppDcDate(Date appDcDate) {
+        this.appDcDate = appDcDate;
+    }
+
     @Override
     public String toString() {
         return "UserApplicationEntity{" +
@@ -229,7 +264,7 @@ public class UserApplicationEntity implements Serializable {
                 ", vendorTypeId=" + vendorTypeId +
                 ", tentNumber=" + tentNumber +
                 ", districtId=" + districtId +
-                ", identityDoc=" + identityDoc +
+                ", identityDoc='" + identityDoc + '\'' +
                 ", appActionDc='" + appActionDc + '\'' +
                 ", dcComments='" + dcComments + '\'' +
                 ", appActionDfo='" + appActionDfo + '\'' +
@@ -240,6 +275,9 @@ public class UserApplicationEntity implements Serializable {
                 ", active=" + active +
                 ", createdDate=" + createdDate +
                 ", lastModified=" + lastModified +
+                ", appBdoDate=" + appBdoDate +
+                ", appDfoDate=" + appDfoDate +
+                ", appDcDate=" + appDcDate +
                 '}';
     }
 }

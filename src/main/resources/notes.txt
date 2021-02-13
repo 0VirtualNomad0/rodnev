@@ -161,6 +161,10 @@ CREATE TABLE user_application (
     FOREIGN KEY (vendortype_id) REFERENCES mst_vendortype(vendortype_id),
     FOREIGN KEY (district_id) REFERENCES mst_district(district_id)
 );
+ALTER TABLE user_application ADD COLUMN app_bdo_date timestamp without time zone;
+ALTER TABLE user_application ADD COLUMN app_dfo_date timestamp without time zone;
+ALTER TABLE user_application ADD COLUMN app_dc_date timestamp without time zone;
+
 
 CREATE TABLE routs (
     id serial PRIMARY KEY  NOT NULL,
@@ -388,6 +392,7 @@ CREATE TABLE userFormData (
 );
 
 ALTER TABLE  userFormData ADD COLUMN concerned_authority_comments character varying (255);
+
 
 -- Indexing Goes Here
 CREATE INDEX idx_userFormData_user_id ON userFormData USING btree (user_id);

@@ -7,6 +7,7 @@ import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.repositories.UserApplicationRepository;
 
 import javax.persistence.Cacheable;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,5 +34,17 @@ public class UserApplicationService {
     public List<UserApplicationEntity> getApplications(){
 
         return (List<UserApplicationEntity>) userApplicationRepository.findAll();
+    }
+
+    public int updateBdoAction(String action, String comments, Integer appID, Date date){
+        return userApplicationRepository.updateBdoAction(action,comments,appID,date);
+    }
+
+    public int updateDfoAction(String action, String comments, Integer appID, Date date){
+        return userApplicationRepository.updateDfoAction(action,comments,appID,date);
+    }
+
+    public int updateDcAction(String action, String comments, Integer appID, Date date){
+        return userApplicationRepository.updateDcAction(action,comments,appID,date);
     }
 }

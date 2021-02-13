@@ -262,7 +262,6 @@ public class VendorFormController {
 
 
     //getApplicationDetails
-
     private UserApplicationEntity populateBean(vendorApplicationForm vendorForm, HttpSession session) {
 
         logger.info("Inside Populate Function");
@@ -345,6 +344,9 @@ public class VendorFormController {
         return userApplicationEntity;
 
     }
+
+
+
 
 
 
