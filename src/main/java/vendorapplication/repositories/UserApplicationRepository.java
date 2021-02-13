@@ -15,8 +15,8 @@ import java.util.List;
 
 public interface UserApplicationRepository extends CrudRepository<UserApplicationEntity,Integer> {
 
-    @Query(value = "SELECT *  from public.user_application where active = true  order by createddate desc", nativeQuery = true)
-    List<UserApplicationEntity> getUserApplications(Long userId);
+    @Query(value = "SELECT *  from public.user_application where user_id =:userId AND active = true  order by createddate desc", nativeQuery = true)
+    List<UserApplicationEntity> getUserApplications(@Param("userId")Long userId);
 
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE user_application  set app_action_bdo =:bdo_action, bdo_comments =:bdo_comments , app_bdo_date = :updatedDate  where app_id =:app_id", nativeQuery = true )

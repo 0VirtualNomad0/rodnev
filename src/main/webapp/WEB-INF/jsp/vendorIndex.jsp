@@ -24,49 +24,35 @@
 </c:if>
 <h2 class="form-signin-heading col-lg-12"><strong>Vendor Dashboard</strong></h2>
 <!-- START PAGE CONTENT-->
+<c:if test="${empty userApplications}">
 <div class="page-content fade-in-up">
 <div class="row">
    <div class="col-lg-3 col-md-6">
+   <a href="${pageContext.request.contextPath}/vendorForm">
       <div class="ibox bg-success color-white widget-stat">
          <div class="ibox-body">
-            <h2 class="m-b-5 font-strong">201</h2>
-            <div class="m-b-5">NEW ORDERS</div>
-            <i class="ti-shopping-cart widget-stat-icon"></i>
-            <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div>
+            <h2 class="m-b-5">Vendor Form</h2>
+            <div class="m-b-5">Apply</div>
+            <i class="fa fa-file widget-stat-icon"></i>
          </div>
       </div>
+   </a>
    </div>
-   <div class="col-lg-3 col-md-6">
-      <div class="ibox bg-info color-white widget-stat">
-         <div class="ibox-body">
-            <h2 class="m-b-5 font-strong">1250</h2>
-            <div class="m-b-5">UNIQUE VIEWS</div>
-            <i class="ti-bar-chart widget-stat-icon"></i>
-            <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div>
-         </div>
-      </div>
-   </div>
-   <div class="col-lg-3 col-md-6">
-      <div class="ibox bg-warning color-white widget-stat">
-         <div class="ibox-body">
-            <h2 class="m-b-5 font-strong">$1570</h2>
-            <div class="m-b-5">TOTAL INCOME</div>
-            <i class="fa fa-money widget-stat-icon"></i>
-            <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
-         </div>
-      </div>
-   </div>
-   <div class="col-lg-3 col-md-6">
-      <div class="ibox bg-danger color-white widget-stat">
-         <div class="ibox-body">
-            <h2 class="m-b-5 font-strong">108</h2>
-            <div class="m-b-5">NEW USERS</div>
-            <i class="ti-user widget-stat-icon"></i>
-            <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
-         </div>
-      </div>
-   </div>
+  </div>
+
+
+   <div class="row">
+        <h4 class="form-signin-heading col-lg-12" ><strong>No Applications Available. </strong></h4>
+        <br>
+
+        <div class="col-lg-12">
+          <a class="btn btn-success col-lg-12" href="${pageContext.request.contextPath}/vendorForm">Click to Apply for Vendor Application
+              </a>
+        </div>
+     </div>
+
 </div>
+</c:if>
 
 	<c:if test="${not empty userApplications}">
 <div class="row">
@@ -115,6 +101,8 @@
    </div>
 </div>
 </c:if>
+
+
 
 <script type="text/javascript">
    $(function() {

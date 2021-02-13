@@ -12,7 +12,7 @@
             <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
             <div class="form-group col-lg-12">
                <label class="control-label" for="username" >Username:</label><br>
-               <input class="form-control" type="text" oncopy="return false" onpaste="return false" maxlength="10" onkeypress="return alpha(event)"  required autofocus name="username" id="username">
+               <input class="form-control" type="text" oncopy="return false" onpaste="return false" maxlength="20" onkeypress="return alpha(event)"  required autofocus name="username" id="username">
             </div>
             <div class="form-group col-lg-12">
                <label class="control-label" for="password" >Password:</label><br>
