@@ -16,13 +16,8 @@
       </c:if>
       <!-- Section Three -->
 
-<div class="container">
-     <div class="row">
-     <div class=" col-lg-12 breadcrumb">
-      <h6 style="color:red;" class="text-left">**It is advisable not to click the back button while proceeding for payment. </h6>
-     </div>
-     </div>
-     </div>
+<div class="content-wrapper" style="background-color:#FFFFFF;">
+
       <div class="row ">
          <div class="col-lg-3"> &nbsp;  </div>
          <div class="table-responsive col-lg-6 breadcrumb">
@@ -32,71 +27,41 @@
                <tbody>
                   <tr>
                      <td class="text-center">Application No.</td>
-                     <td class="text-center" >${user.userId}
+                     <td class="text-center" >${user.appId}
                      </td>
                   </tr>
                   <tr>
                      <td class="text-center">User Full Name:</td>
-                     <td class="text-center" >${user.fullName}
+                     <td class="text-center" >${user.userId.firstName} &nbsp; ${user.userId.lastName}
                      </td>
                   </tr>
                   <tr>
                      <td class="text-center">Age</td>
-                     <td class="text-center" > ${user.age}  </td>
+                     <td class="text-center" > ${user.userId.age}  </td>
                   </tr>
-                  <tr>
-                     <td class="text-center">Luggage Weight</td>
-                     <td class="text-center"  > ${user.luggageWeight} (KG) </td>
+
+                  <tr class="text-center">
+                     <td>Vendor Category</td>
+                     <td class="text-center"> ${user.vendorId.venTypeName}  </td>
                   </tr>
                   <tr class="text-center">
-                     <td>Location to go From</td>
-                     <td class="text-center"> ${user.flightDistrictToGoFrom.districtName}  </td>
+                     <td>Vendor Type</td>
+                     <td class="text-center"  > ${user.vendorTypeId.vendorTypeName}  </td>
                   </tr>
-                  <tr class="text-center">
-                     <td>Helipad to go From</td>
-                     <td class="text-center"  > ${user.flightHelipadNameToGoFrom.helipadName}  </td>
-                  </tr>
-                  <tr>
-                     <td class="text-center">Travel Date</td>
-                     <td class="text-center" > ${user.tentitiveFlightDate}  </td>
-                  </tr>
-                  <tr>
-                     <td class="text-center">Type of User</td>
-                     <td class="text-center" > ${user.category.userTypeName}  </td>
-                  </tr>
+
                   <tr>
                      <td class="text-center">Mobile Number</td>
-                     <td class="text-center" >${user.mobileNumber}</input>
+                     <td class="text-center" >${user.userId.mobileNumber}</input>
                      </td>
                   </tr>
                   <td class="text-center">Amount to Pay</td>
-                  <c:if test="${user.category.userTypeName == 'Patient' && user.age>9 }">
-                     <td class="text-center" >750/-</td>
+                  <c:if test="${user.vendorTypeId.vendorTypeName == 'Tent'  }">
+                     <td class="text-center" >${500* user.tentNumber}/-</td>
                   </c:if>
-                  <c:if test="${user.category.userTypeName == 'Other' && user.age>9 }">
-                  <td class="text-center" >7000/-</td>
+                  <c:if test="${user.vendorTypeId.vendorTypeName != 'Tent'  }">
+                  <td class="text-center" >500/-</td>
                   </c:if>
-                  <c:if test="${user.category.userTypeName == 'Local' && user.age>9 }">
-                     <td class="text-center" >1500/-
-                     </td>
-                  </c:if>
-                  <c:if test="${user.category.userTypeName == 'Official' && user.age>9 }">
-                     <td class="text-center" > 1500/-
-                     </td>
-                  </c:if>
-                  <c:if test="${user.category.userTypeName == 'Patient' && user.age<=9 }">
-                     <td class="text-center" >
-                     750/-
-                     </td>
-                  </c:if>
-                  <c:if test="${user.category.userTypeName == 'Other' && user.age<=9 }">
-                     <td class="text-center" >750/-
-                     </td>
-                  </c:if>
-                  <c:if test="${user.category.userTypeName == 'Local' && user.age<=9 }">
-                     <td> 750/-
-                     </td>
-                  </c:if>
+
                   </tr>
                </tbody>
             </table>
@@ -116,6 +81,7 @@
             <br/>
          </div>
          <div class="col-lg-3"> &nbsp;  </div>
+      </div>
       </div>
       <!-- Section Three Ends -->
       </form>

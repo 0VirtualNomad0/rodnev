@@ -36,9 +36,7 @@
         <put-attribute name="content" value="/WEB-INF/jsp/checkStatus.jsp" />
     </definition>
 
-    <definition name="paymentpage" extends="main">
-        <put-attribute name="content" value="/WEB-INF/jsp/paymentProceed.jsp" />
-    </definition>
+
 
     <definition name="nopaymentpage" extends="main">
         <put-attribute name="content" value="/WEB-INF/jsp/nopaymentProceed.jsp" />
@@ -68,12 +66,12 @@
 
 
 
-    <definition name="postPayment" extends="main">
+    <definition name="postPayment" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/postpayment.jsp" />
     </definition>
 
 
-    <definition name="paymentResponse" extends="main">
+    <definition name="paymentResponse" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/paymentresponse.jsp" />
     </definition>
 
@@ -87,6 +85,10 @@
 
     <definition name="vendorForm" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/vendorForm.jsp" />
+    </definition>
+
+    <definition name="paymentpage" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/paymentProceed.jsp" />
     </definition>
 
 

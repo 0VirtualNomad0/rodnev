@@ -267,10 +267,8 @@ public class VendorFormController {
                             applicatioRoutsService.saveData(availedServices);
 
                         }
-
-                        //Payment Data
-                      //  request.getSession().setAttribute("successMessage", "Successfully Saved:- " + savedData.getAppId() );
-                        return "redirect:/vendorIndex";
+                        redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
+                        return "redirect:/paymentpage";
                     } catch (Exception ex) {
                         request.getSession().setAttribute("serverError", ex.getLocalizedMessage().toString());
                         return "vendorForm";
