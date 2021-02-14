@@ -95,16 +95,13 @@ public class VendorFormController {
     @RequestMapping(value = "/vendorIndex", method = RequestMethod.GET)
     public String vendorIndex(Model model, HttpServletRequest request) {
         request.getSession().setAttribute("successMessage", "");
-
         String authority_ = null;
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username = ((UserDetails) principal).getUsername();
-
 
             UserEntity user = userService.getUserDetailsViaUsername(username);
             System.out.println((user.getUserId()).intValue());
@@ -122,10 +119,7 @@ public class VendorFormController {
                 request.getSession().setAttribute("address", user.getpAddress());
                 //Get Applications via USer Details
                 List<Object[]> dashboardDataServerList = userApplicationService.getListByUserId((user.getUserId()).intValue());
-
                 List<VendorDashboardList> dashboardData = new ArrayList<>();
-
-
                 for (Object[] result : dashboardDataServerList) {
                     VendorDashboardList pojo = new VendorDashboardList();
                     pojo.setApp_id((Integer) result[0]);
@@ -162,7 +156,7 @@ public class VendorFormController {
 
     //bdo_dfo
     @RequestMapping(value = "/bdo_dfo", method = RequestMethod.GET)
-    public String bdo_dfo(Model model, HttpServletRequest request) {
+    public String bdo_dfo(Model model, HttpServletRequest request, HttpSession session) {
         request.getSession().setAttribute("successMessage", "");
 
         String authority_ = null;
@@ -179,10 +173,6 @@ public class VendorFormController {
             System.out.println(user);
 
             if (user != null) {
-
-                //Get Applications via USer Details
-                List<UserApplicationEntity> userApplications = userApplicationService.getApplications();
-
                 //Set Session UserID
                 request.getSession().setAttribute("user_Id", user.getUserId());
                 request.getSession().setAttribute("user_Name_First", user.getFirstName());
@@ -192,7 +182,27 @@ public class VendorFormController {
                 request.getSession().setAttribute("Mobile_Number", user.getMobileNumber());
                 request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
                 request.getSession().setAttribute("address", user.getpAddress());
-                model.addAttribute("userApplications", userApplications);
+
+
+                List<Object[]> dashboardDataServerList = userApplicationService.getBodDfoDashboard();
+                List<VendorDashboardList> dashboardData = new ArrayList<>();
+                for (Object[] result : dashboardDataServerList) {
+                    VendorDashboardList pojo = new VendorDashboardList();
+                    pojo.setApp_id((Integer) result[0]);
+                    pojo.setApp_action_dc((String)result[1]);
+                    pojo.setApp_dc_date((Date) result[2]);
+                    pojo.setApp_action_dfo((String)result[3]);
+                    pojo.setApp_dfo_date((Date) result[4]);
+                    pojo.setApp_action_bdo((String)result[5]);
+                    pojo.setApp_bdo_date((Date) result[6]);
+                    pojo.setCreatedDate((Date)result[7]);
+                    pojo.setVendorType((String)result[8]);
+                    pojo.setVendorCategory((String)result[9]);
+                    pojo.setName((String)result[10]);
+                    dashboardData.add(pojo);
+                }
+
+                model.addAttribute("userApplications", dashboardData);
 
                 return "bdo_dfo";
             } else {

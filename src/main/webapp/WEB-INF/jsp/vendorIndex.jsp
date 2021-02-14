@@ -74,8 +74,8 @@
                         <td class="text-center">
                            <c:out value="${loopCounter.count}"/>
                         </td>
-                         <td class="text-center btn-success" style="color:white;">${application.vendorType}</td>
-                          <td class="text-center btn-success" style="color:white;">${application.vendorCategory}</td>
+                         <td class="text-center" >${application.vendorType}</td>
+                          <td class="text-center" >${application.vendorCategory}</td>
                          <c:if test = "${application.app_action_dc == 'P'}">
                                                    <td class="text-center btn-warning" style="color:white;">Pending</td>
                                                 </c:if>

@@ -54,4 +54,8 @@ public class UserApplicationService {
     public int updateDcAction(String action, String comments, Integer appID, Date date){
         return userApplicationRepository.updateDcAction(action,comments,appID,date);
     }
+
+    public List<Object[]> getBodDfoDashboard(){
+        return userApplicationRepository.getListByUsers();
+    }
 }

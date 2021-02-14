@@ -16,6 +16,15 @@ public class VendorDashboardList implements Serializable {
      private Date createdDate;
      private String vendorType;
      private String vendorCategory;
+     private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Date getCreatedDate() {
         return createdDate;
@@ -110,6 +119,7 @@ public class VendorDashboardList implements Serializable {
                 ", createdDate=" + createdDate +
                 ", vendorType='" + vendorType + '\'' +
                 ", vendorCategory='" + vendorCategory + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
