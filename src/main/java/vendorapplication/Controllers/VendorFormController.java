@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vendorapplication.entities.*;
 import vendorapplication.form.vendorApplicationForm;
+import vendorapplication.modal.RolesModal;
+import vendorapplication.modal.VendorDashboardList;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 import vendorapplication.validators.VendorApplicationFormValidator;
@@ -25,10 +27,12 @@ import vendorapplication.validators.VendorApplicationFormValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class VendorFormController {
@@ -103,23 +107,42 @@ public class VendorFormController {
 
 
             UserEntity user = userService.getUserDetailsViaUsername(username);
-            System.out.println(user);
+            System.out.println((user.getUserId()).intValue());
 
             if (user != null) {
 
+                //Set Session UserID
+                request.getSession().setAttribute("user_Id", user.getUserId());
+                request.getSession().setAttribute("user_Name_First", user.getFirstName());
+                request.getSession().setAttribute("user_Name_LAst", user.getLastName());
+                request.getSession().setAttribute("user_Name_LAst", user.getUsername());
+                request.getSession().setAttribute("user_age", user.getAge());
+                request.getSession().setAttribute("Mobile_Number", user.getMobileNumber());
+                request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
+                request.getSession().setAttribute("address", user.getpAddress());
                 //Get Applications via USer Details
-                List<UserApplicationEntity> userApplications = userApplicationService.getApplicationsUserId(user.getUserId());
+                List<Object[]> dashboardDataServerList = userApplicationService.getListByUserId((user.getUserId()).intValue());
 
-                    //Set Session UserID
-                    request.getSession().setAttribute("user_Id", user.getUserId());
-                    request.getSession().setAttribute("user_Name_First", user.getFirstName());
-                    request.getSession().setAttribute("user_Name_LAst", user.getLastName());
-                    request.getSession().setAttribute("user_Name_LAst", user.getUsername());
-                    request.getSession().setAttribute("user_age", user.getAge());
-                    request.getSession().setAttribute("Mobile_Number", user.getMobileNumber());
-                    request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
-                    request.getSession().setAttribute("address", user.getpAddress());
-                model.addAttribute("userApplications", userApplications);
+                List<VendorDashboardList> dashboardData = new ArrayList<>();
+
+
+                for (Object[] result : dashboardDataServerList) {
+                    VendorDashboardList pojo = new VendorDashboardList();
+                    pojo.setApp_id((Integer) result[0]);
+                    pojo.setApp_action_dc((String)result[1]);
+                    pojo.setApp_dc_date((Date) result[2]);
+                    pojo.setApp_action_dfo((String)result[3]);
+                    pojo.setApp_dfo_date((Date) result[4]);
+                    pojo.setApp_action_bdo((String)result[5]);
+                    pojo.setApp_bdo_date((Date) result[6]);
+                    pojo.setCreatedDate((Date)result[7]);
+                    pojo.setVendorType((String)result[8]);
+                    pojo.setVendorCategory((String)result[9]);
+                    dashboardData.add(pojo);
+                }
+
+
+                model.addAttribute("userApplications", dashboardData);
 
 
 
@@ -237,7 +260,7 @@ public class VendorFormController {
 
                         //Payment Data
                       //  request.getSession().setAttribute("successMessage", "Successfully Saved:- " + savedData.getAppId() );
-                        return "vendorIndex";
+                        return "redirect:/vendorIndex";
                     } catch (Exception ex) {
                         request.getSession().setAttribute("serverError", ex.getLocalizedMessage().toString());
                         return "vendorForm";

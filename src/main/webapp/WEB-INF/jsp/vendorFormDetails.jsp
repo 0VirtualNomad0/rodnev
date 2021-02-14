@@ -115,7 +115,7 @@
    </div>
 </div>
 <sec:authorize access="hasAnyAuthority('Admin','Super Admin','Vendor','BDO','DFO')">
-   <c:if test="${applicationData.appActionDfo == 'A'}">
+   <c:if test="${applicationData.appActionDfo == 'A' || applicationData.appActionDfo == 'R'   || applicationData.appActionDfo == 'I' }">
       </br>
       <div class="row">
          <hr>
@@ -123,6 +123,7 @@
          <hr>
          <div class="form-group col-lg-4">
             <label >DFO Action</label>
+
             <c:if test="${applicationData.appActionDfo == 'A'}">
                <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  value="Approved" readonly  class="form-control"
                   autofocus="true"></input>
@@ -152,7 +153,7 @@
          </div>
       </div>
    </c:if>
-   <c:if test="${applicationData.appActionBdo == 'A'}">
+   <c:if test="${applicationData.appActionBdo == 'A' || applicationData.appActionBdo == 'R'   || applicationData.appActionBdo == 'I' }">
       </br>
       <div class="row">
          <hr>
@@ -189,7 +190,7 @@
          </div>
       </div>
    </c:if>
-   <c:if test="${applicationData.appActionDc == 'A'}">
+   <c:if test="${applicationData.appActionDc == 'A' || applicationData.appActionDc == 'R'   || applicationData.appActionDc == 'I' }">
       </br>
       <div class="row">
          <hr>

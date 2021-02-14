@@ -9,6 +9,7 @@ import vendorapplication.repositories.UserApplicationRepository;
 import javax.persistence.Cacheable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserApplicationService {
@@ -23,6 +24,12 @@ public class UserApplicationService {
     public List<UserApplicationEntity> getApplicationsUserId(Long id){
 
         return userApplicationRepository.getUserApplications(id);
+    }
+
+    //getUserApplications
+    public List<Object[]> getListByUserId(Integer id){
+
+        return userApplicationRepository.getListByUserId(id);
     }
 
 
