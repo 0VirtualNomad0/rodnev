@@ -43,10 +43,8 @@
                      <img src="${pageContext.request.contextPath}/resources/images/admin-avatar.png" />
                      <span></span>${pageContext.request.userPrincipal.name}<i class="fa fa-angle-down m-l-5"></i></a>
                      <ul class="dropdown-menu dropdown-menu-right">
-                        <!-- <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a>
-                           <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
-                           <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
-                           <li class="dropdown-divider"></li> -->
+                         <a class="dropdown-item" href="${pageContext.request.contextPath}/updateProfile"><i class="fa fa-user"></i>Edit Profile</a>
+                           <li class="dropdown-divider"></li>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><i class="fa fa-power-off"></i>Logout</a>
                      </ul>
                   </li>
@@ -124,110 +122,13 @@
                         <span class="nav-label">Vendor Application Form</span><i class="fa fa-angle-left arrow"></i></a>
                      </li>
                   </sec:authorize>
-                  <li>
-                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
-                     <span class="nav-label">Charts</span><i class="fa fa-angle-left arrow"></i></a>
-                     <ul class="nav-2-level collapse">
-                        <li>
-                           <a href="charts_flot.html">Flot Charts</a>
-                        </li>
-                        <li>
-                           <a href="charts_morris.html">Morris Charts</a>
-                        </li>
-                        <li>
-                           <a href="chartjs.html">Chart.js</a>
-                        </li>
-                        <li>
-                           <a href="charts_sparkline.html">Sparkline Charts</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li>
-                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
-                     <span class="nav-label">Maps</span><i class="fa fa-angle-left arrow"></i></a>
-                     <ul class="nav-2-level collapse">
-                        <li>
-                           <a href="maps_vector.html">Vector maps</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li>
-                     <a href="icons.html"><i class="sidebar-item-icon fa fa-smile-o"></i>
-                     <span class="nav-label">Icons</span>
-                     </a>
-                  </li>
-                  <li class="heading">PAGES</li>
-                  <li>
-                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-envelope"></i>
-                     <span class="nav-label">Mailbox</span><i class="fa fa-angle-left arrow"></i></a>
-                     <ul class="nav-2-level collapse">
-                        <li>
-                           <a href="mailbox.html">Inbox</a>
-                        </li>
-                        <li>
-                           <a href="mail_view.html">Mail view</a>
-                        </li>
-                        <li>
-                           <a href="mail_compose.html">Compose mail</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li>
-                     <a href="calendar.html"><i class="sidebar-item-icon fa fa-calendar"></i>
-                     <span class="nav-label">Calendar</span>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-file-text"></i>
-                     <span class="nav-label">Pages</span><i class="fa fa-angle-left arrow"></i></a>
-                     <ul class="nav-2-level collapse">
-                        <li>
-                           <a href="invoice.html">Invoice</a>
-                        </li>
-                        <li>
-                           <a href="profile.html">Profile</a>
-                        </li>
-                        <li>
-                           <a href="login.html">Login</a>
-                        </li>
-                        <li>
-                           <a href="register.html">Register</a>
-                        </li>
-                        <li>
-                           <a href="lockscreen.html">Lockscreen</a>
-                        </li>
-                        <li>
-                           <a href="forgot_password.html">Forgot password</a>
-                        </li>
-                        <li>
-                           <a href="error_404.html">404 error</a>
-                        </li>
-                        <li>
-                           <a href="error_500.html">500 error</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li>
-                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
-                     <span class="nav-label">Menu Levels</span><i class="fa fa-angle-left arrow"></i></a>
-                     <ul class="nav-2-level collapse">
-                        <li>
-                           <a href="javascript:;">Level 2</a>
-                        </li>
-                        <li>
-                           <a href="javascript:;">
-                           <span class="nav-label">Level 2</span><i class="fa fa-angle-left arrow"></i></a>
-                           <ul class="nav-3-level collapse">
-                              <li>
-                                 <a href="javascript:;">Level 3</a>
-                              </li>
-                              <li>
-                                 <a href="javascript:;">Level 3</a>
-                              </li>
-                           </ul>
-                        </li>
-                     </ul>
-                  </li>
+
+
+
+
+
+
+
                </ul>
             </div>
          </nav>

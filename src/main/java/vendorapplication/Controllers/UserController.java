@@ -1,6 +1,7 @@
 package vendorapplication.Controllers;
 
 
+import org.springframework.security.core.userdetails.UserDetails;
 import vendorapplication.entities.GenderEntity;
 import vendorapplication.entities.RolesEntity;
 import vendorapplication.entities.UserEntity;
@@ -19,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import vendorapplication.modal.VendorDashboardList;
 import vendorapplication.services.RoleService;
 import vendorapplication.services.UserService;
 import vendorapplication.validators.UserValidator;
@@ -27,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +57,30 @@ public class UserController {
             return "createuser";
         }
     }
+
+     // updateProfile
+     @RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
+     public String updateProfile(Model model) {
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+             return "login";
+         } else {
+             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+             String username = ((UserDetails) principal).getUsername();
+             RegisterUser registerUser = new RegisterUser();
+             model.addAttribute("registerUser", registerUser);
+             UserEntity user = userservice.getUserDetailsViaUsername(username);
+             System.out.println(user);
+             if (user != null) {
+                 model.addAttribute("user", user);
+                 registerUser.setC_address(user.getcAddress());
+                 registerUser.setP_address(user.getpAddress());
+                 return "updateProfile";
+             } else {
+                 return "error";
+             }
+         }
+     }
 
     @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
     @Transactional

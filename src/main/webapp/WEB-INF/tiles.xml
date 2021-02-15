@@ -120,6 +120,10 @@
         <put-attribute name="content" value="/WEB-INF/jsp/registration.jsp" />
     </definition>
 
+    <definition name="updateProfile" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/updateProfile.jsp" />
+    </definition>
+
 
     <definition name="createrole" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/rolesmaster.jsp" />
