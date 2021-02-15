@@ -11,7 +11,7 @@
 
 <div class="content-wrapper" style="background-color:#FFFFFF;">
 
-  <form:form method="POST" modelAttribute="checkPayment" action="${pageContext.request.contextPath}/checkPaymentPost" class="form-signin">
+  <form:form method="POST" modelAttribute="checkPayment" action="${pageContext.request.contextPath}/checkPaymentdbPost" class="form-signin">
             <h2 class="form-signin-heading"> Please enter Application ID</h2>
               <c:if test="${not empty successMessage}">
                                 <div id="serverError" class="successMessage">${successMessage}</div>
@@ -28,7 +28,7 @@
 
                           <spring:bind path="application_id">
                           <div class="col-md-4 form-group  ${status.error ? 'has-error' : ''}">
-                            <form:input path="application_id" onkeypress="return alpha(event)" oncopy="return false" onpaste="return true"  size="10" name="application_id" class="form-control" type="text" placeholder="Enter Transaction Id" required="required"  />
+                            <form:input path="application_id" onkeypress="return alpha(event)" oncopy="return false" onpaste="return true"  size="10" name="application_id" class="form-control" type="text" placeholder="Enter Application Id" required="required"  />
                               <form:errors  path="application_id"></form:errors>
                             </div>
                              </spring:bind>

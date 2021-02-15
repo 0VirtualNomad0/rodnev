@@ -109,6 +109,11 @@
         <put-attribute name="content" value="/WEB-INF/jsp/verify_payment.jsp" />
     </definition>
 
+    <definition name="checkpaymentdb" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/verify_payment_db.jsp" />
+    </definition>
+
+
 
 
     <definition name="createuser" extends="baselayoutdashboard">

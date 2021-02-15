@@ -113,7 +113,58 @@
       <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  readonly value="<fmt:formatDate value='${applicationData.createdDate}' pattern='dd-MM-yyyy HH:mm:ss' />" class="form-control" style="color:red;"
          autofocus="true"></input>
    </div>
+
 </div>
+
+
+   <!-- Row Transaction -->
+   <c:if test="${not empty transaction}">
+   <br>
+   <div class="row">
+      <h2 class="form-signin-heading col-lg-12"><strong>Payment Details</strong></h2>
+      <br>
+      <div class="form-group col-lg-4">
+         <label >Payment Status</label>
+         <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${transaction.paymentStatus}" readonly  class="form-control"
+            autofocus="true"></input>
+      </div>
+       <div class="form-group col-lg-4">
+               <label >Transaction Amount</label>
+               <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${transaction.amount} /-"  readonly  class="form-control"
+                  autofocus="true"></input>
+            </div>
+      <div class="form-group col-lg-4">
+         <label >Transaction Id</label>
+         <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${transaction.transactionId}" readonly  class="form-control"
+            autofocus="true"></input>
+      </div>
+      <div class="form-group col-lg-4">
+         <label >MIH Pay ID</label>
+         <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${transaction.mihpayId}"  readonly  class="form-control"
+            autofocus="true"></input>
+      </div>
+      <div class="form-group col-lg-4">
+         <label >Payment Mode</label>
+         <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${transaction.paymentMode}" readonly  class="form-control"
+            autofocus="true"></input>
+      </div>
+      <div class="form-group col-lg-4">
+         <label >Bank Reference Number</label>
+         <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false"  value="${transaction.bankRefNumber}" readonly  class="form-control"
+            autofocus="true"></input>
+      </div>
+       <div class="form-group col-lg-4">
+               <label>Transaction Date</label>
+               <input type="text" onkeypress="return alpha(event)" style="color:red;" oncopy="return false" onpaste="return false"  value="<fmt:formatDate value='${transaction.paymentdateresponse}' pattern='dd-MM-yyyy HH:mm:ss' />" readonly  class="form-control"
+                  autofocus="true"></input>
+            </div>
+
+
+   </div>
+    </c:if>
+   <!-- Row Transaction -->
+
+
 <sec:authorize access="hasAnyAuthority('Admin','Super Admin','Vendor','BDO','DFO')">
    <c:if test="${applicationData.appActionDfo == 'A' || applicationData.appActionDfo == 'R'   || applicationData.appActionDfo == 'I' }">
       </br>

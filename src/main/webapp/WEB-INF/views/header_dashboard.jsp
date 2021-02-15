@@ -86,8 +86,23 @@
                            <li>
                               <a href="${pageContext.request.contextPath}/createUser">Create Users</a>
                            </li>
+
                         </ul>
                      </li>
+                      <li>
+                                             <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                                             <span class="nav-label">Verify Payment</span><i class="fa fa-angle-left arrow"></i></a>
+                                             <ul class="nav-2-level collapse">
+
+                                                <li>
+                                                <a href="${pageContext.request.contextPath}/checkpayment">Check Payment (PayU)</a>
+                                                </li>
+                                                <li>
+                                                                                                <a href="${pageContext.request.contextPath}/checkpaymentdb">Check Payment (eVendor App)</a>
+                                                                                                </li>
+
+                                             </ul>
+                                          </li>
                      <li>
                         <a href="${pageContext.request.contextPath}/bdo_dfo"><i class="sidebar-item-icon fa fa-dashboard"></i>
                         <span class="nav-label">Applications List </span></a>

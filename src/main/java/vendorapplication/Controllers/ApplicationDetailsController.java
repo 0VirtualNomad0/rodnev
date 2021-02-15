@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.entities.UserEntity;
+import vendorapplication.entities.UserTranactionEntity;
 import vendorapplication.form.ActionForm;
 import vendorapplication.repositories.UserRepository;
+import vendorapplication.repositories.UserTranactionRepository;
 import vendorapplication.services.UserApplicationService;
+import vendorapplication.services.UserTransactionService;
 import vendorapplication.utilities.Constants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +35,9 @@ public class ApplicationDetailsController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserTransactionService userTransactionService;
+
     @RequestMapping(value = "/getApplicationDetails/{app_Id}", method= RequestMethod.GET)
     public String getApplicationDetails(@PathVariable("app_Id")Integer appID,
                                         Model model, HttpServletRequest request) {
@@ -45,14 +51,17 @@ public class ApplicationDetailsController {
             model.addAttribute("actionForm", new ActionForm());
 
             UserApplicationEntity userApplicationEntity = null;
+            UserTranactionEntity transactionalUser = null;
             try {
 
                 userApplicationEntity = userApplicationService.getUserApplicationViaAppId(appID);
                 if (userApplicationEntity!=null) {
                     System.out.println(userApplicationEntity.toString());
-                   // transactionUser =userTransactionService.getUserTransaction(user.getUserId());
+                    transactionalUser =userTransactionService.getUserTransaction(appID);
 
+                    System.out.println(transactionalUser.toString());
                     model.addAttribute("applicationData", userApplicationEntity);
+                    model.addAttribute("transaction",transactionalUser);
                     request.getSession().setAttribute("successMessage", "Data found Successfully");
                     return "vendorFormDetails";
                 } else {

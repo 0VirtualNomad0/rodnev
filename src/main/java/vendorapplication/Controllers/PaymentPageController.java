@@ -82,7 +82,12 @@ public class PaymentPageController {
                     //Save Data to Entity
                     UserTranactionEntity transactionEntity = new UserTranactionEntity();
                     transactionEntity.setUserId(appData.getAppId());
-                    transactionEntity.setEmail(Constants.email_reference);
+                    if(appData.getUserId().getEmail().isEmpty() || appData.getUserId().getEmail() ==null ){
+                        transactionEntity.setEmail(Constants.email_reference);
+                    }else{
+                        transactionEntity.setEmail(appData.getUserId().getEmail().trim());
+                    }
+
                     transactionEntity.setName(appData.getUserId().getFirstName()+" "+ appData.getUserId().getLastName());
                     transactionEntity.setPhone(String.valueOf(appData.getUserId().getMobileNumber()));
                     transactionEntity.setAmount(CalculateAmount.calculateAmount(appData));
@@ -244,6 +249,7 @@ public class PaymentPageController {
                     entity_.setPaymentMode(mode.toString());
                     entity_.setError("Transaction ID Null");
                     entity_.setMihpayId(mihpayid);
+                    entity_.setEmail(email);
                     request.getSession().setAttribute("paymentStatus", "Failed");
                     request.getSession().setAttribute("TransactionId", entity_.getTransactionId());
                     request.getSession().setAttribute("Amount", entity_.getAmount());
@@ -261,6 +267,7 @@ public class PaymentPageController {
                            entity_.setBankRefNumber(bank_ref_num);
                            entity_.setPaymentMode(mode.toString());
                            entity_.setMihpayId(mihpayid);
+                           entity_.setEmail(email);
                            entity_.setError("");
                            request.getSession().setAttribute("paymentStatus", "Success");
                            request.getSession().setAttribute("TransactionId", entity_.getTransactionId());
@@ -326,6 +333,7 @@ public class PaymentPageController {
                            entity_.setBankRefNumber(bank_ref_num);
                            entity_.setPaymentMode(mode.toString());
                            entity_.setMihpayId(mihpayid);
+                           entity_.setEmail(email);
                            entity_.setError("PAyment Failed . Please contact Admin.");
                            request.getSession().setAttribute("paymentStatus", "Failed");
                            request.getSession().setAttribute("TransactionId", entity_.getTransactionId());
@@ -342,6 +350,7 @@ public class PaymentPageController {
                         entity_.setBankRefNumber(bank_ref_num);
                         entity_.setPaymentMode(mode.toString());
                         entity_.setMihpayId(mihpayid);
+                        entity_.setEmail(email);
                         entity_.setError("Hash Mismatched");
                         request.getSession().setAttribute("paymentStatus", "Failed, Hash Mismatched");
                         request.getSession().setAttribute("TransactionId", entity_.getTransactionId());
