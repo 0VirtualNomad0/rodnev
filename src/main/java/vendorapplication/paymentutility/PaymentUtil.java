@@ -139,6 +139,10 @@ public class PaymentUtil {
             conn.setDoOutput(true);
             conn.getOutputStream().write(postDataBytes);
 
+            System.out.println(conn.getErrorStream());
+            System.out.println(conn.getInputStream().toString());
+            System.out.println(conn.getResponseCode());
+
             Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
 
