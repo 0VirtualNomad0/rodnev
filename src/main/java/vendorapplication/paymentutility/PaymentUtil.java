@@ -122,6 +122,8 @@ public class PaymentUtil {
             params.put("hash", hash);
             params.put("var1", txnid);
             params.put("command", command);
+            System.out.println(params.toString());
+            System.out.println(wsUrl);
 
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String, Object> param : params.entrySet()) {
