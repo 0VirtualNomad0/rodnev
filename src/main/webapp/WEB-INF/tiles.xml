@@ -29,7 +29,7 @@
 
 
     <definition name="flightapplication" extends="main">
-        <put-attribute name="content" value="/WEB-INF/jsp/flight_application_form.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/flight_applivendorRegistrationcation_form.jsp" />
     </definition>
 
     <definition name="checkStatus" extends="main">

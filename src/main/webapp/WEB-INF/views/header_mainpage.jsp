@@ -34,7 +34,7 @@
                      <li > <a   href="#">A<sub>+</sub></a></li>
                   </ul>
                   <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/login" >Login</a> </div>
-                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/registration" >Register as a Vendor</a> </div>
+                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/registration" >Vendor Registration Form</a> </div>
                   <div class="form-group col-lg-5">
                      <select class="form-control" id="locales">
                         <option value="">

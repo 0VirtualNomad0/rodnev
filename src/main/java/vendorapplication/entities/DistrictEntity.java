@@ -1,5 +1,8 @@
 package vendorapplication.entities;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,12 +20,28 @@ public class DistrictEntity implements Serializable {
     @Column(name = "district_name")
     private String districtName;
 
-    @Column(name = "active")
+    @Column(name = "is_active")
     private Boolean active;
 
-    @Column(name = "createddate")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="state_id", updatable = false )
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    private StateEntity stateEntity;
+
+    @Column(name = "is_deleted")
+    private Boolean deleted;
+
+    @Column(name = "created_on")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
+
+    public StateEntity getStateEntity() {
+        return stateEntity;
+    }
+
+    public void setStateEntity(StateEntity stateEntity) {
+        this.stateEntity = stateEntity;
+    }
 
     public Integer getDistrictId() {
         return districtId;
@@ -48,6 +67,14 @@ public class DistrictEntity implements Serializable {
         this.active = active;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -62,6 +89,8 @@ public class DistrictEntity implements Serializable {
                 "districtId=" + districtId +
                 ", districtName='" + districtName + '\'' +
                 ", active=" + active +
+                ", stateEntity=" + stateEntity +
+                ", deleted=" + deleted +
                 ", createdDate=" + createdDate +
                 '}';
     }
