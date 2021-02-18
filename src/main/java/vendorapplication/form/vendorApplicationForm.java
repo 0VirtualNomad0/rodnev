@@ -8,6 +8,19 @@ import java.util.List;
 public class vendorApplicationForm implements Serializable {
 
 
+    private String firstname;
+    private String lastname;
+    private String username;
+    private String password;
+    private String passwordConfirm;
+    private String mobileNumber;
+    private String age;
+    private String p_address;
+    private String c_address;
+    private String emailAddress;
+    private String gender;
+    private String roleId;
+    private String captcha;
     private String nationality;
     private String vendor;
     private String vendorType;
@@ -17,6 +30,155 @@ public class vendorApplicationForm implements Serializable {
     private MultipartFile identityDoc;
     private String comments;
 
+    private String state;
+    private String localBlock;
+    private String localDistrict;
+    private String localTehsil;
+    private String localgp;
+
+    public String getLocalTehsil() {
+        return localTehsil;
+    }
+
+    public void setLocalTehsil(String localTehsil) {
+        this.localTehsil = localTehsil;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getLocalBlock() {
+        return localBlock;
+    }
+
+    public void setLocalBlock(String localBlock) {
+        this.localBlock = localBlock;
+    }
+
+    public String getLocalDistrict() {
+        return localDistrict;
+    }
+
+    public void setLocalDistrict(String localDistrict) {
+        this.localDistrict = localDistrict;
+    }
+
+    public String getLocalgp() {
+        return localgp;
+    }
+
+    public void setLocalgp(String localgp) {
+        this.localgp = localgp;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getP_address() {
+        return p_address;
+    }
+
+    public void setP_address(String p_address) {
+        this.p_address = p_address;
+    }
+
+    public String getC_address() {
+        return c_address;
+    }
+
+    public void setC_address(String c_address) {
+        this.c_address = c_address;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
 
     public String getNationality() {
         return nationality;
@@ -83,9 +245,22 @@ public class vendorApplicationForm implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String  toString() {
         return "vendorApplicationForm{" +
-                "nationality='" + nationality + '\'' +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", age='" + age + '\'' +
+                ", p_address='" + p_address + '\'' +
+                ", c_address='" + c_address + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", gender='" + gender + '\'' +
+                ", roleId='" + roleId + '\'' +
+                ", captcha='" + captcha + '\'' +
+                ", nationality='" + nationality + '\'' +
                 ", vendor='" + vendor + '\'' +
                 ", vendorType='" + vendorType + '\'' +
                 ", tentNumber='" + tentNumber + '\'' +
@@ -93,6 +268,11 @@ public class vendorApplicationForm implements Serializable {
                 ", locationAvailable=" + locationAvailable +
                 ", identityDoc=" + identityDoc +
                 ", comments='" + comments + '\'' +
+                ", state='" + state + '\'' +
+                ", localBlock='" + localBlock + '\'' +
+                ", localDistrict='" + localDistrict + '\'' +
+                ", localTehsil='" + localTehsil + '\'' +
+                ", localgp='" + localgp + '\'' +
                 '}';
     }
 }

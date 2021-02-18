@@ -16,7 +16,7 @@ var APP = function() {
 
 var APP = new APP();
 
-// APP UI SETTINGS
+// APP UI
 // ======================
 
 APP.UI = {

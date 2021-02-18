@@ -18,8 +18,8 @@ public interface DistrictRepository extends CrudRepository<DistrictEntity,Intege
     @Cacheable
     List<Object[]> getDistricts();
 
-    @Query(value = "SELECT * from mst_district where is_active = true AND state_id =:id", nativeQuery = true)
+    @Query(value = "SELECT district_id, district_name from mst_district where is_active = true AND state_id =:id", nativeQuery = true)
     @Cacheable
-    List<DistrictEntity> getDistrictsViaId(@Param("id") Integer stringId);
+    List<Object[]> getDistrictsViaId(@Param("id") Integer stringId);
 
 }

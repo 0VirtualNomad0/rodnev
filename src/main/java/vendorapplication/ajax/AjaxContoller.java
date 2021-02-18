@@ -1,5 +1,6 @@
 package vendorapplication.ajax;
 
+import org.springframework.stereotype.Repository;
 import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,20 @@ public class AjaxContoller {
 
     @Autowired
     AvailableAreaRepository availableAreaRepository;
+
+    @Autowired
+    StateRepository stateRepository;
+
+    @Autowired
+    BlockRepository blockRepository;
+
+    @Autowired
+    TehsilRepository tehsilRepository;
+
+    @Autowired
+    GPRepository gpRepository;
+
+
 
 
 
@@ -91,6 +106,140 @@ public class AjaxContoller {
 
 
     }
+
+    //Get State
+    @RequestMapping(value = "/ajax/getState", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getState() {
+        Map<String, Object> map = null;
+        List<Object[] > gender = stateRepository.getStates();
+        List<StateModal> modelState = new ArrayList<>();
+
+
+        for (Object[] result : gender) {
+            StateModal pojo = new StateModal();
+            pojo.setStateId((Integer) result[0]);
+            pojo.setStateName((String) result[1]);
+            modelState.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, modelState);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //Get Districs
+    @RequestMapping(value = "/ajax/getDistrictsViaState", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getDistrictsViaState(@RequestParam(value = "id", required = true) String id) throws Exception {
+
+
+        Map<String, Object> map = null;
+        List<Object[] > districtsObject = districtRepository.getDistrictsViaId(Integer.parseInt(id));
+        List<DistrictModal> districtModals = new ArrayList<>();
+
+
+        for (Object[] result : districtsObject) {
+            DistrictModal pojo = new DistrictModal();
+            pojo.setDistrictId((Integer) result[0]);
+            pojo.setDistrictName((String) result[1]);
+            districtModals.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, districtModals);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getBlocks
+    @RequestMapping(value = "/ajax/getBlocks", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getBlocks(@RequestParam(value = "id", required = true) String id) throws Exception {
+
+
+        Map<String, Object> map = null;
+        List<Object[] > blockObjects = blockRepository.getBlocksViaDistrict(Integer.parseInt(id));
+        List<BlockModal> blockModals = new ArrayList<>();
+
+
+        for (Object[] result : blockObjects) {
+            BlockModal pojo = new BlockModal();
+            pojo.setBlockId((Integer) result[0]);
+            pojo.setBlockName((String) result[1]);
+            blockModals.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, blockModals);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getTehsils
+    @RequestMapping(value = "/ajax/getTehsils", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getTehsils(@RequestParam(value = "id", required = true) String id) throws Exception {
+
+
+        Map<String, Object> map = null;
+        List<Object[] > TehsilObjects = tehsilRepository.getTehsilViaDistrict(Integer.parseInt(id));
+        List<TehsilModal> tehsilModal = new ArrayList<>();
+
+
+        for (Object[] result : TehsilObjects) {
+            TehsilModal pojo = new TehsilModal();
+            pojo.setTehsilId((Integer) result[0]);
+            pojo.setTehsilName((String) result[1]);
+            tehsilModal.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, tehsilModal);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getWardPanchayat
+    @RequestMapping(value = "/ajax/getWardPanchayat", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getWardPanchayat(@RequestParam(value = "id", required = true) String id) throws Exception {
+
+
+        Map<String, Object> map = null;
+        List<Object[] > gpObjects = gpRepository.getgpViaId(Integer.parseInt(id));
+        List<GramPanchayatModal> gpModalList = new ArrayList<>();
+
+
+        for (Object[] result : gpObjects) {
+            GramPanchayatModal pojo = new GramPanchayatModal();
+            pojo.setGpId((Integer) result[0]);
+            pojo.setGpName((String) result[1]);
+            gpModalList.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, gpModalList);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
 
     //getNationality
     @RequestMapping(value = "/ajax/getNationality", method = RequestMethod.GET,  produces="application/json")

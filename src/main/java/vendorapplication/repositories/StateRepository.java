@@ -14,7 +14,7 @@ import java.util.List;
 public interface StateRepository extends CrudRepository<StateEntity,Integer> {
 
 
-    @Query(value = "SELECT state_id, state_name from mst_state where is_active = true", nativeQuery = true)
+    @Query(value = "SELECT state_id, state_name from mst_state where is_active = true AND state_id=9", nativeQuery = true)
     @Cacheable
     List<Object[]> getStates();
 }

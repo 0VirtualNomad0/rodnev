@@ -25,37 +25,37 @@ public class VendorManagementApplicationTests {
     DistrictRepository districtRepository;
 
 
-        @Test
-    public void getStates() {
-
-            List<Object[] > districts = stateRepository.getStates();
-            List<StateModal> stateModal = new ArrayList<>();
-
-
-            for (Object[] result : districts) {
-                StateModal pojo = new StateModal();
-                pojo.setStateId((Integer) result[0]);
-                pojo.setStateName((String) result[1]);
-                stateModal.add(pojo);
-            }
-            System.out.println(stateModal.toString());
-        }
-
-    @Test
-    public void getDistricts() {
-
-        List<DistrictEntity> districts = districtRepository.getDistrictsViaId(9);
-//        List<DistrictModal> districtModals = new ArrayList<>();
+//        @Test
+//    public void getStates() {
+//
+//            List<Object[] > districts = stateRepository.getStates();
+//            List<StateModal> stateModal = new ArrayList<>();
 //
 //
-//        for (Object[] result : districts) {
-//            DistrictModal pojo = new DistrictModal();
-//            pojo.setDistrictId((Integer) result[0]);
-//            pojo.setDistrictName((String) result[1]);
-//            districtModals.add(pojo);
+//            for (Object[] result : districts) {
+//                StateModal pojo = new StateModal();
+//                pojo.setStateId((Integer) result[0]);
+//                pojo.setStateName((String) result[1]);
+//                stateModal.add(pojo);
+//            }
+//            System.out.println(stateModal.toString());
 //        }
-        System.out.println(districts.toString());
-        System.out.println(districts.get(1).getStateEntity().getStateName());
-      //  System.out.println(districts.get(1).gets);
-    }
+
+//    @Test
+//    public void getDistricts() {
+//
+//        List<DistrictEntity> districts = districtRepository.getDistrictsViaId(9);
+////        List<DistrictModal> districtModals = new ArrayList<>();
+////
+////
+////        for (Object[] result : districts) {
+////            DistrictModal pojo = new DistrictModal();
+////            pojo.setDistrictId((Integer) result[0]);
+////            pojo.setDistrictName((String) result[1]);
+////            districtModals.add(pojo);
+////        }
+//        System.out.println(districts.toString());
+//        System.out.println(districts.get(1).getStateEntity().getStateName());
+//      //  System.out.println(districts.get(1).gets);
+//    }
 }

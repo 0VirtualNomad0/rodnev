@@ -1,12 +1,13 @@
 package vendorapplication.paymentutility;
 
+import com.google.gson.JsonObject;
+import com.oracle.javafx.jmx.json.JSONException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -104,63 +105,108 @@ public class PaymentUtil {
     //This function is used to double check payment
     public static String verifyPayment(String txnid) {
         String command = "verify_payment";
-        String hashstr = paymentKey + "|" + command + "|" + txnid + "|" + paymentSalt;
 
-        String hash = hashCal("SHA-512", hashstr);
+        JsonObject jObject = null;
+        String testUrl = "https://test.payu.in/merchant/postservice.php?form=2";
+        String method = "verify_payment";
 
-        StringBuilder response = new StringBuilder();
+        //Salt of the merchant
+        String salt = paymentSalt;
+
+        //Key of the merchant
+        String key = paymentKey;
+
+        String var1= txnid; // transaction id
+
+
+        String toHash = key + "|" + method + "|" + var1 + "|" + salt;
+        String Hashed = hashCal("SHA-512",toHash);
+        String Poststring = "key=" + key +  "&command=" + method +  "&hash=" + Hashed + "&var1=" + var1 ;
+
+
+        // Create connection
 
         try {
-            //for production
-            //String wsUrl = "https://info.payu.in/merchant/postservice.php?form=1";
-
-            //for test
-            URL wsUrl = new URL("https://test.payu.in/merchant/postservice.php?form=2");
-
-            Map<String, Object> params = new LinkedHashMap<>();
-            params.put("key", paymentKey);
-            params.put("hash", hash);
-            params.put("var1", txnid);
-            params.put("command", command);
-            System.out.println(params.toString());
-            System.out.println(wsUrl);
-
-            StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (postData.length() != 0) postData.append('&');
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-
-            HttpURLConnection conn = (HttpURLConnection) wsUrl.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-vendorapplication.form-urlencoded");
-            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            URL url = new URL(testUrl);
+            URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
-            conn.getOutputStream().write(postDataBytes);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(Poststring);
+            wr.flush();
 
-            System.out.println(conn.getErrorStream());
-            System.out.println(conn.getInputStream().toString());
-            System.out.println(conn.getResponseCode());
-
-            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-
-
-            for (int c; (c = in.read()) >= 0; ) {
-                response.append((char) c);
+            // Get the response
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            String response = "";
+            while ((line = rd.readLine()) != null) {
+                response += line;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String resp = response.toString();
-        System.out.println(resp.toString());
+            try {
+              return response;
+            } catch (JSONException e) {
+                return e.getLocalizedMessage();
+            }
 
-        if (resp.indexOf("\"status\":\"success\"") > 1)
-            return resp;
-        else
-            return resp;
+        } catch (IOException e) {
+        return e.getLocalizedMessage().toString();
+        }
+//        String hashstr = paymentKey + "|" + command + "|" + txnid + "|" + paymentSalt;
+//
+//        String hash = hashCal("SHA-512", hashstr);
+//
+//        StringBuilder response = new StringBuilder();
+//
+//        try {
+//            //for production
+//            //String wsUrl = "https://info.payu.in/merchant/postservice.php?form=1";
+//
+//            //for test
+//            URL wsUrl = new URL("https://test.payu.in/merchant/postservice.php?form=2");
+//
+//            Map<String, Object> params = new LinkedHashMap<>();
+//            params.put("key", paymentKey);
+//            params.put("hash", hash);
+//            params.put("var1", txnid);
+//            params.put("command", command);
+//            System.out.println(params.toString());
+//            System.out.println(wsUrl);
+//
+//            StringBuilder postData = new StringBuilder();
+//            for (Map.Entry<String, Object> param : params.entrySet()) {
+//                if (postData.length() != 0) postData.append('&');
+//                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+//                postData.append('=');
+//                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+//            }
+//            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+//
+//            HttpURLConnection conn = (HttpURLConnection) wsUrl.openConnection();
+//            conn.setRequestMethod("POST");
+//            conn.setRequestProperty("Content-Type", "application/x-www-vendorapplication.form-urlencoded");
+//            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+//            conn.setDoOutput(true);
+//            conn.getOutputStream().write(postDataBytes);
+//
+//            System.out.println(conn.getErrorStream());
+//            System.out.println(conn.getInputStream().toString());
+//            System.out.println(conn.getResponseCode());
+//
+//            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+//
+//
+//            for (int c; (c = in.read()) >= 0; ) {
+//                response.append((char) c);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String resp = response.toString();
+//        System.out.println(resp.toString());
+//
+//        if (resp.indexOf("\"status\":\"success\"") > 1)
+//            return resp;
+//        else
+//            return resp;
 
     }
 

@@ -19,7 +19,7 @@ function getUserType() {
         }
 
     });
-}
+
 
 //registrationType
 function getRegistrationType() {

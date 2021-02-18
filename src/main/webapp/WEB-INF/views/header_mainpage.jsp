@@ -16,8 +16,7 @@
       <!-- PLUGINS STYLES-->
       <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/css/vendor/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
       <!-- THEME STYLES-->
-      <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/css/vendor/main.min.css" rel="stylesheet" />
-      <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/vendor/bootstrap.min.css">
       <!-- PAGE LEVEL STYLES-->
    </head>
@@ -70,7 +69,7 @@
                   <ul >
                      <li><a href="${pageContext.request.contextPath}/"> <img src="${pageContext.request.contextPath}/resources/images/vector/house.svg" class="icon_mega_menu"><span class="parent-menga-menu">Home</span></a></li>
                      <li><a href="${pageContext.request.contextPath}/login"> <img src="${pageContext.request.contextPath}/resources/images/vector/login.svg" class="icon_mega_menu"><span class="parent-menga-menu">Login</span></a></li>
-                     <li><a href="${pageContext.request.contextPath}/registration"> <img src="${pageContext.request.contextPath}/resources/images/vector/registration.svg" class="icon_mega_menu"><span class="parent-menga-menu">Registration</span></a></li>
+                     <li><a href="${pageContext.request.contextPath}/vendorForm"> <img src="${pageContext.request.contextPath}/resources/images/vector/registration.svg" class="icon_mega_menu"><span class="parent-menga-menu">Registration</span></a></li>
                      <li>
                         <a href="#"> <img src="${pageContext.request.contextPath}/resources/images/vector/information.svg" class="icon_mega_menu"><span class="parent-menga-menu">Information</span></a>
                         <div class="mega-menu">
@@ -110,7 +109,7 @@
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
                   <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
-                  <li><a href="${pageContext.request.contextPath}/registration">Register as Vendor </a></li>
+                  <li><a href="${pageContext.request.contextPath}/vendorForm">Register as Vendor </a></li>
                </ul>
             </div>
             <div class="topnav">
@@ -121,7 +120,7 @@
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
                   <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
-                   <li><a href="${pageContext.request.contextPath}/registration">Register as Vendor </a></li>
+                   <li><a href="${pageContext.request.contextPath}/vendorForm">Register as Vendor </a></li>
                </div>
                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
                <a href="javascript:void(0);" class="icon" onclick="myFunction()">

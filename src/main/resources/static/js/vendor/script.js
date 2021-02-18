@@ -134,6 +134,133 @@ function getVendor() {
 }
 
 
+//Get States
+function getState() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getState",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#state'); // the state select element
+            selectRole.find('option').remove();
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].stateId + " >" + data.RESPONSE[i].stateName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+function getDistrictsViaState(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getDistrictsViaState",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#localDistrict'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].districtId + " >" + data.RESPONSE[i].districtName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getBlocks
+function getBlocks(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getBlocks",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#localBlock'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].blockId + " >" + data.RESPONSE[i].blockName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getTehsils
+function getTehsils(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getTehsils",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#localTehsil'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].tehsilId + " >" + data.RESPONSE[i].tehsilName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getWardPanchayat
+function getWardPanchayat(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getWardPanchayat",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#localgp'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].gpId + " >" + data.RESPONSE[i].gpName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+
+
 function getVendorCategory(id) {
 
     $.ajax({

@@ -63,32 +63,7 @@ public class VendorFormController {
     public String createUser(Model model, HttpServletRequest request) {
         request.getSession().setAttribute("successMessage", "");
         model.addAttribute("vendorApplicationForm", new vendorApplicationForm());
-        String authority_ = null;
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String username = ((UserDetails) principal).getUsername();
-
-
-            UserEntity user = userService.getUserDetailsViaUsername(username);
-            System.out.println(user);
-
-            if (user != null) {
-                //Set Session UserID
-                request.getSession().setAttribute("user_Id", user.getUserId());
-                model.addAttribute("user", user);
-                model.addAttribute("vendorApplicationForm", new vendorApplicationForm());
-                return "vendorForm";
-            } else {
-                return "errorPage";
-            }
-
-
-        }
-
+        return "vendorRegistration";
     }
 
     //vendorForm
