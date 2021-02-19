@@ -156,6 +156,27 @@ function getState() {
     });
 }
 
+function getvState() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getState",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#vstate'); // the state select element
+            selectRole.find('option').remove();
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].stateId + " >" + data.RESPONSE[i].stateName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
 function getDistrictsViaState(id) {
 
     $.ajax({
@@ -167,6 +188,31 @@ function getDistrictsViaState(id) {
         success: function(data) {
             console.log(data.RESPONSE)
             var selectRole = $('#localDistrict'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].districtId + " >" + data.RESPONSE[i].districtName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+function getvDistrictsViaState(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getDistrictsViaState",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#vlocalDistrict'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < data.RESPONSE.length; i++) {
@@ -193,6 +239,32 @@ function getBlocks(id) {
         success: function(data) {
             console.log(data.RESPONSE)
             var selectRole = $('#localBlock'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].blockId + " >" + data.RESPONSE[i].blockName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getvBlocks
+function getvBlocks(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getBlocks",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#vlocalBlock'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < data.RESPONSE.length; i++) {
@@ -245,6 +317,32 @@ function getWardPanchayat(id) {
         success: function(data) {
             console.log(data.RESPONSE)
             var selectRole = $('#localgp'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].gpId + " >" + data.RESPONSE[i].gpName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getvWardPanchayat
+function getvWardPanchayat(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getWardPanchayat",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#vlocalgp'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < data.RESPONSE.length; i++) {

@@ -28,6 +28,7 @@ public class vendorApplicationForm implements Serializable {
     private String district;
     private List<Integer> locationAvailable;
     private MultipartFile identityDoc;
+    private MultipartFile photoDoc;
     private String comments;
 
     private String state;
@@ -35,6 +36,88 @@ public class vendorApplicationForm implements Serializable {
     private String localDistrict;
     private String localTehsil;
     private String localgp;
+
+    private String vstate;
+    private String vlocalDistrict;
+    private String vlocalBlock;
+    private String vlocalgp;
+
+    private String landType;
+    private String fromDate;
+    private String toDate;
+    private String tentCapacity;
+
+    public MultipartFile getPhotoDoc() {
+        return photoDoc;
+    }
+
+    public void setPhotoDoc(MultipartFile photoDoc) {
+        this.photoDoc = photoDoc;
+    }
+
+    public String getVstate() {
+        return vstate;
+    }
+
+    public void setVstate(String vstate) {
+        this.vstate = vstate;
+    }
+
+    public String getVlocalDistrict() {
+        return vlocalDistrict;
+    }
+
+    public void setVlocalDistrict(String vlocalDistrict) {
+        this.vlocalDistrict = vlocalDistrict;
+    }
+
+    public String getVlocalBlock() {
+        return vlocalBlock;
+    }
+
+    public void setVlocalBlock(String vlocalBlock) {
+        this.vlocalBlock = vlocalBlock;
+    }
+
+    public String getVlocalgp() {
+        return vlocalgp;
+    }
+
+    public void setVlocalgp(String vlocalgp) {
+        this.vlocalgp = vlocalgp;
+    }
+
+    public String getTentCapacity() {
+        return tentCapacity;
+    }
+
+    public void setTentCapacity(String tentCapacity) {
+        this.tentCapacity = tentCapacity;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getLandType() {
+        return landType;
+    }
+
+    public void setLandType(String landType) {
+        this.landType = landType;
+    }
 
     public String getLocalTehsil() {
         return localTehsil;
@@ -245,7 +328,7 @@ public class vendorApplicationForm implements Serializable {
     }
 
     @Override
-    public String  toString() {
+    public String toString() {
         return "vendorApplicationForm{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
@@ -273,6 +356,14 @@ public class vendorApplicationForm implements Serializable {
                 ", localDistrict='" + localDistrict + '\'' +
                 ", localTehsil='" + localTehsil + '\'' +
                 ", localgp='" + localgp + '\'' +
+                ", vstate='" + vstate + '\'' +
+                ", vlocalDistrict='" + vlocalDistrict + '\'' +
+                ", vlocalBlock='" + vlocalBlock + '\'' +
+                ", vlocalgp='" + vlocalgp + '\'' +
+                ", landType='" + landType + '\'' +
+                ", fromDate='" + fromDate + '\'' +
+                ", toDate='" + toDate + '\'' +
+                ", tentCapacity='" + tentCapacity + '\'' +
                 '}';
     }
 }

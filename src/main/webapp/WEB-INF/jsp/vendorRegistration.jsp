@@ -17,7 +17,7 @@
             <strong>Warning!</strong> ${serverError}
          </div>
       </c:if>
-      <h2 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vendor Details</strong></h2>
+      <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vendor Details</strong></h4>
       <hr>
       <div class="row">
          <spring:bind path="firstname">
@@ -66,7 +66,7 @@
             </div>
          </spring:bind>
          <spring:bind path="roleId">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}" style="display:none;">
                <form:label path="roleId" for="roles">User Type</form:label>
                <form:select  path="roleId" name="roleId" class="form-control" id="roles">
                </form:select>
@@ -76,7 +76,7 @@
       </div>
       <!-- Address (Local) -->
       <br>
-      <h2 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vendor Local Address</strong></h2>
+      <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vendor Local Address</strong></h4>
       <hr>
       <div class="row">
          <spring:bind path="state">
@@ -119,6 +119,7 @@
                <form:errors  path="localgp"></form:errors>
             </div>
          </spring:bind>
+         <div class="col-lg-4">&nbsp;</div>
          <spring:bind path="p_address">
             <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="p_address" for="p_address">Full Address (House Number/Street/Landmark/Village names etc)</form:label>
@@ -129,7 +130,8 @@
       </div>
       <!-- Application Details -->
       <br>
-      <h2 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Application Details</strong></h2>
+      <hr>
+      <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vendor Application Details</strong></h4>
       <hr>
       <div class="row">
          <spring:bind path="nationality">
@@ -140,45 +142,10 @@
                <form:errors  path="nationality"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="vendor">
-            <div class="form-group col-lg-4">
-               <form:label path="vendor" for="nationality">Vendor Type</form:label>
-               <form:select  path="vendor" name="vendor" class="form-control" id="vendor" onchange="getVendorCategory(this.value);">
-               </form:select>
-               <form:errors  path="vendor"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="vendorType">
-            <div class="form-group col-lg-4">
-               <form:label path="vendorType" for="vendorType">Vendor Category</form:label>
-               <form:select  path="vendorType" name="vendorType" class="form-control" onchange="hideunhide(this.value);" id="vendorType">
-               </form:select>
-               <form:errors  path="vendorType"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="tentNumber">
-            <div id="tentDiv" style="display:none;" class="form-group col-lg-4">
-               <form:label path="tentNumber" for="tentNumber">Tent Number</form:label>
-               <form:input  path="tentNumber" name="tentNumber" type="text" onKeyPress="return isNumber(event)" maxlength="3"  class="form-control" id="tentNumber" />
-               <form:errors  path="tentNumber"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="district">
-            <div class="form-group col-lg-4">
-               <form:label path="district" for="district">Select Location</form:label>
-               <form:select  path="district" name="district" class="form-control" id="district" onchange="getArea(this.value)">
-               </form:select>
-               <form:errors  path="district"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="locationAvailable">
-            <div class="form-group col-lg-4">
-               <form:label path="locationAvailable" for="locationAvailable">Select Area</form:label>
-               <form:select multiple="multiple" data-live-search="true" path="locationAvailable" name="locationAvailable" class="form-control"  id="locationAvailable">
-               </form:select>
-               <form:errors  path="locationAvailable"></form:errors>
-            </div>
-         </spring:bind>
+
+      </div>
+      <div class="row">
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Documents </strong></h4>
          <spring:bind path="identityDoc">
             <div class="form-group col-lg-4">
                <form:label path="identityDoc" for="identityDoc" >
@@ -188,15 +155,137 @@
                <form:errors  path="identityDoc"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="comments">
+         <spring:bind path="photoDoc">
             <div class="form-group col-lg-4">
-               <form:label path="comments">Vendor Comments (if any)</form:label>
-               <form:textarea  path="comments" rows="4" id="comments" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"    class="form-control"
-                  autofocus="true" />
-               <form:errors  path="comments"></form:errors>
+               <form:label path="photoDoc" for="photoDoc" >
+                  Vendor Photograph *
+               </form:label>
+               <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="photoDoc" id="photoDoc" name="photoDoc"/>
+               <form:errors  path="photoDoc"></form:errors>
             </div>
          </spring:bind>
       </div>
+      <div class="row">
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vending Location</strong></h4>
+         <spring:bind path="vstate">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vstate" for="state">State</form:label>
+               <form:select path="vstate"  name="vstate" class="form-control" id="vstate">
+               </form:select>
+               <form:errors  path="vstate"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="vlocalDistrict">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vlocalDistrict" for="vlocalDistrict">District</form:label>
+               <form:select path="vlocalDistrict"  name="vlocalDistrict" class="form-control" id="vlocalDistrict" onchange="getvBlocks(this.value);">
+               </form:select>
+               <form:errors  path="vlocalDistrict"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="vlocalBlock">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vlocalBlock" for="localBlock">Block/Town</form:label>
+               <form:select path="vlocalBlock" onchange="getvWardPanchayat(this.value);"  name="localBlock" class="form-control" id="vlocalBlock">
+               </form:select>
+               <form:errors  path="vlocalBlock"></form:errors>
+            </div>
+         </spring:bind>
+
+      </div>
+      <div class="row">
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Time period for Vending</strong></h4>
+         <spring:bind path="fromDate">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <label for="fromDate">
+               Select From Date
+               </label>
+               <form:input maxlength="10"  path="fromDate" id="fromDate" oncopy="return false" onpaste="return false" type="date" class="form-control input-sm" />
+               <form:errors  style="color:red;" path="fromDate"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="toDate">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <label for="toDate">
+               Select To Date
+               </label>
+               <form:input maxlength="10"  path="toDate" oncopy="return false" onpaste="return false" id="toDate" type="date" class="form-control input-sm" />
+               <form:errors  style="color:red;" path="toDate"></form:errors>
+            </div>
+         </spring:bind>
+      </div>
+      <div class="row">
+       <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Type and Category</strong></h4>
+         <spring:bind path="vendor">
+            <div class="form-group col-lg-4">
+               <form:label path="vendor" >Vendor Type</form:label>
+               <form:select  path="vendor" name="vendor" class="form-control" id="vendor" onchange="getVendorCategory(this.value);">
+               </form:select>
+               <form:errors  path="vendor"></form:errors>
+            </div>
+         </spring:bind>
+
+          <spring:bind path="vendorType">
+                              <div class="form-group col-lg-4">
+                                 <form:label path="vendorType" for="vendorType">Vendor Category</form:label>
+                                 <form:select  path="vendorType" name="vendorType" class="form-control" onchange="hideunhide(this.value);" id="vendorType">
+                                 </form:select>
+                                 <form:errors  path="vendorType"></form:errors>
+                              </div>
+                           </spring:bind>
+
+         </div>
+
+         <div class="row">
+
+          <spring:bind path="landType">
+                    <div class="form-group col-lg-4">
+                       <form:label path="landType" for="landType">Land Type</form:label>
+                       <form:select  path="landType" name="landType" class="form-control"  id="landType">
+                          <option value="NA">-- Select --</option>
+                          <option value="C">Commercial Land</option>
+                          <option value="NC">Non Commercial Land</option>
+                       </form:select>
+                       <form:errors  path="landType"></form:errors>
+                    </div>
+                 </spring:bind>
+
+         <spring:bind path="tentCapacity">
+            <div id="tentCapacityDiv" style="display:none;" class="form-group col-lg-4">
+               <form:label path="tentCapacity" for="tentCapacity">Tent Capacity </form:label>
+               <form:select  path="tentCapacity" name="tentCapacity" class="form-control"  id="tentCapacity">
+                  <option value="NA">-- Select --</option>
+                  <option value="OT">One/Two Men</option>
+                  <option value="MT">More than Two Men</option>
+               </form:select>
+               <form:errors  path="landType"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="tentNumber">
+            <div id="tentDiv" style="display:none;" class="form-group col-lg-4">
+               <form:label path="tentNumber" for="tentNumber">Tent Number</form:label>
+               <form:input  path="tentNumber" name="tentNumber" type="text" onKeyPress="return isNumber(event)" maxlength="3"  class="form-control" id="tentNumber" />
+               <form:errors  path="tentNumber"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="vlocalgp">
+                     <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+                        <form:label path="vlocalgp" for="vlocalgp">Select Location</form:label>
+                        <form:select path="vlocalgp"  name="vlocalgp" class="form-control" id="vlocalgp">
+                        </form:select>
+                        <form:errors  path="vlocalgp"></form:errors>
+                     </div>
+                  </spring:bind>
+         <spring:bind path="locationAvailable">
+            <div class="form-group col-lg-4">
+               <form:label path="locationAvailable" for="locationAvailable">Select Area</form:label>
+               <form:select multiple="multiple" data-live-search="true" path="locationAvailable" name="locationAvailable" class="form-control"  id="locationAvailable">
+               </form:select>
+               <form:errors  path="locationAvailable"></form:errors>
+            </div>
+         </spring:bind>
+      </div>
+       <div class="row breadcrumb" style="margin-bottom:10px;">
       <div class="form-group">
          <!-- Captcha -->
          <table >
@@ -217,7 +306,7 @@
                <tr>
                   <td>Enter Image Text</td>
                   <td>
-                     <form:input   onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" />
+                     <form:input  onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" />
                   </td>
                   <form:errors style="color:red;" path="captcha"></form:errors>
                </tr>
@@ -226,9 +315,11 @@
          <!-- Captcha -->
       </div>
       <div class="form-group col-lg-12">
-         <button class="btn btn-info btn-block" type="submit">Submit</button> <br>
-         <c:remove var="successMessage" scope="session" />
+               <button class="btn btn-success btn-block" type="submit">Submit</button>
+               <c:remove var="successMessage" scope="session" />
+            </div>
       </div>
+
    </form:form>
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
@@ -240,11 +331,13 @@
    $( document ).ready(function() {
        getrolesVendor();
        getNationality();
-       getDistrict();
+      // getDistrict();
        getgender();
        getVendor();
        getState();
+       getvState();
        getDistrictsViaState('9');
+       getvDistrictsViaState('9');
    });
 
 </script>

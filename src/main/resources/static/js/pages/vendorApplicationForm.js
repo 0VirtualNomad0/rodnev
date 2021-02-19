@@ -14,6 +14,7 @@ function validateFields() {
     var locationAvailable = document.getElementById('locationAvailable').value;
     var identityDoc = document.getElementById('identityDoc').value.trim();
     var tents = document.getElementById('tentNumber').value.trim();
+     var tentCapacity = document.getElementById('tentCapacity').value.trim();
 
     var comments = document.getElementById('comments').value.trim();
 
@@ -47,9 +48,14 @@ function validateFields() {
 
 function hideunhide(value) {
     if (value != "1") {
-        hide_ctrl('tentDiv', true);
+        hide_ctrl('tentDiv~tentCapacityDiv', true);
+            document.getElementById('tentNumber').value = "";
+            document.getElementById('tentCapacity').value = "NA";
+
     } else {
-        unhide_ctrl('tentDiv', true);
+        unhide_ctrl('tentDiv~tentCapacityDiv', true);
+
+
     }
 }
 
