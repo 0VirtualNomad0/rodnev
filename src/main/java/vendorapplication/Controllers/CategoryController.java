@@ -12,12 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import vendorapplication.entities.RolesEntity;
-import vendorapplication.entities.VendorEntity;
+import vendorapplication.entities.CategoryEntity;
 import vendorapplication.form.CategoryForm;
-import vendorapplication.form.RolesForm;
-import vendorapplication.form.SubCategoryForm;
-import vendorapplication.services.VendorService;
+import vendorapplication.services.CategoryService;
 import vendorapplication.validators.CategoryValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +26,7 @@ public class CategoryController {
 
 
     @Autowired
-    VendorService vendorService;
+    CategoryService vendorService;
 
     @Autowired
     CategoryValidator categoryValidator;
@@ -61,15 +58,15 @@ public class CategoryController {
             return "categories";
         }
         try {
-            VendorEntity rolesEntity = new VendorEntity();
+            CategoryEntity rolesEntity = new CategoryEntity();
             rolesEntity.setActive(true);
-            rolesEntity.setVenTypeName(roleForm.getCategoryName());
+            rolesEntity.setCategoryName(roleForm.getCategoryName());
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Date date = new Date(timestamp.getTime());
             rolesEntity.setCreatedDate(date);
-            VendorEntity savedData = vendorService.saveRole(rolesEntity);
+            CategoryEntity savedData = vendorService.saveRole(rolesEntity);
             roleForm.setCategoryName("");
-            request.getSession().setAttribute("successMessage", savedData.getVenTypeName() + " Category Successfully Saved. ID is" + savedData.getVenTypeID());
+            request.getSession().setAttribute("successMessage", savedData.getCategoryName() + " Category Successfully Saved. ID is" + savedData.getCategoryID());
             return "categories";
         } catch (Exception ex) {
             roleForm.setCategoryName("");

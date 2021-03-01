@@ -2,11 +2,11 @@ package vendorapplication.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vendorapplication.repositories.VendorTypeRepository;
+import vendorapplication.repositories.SubCategoryItemsRepository;
 
 @Service
-public class VendorTypeService {
+public class SubCategoryItems {
 
     @Autowired
-    private VendorTypeRepository vendorTypeRepository;
+    SubCategoryItemsRepository subCategoryItemsRepository;
 }

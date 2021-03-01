@@ -7,7 +7,7 @@ public class CalculateAmount {
 
     public static String calculateAmount(UserApplicationEntity user){
         String amountToDeposit = null;
-        if(user.getVendorTypeId().getVendorTypeName().equalsIgnoreCase("Tent") ){
+        if(user.getVendorTypeId().getSubCategoryName().equalsIgnoreCase("Tent") ){
              Long amount_tent = Long.valueOf(500 * user.getTentNumber());
             amountToDeposit = String.valueOf(amount_tent) ;
         }else{

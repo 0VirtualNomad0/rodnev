@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vendorapplication.entities.*;
 import vendorapplication.form.vendorApplicationForm;
-import vendorapplication.modal.RolesModal;
 import vendorapplication.modal.VendorDashboardList;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
@@ -27,12 +26,10 @@ import vendorapplication.validators.VendorApplicationFormValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class VendorFormController {
@@ -275,8 +272,8 @@ public class VendorFormController {
         UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
         UserEntity user = new UserEntity();
         NationalityEntity nationality = new NationalityEntity();
-        VendorEntity vendorEntity = new VendorEntity();
-        VendorTypeEntity ventorTypeEntity = new VendorTypeEntity();
+        CategoryEntity vendorEntity = new CategoryEntity();
+        SubCategoryEntity ventorTypeEntity = new SubCategoryEntity();
         DistrictEntity district = new DistrictEntity();
 
 
@@ -292,13 +289,13 @@ public class VendorFormController {
             userApplicationEntity.setNationalityEntity(nationality);
             logger.info(nationality.toString());
 
-            vendorEntity.setVenTypeID(Integer.parseInt(vendorForm.getVendor()));
-            userApplicationEntity.setVendorId(vendorEntity);
-            logger.info(vendorEntity.toString());
-
-            ventorTypeEntity.setVendorTypeId(Integer.parseInt(vendorForm.getVendorType()));
-            userApplicationEntity.setVendorTypeId(ventorTypeEntity);
-            logger.info(ventorTypeEntity.toString());
+//            vendorEntity.setVenTypeID(Integer.parseInt(vendorForm.getVendor()));
+//            userApplicationEntity.setVendorId(vendorEntity);
+//            logger.info(vendorEntity.toString());
+//
+//            ventorTypeEntity.setVendorTypeId(Integer.parseInt(vendorForm.getVendorType()));
+//            userApplicationEntity.setVendorTypeId(ventorTypeEntity);
+//            logger.info(ventorTypeEntity.toString());
 
             district.setDistrictId(Integer.parseInt(vendorForm.getDistrict()));
             userApplicationEntity.setDistrictId(district);

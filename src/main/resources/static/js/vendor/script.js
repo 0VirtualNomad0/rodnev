@@ -124,7 +124,7 @@ function getVendor() {
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].vendorId + " >" + data.RESPONSE[i].vendorName + "</option>")
+                selectRole.append("<option value=" + data.RESPONSE[i].categoryId + " >" + data.RESPONSE[i].categoryName + "</option>")
             }
 
         },
@@ -147,7 +147,7 @@ function getsVendor() {
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].vendorId + " >" + data.RESPONSE[i].vendorName + "</option>")
+                selectRole.append("<option value=" + data.RESPONSE[i].categoryId + " >" + data.RESPONSE[i].categoryName + "</option>")
             }
 
         },

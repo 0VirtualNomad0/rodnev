@@ -24,11 +24,11 @@ public class UserApplicationEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "ventype_id",updatable = false)
-    private VendorEntity vendorId;
+    private CategoryEntity vendorId;
 
     @OneToOne
     @JoinColumn(name = "vendortype_id",updatable = false)
-    private VendorTypeEntity vendorTypeId;
+    private SubCategoryEntity vendorTypeId;
 
     @Column(name = "tent_number")
     private Integer tentNumber;
@@ -110,19 +110,19 @@ public class UserApplicationEntity implements Serializable {
         this.nationalityEntity = nationalityEntity;
     }
 
-    public VendorEntity getVendorId() {
+    public CategoryEntity getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(VendorEntity vendorId) {
+    public void setVendorId(CategoryEntity vendorId) {
         this.vendorId = vendorId;
     }
 
-    public VendorTypeEntity getVendorTypeId() {
+    public SubCategoryEntity getVendorTypeId() {
         return vendorTypeId;
     }
 
-    public void setVendorTypeId(VendorTypeEntity vendorTypeId) {
+    public void setVendorTypeId(SubCategoryEntity vendorTypeId) {
         this.vendorTypeId = vendorTypeId;
     }
 

@@ -137,6 +137,10 @@
         <put-attribute name="content" value="/WEB-INF/jsp/subCategoryMaster.jsp" />
     </definition>
 
+    <definition name="subcategoriesitems" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/subCategoryItemsMaster.jsp" />
+    </definition>
+
 
 
     <definition name="applications" extends="baselayoutdashboard">

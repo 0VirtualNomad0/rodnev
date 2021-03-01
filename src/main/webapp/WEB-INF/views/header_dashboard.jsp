@@ -96,6 +96,9 @@
                            <li>
                               <a href="${pageContext.request.contextPath}/addsubcategories">Create Sub-Category</a>
                            </li>
+                           <li>
+                              <a href="${pageContext.request.contextPath}/subcategoriesitems">Create Sub-Category Items</a>
+                           </li>
                         </ul>
                      </li>
                      <li>

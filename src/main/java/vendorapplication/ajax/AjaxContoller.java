@@ -1,6 +1,5 @@
 package vendorapplication.ajax;
 
-import org.springframework.stereotype.Repository;
 import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import vendorapplication.repositories.*;
 import vendorapplication.utilities.Constants;
 
-import java.awt.geom.Area;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -29,10 +27,10 @@ public class AjaxContoller {
     NationalityRepository nationalityRepository;
 
     @Autowired
-    VendorRepository vendorRepository;
+    CategoryRepository vendorRepository;
 
     @Autowired
-    VendorTypeRepository vendorTypeRepository;
+    SubCategoryRepository vendorTypeRepository;
 
     @Autowired
     DistrictRepository districtRepository;
@@ -357,14 +355,14 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getVendor() {
         Map<String, Object> map = null;
-        List<Object[] > vendors = vendorRepository.getVendors();
-        List<VendorModal> vendorModal = new ArrayList<>();
+        List<Object[] > vendors = vendorRepository.getCategories();
+        List<CategoryModal> vendorModal = new ArrayList<>();
 
 
         for (Object[] result : vendors) {
-            VendorModal pojo = new VendorModal();
-            pojo.setVendorId((Integer) result[0]);
-            pojo.setVendorName((String) result[1]);
+            CategoryModal pojo = new CategoryModal();
+            pojo.setCategoryId((Integer) result[0]);
+            pojo.setCategoryName((String) result[1]);
             vendorModal.add(pojo);
         }
 
@@ -385,7 +383,7 @@ public class AjaxContoller {
 
 
             Map<String, Object> map = null;
-            List<Object[] > vendorsCategorys = vendorTypeRepository.getVendorCategory(Integer.parseInt(id));
+            List<Object[] > vendorsCategorys = vendorTypeRepository.getSubCategories(Integer.parseInt(id));
             List<VendorCategoryModal> vendorCatModal = new ArrayList<>();
 
 

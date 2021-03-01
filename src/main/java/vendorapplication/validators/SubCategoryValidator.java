@@ -7,27 +7,29 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import vendorapplication.form.CategoryForm;
+import vendorapplication.form.SubCategoryForm;
 import vendorapplication.services.CategoryService;
+import vendorapplication.services.SubCategoryService;
 
 @Component
-public class CategoryValidator implements Validator {
+public class SubCategoryValidator implements Validator {
 
     @Autowired
-    private CategoryService vendorService;
+    private SubCategoryService subCategoryService;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return CategoryForm.class.equals(aClass);
+        return SubCategoryForm.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        CategoryForm user = (CategoryForm) o;
+        SubCategoryForm user = (SubCategoryForm) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryName", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "subcategoryName", "NotEmpty");
 
-        if (vendorService.checkCategory(user.getCategoryName()) != null) {
-            errors.rejectValue("categoryName", "Duplicate.categoryForm.categoryName");
+        if (subCategoryService.checkCategory(user.getSubcategoryName()) != null) {
+            errors.rejectValue("subcategoryName", "Duplicate.categoryForm.categoryName");
         }
 
 
