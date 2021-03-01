@@ -110,6 +110,8 @@ function getNationality() {
     });
 }
 
+
+
 //getVendor
 function getVendor() {
 
@@ -132,6 +134,76 @@ function getVendor() {
 
     });
 }
+
+//getsVendor
+function getsVendor() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getVendor",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#categoryId'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].vendorId + " >" + data.RESPONSE[i].vendorName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getNationalRegional
+function getNationalRegional() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getNationalRegional",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#nationalRegional'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].nationalRegionalId + " >" + data.RESPONSE[i].nationalRegionalName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getLandType
+function getLandType() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getLandType",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#landType'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].landTypeId + " >" + data.RESPONSE[i].landTypeName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
 
 
 //Get States
@@ -291,6 +363,32 @@ function getTehsils(id) {
         success: function(data) {
             console.log(data.RESPONSE)
             var selectRole = $('#localTehsil'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].tehsilId + " >" + data.RESPONSE[i].tehsilName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getvTehsils
+function getvTehsils(id) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getTehsils",
+        data: {
+                    "id": id
+                },
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var selectRole = $('#vlocalTehsil'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < data.RESPONSE.length; i++) {

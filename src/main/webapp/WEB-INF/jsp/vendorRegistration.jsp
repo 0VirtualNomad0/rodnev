@@ -142,7 +142,6 @@
                <form:errors  path="nationality"></form:errors>
             </div>
          </spring:bind>
-
       </div>
       <div class="row">
          <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Documents </strong></h4>
@@ -166,32 +165,23 @@
          </spring:bind>
       </div>
       <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vending Location</strong></h4>
-         <spring:bind path="vstate">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vstate" for="state">State</form:label>
-               <form:select path="vstate"  name="vstate" class="form-control" id="vstate">
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Type and Category</strong></h4>
+         <spring:bind path="vendor">
+            <div class="form-group col-lg-4">
+               <form:label path="vendor" >Vendor Type</form:label>
+               <form:select  path="vendor" name="vendor" class="form-control" id="vendor" onchange="getVendorCategory(this.value);">
                </form:select>
-               <form:errors  path="vstate"></form:errors>
+               <form:errors  path="vendor"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="vlocalDistrict">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vlocalDistrict" for="vlocalDistrict">District</form:label>
-               <form:select path="vlocalDistrict"  name="vlocalDistrict" class="form-control" id="vlocalDistrict" onchange="getvBlocks(this.value);">
+         <spring:bind path="vendorType">
+            <div class="form-group col-lg-4">
+               <form:label path="vendorType" for="vendorType">Vendor Category</form:label>
+               <form:select  path="vendorType" name="vendorType" class="form-control" onchange="hideunhide(this.value);" id="vendorType">
                </form:select>
-               <form:errors  path="vlocalDistrict"></form:errors>
+               <form:errors  path="vendorType"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="vlocalBlock">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vlocalBlock" for="localBlock">Block/Town</form:label>
-               <form:select path="vlocalBlock" onchange="getvWardPanchayat(this.value);"  name="localBlock" class="form-control" id="vlocalBlock">
-               </form:select>
-               <form:errors  path="vlocalBlock"></form:errors>
-            </div>
-         </spring:bind>
-
       </div>
       <div class="row">
          <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Time period for Vending</strong></h4>
@@ -215,41 +205,106 @@
          </spring:bind>
       </div>
       <div class="row">
-       <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Type and Category</strong></h4>
-         <spring:bind path="vendor">
-            <div class="form-group col-lg-4">
-               <form:label path="vendor" >Vendor Type</form:label>
-               <form:select  path="vendor" name="vendor" class="form-control" id="vendor" onchange="getVendorCategory(this.value);">
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vending Location</strong></h4>
+         <spring:bind path="vstate">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vstate" for="state">State</form:label>
+               <form:select path="vstate"  name="vstate" class="form-control" id="vstate">
                </form:select>
-               <form:errors  path="vendor"></form:errors>
+               <form:errors  path="vstate"></form:errors>
             </div>
          </spring:bind>
-
-          <spring:bind path="vendorType">
-                              <div class="form-group col-lg-4">
-                                 <form:label path="vendorType" for="vendorType">Vendor Category</form:label>
-                                 <form:select  path="vendorType" name="vendorType" class="form-control" onchange="hideunhide(this.value);" id="vendorType">
-                                 </form:select>
-                                 <form:errors  path="vendorType"></form:errors>
-                              </div>
-                           </spring:bind>
-
+         <spring:bind path="vlocalDistrict">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vlocalDistrict" for="vlocalDistrict">District</form:label>
+               <form:select path="vlocalDistrict"  name="vlocalDistrict" class="form-control" id="vlocalDistrict" onchange="getvBlocks(this.value);getvTehsils(this.value);">
+               </form:select>
+               <form:errors  path="vlocalDistrict"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="vlocalBlock">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vlocalBlock" for="localBlock">Block/Town</form:label>
+               <form:select path="vlocalBlock" onchange="getvWardPanchayat(this.value);"  name="localBlock" class="form-control" id="vlocalBlock">
+               </form:select>
+               <form:errors  path="vlocalBlock"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="vlocalTehsil">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vlocalTehsil" for="vlocalTehsil">Tehsil</form:label>
+               <form:select path="vlocalTehsil"  name="vlocalTehsil" class="form-control" id="vlocalTehsil">
+               </form:select>
+               <form:errors  path="vlocalTehsil"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="vlocalgp">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="vlocalgp" for="vlocalgp">Panchayat/Wards</form:label>
+               <form:select path="vlocalgp"  name="vlocalgp" class="form-control" id="vlocalgp">
+               </form:select>
+               <form:errors  path="vlocalgp"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="loc_address">
+            <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="loc_address" for="loc_address">Enter Location</form:label>
+               <form:textarea id="loc_address" rows="4" type="text"  required="required" oncopy="return false" onpaste="return false" path="loc_address" maxlength="40" minlength="10"  class="form-control"  name="loc_address"  />
+               <form:errors  path="loc_address"></form:errors>
+            </div>
+         </spring:bind>
+      </div>
+      <div class="row">
+         <!-- tableDiv -->
+         <div id="tableDiv" class="col-lg-12" style="display:block">
+            <div class="row" style="margin-bottom:10px;">
+               <div class="col-lg-9">
+                  <hr>
+                  <strong>
+                     <spring:message code="from.give.details.all.the.services.availed" text="Give details of all services availed earlier: -" />
+                  </strong>
+                  <hr>
+               </div>
+               <div class="col-lg-3 ">
+                  <br/>
+                  <button type="button"  class="btn btn-success" data-style="slide-right" onclick="return addNewRow();" >Add Row</button>
+                  <button type="button"  class="btn btn-danger" data-style="slide-right" onclick="return deleteRow();" >Delete Row</button>
+               </div>
+            </div>
+            <div class="row" style="margin-top:10px">
+               <spring:bind path="landType">
+                  <div class="form-group col-lg-4">
+                     <form:label path="landType" for="landType">Land Type</form:label>
+                     <form:select  path="landType" name="landType" class="form-control"  id="landType">
+                        <option value="NA">-- Select --</option>
+                        <option value="C">Commercial Land</option>
+                        <option value="NC">Non Commercial Land</option>
+                     </form:select>
+                     <form:errors  path="landType"></form:errors>
+                  </div>
+               </spring:bind>
+               <spring:bind path="vlocalgp">
+                  <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+                     <form:label path="vlocalgp" for="vlocalgp">Select Location</form:label>
+                     <form:select path="vlocalgp"  name="vlocalgp" class="form-control" id="vlocalgp">
+                     </form:select>
+                     <form:errors  path="vlocalgp"></form:errors>
+                  </div>
+               </spring:bind>
+               <spring:bind path="locationAvailable">
+                  <div class="form-group col-lg-4">
+                     <form:label path="locationAvailable" for="locationAvailable">Select Area</form:label>
+                     <form:select multiple="multiple" data-live-search="true" path="locationAvailable" name="locationAvailable" class="form-control"  id="locationAvailable">
+                     </form:select>
+                     <form:errors  path="locationAvailable"></form:errors>
+                  </div>
+               </spring:bind>
+               <div id="addRow" class="col-lg-12">
+               </div>
+            </div>
          </div>
-
-         <div class="row">
-
-          <spring:bind path="landType">
-                    <div class="form-group col-lg-4">
-                       <form:label path="landType" for="landType">Land Type</form:label>
-                       <form:select  path="landType" name="landType" class="form-control"  id="landType">
-                          <option value="NA">-- Select --</option>
-                          <option value="C">Commercial Land</option>
-                          <option value="NC">Non Commercial Land</option>
-                       </form:select>
-                       <form:errors  path="landType"></form:errors>
-                    </div>
-                 </spring:bind>
-
+      </div>
+      <div class="row">
          <spring:bind path="tentCapacity">
             <div id="tentCapacityDiv" style="display:none;" class="form-group col-lg-4">
                <form:label path="tentCapacity" for="tentCapacity">Tent Capacity </form:label>
@@ -268,58 +323,41 @@
                <form:errors  path="tentNumber"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="vlocalgp">
-                     <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-                        <form:label path="vlocalgp" for="vlocalgp">Select Location</form:label>
-                        <form:select path="vlocalgp"  name="vlocalgp" class="form-control" id="vlocalgp">
-                        </form:select>
-                        <form:errors  path="vlocalgp"></form:errors>
-                     </div>
-                  </spring:bind>
-         <spring:bind path="locationAvailable">
-            <div class="form-group col-lg-4">
-               <form:label path="locationAvailable" for="locationAvailable">Select Area</form:label>
-               <form:select multiple="multiple" data-live-search="true" path="locationAvailable" name="locationAvailable" class="form-control"  id="locationAvailable">
-               </form:select>
-               <form:errors  path="locationAvailable"></form:errors>
-            </div>
-         </spring:bind>
       </div>
-       <div class="row breadcrumb" style="margin-bottom:10px;">
-      <div class="form-group">
-         <!-- Captcha -->
-         <table >
-            <tbody>
-               <tr>
-                  <td>
-                     <div>
-                        <img id="captcha_id" name="imgCaptcha" src="captcha.jpg">
-                     </div>
-                  </td>
-                  <td align="left"><a href="javascript:;"
-                     title="change captcha text"
-                     onclick="document.getElementById('captcha_id').src = 'captcha.jpg?' + Math.random();  return false">
-                     <i class="fa fa-refresh"></i>
-                     </a>
-                  </td>
-               </tr>
-               <tr>
-                  <td>Enter Image Text</td>
-                  <td>
-                     <form:input  onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" />
-                  </td>
-                  <form:errors style="color:red;" path="captcha"></form:errors>
-               </tr>
-            </tbody>
-         </table>
-         <!-- Captcha -->
+      <div class="row breadcrumb" style="margin-bottom:10px;">
+         <div class="form-group">
+            <!-- Captcha -->
+            <table >
+               <tbody>
+                  <tr>
+                     <td>
+                        <div>
+                           <img id="captcha_id" name="imgCaptcha" src="captcha.jpg">
+                        </div>
+                     </td>
+                     <td align="left"><a href="javascript:;"
+                        title="change captcha text"
+                        onclick="document.getElementById('captcha_id').src = 'captcha.jpg?' + Math.random();  return false">
+                        <i class="fa fa-refresh"></i>
+                        </a>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>Enter Image Text</td>
+                     <td>
+                        <form:input  onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" />
+                     </td>
+                     <form:errors style="color:red;" path="captcha"></form:errors>
+                  </tr>
+               </tbody>
+            </table>
+            <!-- Captcha -->
+         </div>
+         <div class="form-group col-lg-12">
+            <button class="btn btn-success btn-block" type="submit">Submit</button>
+            <c:remove var="successMessage" scope="session" />
+         </div>
       </div>
-      <div class="form-group col-lg-12">
-               <button class="btn btn-success btn-block" type="submit">Submit</button>
-               <c:remove var="successMessage" scope="session" />
-            </div>
-      </div>
-
    </form:form>
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
@@ -331,7 +369,6 @@
    $( document ).ready(function() {
        getrolesVendor();
        getNationality();
-      // getDistrict();
        getgender();
        getVendor();
        getState();
@@ -339,5 +376,36 @@
        getDistrictsViaState('9');
        getvDistrictsViaState('9');
    });
+
+   var add= 0+${count+1};
+   //alert(add);
+   var status=0;
+
+    function addNewRow()
+   {
+   gethalipadDistrictadd(add);
+   	var row ='<div class="row " id="id'+add+'">'
+   	+'<div class="col-lg-4"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="availedServiceListForm['+add+'].dateTravelled" name="availedServiceListForm['+add+'].dateTravelled" type="date"   class="form-control" placeholder="Date"  /></div></div>'
+   	+'<div class="col-lg-4"><div class="form-group"><select maxlength="10" path="availedServiceListForm['+add+'].dateTravelled" name="availedServiceListForm['+add+'].helipadDistrict" id="helipadDistrict'+add+'"   class="form-control" placeholder="District"  onchange="gethalipadLocationadd(this.value ,'+add+')" ></select></div></div>'
+    +'<div class="col-md-4"><div class="form-group"><select path="availedServiceListForm['+add+'].helipadName" name="availedServiceListForm['+add+'].helipadName" id="halipadLocation'+add+'" class="form-control input-sm"  data-width="100%"></select></div></div>'
+    +'</div>'
+
+   	add++;
+        $("#addRow").append(row);
+        $('.bootstrap-select').selectpicker('render');
+   }
+
+   function deleteRow()
+   {
+
+   	if(add==0){
+   		alert("Last Row can Not be deleted !!")
+   	}else{
+
+   		$("#id"+(add-1)).remove();
+   		add--;
+   	}
+   }
+
 
 </script>

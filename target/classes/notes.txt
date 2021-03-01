@@ -78,6 +78,30 @@ INSERT INTO mst_nationality ( nationality_name, active) VALUES ('Indian' ,true);
 INSERT INTO mst_nationality ( nationality_name, active) VALUES ('Nepali' ,true);
 INSERT INTO mst_nationality ( nationality_name, active) VALUES ('Other' ,true);
 
+============================
+
+CREATE TABLE mst_landType (
+    landtype_id serial PRIMARY KEY  NOT NULL,
+    landTye_name character varying(50) NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone
+);
+INSERT INTO mst_landType ( nationality_name, active) VALUES ('Commercial' ,true);
+INSERT INTO mst_landType ( nationality_name, active) VALUES ('Non-Commercial' ,true);
+
+CREATE TABLE mst_nationalRegional (
+    nationalRegional_id serial PRIMARY KEY  NOT NULL,
+    nationalRegional_name character varying(50) NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    lastmodifieddate timestamp without time zone
+);
+INSERT INTO mst_nationalRegional ( nationalRegional_name, active) VALUES ('Not Applicable' ,true);
+INSERT INTO mst_nationalRegional ( nationalRegional_name, active) VALUES ('National' ,true);
+INSERT INTO mst_nationalRegional ( nationalRegional_name, active) VALUES ('Regional' ,true);
+
+
 
 CREATE TABLE mst_vendor (
     ventype_id serial PRIMARY KEY  NOT NULL,

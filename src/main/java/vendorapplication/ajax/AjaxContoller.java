@@ -52,6 +52,12 @@ public class AjaxContoller {
     @Autowired
     GPRepository gpRepository;
 
+    @Autowired
+    LandTypeRepository landTypeRepository;
+
+    @Autowired
+    NationalRegionalRepository nationalRegionalRepository;
+
 
 
 
@@ -260,6 +266,61 @@ public class AjaxContoller {
 
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, modelNationality);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+
+
+    //getNationalRegional
+    @RequestMapping(value = "/ajax/getNationalRegional", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getNationalRegional() {
+        Map<String, Object> map = null;
+        List<Object[] > nationalRegional = nationalRegionalRepository.getNationalRegional();
+        List<NationalRegionalModal> modelNationalRegional = new ArrayList<>();
+
+
+        for (Object[] result : nationalRegional) {
+            NationalRegionalModal pojo = new NationalRegionalModal();
+            pojo.setNationalRegionalId((Integer) result[0]);
+            pojo.setNationalRegionalName((String) result[1]);
+            modelNationalRegional.add(pojo);
+        }
+
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, modelNationalRegional);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //LandType
+    //getNationalRegional
+    @RequestMapping(value = "/ajax/getLandType", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getLandType() {
+        Map<String, Object> map = null;
+        List<Object[] > landType = landTypeRepository.getLandType();
+        List<LandTypeModal> modalLandType = new ArrayList<>();
+
+
+        for (Object[] result : landType) {
+            LandTypeModal pojo = new LandTypeModal();
+            pojo.setLandTypeId((Integer) result[0]);
+            pojo.setLandTypeName((String) result[1]);
+            modalLandType.add(pojo);
+        }
+
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, modalLandType);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

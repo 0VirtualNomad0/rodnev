@@ -40,12 +40,31 @@ public class vendorApplicationForm implements Serializable {
     private String vstate;
     private String vlocalDistrict;
     private String vlocalBlock;
+    private String vlocalTehsil;
     private String vlocalgp;
 
     private String landType;
     private String fromDate;
     private String toDate;
     private String tentCapacity;
+
+    private String loc_address;
+
+    public String getLoc_address() {
+        return loc_address;
+    }
+
+    public void setLoc_address(String loc_address) {
+        this.loc_address = loc_address;
+    }
+
+    public String getVlocalTehsil() {
+        return vlocalTehsil;
+    }
+
+    public void setVlocalTehsil(String vlocalTehsil) {
+        this.vlocalTehsil = vlocalTehsil;
+    }
 
     public MultipartFile getPhotoDoc() {
         return photoDoc;

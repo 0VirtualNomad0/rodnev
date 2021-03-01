@@ -43,8 +43,8 @@
                      <img src="${pageContext.request.contextPath}/resources/images/admin-avatar.png" />
                      <span></span>${pageContext.request.userPrincipal.name}<i class="fa fa-angle-down m-l-5"></i></a>
                      <ul class="dropdown-menu dropdown-menu-right">
-                         <a class="dropdown-item" href="${pageContext.request.contextPath}/updateProfile"><i class="fa fa-user"></i>Edit Profile</a>
-                           <li class="dropdown-divider"></li>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/updateProfile"><i class="fa fa-user"></i>Edit Profile</a>
+                        <li class="dropdown-divider"></li>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><i class="fa fa-power-off"></i>Logout</a>
                      </ul>
                   </li>
@@ -84,23 +84,32 @@
                            <li>
                               <a href="${pageContext.request.contextPath}/createUser">Create Users</a>
                            </li>
-
                         </ul>
                      </li>
-                      <li>
-                                             <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                                             <span class="nav-label">Verify Payment</span><i class="fa fa-angle-left arrow"></i></a>
-                                             <ul class="nav-2-level collapse">
-
-                                                <li>
-                                                <a href="${pageContext.request.contextPath}/checkpayment">Check Payment (PayU)</a>
-                                                </li>
-                                                <li>
-                                                                                                <a href="${pageContext.request.contextPath}/checkpaymentdb">Check Payment (eVendor App)</a>
-                                                                                                </li>
-
-                                             </ul>
-                                          </li>
+                     <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                        <span class="nav-label">Categories Masters</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                           <li>
+                              <a href="${pageContext.request.contextPath}/getcategory">Create Category</a>
+                           </li>
+                           <li>
+                              <a href="${pageContext.request.contextPath}/addsubcategories">Create Sub-Category</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                        <span class="nav-label">Verify Payment</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                           <li>
+                              <a href="${pageContext.request.contextPath}/checkpayment">Check Payment (PayU)</a>
+                           </li>
+                           <li>
+                              <a href="${pageContext.request.contextPath}/checkpaymentdb">Check Payment (eVendor App)</a>
+                           </li>
+                        </ul>
+                     </li>
                      <li>
                         <a href="${pageContext.request.contextPath}/bdo_dfo"><i class="sidebar-item-icon fa fa-dashboard"></i>
                         <span class="nav-label">Applications List </span></a>
@@ -122,13 +131,6 @@
                         <span class="nav-label">Vendor Application Form</span><i class="fa fa-angle-left arrow"></i></a>
                      </li>
                   </sec:authorize>
-
-
-
-
-
-
-
                </ul>
             </div>
          </nav>

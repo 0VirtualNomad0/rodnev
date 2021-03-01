@@ -129,6 +129,16 @@
         <put-attribute name="content" value="/WEB-INF/jsp/rolesmaster.jsp" />
     </definition>
 
+    <definition name="categories" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/categoryMaster.jsp" />
+    </definition>
+
+    <definition name="subcategories" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/subCategoryMaster.jsp" />
+    </definition>
+
+
+
     <definition name="applications" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/applications.jsp" />
     </definition>
