@@ -133,56 +133,8 @@
       <hr>
       <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vendor Application Details</strong></h4>
       <hr>
-      <div class="row">
-         <spring:bind path="nationality">
-            <div class="form-group col-lg-4">
-               <form:label path="nationality" for="nationality">Nationality</form:label>
-               <form:select  path="nationality" name="nationality" class="form-control" id="nationality">
-               </form:select>
-               <form:errors  path="nationality"></form:errors>
-            </div>
-         </spring:bind>
-      </div>
-      <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Documents </strong></h4>
-         <spring:bind path="identityDoc">
-            <div class="form-group col-lg-4">
-               <form:label path="identityDoc" for="identityDoc" >
-                  Identity Proof *
-               </form:label>
-               <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="identityDoc" id="identityDoc" name="identityDoc"/>
-               <form:errors  path="identityDoc"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="photoDoc">
-            <div class="form-group col-lg-4">
-               <form:label path="photoDoc" for="photoDoc" >
-                  Vendor Photograph *
-               </form:label>
-               <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="photoDoc" id="photoDoc" name="photoDoc"/>
-               <form:errors  path="photoDoc"></form:errors>
-            </div>
-         </spring:bind>
-      </div>
-      <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Type and Category</strong></h4>
-         <spring:bind path="vendor">
-            <div class="form-group col-lg-4">
-               <form:label path="vendor" >Vendor Type</form:label>
-               <form:select  path="vendor" name="vendor" class="form-control" id="vendor" onchange="getVendorCategory(this.value);">
-               </form:select>
-               <form:errors  path="vendor"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="vendorType">
-            <div class="form-group col-lg-4">
-               <form:label path="vendorType" for="vendorType">Vendor Category</form:label>
-               <form:select  path="vendorType" name="vendorType" class="form-control" onchange="hideunhide(this.value);" id="vendorType">
-               </form:select>
-               <form:errors  path="vendorType"></form:errors>
-            </div>
-         </spring:bind>
-      </div>
+
+
       <div class="row">
          <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Time period for Vending</strong></h4>
          <spring:bind path="fromDate">
@@ -254,14 +206,72 @@
             </div>
          </spring:bind>
       </div>
+      <!-- Vending Type -->
+      <div class="row">
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Type and Category</strong></h4>
+
+          <spring:bind path="nationality">
+                     <div class="form-group col-lg-4">
+                        <form:label path="nationality" for="nationality">Nationality</form:label>
+                        <form:select  path="nationality" name="nationality" class="form-control" id="nationality">
+                        </form:select>
+                        <form:errors  path="nationality"></form:errors>
+                     </div>
+                  </spring:bind>
+<spring:bind path="landType">
+                         <div class="form-group col-lg-4">
+                              <form:label path="landType" for="land_item">Land Type</form:label>
+                              <form:select  path="landType"  class="form-control"  id="landType">
+                              </form:select>
+                              <form:errors  path="landType"></form:errors>
+                           </div>
+                        </spring:bind>
+
+           <spring:bind path="regional_national">
+                            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+                               <form:label path="regional_national" for="regional_national">Regional/National</form:label>
+                               <form:select path="regional_national"   class="form-control" id="nationalRegional">
+                               </form:select>
+                               <form:errors  path="regional_national"></form:errors>
+                            </div> </spring:bind>
+
+         <spring:bind path="vendor">
+            <div class="form-group col-lg-4">
+               <form:label path="vendor" >Vendor Category</form:label>
+               <form:select  path="vendor" name="vendor" class="form-control" id="vendor" onchange="getVendorCategory(this.value);">
+               </form:select>
+               <form:errors  path="vendor"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="vendorType">
+            <div class="form-group col-lg-4">
+               <form:label path="vendorType" for="vendorType">Vending Sub Category</form:label>
+               <form:select  path="vendorType" name="vendorType" class="form-control"  id="vendorType" onchange="checkValue(this.value);">
+               </form:select>
+               <form:errors  path="vendorType"></form:errors>
+            </div>
+         </spring:bind>
+
+         <div class="col-lg-4" style="display:none;" id="non_tent_Items">
+         <spring:bind path="item">
+                           <div class="form-group  ${status.error ? 'has-error' : ''}">
+                              <form:label path="item" for="item">Select Type of Tents</form:label>
+                              <form:select path="item"   class="form-control" id="item_non_tent">
+                              </form:select>
+                              <form:errors  path="item"></form:errors>
+                           </div>
+                        </spring:bind>
+                        </div>
+
+      </div>
       <div class="row">
          <!-- tableDiv -->
-         <div id="tableDiv" class="col-lg-12" style="display:block">
+         <div id="tableDiv_tent" class="col-lg-12" style="display:none">
             <div class="row" style="margin-bottom:10px;">
                <div class="col-lg-9">
                   <hr>
                   <strong>
-                     <spring:message code="from.give.details.all.the.services.availed" text="Give details of all services availed earlier: -" />
+                     <spring:message code="from.give.details.all.the.services.availed" text="Please Provide Tent Details : -" />
                   </strong>
                   <hr>
                </div>
@@ -272,58 +282,54 @@
                </div>
             </div>
             <div class="row" style="margin-top:10px">
-               <spring:bind path="landType">
-                  <div class="form-group col-lg-4">
-                     <form:label path="landType" for="landType">Land Type</form:label>
-                     <form:select  path="landType" name="landType" class="form-control"  id="landType">
-                        <option value="NA">-- Select --</option>
-                        <option value="C">Commercial Land</option>
-                        <option value="NC">Non Commercial Land</option>
-                     </form:select>
-                     <form:errors  path="landType"></form:errors>
-                  </div>
-               </spring:bind>
-               <spring:bind path="vlocalgp">
+
+
+               <spring:bind path="itemsForm[0].item">
                   <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-                     <form:label path="vlocalgp" for="vlocalgp">Select Location</form:label>
-                     <form:select path="vlocalgp"  name="vlocalgp" class="form-control" id="vlocalgp">
+                     <form:label path="itemsForm[0].item" for="item">Select Type of Tents</form:label>
+                     <form:select path="itemsForm[0].item"   class="form-control" id="item">
                      </form:select>
-                     <form:errors  path="vlocalgp"></form:errors>
+                     <form:errors  path="itemsForm[0].item"></form:errors>
                   </div>
                </spring:bind>
-               <spring:bind path="locationAvailable">
-                  <div class="form-group col-lg-4">
-                     <form:label path="locationAvailable" for="locationAvailable">Select Area</form:label>
-                     <form:select multiple="multiple" data-live-search="true" path="locationAvailable" name="locationAvailable" class="form-control"  id="locationAvailable">
-                     </form:select>
-                     <form:errors  path="locationAvailable"></form:errors>
+               <spring:bind path="itemsForm[0].item_number">
+                  <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+                     <form:label path="itemsForm[0].item_number" for="itemsForm[0].item_number">Enter Number of Tents</form:label>
+                     <form:input id="itemsForm[0].item_number" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="itemsForm[0].item_number"  class="form-control"
+                        autofocus="true"></form:input>
+                     <form:errors  path="itemsForm[0].item_number"></form:errors>
                   </div>
                </spring:bind>
+
                <div id="addRow" class="col-lg-12">
                </div>
             </div>
          </div>
       </div>
-      <div class="row">
-         <spring:bind path="tentCapacity">
-            <div id="tentCapacityDiv" style="display:none;" class="form-group col-lg-4">
-               <form:label path="tentCapacity" for="tentCapacity">Tent Capacity </form:label>
-               <form:select  path="tentCapacity" name="tentCapacity" class="form-control"  id="tentCapacity">
-                  <option value="NA">-- Select --</option>
-                  <option value="OT">One/Two Men</option>
-                  <option value="MT">More than Two Men</option>
-               </form:select>
-               <form:errors  path="landType"></form:errors>
+      <br>
+       <div class="row">
+               <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Documents </strong></h4>
+               <spring:bind path="identityDoc">
+                  <div class="form-group col-lg-4">
+                     <form:label path="identityDoc" for="identityDoc" >
+                        Identity Proof *
+                     </form:label>
+                     <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="identityDoc" id="identityDoc" name="identityDoc"/>
+                     <form:errors  path="identityDoc"></form:errors>
+                  </div>
+               </spring:bind>
+               <spring:bind path="photoDoc">
+                  <div class="form-group col-lg-4">
+                     <form:label path="photoDoc" for="photoDoc" >
+                        Vendor Photograph *
+                     </form:label>
+                     <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="photoDoc" id="photoDoc" name="photoDoc"/>
+                     <form:errors  path="photoDoc"></form:errors>
+                  </div>
+               </spring:bind>
             </div>
-         </spring:bind>
-         <spring:bind path="tentNumber">
-            <div id="tentDiv" style="display:none;" class="form-group col-lg-4">
-               <form:label path="tentNumber" for="tentNumber">Tent Number</form:label>
-               <form:input  path="tentNumber" name="tentNumber" type="text" onKeyPress="return isNumber(event)" maxlength="3"  class="form-control" id="tentNumber" />
-               <form:errors  path="tentNumber"></form:errors>
-            </div>
-         </spring:bind>
-      </div>
+
+
       <div class="row breadcrumb" style="margin-bottom:10px;">
          <div class="form-group">
             <!-- Captcha -->
@@ -369,6 +375,10 @@
    $( document ).ready(function() {
        getrolesVendor();
        getNationality();
+
+        getLandType();
+        getNationalRegional();
+
        getgender();
        getVendor();
        getState();
@@ -378,16 +388,16 @@
    });
 
    var add= 0+${count+1};
-   //alert(add);
+   console.log(add);
    var status=0;
 
     function addNewRow()
    {
-   gethalipadDistrictadd(add);
+    getItems($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),add);
    	var row ='<div class="row " id="id'+add+'">'
-   	+'<div class="col-lg-4"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="availedServiceListForm['+add+'].dateTravelled" name="availedServiceListForm['+add+'].dateTravelled" type="date"   class="form-control" placeholder="Date"  /></div></div>'
-   	+'<div class="col-lg-4"><div class="form-group"><select maxlength="10" path="availedServiceListForm['+add+'].dateTravelled" name="availedServiceListForm['+add+'].helipadDistrict" id="helipadDistrict'+add+'"   class="form-control" placeholder="District"  onchange="gethalipadLocationadd(this.value ,'+add+')" ></select></div></div>'
-    +'<div class="col-md-4"><div class="form-group"><select path="availedServiceListForm['+add+'].helipadName" name="availedServiceListForm['+add+'].helipadName" id="halipadLocation'+add+'" class="form-control input-sm"  data-width="100%"></select></div></div>'
+    +'<div class="col-lg-4"><div class="form-group"><select path="itemsForm['+add+'].item" name="itemsForm['+add+'].item" id="item'+add+'"   class="form-control" placeholder="District"  onchange="gethalipadLocationadd(this.value ,'+add+')" ></select></div></div>'
+    +'<div class="col-lg-4"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="itemsForm['+add+'].item_number" name="itemsForm['+add+'].item_number"   class="form-control"   /></div></div>'
+
     +'</div>'
 
    	add++;

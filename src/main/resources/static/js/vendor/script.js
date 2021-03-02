@@ -181,6 +181,130 @@ function getNationalRegional() {
     });
 }
 
+//Table get National Regional
+function getNationalRegionalT(value) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getNationalRegional",
+        success: function(data) {
+            console.log(data.RESPONSE)
+             var id_ = "#nationalRegional" + value;
+              console.log(id_)
+            var selectRole = $(id_); // the state select element
+           // var selectRole = $('#nationalRegional'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].nationalRegionalId + " >" + data.RESPONSE[i].nationalRegionalName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getLandType Table
+function getLandTypeT(value) {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getLandType",
+        success: function(data) {
+            console.log(data.RESPONSE)
+            var id_ = "#landType" + value;
+                          console.log(id_)
+            var selectRole = $(id_);
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].landTypeId + " >" + data.RESPONSE[i].landTypeName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getItems
+function getItems(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
+    console.log("nationality:- " + nationality);
+     console.log("landType:- " + landType);
+      console.log("nationalRegional:- " + nationalRegional);
+       console.log("category:- " + category);
+        console.log("subCatId:- " + subCatId);
+      $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getItemsviaSubCategories",
+            data: {
+                        "nationality":nationality,
+                        "landType":landType,
+                        "regional":nationalRegional,
+                        "category":category,
+                        "subCategory":subCatId
+                    },
+            success: function(data) {
+                console.log(data.RESPONSE)
+                var id_ = "#item" + elementIdwithRow;
+                                          console.log(id_)
+                            var selectRole = $(id_);
+                selectRole.find('option').remove();
+                selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+                for (i = 0; i < data.RESPONSE.length; i++) {
+                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (data.RESPONSE[i].rate) +"/-"  + "</option>")
+                }
+
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+}
+
+//getItemsitem_non_tent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
+function getItemsnonTent(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
+    console.log("nationality:- " + nationality);
+     console.log("landType:- " + landType);
+      console.log("nationalRegional:- " + nationalRegional);
+       console.log("category:- " + category);
+        console.log("subCatId:- " + subCatId);
+      $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getItemsviaSubCategories",
+            data: {
+                        "nationality":nationality,
+                        "landType":landType,
+                        "regional":nationalRegional,
+                        "category":category,
+                        "subCategory":subCatId
+                    },
+            success: function(data) {
+                console.log(data.RESPONSE)
+                var id_ = "#item_non_tent" + elementIdwithRow;
+                                          console.log(id_)
+                            var selectRole = $(id_);
+                selectRole.find('option').remove();
+                selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+                for (i = 0; i < data.RESPONSE.length; i++) {
+                                       selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (data.RESPONSE[i].rate) +"/-"  + "</option>")
+
+                }
+
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+}
+
 //getLandType
 function getLandType() {
 

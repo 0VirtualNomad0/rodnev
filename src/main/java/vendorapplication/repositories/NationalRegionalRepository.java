@@ -13,7 +13,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "national_regional")
 public interface NationalRegionalRepository extends CrudRepository<NationalRegionalEntity, Integer> {
 
-    @Query(value = "SELECT nationalRegional_id, nationalRegional_name from mst_nationalRegional where active = true", nativeQuery = true)
+    @Query(value = "SELECT nationalRegional_id, nationalRegional_name from mst_nationalRegional where active = true ORDER BY nationalRegional_id ASC", nativeQuery = true)
     @Cacheable
     List<Object[]> getNationalRegional();
 }

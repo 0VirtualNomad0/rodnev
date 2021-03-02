@@ -60,6 +60,27 @@ function hideunhide(value) {
 }
 
 
+function checkValue(value){
+
+var x = document.getElementById("tableDiv_tent");
+var y = document.getElementById("non_tent_Items");
+
+  if (value != "2") {
+         x.style.display = "none";
+         y.style.display = "block";
+          getItemsnonTent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
+
+    } else {
+         x.style.display = "block";
+         y.style.display = "none";
+         getItems($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
+
+
+    }
+}
+
+
+
 function submit_form() {
     //alert("are we haere");
     var submitData = validateFields();

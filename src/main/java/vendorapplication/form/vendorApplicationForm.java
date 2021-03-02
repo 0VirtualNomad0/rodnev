@@ -1,6 +1,7 @@
 package vendorapplication.form;
 
 import org.springframework.web.multipart.MultipartFile;
+import vendorapplication.modal.ItemList;
 
 import java.io.Serializable;
 import java.util.List;
@@ -44,11 +45,40 @@ public class vendorApplicationForm implements Serializable {
     private String vlocalgp;
 
     private String landType;
+    private String regional_national;
     private String fromDate;
     private String toDate;
     private String tentCapacity;
 
+    private String item;
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getRegional_national() {
+        return regional_national;
+    }
+
+    public void setRegional_national(String regional_national) {
+        this.regional_national = regional_national;
+    }
+
     private String loc_address;
+
+    private  List<ItemList> itemsForm;
+
+    public List<ItemList> getItemsForm() {
+        return itemsForm;
+    }
+
+    public void setItemsForm(List<ItemList> itemsForm) {
+        this.itemsForm = itemsForm;
+    }
 
     public String getLoc_address() {
         return loc_address;
@@ -369,6 +399,7 @@ public class vendorApplicationForm implements Serializable {
                 ", district='" + district + '\'' +
                 ", locationAvailable=" + locationAvailable +
                 ", identityDoc=" + identityDoc +
+                ", photoDoc=" + photoDoc +
                 ", comments='" + comments + '\'' +
                 ", state='" + state + '\'' +
                 ", localBlock='" + localBlock + '\'' +
@@ -378,11 +409,16 @@ public class vendorApplicationForm implements Serializable {
                 ", vstate='" + vstate + '\'' +
                 ", vlocalDistrict='" + vlocalDistrict + '\'' +
                 ", vlocalBlock='" + vlocalBlock + '\'' +
+                ", vlocalTehsil='" + vlocalTehsil + '\'' +
                 ", vlocalgp='" + vlocalgp + '\'' +
                 ", landType='" + landType + '\'' +
+                ", regional_national='" + regional_national + '\'' +
                 ", fromDate='" + fromDate + '\'' +
                 ", toDate='" + toDate + '\'' +
                 ", tentCapacity='" + tentCapacity + '\'' +
+                ", item='" + item + '\'' +
+                ", loc_address='" + loc_address + '\'' +
+                ", itemsForm=" + itemsForm +
                 '}';
     }
 }
