@@ -133,29 +133,6 @@
       <hr>
       <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vendor Application Details</strong></h4>
       <hr>
-
-
-      <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Time period for Vending</strong></h4>
-         <spring:bind path="fromDate">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <label for="fromDate">
-               Select From Date
-               </label>
-               <form:input maxlength="10"  path="fromDate" id="fromDate" oncopy="return false" onpaste="return false" type="date" class="form-control input-sm" />
-               <form:errors  style="color:red;" path="fromDate"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="toDate">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <label for="toDate">
-               Select To Date
-               </label>
-               <form:input maxlength="10"  path="toDate" oncopy="return false" onpaste="return false" id="toDate" type="date" class="form-control input-sm" />
-               <form:errors  style="color:red;" path="toDate"></form:errors>
-            </div>
-         </spring:bind>
-      </div>
       <div class="row">
          <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vending Location</strong></h4>
          <spring:bind path="vstate">
@@ -208,33 +185,56 @@
       </div>
       <!-- Vending Type -->
       <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Type and Category</strong></h4>
-
-          <spring:bind path="nationality">
-                     <div class="form-group col-lg-4">
-                        <form:label path="nationality" for="nationality">Nationality</form:label>
-                        <form:select  path="nationality" name="nationality" class="form-control" id="nationality">
-                        </form:select>
-                        <form:errors  path="nationality"></form:errors>
-                     </div>
-                  </spring:bind>
-<spring:bind path="landType">
-                         <div class="form-group col-lg-4">
-                              <form:label path="landType" for="land_item">Land Type</form:label>
-                              <form:select  path="landType"  class="form-control"  id="landType">
-                              </form:select>
-                              <form:errors  path="landType"></form:errors>
-                           </div>
-                        </spring:bind>
-
-           <spring:bind path="regional_national">
-                            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-                               <form:label path="regional_national" for="regional_national">Regional/National</form:label>
-                               <form:select path="regional_national"   class="form-control" id="nationalRegional">
-                               </form:select>
-                               <form:errors  path="regional_national"></form:errors>
-                            </div> </spring:bind>
-
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Details (Category, Sub Category and Time )</strong></h4>
+         <spring:bind path="fromDate">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <label for="fromDate">
+               Select From Date
+               </label>
+               <form:input maxlength="10"  path="fromDate" id="fromDate" oncopy="return false" onpaste="return false" type="date" class="form-control input-sm" />
+               <form:errors  style="color:red;" path="fromDate"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="toDate">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <label for="toDate">
+               Select To Date
+               </label>
+               <form:input maxlength="10"  path="toDate" oncopy="return false" onpaste="return false" id="toDate" type="date" onchange="calculateDays();" class="form-control input-sm" />
+               <form:errors  style="color:red;" path="toDate"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="totalDays">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="totalDays"  for="totalDays">Total Number of Days</form:label>
+               <form:input type="text"  id="totalDays" readonly="true" oncopy="return false" onpaste="return false" path="mobileNumber"  class="form-control" onKeyPress="return isNumber(event)"  name="totalDays" ></form:input>
+               <form:errors  path="totalDays"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="nationality">
+            <div class="form-group col-lg-4">
+               <form:label path="nationality" for="nationality">Nationality</form:label>
+               <form:select  path="nationality" name="nationality" class="form-control" id="nationality">
+               </form:select>
+               <form:errors  path="nationality"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="landType">
+            <div class="form-group col-lg-4">
+               <form:label path="landType" for="land_item">Purpose of Activity</form:label>
+               <form:select  path="landType"  class="form-control"  id="landType">
+               </form:select>
+               <form:errors  path="landType"></form:errors>
+            </div>
+         </spring:bind>
+         <spring:bind path="regional_national">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="regional_national" for="regional_national">Regional/National</form:label>
+               <form:select path="regional_national"   class="form-control" id="nationalRegional">
+               </form:select>
+               <form:errors  path="regional_national"></form:errors>
+            </div>
+         </spring:bind>
          <spring:bind path="vendor">
             <div class="form-group col-lg-4">
                <form:label path="vendor" >Vendor Category</form:label>
@@ -251,18 +251,16 @@
                <form:errors  path="vendorType"></form:errors>
             </div>
          </spring:bind>
-
          <div class="col-lg-4" style="display:none;" id="non_tent_Items">
-         <spring:bind path="item">
-                           <div class="form-group  ${status.error ? 'has-error' : ''}">
-                              <form:label path="item" for="item">Select Type of Tents</form:label>
-                              <form:select path="item"   class="form-control" id="item_non_tent">
-                              </form:select>
-                              <form:errors  path="item"></form:errors>
-                           </div>
-                        </spring:bind>
-                        </div>
-
+            <spring:bind path="item">
+               <div class="form-group  ${status.error ? 'has-error' : ''}">
+                  <form:label path="item" for="item">Select Item</form:label>
+                  <form:select path="item"   class="form-control" id="item_non_tent">
+                  </form:select>
+                  <form:errors  path="item"></form:errors>
+               </div>
+            </spring:bind>
+         </div>
       </div>
       <div class="row">
          <!-- tableDiv -->
@@ -282,8 +280,6 @@
                </div>
             </div>
             <div class="row" style="margin-top:10px">
-
-
                <spring:bind path="itemsForm[0].item">
                   <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                      <form:label path="itemsForm[0].item" for="item">Select Type of Tents</form:label>
@@ -300,36 +296,33 @@
                      <form:errors  path="itemsForm[0].item_number"></form:errors>
                   </div>
                </spring:bind>
-
                <div id="addRow" class="col-lg-12">
                </div>
             </div>
          </div>
       </div>
       <br>
-       <div class="row">
-               <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Documents </strong></h4>
-               <spring:bind path="identityDoc">
-                  <div class="form-group col-lg-4">
-                     <form:label path="identityDoc" for="identityDoc" >
-                        Identity Proof *
-                     </form:label>
-                     <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="identityDoc" id="identityDoc" name="identityDoc"/>
-                     <form:errors  path="identityDoc"></form:errors>
-                  </div>
-               </spring:bind>
-               <spring:bind path="photoDoc">
-                  <div class="form-group col-lg-4">
-                     <form:label path="photoDoc" for="photoDoc" >
-                        Vendor Photograph *
-                     </form:label>
-                     <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="photoDoc" id="photoDoc" name="photoDoc"/>
-                     <form:errors  path="photoDoc"></form:errors>
-                  </div>
-               </spring:bind>
+      <div class="row">
+         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Documents </strong></h4>
+         <spring:bind path="identityDoc">
+            <div class="form-group col-lg-4">
+               <form:label path="identityDoc" for="identityDoc" >
+                  Identity Proof *
+               </form:label>
+               <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="identityDoc" id="identityDoc" name="identityDoc"/>
+               <form:errors  path="identityDoc"></form:errors>
             </div>
-
-
+         </spring:bind>
+         <spring:bind path="photoDoc">
+            <div class="form-group col-lg-4">
+               <form:label path="photoDoc" for="photoDoc" >
+                  Vendor Photograph *
+               </form:label>
+               <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="photoDoc" id="photoDoc" name="photoDoc"/>
+               <form:errors  path="photoDoc"></form:errors>
+            </div>
+         </spring:bind>
+      </div>
       <div class="row breadcrumb" style="margin-bottom:10px;">
          <div class="form-group">
             <!-- Captcha -->
@@ -375,10 +368,8 @@
    $( document ).ready(function() {
        getrolesVendor();
        getNationality();
-
-        getLandType();
-        getNationalRegional();
-
+       getLandType();
+       getNationalRegional();
        getgender();
        getVendor();
        getState();
@@ -415,6 +406,22 @@
    		$("#id"+(add-1)).remove();
    		add--;
    	}
+   }
+
+   function calculateDays(){
+   var from_date = document.getElementById("fromDate").value;
+   var to_date = document.getElementById("toDate").value;
+
+                  var date1 = new Date(from_date);
+                  var date2 = new Date(to_date);
+
+                  var time_difference = date2.getTime() - date1.getTime();
+                           var result = time_difference / (1000 * 60 * 60 * 24);
+
+                            document.getElementById("totalDays").value = result;
+
+
+
    }
 
 

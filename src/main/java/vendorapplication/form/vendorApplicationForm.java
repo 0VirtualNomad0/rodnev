@@ -37,6 +37,7 @@ public class vendorApplicationForm implements Serializable {
     private String localDistrict;
     private String localTehsil;
     private String localgp;
+    private String totalDays;
 
     private String vstate;
     private String vlocalDistrict;
@@ -51,6 +52,14 @@ public class vendorApplicationForm implements Serializable {
     private String tentCapacity;
 
     private String item;
+
+    public String getTotalDays() {
+        return totalDays;
+    }
+
+    public void setTotalDays(String totalDays) {
+        this.totalDays = totalDays;
+    }
 
     public String getItem() {
         return item;
@@ -406,6 +415,7 @@ public class vendorApplicationForm implements Serializable {
                 ", localDistrict='" + localDistrict + '\'' +
                 ", localTehsil='" + localTehsil + '\'' +
                 ", localgp='" + localgp + '\'' +
+                ", totalDays='" + totalDays + '\'' +
                 ", vstate='" + vstate + '\'' +
                 ", vlocalDistrict='" + vlocalDistrict + '\'' +
                 ", vlocalBlock='" + vlocalBlock + '\'' +
