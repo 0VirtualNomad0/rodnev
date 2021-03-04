@@ -36,9 +36,9 @@ public class VendorApplicationFormValidator implements Validator {
         if(user.getVendorType().equalsIgnoreCase("0")){
             errors.rejectValue("vendorType", "Select.vendorform.vendorType");
         }
-        if(user.getDistrict().equalsIgnoreCase("0")){
-            errors.rejectValue("district", "Select.vendorform.district");
-        }
+//        if(user.getDistrict().equalsIgnoreCase("0")){
+//            errors.rejectValue("district", "Select.vendorform.district");
+//        }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "locationAvailable", "NotEmpty");
 
 

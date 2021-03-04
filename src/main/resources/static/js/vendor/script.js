@@ -232,16 +232,15 @@ function getLandTypeT(value) {
     });
 }
 
-//getItems
-function getItems(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
+//getItemsTent
+function getItemsTent(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
     console.log("nationality:- " + nationality);
      console.log("landType:- " + landType);
-      console.log("nationalRegional:- " + nationalRegional);
        console.log("category:- " + category);
         console.log("subCatId:- " + subCatId);
       $.ajax({
             type: "GET",
-            url: formURL + "/ajax/getItemsviaSubCategories",
+            url: formURL + "/ajax/getItemsviaSubCategoriesTent",
             data: {
                         "nationality":nationality,
                         "landType":landType,
@@ -268,6 +267,46 @@ function getItems(nationality,landType,nationalRegional,category,subCatId,elemen
         });
 }
 
+
+
+
+//getItemsNR
+function getItemsNR(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
+    console.log("nationality:- " + nationality);
+     console.log("landType:- " + landType);
+       console.log("category:- " + category);
+        console.log("subCatId:- " + subCatId);
+        console.log("nationalRegional:- " + nationalRegional);
+      $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getItemsviaSubCategoriesNR",
+            data: {
+                        "nationality":nationality,
+                        "landType":landType,
+                        "category":category,
+                        "regional":nationalRegional,
+                        "subCategory":subCatId
+                    },
+            success: function(data) {
+                console.log(data.RESPONSE)
+                var id_ = "#item_non_tent" + elementIdwithRow;
+                                          console.log(id_)
+                            var selectRole = $(id_);
+                selectRole.find('option').remove();
+                selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+                for (i = 0; i < data.RESPONSE.length; i++) {
+                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (data.RESPONSE[i].rate) +"/-"  + "</option>")
+                }
+
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+}
+
+
 //getItemsitem_non_tent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
 function getItemsnonTent(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
     console.log("nationality:- " + nationality);
@@ -277,7 +316,7 @@ function getItemsnonTent(nationality,landType,nationalRegional,category,subCatId
         console.log("subCatId:- " + subCatId);
       $.ajax({
             type: "GET",
-            url: formURL + "/ajax/getItemsviaSubCategories",
+            url: formURL + "/ajax/getItemsviaSubCategoriesNonTentNonRegional",
             data: {
                         "nationality":nationality,
                         "landType":landType,
@@ -582,6 +621,10 @@ function getvWardPanchayat(id) {
 
 
 function getVendorCategory(id) {
+ document.getElementById("tableDiv_tent").style.display = "none";
+ document.getElementById("non_tent_Items").style.display = "none";
+ document.getElementById("div_regional_nonregional").style.display = "none";
+
 
     $.ajax({
         type: "GET",

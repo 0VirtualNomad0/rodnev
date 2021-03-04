@@ -407,12 +407,11 @@ public class AjaxContoller {
     }
 
     //getItemsviaSubCategories
-    @RequestMapping(value = "/ajax/getItemsviaSubCategories", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = "/ajax/getItemsviaSubCategoriesTent", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
     ResponseEntity<?> getItemsviaSubCategories(
             @RequestParam(value = "nationality", required = true) String nationality,
             @RequestParam(value = "landType", required = true) String landType,
-            @RequestParam(value = "regional", required = true) String regional,
             @RequestParam(value = "category", required = true) String category,
             @RequestParam(value = "subCategory", required = true) String subCategory
              ) throws Exception {
@@ -422,7 +421,6 @@ public class AjaxContoller {
         List<Object[] > items = subCategoryItemsRepository.getItemsSubCategory(
                 Integer.parseInt(nationality),
                 Integer.parseInt(landType),
-                Integer.parseInt(regional),
                 Integer.parseInt(category),
                 Integer.parseInt(subCategory));
         List<Items> itemModal = new ArrayList<>();
@@ -445,6 +443,86 @@ public class AjaxContoller {
 
 
     }
+
+
+    //getItemsviaSubCategoriesNR
+    @RequestMapping(value = "/ajax/getItemsviaSubCategoriesNR", method = RequestMethod.GET,  produces="application/json")
+    public @ResponseBody
+    ResponseEntity<?> getItemsviaSubCategoriesNR(
+            @RequestParam(value = "nationality", required = true) String nationality,
+            @RequestParam(value = "landType", required = true) String landType,
+            @RequestParam(value = "category", required = true) String category,
+            @RequestParam(value = "regional", required = true) String regional,
+            @RequestParam(value = "subCategory", required = true) String subCategory
+    ) throws Exception {
+
+
+        Map<String, Object> map = null;
+        List<Object[] > items = subCategoryItemsRepository.getItemsSubCategoryNR(
+                Integer.parseInt(nationality),
+                Integer.parseInt(landType),
+                Integer.parseInt(category),
+                Integer.parseInt(regional),
+                Integer.parseInt(subCategory));
+        List<Items> itemModal = new ArrayList<>();
+
+
+        for (Object[] result : items) {
+            Items pojo = new Items();
+            pojo.setItemId((Integer) result[0]);
+            pojo.setItemName((String) result[1]);
+            pojo.setRate((String)result[2]);
+            pojo.setSecurityamount((String)result[3]);
+            itemModal.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, itemModal);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+// getItemsviaSubCategoriesNonTentNonRegional
+@RequestMapping(value = "/ajax/getItemsviaSubCategoriesNonTentNonRegional", method = RequestMethod.GET,  produces="application/json")
+public @ResponseBody
+ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
+        @RequestParam(value = "nationality", required = true) String nationality,
+        @RequestParam(value = "landType", required = true) String landType,
+        @RequestParam(value = "category", required = true) String category,
+        @RequestParam(value = "regional", required = true) String regional,
+        @RequestParam(value = "subCategory", required = true) String subCategory
+) throws Exception {
+
+
+    Map<String, Object> map = null;
+    List<Object[] > items = subCategoryItemsRepository.getItemsSubCategoryOthers(
+            Integer.parseInt(nationality),
+            Integer.parseInt(landType),
+            Integer.parseInt(category),
+            Integer.parseInt(subCategory));
+    List<Items> itemModal = new ArrayList<>();
+
+
+    for (Object[] result : items) {
+        Items pojo = new Items();
+        pojo.setItemId((Integer) result[0]);
+        pojo.setItemName((String) result[1]);
+        pojo.setRate((String)result[2]);
+        pojo.setSecurityamount((String)result[3]);
+        itemModal.add(pojo);
+    }
+
+    map = new HashMap<String, Object>();
+    map.put(Constants.keyResponse, itemModal);
+    map.put(Constants.keyMessage, Constants.valueMessage);
+    map.put(Constants.keyStatus, HttpStatus.OK);
+    return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+}
 
     //getDistrict
     @RequestMapping(value = "/ajax/getDistrict", method = RequestMethod.GET,  produces="application/json")

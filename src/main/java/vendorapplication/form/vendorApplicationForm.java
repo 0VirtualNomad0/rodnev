@@ -11,178 +11,82 @@ public class vendorApplicationForm implements Serializable {
 
     private String firstname;
     private String lastname;
-    private String username;
-    private String password;
-    private String passwordConfirm;
+    private String gender;
     private String mobileNumber;
     private String age;
-    private String p_address;
-    private String c_address;
     private String emailAddress;
-    private String gender;
-    private String roleId;
-    private String captcha;
-    private String nationality;
-    private String vendor;
-    private String vendorType;
-    private String tentNumber;
-    private String district;
-    private List<Integer> locationAvailable;
-    private MultipartFile identityDoc;
-    private MultipartFile photoDoc;
-    private String comments;
-
     private String state;
     private String localBlock;
     private String localDistrict;
     private String localTehsil;
     private String localgp;
-    private String totalDays;
-
+    private String p_address;
     private String vstate;
     private String vlocalDistrict;
     private String vlocalBlock;
     private String vlocalTehsil;
     private String vlocalgp;
-
-    private String landType;
-    private String regional_national;
+    private String loc_address;
     private String fromDate;
     private String toDate;
-    private String tentCapacity;
-
+    private String totalDays;
+    private String nationality;
+    private String vendor;
+    private String vendorType;
+    private String landType;
+    private String regional_national;
     private String item;
-
-    public String getTotalDays() {
-        return totalDays;
-    }
-
-    public void setTotalDays(String totalDays) {
-        this.totalDays = totalDays;
-    }
-
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
-    }
-
-    public String getRegional_national() {
-        return regional_national;
-    }
-
-    public void setRegional_national(String regional_national) {
-        this.regional_national = regional_national;
-    }
-
-    private String loc_address;
-
     private  List<ItemList> itemsForm;
+    private MultipartFile identityDoc;
+    private MultipartFile photoDoc;
+    private String captcha;
 
-    public List<ItemList> getItemsForm() {
-        return itemsForm;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setItemsForm(List<ItemList> itemsForm) {
-        this.itemsForm = itemsForm;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLoc_address() {
-        return loc_address;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLoc_address(String loc_address) {
-        this.loc_address = loc_address;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getVlocalTehsil() {
-        return vlocalTehsil;
+    public String getGender() {
+        return gender;
     }
 
-    public void setVlocalTehsil(String vlocalTehsil) {
-        this.vlocalTehsil = vlocalTehsil;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public MultipartFile getPhotoDoc() {
-        return photoDoc;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setPhotoDoc(MultipartFile photoDoc) {
-        this.photoDoc = photoDoc;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getVstate() {
-        return vstate;
+    public String getAge() {
+        return age;
     }
 
-    public void setVstate(String vstate) {
-        this.vstate = vstate;
+    public void setAge(String age) {
+        this.age = age;
     }
 
-    public String getVlocalDistrict() {
-        return vlocalDistrict;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setVlocalDistrict(String vlocalDistrict) {
-        this.vlocalDistrict = vlocalDistrict;
-    }
-
-    public String getVlocalBlock() {
-        return vlocalBlock;
-    }
-
-    public void setVlocalBlock(String vlocalBlock) {
-        this.vlocalBlock = vlocalBlock;
-    }
-
-    public String getVlocalgp() {
-        return vlocalgp;
-    }
-
-    public void setVlocalgp(String vlocalgp) {
-        this.vlocalgp = vlocalgp;
-    }
-
-    public String getTentCapacity() {
-        return tentCapacity;
-    }
-
-    public void setTentCapacity(String tentCapacity) {
-        this.tentCapacity = tentCapacity;
-    }
-
-    public String getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(String fromDate) {
-        this.fromDate = fromDate;
-    }
-
-    public String getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(String toDate) {
-        this.toDate = toDate;
-    }
-
-    public String getLandType() {
-        return landType;
-    }
-
-    public void setLandType(String landType) {
-        this.landType = landType;
-    }
-
-    public String getLocalTehsil() {
-        return localTehsil;
-    }
-
-    public void setLocalTehsil(String localTehsil) {
-        this.localTehsil = localTehsil;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getState() {
@@ -209,68 +113,20 @@ public class vendorApplicationForm implements Serializable {
         this.localDistrict = localDistrict;
     }
 
+    public String getLocalTehsil() {
+        return localTehsil;
+    }
+
+    public void setLocalTehsil(String localTehsil) {
+        this.localTehsil = localTehsil;
+    }
+
     public String getLocalgp() {
         return localgp;
     }
 
     public void setLocalgp(String localgp) {
         this.localgp = localgp;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
     }
 
     public String getP_address() {
@@ -281,44 +137,76 @@ public class vendorApplicationForm implements Serializable {
         this.p_address = p_address;
     }
 
-    public String getC_address() {
-        return c_address;
+    public String getVstate() {
+        return vstate;
     }
 
-    public void setC_address(String c_address) {
-        this.c_address = c_address;
+    public void setVstate(String vstate) {
+        this.vstate = vstate;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getVlocalDistrict() {
+        return vlocalDistrict;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setVlocalDistrict(String vlocalDistrict) {
+        this.vlocalDistrict = vlocalDistrict;
     }
 
-    public String getGender() {
-        return gender;
+    public String getVlocalBlock() {
+        return vlocalBlock;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setVlocalBlock(String vlocalBlock) {
+        this.vlocalBlock = vlocalBlock;
     }
 
-    public String getRoleId() {
-        return roleId;
+    public String getVlocalTehsil() {
+        return vlocalTehsil;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
+    public void setVlocalTehsil(String vlocalTehsil) {
+        this.vlocalTehsil = vlocalTehsil;
     }
 
-    public String getCaptcha() {
-        return captcha;
+    public String getVlocalgp() {
+        return vlocalgp;
     }
 
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
+    public void setVlocalgp(String vlocalgp) {
+        this.vlocalgp = vlocalgp;
+    }
+
+    public String getLoc_address() {
+        return loc_address;
+    }
+
+    public void setLoc_address(String loc_address) {
+        this.loc_address = loc_address;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getTotalDays() {
+        return totalDays;
+    }
+
+    public void setTotalDays(String totalDays) {
+        this.totalDays = totalDays;
     }
 
     public String getNationality() {
@@ -345,28 +233,36 @@ public class vendorApplicationForm implements Serializable {
         this.vendorType = vendorType;
     }
 
-    public String getTentNumber() {
-        return tentNumber;
+    public String getLandType() {
+        return landType;
     }
 
-    public void setTentNumber(String tentNumber) {
-        this.tentNumber = tentNumber;
+    public void setLandType(String landType) {
+        this.landType = landType;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getRegional_national() {
+        return regional_national;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setRegional_national(String regional_national) {
+        this.regional_national = regional_national;
     }
 
-    public List<Integer> getLocationAvailable() {
-        return locationAvailable;
+    public String getItem() {
+        return item;
     }
 
-    public void setLocationAvailable(List<Integer> locationAvailable) {
-        this.locationAvailable = locationAvailable;
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public List<ItemList> getItemsForm() {
+        return itemsForm;
+    }
+
+    public void setItemsForm(List<ItemList> itemsForm) {
+        this.itemsForm = itemsForm;
     }
 
     public MultipartFile getIdentityDoc() {
@@ -377,12 +273,20 @@ public class vendorApplicationForm implements Serializable {
         this.identityDoc = identityDoc;
     }
 
-    public String getComments() {
-        return comments;
+    public MultipartFile getPhotoDoc() {
+        return photoDoc;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setPhotoDoc(MultipartFile photoDoc) {
+        this.photoDoc = photoDoc;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 
     @Override
@@ -390,45 +294,35 @@ public class vendorApplicationForm implements Serializable {
         return "vendorApplicationForm{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", gender='" + gender + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", age='" + age + '\'' +
-                ", p_address='" + p_address + '\'' +
-                ", c_address='" + c_address + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", gender='" + gender + '\'' +
-                ", roleId='" + roleId + '\'' +
-                ", captcha='" + captcha + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", vendor='" + vendor + '\'' +
-                ", vendorType='" + vendorType + '\'' +
-                ", tentNumber='" + tentNumber + '\'' +
-                ", district='" + district + '\'' +
-                ", locationAvailable=" + locationAvailable +
-                ", identityDoc=" + identityDoc +
-                ", photoDoc=" + photoDoc +
-                ", comments='" + comments + '\'' +
                 ", state='" + state + '\'' +
                 ", localBlock='" + localBlock + '\'' +
                 ", localDistrict='" + localDistrict + '\'' +
                 ", localTehsil='" + localTehsil + '\'' +
                 ", localgp='" + localgp + '\'' +
-                ", totalDays='" + totalDays + '\'' +
+                ", p_address='" + p_address + '\'' +
                 ", vstate='" + vstate + '\'' +
                 ", vlocalDistrict='" + vlocalDistrict + '\'' +
                 ", vlocalBlock='" + vlocalBlock + '\'' +
                 ", vlocalTehsil='" + vlocalTehsil + '\'' +
                 ", vlocalgp='" + vlocalgp + '\'' +
-                ", landType='" + landType + '\'' +
-                ", regional_national='" + regional_national + '\'' +
+                ", loc_address='" + loc_address + '\'' +
                 ", fromDate='" + fromDate + '\'' +
                 ", toDate='" + toDate + '\'' +
-                ", tentCapacity='" + tentCapacity + '\'' +
+                ", totalDays='" + totalDays + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", vendor='" + vendor + '\'' +
+                ", vendorType='" + vendorType + '\'' +
+                ", landType='" + landType + '\'' +
+                ", regional_national='" + regional_national + '\'' +
                 ", item='" + item + '\'' +
-                ", loc_address='" + loc_address + '\'' +
                 ", itemsForm=" + itemsForm +
+                ", identityDoc=" + identityDoc +
+                ", photoDoc=" + photoDoc +
+                ", captcha='" + captcha + '\'' +
                 '}';
     }
 }

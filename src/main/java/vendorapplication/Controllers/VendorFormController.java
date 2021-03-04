@@ -212,33 +212,33 @@ public class VendorFormController {
 
                     try {
                         UserApplicationEntity savedData = userApplicationService.saveUser(vendorApplication);
-                        if (!vendorForm.getLocationAvailable().isEmpty()) {
-                            //Check if there is value or not inside the list
-                            List<ApplicationRoutesEntity> availedServices = new ArrayList<>();
-                            ApplicationRoutesEntity datax = null;
-                            AvailableAreaEntity area = null;
-
-                            for (int i = 0; i < vendorForm.getLocationAvailable().size(); i++) {
-                                datax = new ApplicationRoutesEntity();
-                                area = new AvailableAreaEntity();
-                                UserApplicationEntity app_id = new UserApplicationEntity();
-                                app_id.setAppId(savedData.getAppId());
-
-                                if (vendorForm.getLocationAvailable().get(i) != null) {
-
-                                    System.out.println(vendorForm.getLocationAvailable().get(i));
-                                    area.setAreaId(vendorForm.getLocationAvailable().get(i));
-                                    datax.setAreaId(area);
-                                    datax.setAppId(app_id);
-                                    datax.setActive(true);
-                                    availedServices.add(datax);
-
-                                }
-                            }
-                            System.out.println(availedServices.toString());
-                            applicatioRoutsService.saveData(availedServices);
-
-                        }
+//                        if (!vendorForm.getLocationAvailable().isEmpty()) {
+//                            //Check if there is value or not inside the list
+//                            List<ApplicationRoutesEntity> availedServices = new ArrayList<>();
+//                            ApplicationRoutesEntity datax = null;
+//                            AvailableAreaEntity area = null;
+//
+//                            for (int i = 0; i < vendorForm.getLocationAvailable().size(); i++) {
+//                                datax = new ApplicationRoutesEntity();
+//                                area = new AvailableAreaEntity();
+//                                UserApplicationEntity app_id = new UserApplicationEntity();
+//                                app_id.setAppId(savedData.getAppId());
+//
+//                                if (vendorForm.getLocationAvailable().get(i) != null) {
+//
+//                                    System.out.println(vendorForm.getLocationAvailable().get(i));
+//                                    area.setAreaId(vendorForm.getLocationAvailable().get(i));
+//                                    datax.setAreaId(area);
+//                                    datax.setAppId(app_id);
+//                                    datax.setActive(true);
+//                                    availedServices.add(datax);
+//
+//                                }
+//                            }
+//                            System.out.println(availedServices.toString());
+//                            applicatioRoutsService.saveData(availedServices);
+//
+//                        }
                         redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
                         return "redirect:/paymentpage";
                     } catch (Exception ex) {
@@ -297,19 +297,19 @@ public class VendorFormController {
 //            userApplicationEntity.setVendorTypeId(ventorTypeEntity);
 //            logger.info(ventorTypeEntity.toString());
 
-            district.setDistrictId(Integer.parseInt(vendorForm.getDistrict()));
-            userApplicationEntity.setDistrictId(district);
-            logger.info(district.toString());
+//            district.setDistrictId(Integer.parseInt(vendorForm.getDistrict()));
+//            userApplicationEntity.setDistrictId(district);
+//            logger.info(district.toString());
+//
+//            if(vendorForm.getTentNumber().isEmpty() || vendorForm.getTentNumber()==null){
+//                userApplicationEntity.setTentNumber(Integer.parseInt("0"));
+//            }else{
+//                userApplicationEntity.setTentNumber(Integer.parseInt(vendorForm.getTentNumber()));
+//            }
 
-            if(vendorForm.getTentNumber().isEmpty() || vendorForm.getTentNumber()==null){
-                userApplicationEntity.setTentNumber(Integer.parseInt("0"));
-            }else{
-                userApplicationEntity.setTentNumber(Integer.parseInt(vendorForm.getTentNumber()));
-            }
 
 
-
-            userApplicationEntity.setVendorComments(vendorForm.getComments());
+          //  userApplicationEntity.setVendorComments(vendorForm.getComments());
 
             userApplicationEntity.setAppActionBdo(Constants.PENDING);
             userApplicationEntity.setBdoComments("");

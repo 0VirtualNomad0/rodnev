@@ -65,14 +65,7 @@
                <form:errors  path="emailAddress"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="roleId">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}" style="display:none;">
-               <form:label path="roleId" for="roles">User Type</form:label>
-               <form:select  path="roleId" name="roleId" class="form-control" id="roles">
-               </form:select>
-               <form:errors  path="roleId"></form:errors>
-            </div>
-         </spring:bind>
+
       </div>
       <!-- Address (Local) -->
       <br>
@@ -219,22 +212,16 @@
                <form:errors  path="nationality"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="landType">
-            <div class="form-group col-lg-4">
-               <form:label path="landType" for="land_item">Purpose of Activity</form:label>
-               <form:select  path="landType"  class="form-control"  id="landType">
-               </form:select>
-               <form:errors  path="landType"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="regional_national">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="regional_national" for="regional_national">Regional/National</form:label>
-               <form:select path="regional_national"   class="form-control" id="nationalRegional">
-               </form:select>
-               <form:errors  path="regional_national"></form:errors>
-            </div>
-         </spring:bind>
+
+        <spring:bind path="landType">
+                             <div class="form-group col-lg-4">
+                                <form:label path="landType" for="land_item">Purpose of Activity</form:label>
+                                <form:select  path="landType"  class="form-control" onchange="changeValues();"  id="landType">
+                                </form:select>
+                                <form:errors  path="landType"></form:errors>
+                             </div>
+                          </spring:bind>
+
          <spring:bind path="vendor">
             <div class="form-group col-lg-4">
                <form:label path="vendor" >Vendor Category</form:label>
@@ -251,6 +238,17 @@
                <form:errors  path="vendorType"></form:errors>
             </div>
          </spring:bind>
+
+                  <div class="col-lg-4" style="display:none;" id="div_regional_nonregional">
+                  <spring:bind path="regional_national">
+                     <div class="form-group  ${status.error ? 'has-error' : ''}">
+                        <form:label path="regional_national" for="regional_national">Regional/National</form:label>
+                        <form:select path="regional_national" onchange="getItemsNR($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');"   class="form-control" id="nationalRegional">
+                        </form:select>
+                        <form:errors  path="regional_national"></form:errors>
+                     </div>
+                  </spring:bind>
+                  </div>
          <div class="col-lg-4" style="display:none;" id="non_tent_Items">
             <spring:bind path="item">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
@@ -384,7 +382,7 @@
 
     function addNewRow()
    {
-    getItems($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),add);
+    getItemsTent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),add);
    	var row ='<div class="row " id="id'+add+'">'
     +'<div class="col-lg-4"><div class="form-group"><select path="itemsForm['+add+'].item" name="itemsForm['+add+'].item" id="item'+add+'"   class="form-control" placeholder="District"  onchange="gethalipadLocationadd(this.value ,'+add+')" ></select></div></div>'
     +'<div class="col-lg-4"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="itemsForm['+add+'].item_number" name="itemsForm['+add+'].item_number"   class="form-control"   /></div></div>'
@@ -418,10 +416,15 @@
                   var time_difference = date2.getTime() - date1.getTime();
                            var result = time_difference / (1000 * 60 * 60 * 24);
 
-                            document.getElementById("totalDays").value = result;
+                            document.getElementById("totalDays").value = result+1;
 
 
 
+   }
+
+   function changeValues(){
+      getVendor();
+      document.getElementById("tableDiv_tent").style.display = "none";
    }
 
 

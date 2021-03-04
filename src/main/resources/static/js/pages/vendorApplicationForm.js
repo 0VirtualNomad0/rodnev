@@ -64,16 +64,27 @@ function checkValue(value){
 
 var x = document.getElementById("tableDiv_tent");
 var y = document.getElementById("non_tent_Items");
+var z = document.getElementById("div_regional_nonregional");
 
-  if (value != "2") {
-         x.style.display = "none";
-         y.style.display = "block";
-          getItemsnonTent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
-
-    } else {
+  if (value == "2") {
          x.style.display = "block";
          y.style.display = "none";
-         getItems($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
+         z.style.display = "none";
+          getItemsTent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
+
+
+    } else if (value == "7" || value == "3"){
+          x.style.display = "none";
+          y.style.display = "block";
+          z.style.display = "block";
+
+
+    }
+    else {
+         x.style.display = "none";
+         y.style.display = "block";
+         z.style.display = "none";
+         getItemsnonTent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
 
 
     }
