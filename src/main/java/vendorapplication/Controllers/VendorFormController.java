@@ -186,20 +186,21 @@ public class VendorFormController {
 
     }
 
-    @RequestMapping(value = "/saveapplication",
-            method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RequestMapping(value = "/saveapplication",  method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
     public String saveForm(@ModelAttribute("vendorApplicationForm") vendorApplicationForm vendorForm,
                            BindingResult bindingResult, Model model,
                            HttpServletRequest request, HttpSession session,
                            RedirectAttributes redirectAttributes) {
 
-        String authority_ = null;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
 
+
+        String captcha=(String)session.getAttribute("CAPTCHA");
+        if(captcha==null || (captcha!=null && !captcha.equals(vendorForm.getCaptcha()))){
+            vendorForm.setCaptcha("");
+            model.addAttribute("serverError", "Captcha Mismatch");
+            return "vendorForm";
+        }else {
             vendorApplicationFormValidator.validate(vendorForm, bindingResult);
             if (bindingResult.hasErrors()) {
                 return "vendorForm";
@@ -212,33 +213,7 @@ public class VendorFormController {
 
                     try {
                         UserApplicationEntity savedData = userApplicationService.saveUser(vendorApplication);
-//                        if (!vendorForm.getLocationAvailable().isEmpty()) {
-//                            //Check if there is value or not inside the list
-//                            List<ApplicationRoutesEntity> availedServices = new ArrayList<>();
-//                            ApplicationRoutesEntity datax = null;
-//                            AvailableAreaEntity area = null;
-//
-//                            for (int i = 0; i < vendorForm.getLocationAvailable().size(); i++) {
-//                                datax = new ApplicationRoutesEntity();
-//                                area = new AvailableAreaEntity();
-//                                UserApplicationEntity app_id = new UserApplicationEntity();
-//                                app_id.setAppId(savedData.getAppId());
-//
-//                                if (vendorForm.getLocationAvailable().get(i) != null) {
-//
-//                                    System.out.println(vendorForm.getLocationAvailable().get(i));
-//                                    area.setAreaId(vendorForm.getLocationAvailable().get(i));
-//                                    datax.setAreaId(area);
-//                                    datax.setAppId(app_id);
-//                                    datax.setActive(true);
-//                                    availedServices.add(datax);
-//
-//                                }
-//                            }
-//                            System.out.println(availedServices.toString());
-//                            applicatioRoutsService.saveData(availedServices);
-//
-//                        }
+
                         redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
                         return "redirect:/paymentpage";
                     } catch (Exception ex) {
@@ -257,8 +232,6 @@ public class VendorFormController {
                 model.addAttribute("serverError", ex.toString());
                 return "vendorForm";
             }
-
-
         }
 
     }

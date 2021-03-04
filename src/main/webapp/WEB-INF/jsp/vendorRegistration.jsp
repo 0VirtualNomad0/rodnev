@@ -61,7 +61,7 @@
          <spring:bind path="emailAddress">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="emailAddress" for="emailAddress">Email</form:label>
-               <form:input type="text"  id="emailAddress" required="required" oncopy="return false" onpaste="return false" path="emailAddress" maxlength="40" minlength="10"  class="form-control"  name="emailAddress"  ></form:input>
+               <form:input type="text"  id="emailAddress"  oncopy="return false" onpaste="return false" path="emailAddress" maxlength="40" minlength="10"  class="form-control"  name="emailAddress"  ></form:input>
                <form:errors  path="emailAddress"></form:errors>
             </div>
          </spring:bind>
@@ -200,7 +200,7 @@
          <spring:bind path="totalDays">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="totalDays"  for="totalDays">Total Number of Days</form:label>
-               <form:input type="text"  id="totalDays" readonly="true" oncopy="return false" onpaste="return false" path="mobileNumber"  class="form-control" onKeyPress="return isNumber(event)"  name="totalDays" ></form:input>
+               <form:input type="text"  id="totalDays" readonly="true" oncopy="return false" onpaste="return false" path="totalDays"  class="form-control" onKeyPress="return isNumber(event)"  name="totalDays" ></form:input>
                <form:errors  path="totalDays"></form:errors>
             </div>
          </spring:bind>
