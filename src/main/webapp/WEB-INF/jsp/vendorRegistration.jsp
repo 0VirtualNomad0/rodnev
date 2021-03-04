@@ -178,7 +178,7 @@
       </div>
       <!-- Vending Type -->
       <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vending Details (Category, Sub Category and Time )</strong></h4>
+         <h4 class="login-title col-lg-12 text-left breadcrumb" style="background-color:#FFFFFF"> <strong>Vending Details (Category, Sub Category and Time )</strong></h4>
          <spring:bind path="fromDate">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <label for="fromDate">
@@ -384,7 +384,7 @@
    {
     getItemsTent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),add);
    	var row ='<div class="row " id="id'+add+'">'
-    +'<div class="col-lg-4"><div class="form-group"><select path="itemsForm['+add+'].item" name="itemsForm['+add+'].item" id="item'+add+'"   class="form-control" placeholder="District"  onchange="gethalipadLocationadd(this.value ,'+add+')" ></select></div></div>'
+    +'<div class="col-lg-4"><div class="form-group"><select path="itemsForm['+add+'].item" name="itemsForm['+add+'].item" id="item'+add+'"   class="form-control"  ></select></div></div>'
     +'<div class="col-lg-4"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="itemsForm['+add+'].item_number" name="itemsForm['+add+'].item_number"   class="form-control"   /></div></div>'
 
     +'</div>'
