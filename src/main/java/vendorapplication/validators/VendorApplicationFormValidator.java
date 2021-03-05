@@ -87,9 +87,9 @@ public class VendorApplicationFormValidator implements Validator {
             errors.rejectValue("landType", "Select.vendorform.vlocalTehsil");
         }
 
-        if(applicatonForm.getItem().equalsIgnoreCase("0")){
-            errors.rejectValue("item", "Select.vendorform.item");
-        }
+//        if(applicatonForm.getItem().equalsIgnoreCase("0")){
+//            errors.rejectValue("item", "Select.vendorform.item");
+//        }
 
 
         if(applicatonForm.getIdentityDoc().getSize()!=0){

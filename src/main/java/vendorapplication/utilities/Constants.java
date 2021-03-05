@@ -70,5 +70,16 @@ public class Constants {
     public static String IMAGE_NAME_PASS = "hp_logo.png";
 
 
+    public static final  String createUsername(String firstname, String lastname, String age, String userType ){
+        StringBuffer sb = new StringBuffer();
+        sb.append(firstname);
+        sb.append("_");
+        sb.append(lastname);
+        sb.append("_");
+        sb.append(age);
+        sb.append("_");
+        sb.append(userType);
+        return sb.toString();
+    }
 
 }

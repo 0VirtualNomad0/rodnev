@@ -20,7 +20,7 @@ public class GPEntity implements Serializable {
     @Column(name = "panchayat_name")
     private String panchayatName;
 
-    @Column(name = "panchayat_code")
+    @Column(name = "pachayat_code")
     private Integer panchayatCode;
 
     @OneToOne(fetch = FetchType.LAZY)

@@ -3,11 +3,14 @@ package vendorapplication.Controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -30,6 +33,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class VendorFormController {
@@ -51,6 +55,8 @@ public class VendorFormController {
 
     @Autowired
     ApplicatioRoutsService applicatioRoutsService;
+
+
 
 
     @Autowired
@@ -207,14 +213,14 @@ public class VendorFormController {
             }
             try {
                 System.out.println(vendorForm.toString());
-                UserApplicationEntity vendorApplication = new UserApplicationEntity();
-                vendorApplication  =   populateBean(vendorForm, session);
-                if (vendorApplication != null) {
+                UserEntity user = new UserEntity();
+
+                user = populateBean(vendorForm);
+                if (user != null) {
 
                     try {
-                        UserApplicationEntity savedData = userApplicationService.saveUser(vendorApplication);
-
-                        redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
+                        System.out.println(user.toString());
+                       // redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
                         return "redirect:/paymentpage";
                     } catch (Exception ex) {
                         request.getSession().setAttribute("serverError", ex.getLocalizedMessage().toString());
@@ -238,87 +244,69 @@ public class VendorFormController {
 
 
     //getApplicationDetails
-    private UserApplicationEntity populateBean(vendorApplicationForm vendorForm, HttpSession session) {
+    private UserEntity populateBean(vendorApplicationForm vendorForm) {
 
-        logger.info("Inside Populate Function");
+        logger.info("Inside Populate Function Add User");
 
-        UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
         UserEntity user = new UserEntity();
-        NationalityEntity nationality = new NationalityEntity();
-        CategoryEntity vendorEntity = new CategoryEntity();
-        SubCategoryEntity ventorTypeEntity = new SubCategoryEntity();
-        DistrictEntity district = new DistrictEntity();
-
+        StateEntity state = new StateEntity();
+        DistrictEntity district  = new DistrictEntity();
+        BlocksEntity block = new BlocksEntity();
+        TehsilEntity tehsil = new TehsilEntity();
+        GPEntity grampanchayat = new GPEntity();
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        GenderEntity gender = new GenderEntity();
 
         try {
 
-            userApplicationEntity.setActive(true);
-
-            user.setUserId((Long) session.getAttribute("user_Id"));
-            userApplicationEntity.setUserId(user);
-            logger.info(user.toString());
-
-            nationality.setNationalityId(Integer.parseInt(vendorForm.getNationality()));
-            userApplicationEntity.setNationalityEntity(nationality);
-            logger.info(nationality.toString());
-
-//            vendorEntity.setVenTypeID(Integer.parseInt(vendorForm.getVendor()));
-//            userApplicationEntity.setVendorId(vendorEntity);
-//            logger.info(vendorEntity.toString());
-//
-//            ventorTypeEntity.setVendorTypeId(Integer.parseInt(vendorForm.getVendorType()));
-//            userApplicationEntity.setVendorTypeId(ventorTypeEntity);
-//            logger.info(ventorTypeEntity.toString());
-
-//            district.setDistrictId(Integer.parseInt(vendorForm.getDistrict()));
-//            userApplicationEntity.setDistrictId(district);
-//            logger.info(district.toString());
-//
-//            if(vendorForm.getTentNumber().isEmpty() || vendorForm.getTentNumber()==null){
-//                userApplicationEntity.setTentNumber(Integer.parseInt("0"));
-//            }else{
-//                userApplicationEntity.setTentNumber(Integer.parseInt(vendorForm.getTentNumber()));
-//            }
-
-
-
-          //  userApplicationEntity.setVendorComments(vendorForm.getComments());
-
-            userApplicationEntity.setAppActionBdo(Constants.PENDING);
-            userApplicationEntity.setBdoComments("");
-
-            userApplicationEntity.setAppActionDc(Constants.PENDING);
-            userApplicationEntity.setDcComments("");
-
-            userApplicationEntity.setAppActionDfo(Constants.PENDING);
-            userApplicationEntity.setDfoComments("");
-
-
-
-
+            user.setActive(true);
+            user.setFirstName(vendorForm.getFirstname());
+            user.setLastName(vendorForm.getLastname());
+            user.setUsername(Constants.createUsername(vendorForm.getFirstname(),vendorForm.getLastname(),vendorForm.getAge(),"vendor"));
+            state.setStateID(Integer.parseInt(vendorForm.getState()));
+            user.setState(state);
+            district.setDistrictId(Integer.parseInt(vendorForm.getLocalDistrict()));
+            user.setDistrict(district);
+            block.setDistrictId(Integer.parseInt(vendorForm.getLocalBlock()));
+            user.setBlock(block);
+            tehsil.setDistrictId(Integer.parseInt(vendorForm.getLocalTehsil()));
+            user.setTehsil(tehsil);
+            grampanchayat.setPanchayatId(Integer.parseInt(vendorForm.getLocalgp()));
+            user.setGrampanchayat(grampanchayat);
+            user.setDeleted(false);
+            user.setMobileNumber(Long.valueOf(vendorForm.getMobileNumber()));
+            user.setPassword(encoder.encode("Demo@123"));
+            user.setpAddress(vendorForm.getP_address());
+            user.setAge(Integer.parseInt(vendorForm.getAge()));
+            if(vendorForm.getEmailAddress().isEmpty() || vendorForm.getEmailAddress() == null){
+                user.setEmail("");
+            }else{
+                user.setEmail(vendorForm.getEmailAddress());
+            }
+            gender.setGenderId(Integer.parseInt(vendorForm.getGender()));
+            user.setGenderID(gender);
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Date date = new Date(timestamp.getTime());
-            userApplicationEntity.setCreatedDate(date);
+            user.setCreatedDate(date);
+            String roleIid = vendorForm.getRoleId();
+            Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
+            if (role.get() != null) {
+                List<RolesEntity> list = new ArrayList<RolesEntity>();
+                list.add(role.get());
+                user.setRoles(list);
+                UserEntity user_saved = userService.saveUser(user);
 
-            if (!vendorForm.getIdentityDoc().getOriginalFilename().isEmpty()) {
-                String fileName = StringUtils.cleanPath(vendorForm.getIdentityDoc().getOriginalFilename());
-                fileName = fileName.toLowerCase().replaceAll(" ", "_");
-                fileName = System.currentTimeMillis() + "__" + fileName;
-                userApplicationEntity.setIdentityDoc(fileName);
-                fileStorageService.storeFile(vendorForm.getIdentityDoc(), fileName);
-            } else {
-                userApplicationEntity.setIdentityDoc("");
+                return user_saved;
+
+            }else{
+               user = null;
+               return user;
             }
-
-
-
         } catch (Exception ex) {
-            userApplicationEntity = null;
+            user = null;
         }
-
-        logger.info(userApplicationEntity.toString());
-        return userApplicationEntity;
-
+        logger.info(user.toString());
+        return user;
     }
 
 

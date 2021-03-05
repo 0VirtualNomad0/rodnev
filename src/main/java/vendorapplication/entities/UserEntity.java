@@ -1,5 +1,7 @@
 package vendorapplication.entities;
 
+import sun.jvm.hotspot.opto.Block;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -36,8 +38,25 @@ public class UserEntity {
     @Column(name = "p_address")
     private String pAddress;
 
-    @Column(name = "c_address")
-    private String cAddress;
+    @OneToOne()
+    @JoinColumn(name="state_id", updatable = false )
+    private StateEntity state;
+
+    @OneToOne()
+    @JoinColumn(name="district_id", updatable = false )
+    private DistrictEntity district;
+
+    @OneToOne()
+    @JoinColumn(name="block_id", updatable = false )
+    private BlocksEntity block;
+
+    @OneToOne()
+    @JoinColumn(name="tehsil_id", updatable = false )
+    private TehsilEntity tehsil;
+
+    @OneToOne()
+    @JoinColumn(name="panchayat_id", updatable = false )
+    private GPEntity grampanchayat;
 
 
     @OneToOne()
@@ -81,20 +100,20 @@ public class UserEntity {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getLastName() {
@@ -137,12 +156,44 @@ public class UserEntity {
         this.pAddress = pAddress;
     }
 
-    public String getcAddress() {
-        return cAddress;
+    public StateEntity getState() {
+        return state;
     }
 
-    public void setcAddress(String cAddress) {
-        this.cAddress = cAddress;
+    public void setState(StateEntity state) {
+        this.state = state;
+    }
+
+    public DistrictEntity getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(DistrictEntity district) {
+        this.district = district;
+    }
+
+    public BlocksEntity getBlock() {
+        return block;
+    }
+
+    public void setBlock(BlocksEntity block) {
+        this.block = block;
+    }
+
+    public TehsilEntity getTehsil() {
+        return tehsil;
+    }
+
+    public void setTehsil(TehsilEntity tehsil) {
+        this.tehsil = tehsil;
+    }
+
+    public GPEntity getGrampanchayat() {
+        return grampanchayat;
+    }
+
+    public void setGrampanchayat(GPEntity grampanchayat) {
+        this.grampanchayat = grampanchayat;
     }
 
     public GenderEntity getGenderID() {
@@ -213,18 +264,22 @@ public class UserEntity {
     public String toString() {
         return "UserEntity{" +
                 "userId=" + userId +
-                ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
+                ", username='" + username + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", mobileNumber=" + mobileNumber +
                 ", email='" + email + '\'' +
                 ", pAddress='" + pAddress + '\'' +
-                ", cAddress='" + cAddress + '\'' +
+                ", state=" + state +
+                ", district=" + district +
+                ", block=" + block +
+                ", tehsil=" + tehsil +
+                ", grampanchayat=" + grampanchayat +
                 ", genderID=" + genderID +
                 ", age=" + age +
                 ", active=" + active +
-                ", is_deleted=" + isDeleted +
+                ", isDeleted=" + isDeleted +
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
                 ", lastmodifieddate=" + lastmodifieddate +

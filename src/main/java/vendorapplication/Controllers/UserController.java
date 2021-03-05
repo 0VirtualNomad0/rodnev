@@ -2,9 +2,7 @@ package vendorapplication.Controllers;
 
 
 import org.springframework.security.core.userdetails.UserDetails;
-import vendorapplication.entities.GenderEntity;
-import vendorapplication.entities.RolesEntity;
-import vendorapplication.entities.UserEntity;
+import vendorapplication.entities.*;
 import vendorapplication.form.RegisterUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +71,7 @@ public class UserController {
              System.out.println(user);
              if (user != null) {
                  model.addAttribute("user", user);
-                 registerUser.setC_address(user.getcAddress());
+               //  registerUser.setC_address(user.getcAddress());
                  registerUser.setP_address(user.getpAddress());
                  return "updateProfile";
              } else {
@@ -104,7 +102,17 @@ public class UserController {
                 try {
                     UserEntity user = new UserEntity();
                     GenderEntity genderEntity = new GenderEntity();
+                    StateEntity state = new StateEntity();
+                    DistrictEntity district = new DistrictEntity();
+                    BlocksEntity block = new BlocksEntity();
+                    TehsilEntity tehsilEntity = new TehsilEntity();
+                    GPEntity gp = new GPEntity();
                     genderEntity.setGenderId(Integer.parseInt(registerUser.getGender()));
+                    state.setStateID(Integer.parseInt(registerUser.getState()));
+                    district.setDistrictId(Integer.parseInt(registerUser.getLocalDistrict()));
+                    block.setDistrictId(Integer.parseInt(registerUser.getLocalBlock()));
+                    tehsilEntity.setDistrictId(Integer.parseInt(registerUser.getLocalTehsil()));
+                    gp.setPanchayatId(Integer.parseInt(registerUser.getLocalgp()));
                     PasswordEncoder encoder = new BCryptPasswordEncoder();
                     user.setActive(true);
                     user.setDeleted(false);
@@ -114,7 +122,12 @@ public class UserController {
                     user.setFirstName(registerUser.getFirstname());
                     user.setLastName(registerUser.getLastname());
                     user.setpAddress(registerUser.getP_address());
-                    user.setcAddress(registerUser.getC_address());
+                    user.setState(state);
+                    user.setDistrict(district);
+                    user.setTehsil(tehsilEntity);
+                    user.setBlock(block);
+                    user.setGrampanchayat(gp);
+
                     user.setAge(Integer.parseInt(registerUser.getAge()));
 
                     String roleIid = registerUser.getRoleId();
@@ -138,7 +151,6 @@ public class UserController {
                         registerUser.setAge("");
                         registerUser.setEmailAddress("");
                         registerUser.setP_address("");
-                        registerUser.setC_address("");
                         registerUser.setCaptcha("");
                         return "createuser";
                     } else {
@@ -151,7 +163,6 @@ public class UserController {
                         registerUser.setAge("");
                         registerUser.setEmailAddress("");
                         registerUser.setP_address("");
-                        registerUser.setC_address("");
                         registerUser.setCaptcha("");
                         model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
                         return "createuser";
@@ -167,7 +178,6 @@ public class UserController {
                     registerUser.setAge("");
                     registerUser.setEmailAddress("");
                     registerUser.setP_address("");
-                    registerUser.setC_address("");
                     registerUser.setCaptcha("");
                     model.addAttribute("serverError", ex.toString());
                     return "createuser";

@@ -3,59 +3,83 @@ package vendorapplication.test;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import vendorapplication.entities.DistrictEntity;
-import vendorapplication.entities.GenderEntity;
-import vendorapplication.entities.StateEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Rollback;
+import vendorapplication.entities.*;
 import vendorapplication.modal.DistrictModal;
 import vendorapplication.modal.StateModal;
 import vendorapplication.repositories.DistrictRepository;
+import vendorapplication.repositories.RolesRepository;
 import vendorapplication.repositories.StateRepository;
+import vendorapplication.repositories.UserRepository;
 import vendorapplication.services.GenderService;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 public class VendorManagementApplicationTests {
 
-    @Autowired
-    StateRepository stateRepository;
-
-    @Autowired
-    DistrictRepository districtRepository;
-
-
-//        @Test
-//    public void getStates() {
-//
-//            List<Object[] > districts = stateRepository.getStates();
-//            List<StateModal> stateModal = new ArrayList<>();
+//    @Autowired
+//    RolesRepository rolesRepository;
 //
 //
-//            for (Object[] result : districts) {
-//                StateModal pojo = new StateModal();
-//                pojo.setStateId((Integer) result[0]);
-//                pojo.setStateName((String) result[1]);
-//                stateModal.add(pojo);
-//            }
-//            System.out.println(stateModal.toString());
-//        }
-
+//    @Autowired
+//    UserRepository userRepository;
+//
 //    @Test
-//    public void getDistricts() {
+//    @Transactional
+//    @Rollback(value = false)
+//    void createUser(){
 //
-//        List<DistrictEntity> districts = districtRepository.getDistrictsViaId(9);
-////        List<DistrictModal> districtModals = new ArrayList<>();
-////
-////
-////        for (Object[] result : districts) {
-////            DistrictModal pojo = new DistrictModal();
-////            pojo.setDistrictId((Integer) result[0]);
-////            pojo.setDistrictName((String) result[1]);
-////            districtModals.add(pojo);
-////        }
-//        System.out.println(districts.toString());
-//        System.out.println(districts.get(1).getStateEntity().getStateName());
-//      //  System.out.println(districts.get(1).gets);
-//    }
+//        UserEntity user1 = new UserEntity();
+//        PasswordEncoder encoder = new BCryptPasswordEncoder();
+//        user1.setUsername("kush");
+//        user1.setFirstName("Kush");
+//        user1.setLastName("Dhawan");
+//        user1.setEmail("kushkumardhawan@gmail.com");
+//        user1.setpAddress("Dhawan Lodge Shankli Shimla");
+//
+//        GenderEntity genderEntity  = new GenderEntity();
+//        genderEntity.setGenderId(1);
+//        user1.setGenderID(genderEntity);
+//
+//        StateEntity state = new StateEntity();
+//        state.setStateID(9);
+//        user1.setState(state);
+//
+//        DistrictEntity districtEntity  =  new DistrictEntity();
+//        districtEntity.setDistrictId(202);
+//        user1.setDistrict(districtEntity);
+//
+//        BlocksEntity block =  new BlocksEntity();
+//        block.setDistrictId(68);
+//        user1.setBlock(block);
+//
+//        TehsilEntity tehsilEntity = new TehsilEntity();
+//        tehsilEntity.setDistrictId(49);
+//        user1.setTehsil(tehsilEntity);
+//
+//        GPEntity gp = new GPEntity();
+//        gp.setPanchayatId(3085);
+//        user1.setGrampanchayat(gp);
+//
+//
+//        user1.setDeleted(false);
+//        user1.setPassword(encoder.encode("Demo@123"));
+//        user1.setMobileNumber(9459619235L);
+//        user1.setAge(31);
+//        user1.setActive(true);
+//
+//        Optional<RolesEntity> role = rolesRepository.findById(1L);
+//		List<RolesEntity> list = new ArrayList<>();
+//		list.add(role.get());
+//        user1.setRoles(list);
+//
+//
+//	 userRepository.save(user1);
+//	}
 }

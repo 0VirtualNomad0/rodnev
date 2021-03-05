@@ -40,6 +40,15 @@ public class vendorApplicationForm implements Serializable {
     private MultipartFile identityDoc;
     private MultipartFile photoDoc;
     private String captcha;
+    private String roleId;
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -323,6 +332,7 @@ public class vendorApplicationForm implements Serializable {
                 ", identityDoc=" + identityDoc +
                 ", photoDoc=" + photoDoc +
                 ", captcha='" + captcha + '\'' +
+                ", roleId=" + roleId +
                 '}';
     }
 }

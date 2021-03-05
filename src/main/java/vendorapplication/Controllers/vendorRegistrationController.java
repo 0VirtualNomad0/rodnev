@@ -83,7 +83,7 @@ public class vendorRegistrationController {
                 user.setFirstName(registerUser.getFirstname());
                 user.setLastName(registerUser.getLastname());
                 user.setpAddress(registerUser.getP_address());
-                user.setcAddress(registerUser.getC_address());
+               // user.setcAddress(registerUser.getC_address());
                 user.setAge(Integer.parseInt(registerUser.getAge()));
 
                 String roleIid = registerUser.getRoleId();
@@ -107,7 +107,7 @@ public class vendorRegistrationController {
                     registerUser.setAge("");
                     registerUser.setEmailAddress("");
                     registerUser.setP_address("");
-                    registerUser.setC_address("");
+                  //  registerUser.setC_address("");
                     registerUser.setCaptcha("");
                     return "vendorRegistration";
                 } else {
@@ -120,7 +120,7 @@ public class vendorRegistrationController {
                     registerUser.setAge("");
                     registerUser.setEmailAddress("");
                     registerUser.setP_address("");
-                    registerUser.setC_address("");
+                   // registerUser.setC_address("");
                     registerUser.setCaptcha("");
                     model.addAttribute("serverError", "No Role Name and Role Description Exist with this ID");
                     return "vendorRegistration";
@@ -136,7 +136,7 @@ public class vendorRegistrationController {
                 registerUser.setAge("");
                 registerUser.setEmailAddress("");
                 registerUser.setP_address("");
-                registerUser.setC_address("");
+               // registerUser.setC_address("");
                 registerUser.setCaptcha("");
                 model.addAttribute("serverError", ex.toString());
                 return "vendorRegistration";

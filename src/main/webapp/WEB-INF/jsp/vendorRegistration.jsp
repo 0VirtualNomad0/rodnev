@@ -66,6 +66,14 @@
             </div>
          </spring:bind>
 
+ <spring:bind path="roleId">
+            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+               <form:label path="roleId" for="roles">Role</form:label>
+               <form:select path="roleId" name="roleId" class="form-control" id="roles">
+               </form:select>
+               <form:errors  path="roleId"></form:errors>
+            </div>
+         </spring:bind>
       </div>
       <!-- Address (Local) -->
       <br>
@@ -374,6 +382,7 @@
        getvState();
        getDistrictsViaState('9');
        getvDistrictsViaState('9');
+       getrolesVendor()
    });
 
    var add= 0+${count+1};
