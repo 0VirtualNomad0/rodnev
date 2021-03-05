@@ -17,7 +17,7 @@ public class UserApplicationService {
     @Autowired
     private UserApplicationRepository userApplicationRepository;
 
-    public UserApplicationEntity saveUser(UserApplicationEntity vendorApplication) {
+    public UserApplicationEntity saveApplication(UserApplicationEntity vendorApplication) {
         return userApplicationRepository.save(vendorApplication);
     }
 

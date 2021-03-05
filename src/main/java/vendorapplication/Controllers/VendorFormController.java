@@ -205,45 +205,145 @@ public class VendorFormController {
         if(captcha==null || (captcha!=null && !captcha.equals(vendorForm.getCaptcha()))){
             vendorForm.setCaptcha("");
             model.addAttribute("serverError", "Captcha Mismatch");
-            return "vendorForm";
+            return "vendorRegistration";
         }else {
             vendorApplicationFormValidator.validate(vendorForm, bindingResult);
             if (bindingResult.hasErrors()) {
-                return "vendorForm";
+                return "vendorRegistration";
             }
             try {
                 System.out.println(vendorForm.toString());
                 UserEntity user = new UserEntity();
+                UserApplicationEntity userApplication = new UserApplicationEntity();
 
                 user = populateBean(vendorForm);
+
                 if (user != null) {
 
                     try {
                         System.out.println(user.toString());
-                       // redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
-                        return "redirect:/paymentpage";
+                        userApplication = populateApplicationData(user,vendorForm);
+
+                        if(userApplication !=null){
+                            //Save Category Details Here
+                            System.out.println(userApplication.toString());
+                            request.getSession().setAttribute("successMessage", userApplication.getAppId());
+
+                            //Save the Third Details
+                            return "vendorRegistration";
+
+                            // redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
+                            //  return "redirect:/paymentpage";
+                        }else{
+                            request.getSession().setAttribute("serverError", "Unable to save data. Please try again.");
+                            return "vendorRegistration";
+                        }
                     } catch (Exception ex) {
                         request.getSession().setAttribute("serverError", ex.getLocalizedMessage().toString());
-                        return "vendorForm";
+                        return "vendorRegistration";
                     }
 
 
                 } else {
-                    request.getSession().setAttribute("serverError", "Unable to Save the Data. Please try again");
-                    return "vendorForm";
+                    request.getSession().setAttribute("serverError", "Unable to save the Data. Please try again");
+                    return "vendorRegistration";
                 }
 
 
             } catch (Exception ex) {
                 model.addAttribute("serverError", ex.toString());
-                return "vendorForm";
+                return "vendorRegistration";
             }
         }
 
     }
 
 
-    //getApplicationDetails
+    // Application Details
+    private UserApplicationEntity populateApplicationData(UserEntity user, vendorApplicationForm vendorForm) {
+        logger.info("Inside Populate Function Add Application");
+        UserApplicationEntity applicationData = new UserApplicationEntity();
+
+        try{
+
+            StateEntity state = new StateEntity();
+            DistrictEntity district  = new DistrictEntity();
+            BlocksEntity block = new BlocksEntity();
+            TehsilEntity tehsil = new TehsilEntity();
+            GPEntity grampanchayat = new GPEntity();
+            NationalityEntity nationality = new NationalityEntity();
+            CategoryEntity categoryEntity = new CategoryEntity();
+            SubCategoryEntity subCategoryEntity = new SubCategoryEntity();
+            LandTypeEntity landTypeEntity =  new LandTypeEntity();
+
+            applicationData.setUserId(user);
+            state.setStateID(Integer.parseInt(vendorForm.getVstate()));
+            applicationData.setState(state);
+            district.setDistrictId(Integer.parseInt(vendorForm.getVlocalDistrict()));
+            applicationData.setDistrict(district);
+            block.setDistrictId(Integer.parseInt(vendorForm.getVlocalBlock()));
+            applicationData.setBlock(block);
+            tehsil.setDistrictId(Integer.parseInt(vendorForm.getVlocalTehsil()));
+            applicationData.setTehsil(tehsil);
+            grampanchayat.setPanchayatId(Integer.parseInt(vendorForm.getVlocalgp()));
+            applicationData.setPanchayat(grampanchayat);
+
+            applicationData.setVendingAddress(vendorForm.getLoc_address());
+            applicationData.setFromDate(vendorForm.getFromDate());
+            applicationData.setTo_date(vendorForm.getToDate());
+            applicationData.setTotalDays(Integer.parseInt(vendorForm.getTotalDays()));
+
+            nationality.setNationalityId(Integer.parseInt(vendorForm.getNationality()));
+            applicationData.setNationalityEntity(nationality);
+            landTypeEntity.setLandTypeId(Integer.parseInt(vendorForm.getLandType()));
+            applicationData.setPurposeActivity(landTypeEntity);
+            categoryEntity.setCategoryID(Integer.parseInt(vendorForm.getVendor()));
+            applicationData.setCategory(categoryEntity);
+            subCategoryEntity.setSubCategoryId(Integer.parseInt(vendorForm.getVendorType()));
+            applicationData.setSubcategory(subCategoryEntity);
+
+            if (!vendorForm.getIdentityDoc().getOriginalFilename().isEmpty()) {
+                String fileName = StringUtils.cleanPath(vendorForm.getIdentityDoc().getOriginalFilename());
+                fileName = fileName.toLowerCase().replaceAll(" ", "_");
+                fileName = System.currentTimeMillis() + "__" + fileName;
+                applicationData.setIdentityDoc(fileName);
+                fileStorageService.storeFile(vendorForm.getIdentityDoc(), fileName);
+            } else {
+                applicationData.setIdentityDoc("");
+            }
+
+            if (!vendorForm.getPhotoDoc().getOriginalFilename().isEmpty()) {
+                String fileName = StringUtils.cleanPath(vendorForm.getPhotoDoc().getOriginalFilename());
+                fileName = fileName.toLowerCase().replaceAll(" ", "_");
+                fileName = System.currentTimeMillis() + "__" + fileName;
+                applicationData.setPhotoDoc(fileName);
+                fileStorageService.storeFile(vendorForm.getPhotoDoc(), fileName);
+            } else {
+                applicationData.setPhotoDoc("");
+            }
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(timestamp.getTime());
+            applicationData.setCreatedDate(date);
+
+            applicationData.setActive(true);
+            applicationData.setWithdrawVenLicence("");
+            applicationData.setFineDefaulter("");
+
+            UserApplicationEntity savedApplication = userApplicationService.saveApplication(applicationData);
+
+            return savedApplication;
+        }catch(Exception ex){
+            applicationData = null;
+            return applicationData;
+        }
+
+
+
+    }
+
+
+    //User Details
     private UserEntity populateBean(vendorApplicationForm vendorForm) {
 
         logger.info("Inside Populate Function Add User");

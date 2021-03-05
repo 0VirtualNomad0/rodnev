@@ -5220,31 +5220,80 @@ INSERT INTO mst_areaavailable ( area_name,district_id,active) VALUES ('Spiti Are
 CREATE TABLE user_application (
     app_id serial PRIMARY KEY  NOT NULL,
     user_id Integer NOT NULL,
-    nationality_id INTEGER NOT NULL,
-    ventype_id INTEGER NOT NULL,
-    vendortype_id INTEGER NOT NULL,
-    tent_number INTEGER,
+    state_id INTEGER NOT NULL,
     district_id INTEGER NOT NULL,
+    block_id INTEGER NOT NULL,
+    tehsil_id INTEGER NOT NULL,
+    panchayat_id INTEGER NOT NULL,
+    vending_address character varying(255) NOT NULL,
+    from_date character varying(10) NOT NULL,
+    to_date character varying(10) NOT NULL,
+    total_days INTEGER NOT NULL,
+    nationality_id INTEGER NOT NULL,
+    landtype_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    subcategory_id INTEGER NOT NULL,
+    fine_defaulter character varying(255),
+    withdraw_ven_licence character varying(10),
     identity_doc character varying(255) NOT NULL,
-    app_action_dc character varying(1) NOT NULL,  -- P,A,R
+    photo_doc character varying(255) NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (nationality_id) REFERENCES mst_nationality(nationality_id),
+    FOREIGN KEY (landtype_id) REFERENCES mst_landtype(landtype_id),
+    FOREIGN KEY (category_id) REFERENCES mst_category(category_id),
+    FOREIGN KEY (subcategory_id) REFERENCES mst_subcategory(subcategory_id),
+    FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
+    FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
+    FOREIGN KEY (block_id) REFERENCES mst_block(block_id),
+    FOREIGN KEY (tehsil_id) REFERENCES mst_tehsil(tehsil_id),
+    FOREIGN KEY (panchayat_id) REFERENCES mst_gram_panchyat(panchayat_id)
+);
+ALTER TABLE user_application ADD COLUMN app_bdo_date timestamp without time zone;
+ALTER TABLE user_application ADD COLUMN app_dfo_date timestamp without time zone;
+ALTER TABLE user_application ADD COLUMN app_dc_date timestamp without time zone;
+
+app_action_dc character varying(1) NOT NULL,  -- P,A,R
     dc_comments character varying(255),
     app_action_dfo character varying(1),
     dfo_comments character varying(255),
     app_action_bdo character varying(1),
     bdo_comments character varying(255),
     vendor_comments character varying(255),
-    active boolean DEFAULT true NOT NULL,
-    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
-    lastmodifieddate timestamp without time zone,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (nationality_id) REFERENCES mst_nationality(nationality_id),
-    FOREIGN KEY (ventype_id) REFERENCES mst_vendor(ventype_id),
-    FOREIGN KEY (vendortype_id) REFERENCES mst_vendortype(vendortype_id),
-    FOREIGN KEY (district_id) REFERENCES mst_district(district_id)
+
+ -- Users
+CREATE TABLE users(
+user_id SERIAL PRIMARY KEY NOT NULL,
+firstname character varying (50) NOT NULL,
+lastname character varying (50) NOT NULL,
+username character varying (50) NOT NULL unique,
+password character varying (50),
+mobile_number INTEGER NOT NULL,
+age INTEGER NOT NULL,
+email character varying(100),
+gender_id INTEGER,
+state_id INTEGER NOT NULL,
+district_id INTEGER NOT NULL,
+block_id INTEGER NOT NULL,
+tehsil_id INTEGER NOT NULL,
+panchayat_id INTEGER NOT NULL,
+p_address character varying(255),
+active boolean DEFAULT true NOT NULL,
+isDeleted boolean DEFAULT false NOT NULL,
+createddate timestamp without time zone DEFAULT ('now'::text)::date,
+updatedDate timestamp without time zone ,
+lastmodifieddate timestamp without time zone,
+FOREIGN KEY (gender_id) REFERENCES gender(gender_id),
+FOREIGN KEY (state_id) REFERENCES mst_state(state_id),
+FOREIGN KEY (district_id) REFERENCES mst_district(district_id),
+FOREIGN KEY (block_id) REFERENCES mst_block(block_id),
+FOREIGN KEY (tehsil_id) REFERENCES mst_tehsil(tehsil_id),
+FOREIGN KEY (panchayat_id) REFERENCES mst_gram_panchyat(panchayat_id)
 );
-ALTER TABLE user_application ADD COLUMN app_bdo_date timestamp without time zone;
-ALTER TABLE user_application ADD COLUMN app_dfo_date timestamp without time zone;
-ALTER TABLE user_application ADD COLUMN app_dc_date timestamp without time zone;
+
+
+
 
 
 CREATE TABLE routs (

@@ -19,49 +19,64 @@ public class UserApplicationEntity implements Serializable {
     private UserEntity userId;
 
     @OneToOne
+    @JoinColumn(name="state_id" ,updatable = false)
+    private StateEntity state;
+
+    @OneToOne
+    @JoinColumn(name="district_id" ,updatable = false)
+    private DistrictEntity district;
+
+    @OneToOne
+    @JoinColumn(name="block_id" ,updatable = false)
+    private BlocksEntity block;
+
+    @OneToOne
+    @JoinColumn(name="tehsil_id" ,updatable = false)
+    private TehsilEntity tehsil;
+
+    @OneToOne
+    @JoinColumn(name="panchayat_id" ,updatable = false)
+    private GPEntity panchayat;
+
+    @Column(name = "vending_address")
+    private String vendingAddress;
+
+    @Column(name = "from_date")
+    private String fromDate;
+
+    @Column(name = "to_date")
+    private String to_date;
+
+    @Column(name = "total_days")
+    private Integer totalDays;
+
+    @OneToOne
     @JoinColumn(name = "nationality_id",updatable = false)
     private NationalityEntity nationalityEntity;
 
     @OneToOne
-    @JoinColumn(name = "ventype_id",updatable = false)
-    private CategoryEntity vendorId;
+    @JoinColumn(name = "category_id",updatable = false)
+    private CategoryEntity category;
 
     @OneToOne
-    @JoinColumn(name = "vendortype_id",updatable = false)
-    private SubCategoryEntity vendorTypeId;
-
-    @Column(name = "tent_number")
-    private Integer tentNumber;
-
+    @JoinColumn(name = "subcategory_id",updatable = false)
+    private SubCategoryEntity subcategory;
 
     @OneToOne
-    @JoinColumn(name = "district_id", updatable = false)
-    private DistrictEntity districtId;
+    @JoinColumn(name = "landtype_id",updatable = false)
+    private LandTypeEntity purposeActivity;
 
+    @Column(name = "fine_defaulter")
+    private String fineDefaulter;
+
+    @Column(name = "withdraw_ven_licence")
+    private String withdrawVenLicence;
 
     @Column(name = "identity_doc")
     private String identityDoc;
 
-    @Column(name = "app_action_dc")
-    private String appActionDc;
-
-    @Column(name = "dc_comments")
-    private String dcComments;
-
-    @Column(name = "app_action_dfo")
-    private String appActionDfo;
-
-    @Column(name = "dfo_comments")
-    private String dfoComments;
-
-    @Column(name = "app_action_bdo")
-    private String appActionBdo;
-
-    @Column(name = "bdo_comments")
-    private String bdoComments;
-
-    @Column(name = "vendor_comments")
-    private String vendorComments;
+    @Column(name = "photo_doc")
+    private String photoDoc;
 
     @Column(name = "active")
     private Boolean active;
@@ -70,21 +85,6 @@ public class UserApplicationEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @Column(name = "lastmodifieddate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModified;
-
-    @Column(name = "app_bdo_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date appBdoDate;
-
-    @Column(name = "app_dfo_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date appDfoDate;
-
-    @Column(name = "app_dc_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date appDcDate;
 
     public Integer getAppId() {
         return appId;
@@ -102,6 +102,78 @@ public class UserApplicationEntity implements Serializable {
         this.userId = userId;
     }
 
+    public StateEntity getState() {
+        return state;
+    }
+
+    public void setState(StateEntity state) {
+        this.state = state;
+    }
+
+    public DistrictEntity getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(DistrictEntity district) {
+        this.district = district;
+    }
+
+    public BlocksEntity getBlock() {
+        return block;
+    }
+
+    public void setBlock(BlocksEntity block) {
+        this.block = block;
+    }
+
+    public TehsilEntity getTehsil() {
+        return tehsil;
+    }
+
+    public void setTehsil(TehsilEntity tehsil) {
+        this.tehsil = tehsil;
+    }
+
+    public GPEntity getPanchayat() {
+        return panchayat;
+    }
+
+    public void setPanchayat(GPEntity panchayat) {
+        this.panchayat = panchayat;
+    }
+
+    public String getVendingAddress() {
+        return vendingAddress;
+    }
+
+    public void setVendingAddress(String vendingAddress) {
+        this.vendingAddress = vendingAddress;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getTo_date() {
+        return to_date;
+    }
+
+    public void setTo_date(String to_date) {
+        this.to_date = to_date;
+    }
+
+    public Integer getTotalDays() {
+        return totalDays;
+    }
+
+    public void setTotalDays(Integer totalDays) {
+        this.totalDays = totalDays;
+    }
+
     public NationalityEntity getNationalityEntity() {
         return nationalityEntity;
     }
@@ -110,36 +182,44 @@ public class UserApplicationEntity implements Serializable {
         this.nationalityEntity = nationalityEntity;
     }
 
-    public CategoryEntity getVendorId() {
-        return vendorId;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setVendorId(CategoryEntity vendorId) {
-        this.vendorId = vendorId;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 
-    public SubCategoryEntity getVendorTypeId() {
-        return vendorTypeId;
+    public SubCategoryEntity getSubcategory() {
+        return subcategory;
     }
 
-    public void setVendorTypeId(SubCategoryEntity vendorTypeId) {
-        this.vendorTypeId = vendorTypeId;
+    public void setSubcategory(SubCategoryEntity subcategory) {
+        this.subcategory = subcategory;
     }
 
-    public Integer getTentNumber() {
-        return tentNumber;
+    public LandTypeEntity getPurposeActivity() {
+        return purposeActivity;
     }
 
-    public void setTentNumber(Integer tentNumber) {
-        this.tentNumber = tentNumber;
+    public void setPurposeActivity(LandTypeEntity purposeActivity) {
+        this.purposeActivity = purposeActivity;
     }
 
-    public DistrictEntity getDistrictId() {
-        return districtId;
+    public String getFineDefaulter() {
+        return fineDefaulter;
     }
 
-    public void setDistrictId(DistrictEntity districtId) {
-        this.districtId = districtId;
+    public void setFineDefaulter(String fineDefaulter) {
+        this.fineDefaulter = fineDefaulter;
+    }
+
+    public String getWithdrawVenLicence() {
+        return withdrawVenLicence;
+    }
+
+    public void setWithdrawVenLicence(String withdrawVenLicence) {
+        this.withdrawVenLicence = withdrawVenLicence;
     }
 
     public String getIdentityDoc() {
@@ -150,60 +230,12 @@ public class UserApplicationEntity implements Serializable {
         this.identityDoc = identityDoc;
     }
 
-    public String getAppActionDc() {
-        return appActionDc;
+    public String getPhotoDoc() {
+        return photoDoc;
     }
 
-    public void setAppActionDc(String appActionDc) {
-        this.appActionDc = appActionDc;
-    }
-
-    public String getDcComments() {
-        return dcComments;
-    }
-
-    public void setDcComments(String dcComments) {
-        this.dcComments = dcComments;
-    }
-
-    public String getAppActionDfo() {
-        return appActionDfo;
-    }
-
-    public void setAppActionDfo(String appActionDfo) {
-        this.appActionDfo = appActionDfo;
-    }
-
-    public String getDfoComments() {
-        return dfoComments;
-    }
-
-    public void setDfoComments(String dfoComments) {
-        this.dfoComments = dfoComments;
-    }
-
-    public String getAppActionBdo() {
-        return appActionBdo;
-    }
-
-    public void setAppActionBdo(String appActionBdo) {
-        this.appActionBdo = appActionBdo;
-    }
-
-    public String getBdoComments() {
-        return bdoComments;
-    }
-
-    public void setBdoComments(String bdoComments) {
-        this.bdoComments = bdoComments;
-    }
-
-    public String getVendorComments() {
-        return vendorComments;
-    }
-
-    public void setVendorComments(String vendorComments) {
-        this.vendorComments = vendorComments;
+    public void setPhotoDoc(String photoDoc) {
+        this.photoDoc = photoDoc;
     }
 
     public Boolean getActive() {
@@ -222,62 +254,30 @@ public class UserApplicationEntity implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Date getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public Date getAppBdoDate() {
-        return appBdoDate;
-    }
-
-    public void setAppBdoDate(Date appBdoDate) {
-        this.appBdoDate = appBdoDate;
-    }
-
-    public Date getAppDfoDate() {
-        return appDfoDate;
-    }
-
-    public void setAppDfoDate(Date appDfoDate) {
-        this.appDfoDate = appDfoDate;
-    }
-
-    public Date getAppDcDate() {
-        return appDcDate;
-    }
-
-    public void setAppDcDate(Date appDcDate) {
-        this.appDcDate = appDcDate;
-    }
-
     @Override
     public String toString() {
         return "UserApplicationEntity{" +
                 "appId=" + appId +
                 ", userId=" + userId +
+                ", state=" + state +
+                ", district=" + district +
+                ", block=" + block +
+                ", tehsil=" + tehsil +
+                ", panchayat=" + panchayat +
+                ", vendingAddress='" + vendingAddress + '\'' +
+                ", fromDate='" + fromDate + '\'' +
+                ", to_date='" + to_date + '\'' +
+                ", totalDays=" + totalDays +
                 ", nationalityEntity=" + nationalityEntity +
-                ", vendorId=" + vendorId +
-                ", vendorTypeId=" + vendorTypeId +
-                ", tentNumber=" + tentNumber +
-                ", districtId=" + districtId +
+                ", category=" + category +
+                ", subcategory=" + subcategory +
+                ", purposeActivity=" + purposeActivity +
+                ", fineDefaulter=" + fineDefaulter +
+                ", withdrawVenLicence=" + withdrawVenLicence +
                 ", identityDoc='" + identityDoc + '\'' +
-                ", appActionDc='" + appActionDc + '\'' +
-                ", dcComments='" + dcComments + '\'' +
-                ", appActionDfo='" + appActionDfo + '\'' +
-                ", dfoComments='" + dfoComments + '\'' +
-                ", appActionBdo='" + appActionBdo + '\'' +
-                ", bdoComments='" + bdoComments + '\'' +
-                ", vendorComments='" + vendorComments + '\'' +
+                ", photoDoc='" + photoDoc + '\'' +
                 ", active=" + active +
                 ", createdDate=" + createdDate +
-                ", lastModified=" + lastModified +
-                ", appBdoDate=" + appBdoDate +
-                ", appDfoDate=" + appDfoDate +
-                ", appDcDate=" + appDcDate +
                 '}';
     }
 }
