@@ -3,6 +3,7 @@ package vendorapplication.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="user_application")
@@ -85,6 +86,18 @@ public class UserApplicationEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity = UserAppItemsEntity.class)
+    @JoinColumn(name="app_id")
+    private List<UserAppItemsEntity> app_items;
+
+    public List<UserAppItemsEntity> getApp_items() {
+        return app_items;
+    }
+
+    public void setApp_items(List<UserAppItemsEntity> app_items) {
+        this.app_items = app_items;
+    }
 
     public Integer getAppId() {
         return appId;
@@ -272,12 +285,13 @@ public class UserApplicationEntity implements Serializable {
                 ", category=" + category +
                 ", subcategory=" + subcategory +
                 ", purposeActivity=" + purposeActivity +
-                ", fineDefaulter=" + fineDefaulter +
-                ", withdrawVenLicence=" + withdrawVenLicence +
+                ", fineDefaulter='" + fineDefaulter + '\'' +
+                ", withdrawVenLicence='" + withdrawVenLicence + '\'' +
                 ", identityDoc='" + identityDoc + '\'' +
                 ", photoDoc='" + photoDoc + '\'' +
                 ", active=" + active +
                 ", createdDate=" + createdDate +
+                ", app_items=" + app_items +
                 '}';
     }
 }

@@ -23,21 +23,21 @@ public class GPEntity implements Serializable {
     @Column(name = "pachayat_code")
     private Integer panchayatCode;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="block_id", updatable = false )
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private BlocksEntity block;
-
-    @Column(name = "is_active")
-    private Boolean active;
-
-
-    @Column(name = "is_deleted")
-    private Boolean deleted;
-
-    @Column(name = "created_on")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="block_id", updatable = false )
+//    @LazyToOne(LazyToOneOption.NO_PROXY)
+//    private BlocksEntity block;
+//
+//    @Column(name = "is_active")
+//    private Boolean active;
+//
+//
+//    @Column(name = "is_deleted")
+//    private Boolean deleted;
+//
+//    @Column(name = "created_on")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date createdDate;
 
     public Integer getPanchayatId() {
         return panchayatId;
@@ -63,37 +63,37 @@ public class GPEntity implements Serializable {
         this.panchayatCode = panchayatCode;
     }
 
-    public BlocksEntity getBlock() {
-        return block;
-    }
-
-    public void setBlock(BlocksEntity block) {
-        this.block = block;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+//    public BlocksEntity getBlock() {
+//        return block;
+//    }
+//
+//    public void setBlock(BlocksEntity block) {
+//        this.block = block;
+//    }
+//
+//    public Boolean getActive() {
+//        return active;
+//    }
+//
+//    public void setActive(Boolean active) {
+//        this.active = active;
+//    }
+//
+//    public Boolean getDeleted() {
+//        return deleted;
+//    }
+//
+//    public void setDeleted(Boolean deleted) {
+//        this.deleted = deleted;
+//    }
+//
+//    public Date getCreatedDate() {
+//        return createdDate;
+//    }
+//
+//    public void setCreatedDate(Date createdDate) {
+//        this.createdDate = createdDate;
+//    }
 
     @Override
     public String toString() {
@@ -101,10 +101,10 @@ public class GPEntity implements Serializable {
                 "panchayatId=" + panchayatId +
                 ", panchayatName='" + panchayatName + '\'' +
                 ", panchayatCode=" + panchayatCode +
-                ", block=" + block +
-                ", active=" + active +
-                ", deleted=" + deleted +
-                ", createdDate=" + createdDate +
+//                ", block=" + block +
+//                ", active=" + active +
+//                ", deleted=" + deleted +
+//                ", createdDate=" + createdDate +
                 '}';
     }
 }

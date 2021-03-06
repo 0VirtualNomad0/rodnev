@@ -3,7 +3,6 @@ package vendorapplication.Controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -46,19 +45,14 @@ public class VendorFormController {
 
     @Autowired
     RoleService roleService;
-
-    @Autowired
-    private FileStorageService fileStorageService;
-
     @Autowired
     UserApplicationService userApplicationService;
-
     @Autowired
     ApplicatioRoutsService applicatioRoutsService;
-
-
-
-
+    @Autowired
+    UserAppItemsService availedServices;
+    @Autowired
+    private FileStorageService fileStorageService;
     @Autowired
     private VendorApplicationFormValidator vendorApplicationFormValidator;
 
@@ -101,25 +95,20 @@ public class VendorFormController {
                 for (Object[] result : dashboardDataServerList) {
                     VendorDashboardList pojo = new VendorDashboardList();
                     pojo.setApp_id((Integer) result[0]);
-                    pojo.setApp_action_dc((String)result[1]);
+                    pojo.setApp_action_dc((String) result[1]);
                     pojo.setApp_dc_date((Date) result[2]);
-                    pojo.setApp_action_dfo((String)result[3]);
+                    pojo.setApp_action_dfo((String) result[3]);
                     pojo.setApp_dfo_date((Date) result[4]);
-                    pojo.setApp_action_bdo((String)result[5]);
+                    pojo.setApp_action_bdo((String) result[5]);
                     pojo.setApp_bdo_date((Date) result[6]);
-                    pojo.setCreatedDate((Date)result[7]);
-                    pojo.setVendorType((String)result[8]);
-                    pojo.setVendorCategory((String)result[9]);
+                    pojo.setCreatedDate((Date) result[7]);
+                    pojo.setVendorType((String) result[8]);
+                    pojo.setVendorCategory((String) result[9]);
                     dashboardData.add(pojo);
                 }
 
 
                 model.addAttribute("userApplications", dashboardData);
-
-
-
-
-
 
 
                 return "vendorIndex";
@@ -167,16 +156,16 @@ public class VendorFormController {
                 for (Object[] result : dashboardDataServerList) {
                     VendorDashboardList pojo = new VendorDashboardList();
                     pojo.setApp_id((Integer) result[0]);
-                    pojo.setApp_action_dc((String)result[1]);
+                    pojo.setApp_action_dc((String) result[1]);
                     pojo.setApp_dc_date((Date) result[2]);
-                    pojo.setApp_action_dfo((String)result[3]);
+                    pojo.setApp_action_dfo((String) result[3]);
                     pojo.setApp_dfo_date((Date) result[4]);
-                    pojo.setApp_action_bdo((String)result[5]);
+                    pojo.setApp_action_bdo((String) result[5]);
                     pojo.setApp_bdo_date((Date) result[6]);
-                    pojo.setCreatedDate((Date)result[7]);
-                    pojo.setVendorType((String)result[8]);
-                    pojo.setVendorCategory((String)result[9]);
-                    pojo.setName((String)result[10]);
+                    pojo.setCreatedDate((Date) result[7]);
+                    pojo.setVendorType((String) result[8]);
+                    pojo.setVendorCategory((String) result[9]);
+                    pojo.setName((String) result[10]);
                     dashboardData.add(pojo);
                 }
 
@@ -192,7 +181,7 @@ public class VendorFormController {
 
     }
 
-    @RequestMapping(value = "/saveapplication",  method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RequestMapping(value = "/saveapplication", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
     public String saveForm(@ModelAttribute("vendorApplicationForm") vendorApplicationForm vendorForm,
                            BindingResult bindingResult, Model model,
@@ -200,13 +189,12 @@ public class VendorFormController {
                            RedirectAttributes redirectAttributes) {
 
 
-
-        String captcha=(String)session.getAttribute("CAPTCHA");
-        if(captcha==null || (captcha!=null && !captcha.equals(vendorForm.getCaptcha()))){
+        String captcha = (String) session.getAttribute("CAPTCHA");
+        if (captcha == null || (captcha != null && !captcha.equals(vendorForm.getCaptcha()))) {
             vendorForm.setCaptcha("");
             model.addAttribute("serverError", "Captcha Mismatch");
             return "vendorRegistration";
-        }else {
+        } else {
             vendorApplicationFormValidator.validate(vendorForm, bindingResult);
             if (bindingResult.hasErrors()) {
                 return "vendorRegistration";
@@ -222,24 +210,75 @@ public class VendorFormController {
 
                     try {
                         System.out.println(user.toString());
-                        userApplication = populateApplicationData(user,vendorForm);
+                        userApplication = populateApplicationData(user, vendorForm);
 
-                        if(userApplication !=null){
+                        if (userApplication != null) {
                             //Save Category Details Here
                             System.out.println(userApplication.toString());
-                            request.getSession().setAttribute("successMessage", userApplication.getAppId());
+                            //Save the Items Table if Available
+                            if (vendorForm.getVendorType().equalsIgnoreCase("2")) {
+                                //Check if there is value or not inside the list Save Tent ITems
+                                List<UserAppItemsEntity> items = new ArrayList<>();
+                                UserAppItemsEntity datax = null;
+                                SubCategoryItemsEntity subCategoryItemsEntity = null;
+                                for (int i = 0; i < vendorForm.getItemsForm().size(); i++) {
+                                    datax = new UserAppItemsEntity();
+                                    subCategoryItemsEntity = new SubCategoryItemsEntity();
 
-                            //Save the Third Details
-                            return "vendorRegistration";
+
+                                    if (!vendorForm.getItemsForm().get(i).getItem_number().equalsIgnoreCase("")
+                                            && vendorForm.getItemsForm().get(i).getItem_number() != null) {
+
+                                        datax.setTentNumber(Integer.parseInt(vendorForm.getItemsForm().get(i).getItem_number()));
+                                        subCategoryItemsEntity.setItemId(Integer.parseInt(vendorForm.getItemsForm().get(i).getItem()));
+                                        datax.setItem(subCategoryItemsEntity);
+                                        datax.setAppId(userApplication.getAppId());
+
+                                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                                        Date date = new Date(timestamp.getTime());
+
+                                        datax.setCreateddate(date);
+                                        datax.setActive(true);
+                                        items.add(datax);
+
+                                    }
+                                }
+                                availedServices.saveData(items);
+                                request.getSession().setAttribute("successMessage", userApplication.getAppId());
+
+                                return "vendorRegistration";
+
+                            } else {
+
+                                //Save Non Tent Items
+                                UserAppItemsEntity datax = new UserAppItemsEntity();
+                                SubCategoryItemsEntity subCategoryItemsEntity = new SubCategoryItemsEntity();
+
+                                datax.setTentNumber(Integer.parseInt("0"));
+                                subCategoryItemsEntity.setItemId(Integer.parseInt(vendorForm.getItem()));
+                                datax.setItem(subCategoryItemsEntity);
+                                datax.setAppId(userApplication.getAppId());
+
+                                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                                Date date = new Date(timestamp.getTime());
+
+                                datax.setCreateddate(date);
+                                datax.setActive(true);
+
+                                availedServices.saveDataSingle(datax);
+                                request.getSession().setAttribute("successMessage", userApplication.getAppId());
+                                return "vendorRegistration";
+                            }
+
 
                             // redirectAttributes.addFlashAttribute("appId", savedData.getAppId());
                             //  return "redirect:/paymentpage";
-                        }else{
+                        } else {
                             request.getSession().setAttribute("serverError", "Unable to save data. Please try again.");
                             return "vendorRegistration";
                         }
                     } catch (Exception ex) {
-                        request.getSession().setAttribute("serverError", ex.getLocalizedMessage().toString());
+                        request.getSession().setAttribute("serverError", ex.getLocalizedMessage());
                         return "vendorRegistration";
                     }
 
@@ -264,17 +303,17 @@ public class VendorFormController {
         logger.info("Inside Populate Function Add Application");
         UserApplicationEntity applicationData = new UserApplicationEntity();
 
-        try{
+        try {
 
             StateEntity state = new StateEntity();
-            DistrictEntity district  = new DistrictEntity();
+            DistrictEntity district = new DistrictEntity();
             BlocksEntity block = new BlocksEntity();
             TehsilEntity tehsil = new TehsilEntity();
             GPEntity grampanchayat = new GPEntity();
             NationalityEntity nationality = new NationalityEntity();
             CategoryEntity categoryEntity = new CategoryEntity();
             SubCategoryEntity subCategoryEntity = new SubCategoryEntity();
-            LandTypeEntity landTypeEntity =  new LandTypeEntity();
+            LandTypeEntity landTypeEntity = new LandTypeEntity();
 
             applicationData.setUserId(user);
             state.setStateID(Integer.parseInt(vendorForm.getVstate()));
@@ -333,11 +372,10 @@ public class VendorFormController {
             UserApplicationEntity savedApplication = userApplicationService.saveApplication(applicationData);
 
             return savedApplication;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             applicationData = null;
             return applicationData;
         }
-
 
 
     }
@@ -350,7 +388,7 @@ public class VendorFormController {
 
         UserEntity user = new UserEntity();
         StateEntity state = new StateEntity();
-        DistrictEntity district  = new DistrictEntity();
+        DistrictEntity district = new DistrictEntity();
         BlocksEntity block = new BlocksEntity();
         TehsilEntity tehsil = new TehsilEntity();
         GPEntity grampanchayat = new GPEntity();
@@ -362,7 +400,7 @@ public class VendorFormController {
             user.setActive(true);
             user.setFirstName(vendorForm.getFirstname());
             user.setLastName(vendorForm.getLastname());
-            user.setUsername(Constants.createUsername(vendorForm.getFirstname(),vendorForm.getLastname(),vendorForm.getAge(),"vendor"));
+            user.setUsername(Constants.createUsername(vendorForm.getFirstname(), vendorForm.getLastname(), vendorForm.getAge(), "vendor"));
             state.setStateID(Integer.parseInt(vendorForm.getState()));
             user.setState(state);
             district.setDistrictId(Integer.parseInt(vendorForm.getLocalDistrict()));
@@ -378,9 +416,9 @@ public class VendorFormController {
             user.setPassword(encoder.encode("Demo@123"));
             user.setpAddress(vendorForm.getP_address());
             user.setAge(Integer.parseInt(vendorForm.getAge()));
-            if(vendorForm.getEmailAddress().isEmpty() || vendorForm.getEmailAddress() == null){
+            if (vendorForm.getEmailAddress().isEmpty() || vendorForm.getEmailAddress() == null) {
                 user.setEmail("");
-            }else{
+            } else {
                 user.setEmail(vendorForm.getEmailAddress());
             }
             gender.setGenderId(Integer.parseInt(vendorForm.getGender()));
@@ -398,9 +436,9 @@ public class VendorFormController {
 
                 return user_saved;
 
-            }else{
-               user = null;
-               return user;
+            } else {
+                user = null;
+                return user;
             }
         } catch (Exception ex) {
             user = null;
@@ -408,10 +446,6 @@ public class VendorFormController {
         logger.info(user.toString());
         return user;
     }
-
-
-
-
 
 
 }

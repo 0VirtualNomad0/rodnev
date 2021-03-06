@@ -32,17 +32,17 @@ public class UserValidator implements Validator {
         if (user.getUsername().length() <= 3 || user.getUsername().length() > 32) {
             errors.rejectValue("username", "Size.registerUser.username");
         }
-        if (userService.findByUsername(user.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate.registerUser.username");
-        }
+//        if (userService.findByUsername(user.getUsername()) != null) {
+//            errors.rejectValue("username", "Duplicate.registerUser.username");
+//        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mobileNumber", "NotEmpty");
         if (user.getMobileNumber().length() != 10 ) {
             errors.rejectValue("mobileNumber", "Size.registerUser.mobileNumber");
         }
-        if (userService.findByMobileNumber(user.getMobileNumber()) != null) {
-            errors.rejectValue("mobileNumber", "Duplicate.registerUser.mobileNumber");
-        }
+//        if (userService.findByMobileNumber(user.getMobileNumber()) != null) {
+//            errors.rejectValue("mobileNumber", "Duplicate.registerUser.mobileNumber");
+//        }
         if(user.getGender().isEmpty() || user.getGender().equalsIgnoreCase("")){
             errors.rejectValue("gender", "Duplicate.registerUser.gender");
         }

@@ -17,12 +17,12 @@ public class GenderEntity implements Serializable {
     @Column(name = "gender_name")
     private String genderName;
 
-    @Column(name = "active")
-    private Boolean active;
-
-    @Column(name = "createddate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+//    @Column(name = "active")
+//    private Boolean active;
+//
+//    @Column(name = "createddate")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date createdDate;
 
     public Integer getGenderId() {
         return genderId;
@@ -40,29 +40,13 @@ public class GenderEntity implements Serializable {
         this.genderName = genderName;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 
     @Override
     public String toString() {
         return "GenderEntity{" +
                 "genderId=" + genderId +
                 ", genderName='" + genderName + '\'' +
-                ", active=" + active +
-                ", createdDate=" + createdDate +
                 '}';
     }
 }

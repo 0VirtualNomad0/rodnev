@@ -20,28 +20,24 @@ public class DistrictEntity implements Serializable {
     @Column(name = "district_name")
     private String districtName;
 
-    @Column(name = "is_active")
-    private Boolean active;
+//    @Column(name = "is_active")
+//    private Boolean active;
+//
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="state_id", updatable = false )
+//    @LazyToOne(LazyToOneOption.NO_PROXY)
+//    private StateEntity stateEntity;
+//
+//    @Column(name = "is_deleted")
+//    private Boolean deleted;
+//
+//    @Column(name = "created_on")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date createdDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="state_id", updatable = false )
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private StateEntity stateEntity;
 
-    @Column(name = "is_deleted")
-    private Boolean deleted;
 
-    @Column(name = "created_on")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
 
-    public StateEntity getStateEntity() {
-        return stateEntity;
-    }
-
-    public void setStateEntity(StateEntity stateEntity) {
-        this.stateEntity = stateEntity;
-    }
 
     public Integer getDistrictId() {
         return districtId;
@@ -59,39 +55,11 @@ public class DistrictEntity implements Serializable {
         this.districtName = districtName;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
     @Override
     public String toString() {
         return "DistrictEntity{" +
                 "districtId=" + districtId +
                 ", districtName='" + districtName + '\'' +
-                ", active=" + active +
-                ", stateEntity=" + stateEntity +
-                ", deleted=" + deleted +
-                ", createdDate=" + createdDate +
                 '}';
     }
 }
