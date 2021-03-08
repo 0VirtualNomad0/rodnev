@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name="mst_landType")
+@Table(name="mst_landtype")
 public class LandTypeEntity implements Serializable {
 
     @Id
@@ -15,7 +15,7 @@ public class LandTypeEntity implements Serializable {
     @Column(name = "landtype_id")
     private Integer landTypeId;
 
-    @Column(name = "landTye_name")
+    @Column(name = "landtye_name")
     private String landTypeName;
 
 //    @Column(name = "active")

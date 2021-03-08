@@ -81,15 +81,15 @@ public class UserAppItemsEntity implements Serializable {
         this.createddate = createddate;
     }
 
-    @Override
-    public String toString() {
-        return "UserAppItemsEntity{" +
-                "itemId=" + itemId +
-                ", appId=" + appId +
-                ", item=" + item +
-                ", tentNumber=" + tentNumber +
-                ", active=" + active +
-                ", createddate=" + createddate +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "UserAppItemsEntity{" +
+//                "itemId=" + itemId +
+//                ", appId=" + appId +
+//                ", item=" + item +
+//                ", tentNumber=" + tentNumber +
+//                ", active=" + active +
+//                ", createddate=" + createddate +
+//                '}';
+//    }
 }

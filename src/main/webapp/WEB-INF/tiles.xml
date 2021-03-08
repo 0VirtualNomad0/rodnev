@@ -71,7 +71,7 @@
     </definition>
 
 
-    <definition name="paymentResponse" extends="baselayoutdashboard">
+    <definition name="paymentResponse" extends="main">
         <put-attribute name="content" value="/WEB-INF/jsp/paymentresponse.jsp" />
     </definition>
 
@@ -87,7 +87,7 @@
         <put-attribute name="content" value="/WEB-INF/jsp/vendorForm.jsp" />
     </definition>
 
-    <definition name="paymentpage" extends="baselayoutdashboard">
+    <definition name="paymentpage" extends="main">
         <put-attribute name="content" value="/WEB-INF/jsp/paymentProceed.jsp" />
     </definition>
 

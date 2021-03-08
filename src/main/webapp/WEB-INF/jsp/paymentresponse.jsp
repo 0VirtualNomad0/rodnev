@@ -67,13 +67,5 @@
             </tbody>
          </table>
       </div>
-      <div class="col-lg-3"> &nbsp;  </div>
-       <div class="row ">
-       <div class="col-lg-12" >
-      <br />
-      <a href="${pageContext.request.contextPath}/vendorIndex" class="btn-success col-lg-12 text-center"> Go to Dashboard </a>
-      <br/>
-      </div>
-      </div>
-   </div>
+
 </div>

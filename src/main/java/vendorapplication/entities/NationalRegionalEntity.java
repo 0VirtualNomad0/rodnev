@@ -6,16 +6,16 @@ import java.util.Date;
 
 
 @Entity
-@Table(name="mst_nationalRegional")
+@Table(name="mst_nationalregional")
 public class NationalRegionalEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "mst_nationalregional_nationalregional_id_seq", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "mst_nationalregional_nationalregional_id_seq", sequenceName = "public.mst_nationalregional_nationalregional_id_seq", initialValue = 1, allocationSize = 1)
-    @Column(name = "nationalRegional_id")
+    @Column(name = "nationalregional_id")
     private Integer nationalRegionalId;
 
-    @Column(name = "nationalRegional_name")
+    @Column(name = "nationalregional_name")
     private String nationalRegionalName;
 
 //    @Column(name = "active")

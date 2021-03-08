@@ -1,5 +1,9 @@
 package vendorapplication.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+import org.springframework.context.annotation.Lazy;
 import sun.jvm.hotspot.opto.Block;
 
 import javax.persistence.*;
@@ -40,10 +44,12 @@ public class UserEntity {
 
     @OneToOne()
     @JoinColumn(name="state_id", updatable = false )
+    @Basic(fetch=FetchType.LAZY)
     private StateEntity state;
 
     @OneToOne()
     @JoinColumn(name="district_id", updatable = false )
+    @Basic(fetch=FetchType.LAZY)
     private DistrictEntity district;
 
     @OneToOne()
@@ -77,14 +83,14 @@ public class UserEntity {
     private Date createdDate;
 
 
-    @Column(name = "updateddate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedDate;
-
-
-    @Column(name = "lastmodifieddate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastmodifieddate;
+//    @Column(name = "updateddate")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date updatedDate;
+//
+//
+//    @Column(name = "lastmodifieddate")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date lastmodifieddate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role_mapping", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
@@ -236,21 +242,21 @@ public class UserEntity {
         this.createdDate = createdDate;
     }
 
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public Date getLastmodifieddate() {
-        return lastmodifieddate;
-    }
-
-    public void setLastmodifieddate(Date lastmodifieddate) {
-        this.lastmodifieddate = lastmodifieddate;
-    }
+//    public Date getUpdatedDate() {
+//        return updatedDate;
+//    }
+//
+//    public void setUpdatedDate(Date updatedDate) {
+//        this.updatedDate = updatedDate;
+//    }
+//
+//    public Date getLastmodifieddate() {
+//        return lastmodifieddate;
+//    }
+//
+//    public void setLastmodifieddate(Date lastmodifieddate) {
+//        this.lastmodifieddate = lastmodifieddate;
+//    }
 
     public List<RolesEntity> getRoles() {
         return roles;
@@ -281,8 +287,8 @@ public class UserEntity {
                 ", active=" + active +
                 ", isDeleted=" + isDeleted +
                 ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                ", lastmodifieddate=" + lastmodifieddate +
+             //   ", updatedDate=" + updatedDate +
+             //   ", lastmodifieddate=" + lastmodifieddate +
                 ", roles=" + roles +
                 '}';
     }

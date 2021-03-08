@@ -26,6 +26,7 @@ import vendorapplication.utilities.SMSServices;
 import vendorapplication.utilities.Utilities;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -52,14 +53,15 @@ public class PaymentPageController {
 
     @RequestMapping(value = "/paymentpage", method = RequestMethod.GET)
     @Transactional
-    public String paymentpage(Model model, HttpServletRequest request) {
+    public String paymentpage(Model model, HttpServletRequest request, HttpSession session) {
         model.addAttribute("paymentForm", new PaymentForm());
-        Integer userId = (Integer) model.asMap().get("appId");
-        System.out.println(userId);
+       // Integer appId_ = (Integer) model.asMap().get("appId");
+        Integer appId_ = (Integer) session.getAttribute("appId");
+        System.out.println(appId_);
         UserApplicationEntity appData = null;
 
         try {
-            appData = userApplicationService.getUserApplicationViaAppId(userId);
+            appData = userApplicationService.getUserApplicationViaAppId(appId_);
             if (appData != null) {
 
                     System.out.println(appData.toString());

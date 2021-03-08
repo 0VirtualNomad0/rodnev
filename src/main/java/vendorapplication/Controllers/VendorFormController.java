@@ -244,9 +244,10 @@ public class VendorFormController {
                                     }
                                 }
                                 availedServices.saveData(items);
-                                request.getSession().setAttribute("successMessage", userApplication.getAppId());
+                                request.getSession().setAttribute("appId", userApplication.getAppId());
+                                // redirectAttributes.addFlashAttribute("appId", userApplication.getAppId());
+                                return "redirect:/paymentpage";
 
-                                return "vendorRegistration";
 
                             } else {
 
@@ -267,7 +268,10 @@ public class VendorFormController {
 
                                 availedServices.saveDataSingle(datax);
                                 request.getSession().setAttribute("successMessage", userApplication.getAppId());
-                                return "vendorRegistration";
+                                request.getSession().setAttribute("appId", userApplication.getAppId());
+                               // redirectAttributes.addFlashAttribute("appId", userApplication.getAppId());
+                                return "redirect:/paymentpage";
+                               // return "vendorRegistration";
                             }
 
 
