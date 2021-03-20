@@ -66,8 +66,20 @@ public class PaymentPageController {
 
                     System.out.println(appData.toString());
                     PaymentDetail paymentDetail = new PaymentDetail();
-                    //Calculate Amount
+
+
+                if(appData.getNationalityEntity().getNationalityId() == 1){
+
                     paymentDetail.setAmount(Double.parseDouble(CalculateAmount.calculateAmount(appData)));
+                }else{
+                    /**
+                     * 3X In Case of Foreigner
+                     */
+                    paymentDetail.setAmount(Double.parseDouble(CalculateAmount.calculateAmount(appData))*3);
+                }
+
+
+
                     paymentDetail.setName(appData.getUserId().getFirstName()+" "+ appData.getUserId().getLastName());
                     paymentDetail.setProductInfo(Integer.toString(appData.getAppId()));
                     paymentDetail.setPhone(String.valueOf(appData.getUserId().getMobileNumber()));
@@ -113,6 +125,8 @@ public class PaymentPageController {
                     request.getSession().setAttribute("productinfo", paymentDetail.getProductInfo());
                     request.getSession().setAttribute("surl", paymentDetail.getsUrl());
                     request.getSession().setAttribute("furl", paymentDetail.getfUrl());
+                    request.getSession().setAttribute("security", appData.getApp_items().get(0).getItem().getSecurityAmount());
+
                     model.addAttribute("user", appData);
                     return "paymentpage";
 

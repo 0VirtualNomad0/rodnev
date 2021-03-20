@@ -251,7 +251,7 @@
                   <spring:bind path="regional_national">
                      <div class="form-group  ${status.error ? 'has-error' : ''}">
                         <form:label path="regional_national" for="regional_national">Regional/National</form:label>
-                        <form:select path="regional_national" onchange="getItemsNR($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');"   class="form-control" id="nationalRegional">
+                        <form:select path="regional_national" onchange="getItemsNR($('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');"   class="form-control" id="nationalRegional">
                         </form:select>
                         <form:errors  path="regional_national"></form:errors>
                      </div>
@@ -391,7 +391,7 @@
 
     function addNewRow()
    {
-    getItemsTent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),add);
+    getItemsTent($('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),add);
    	var row ='<div class="row " id="id'+add+'">'
     +'<div class="col-lg-4"><div class="form-group"><select path="itemsForm['+add+'].item" name="itemsForm['+add+'].item" id="item'+add+'"   class="form-control"  ></select></div></div>'
     +'<div class="col-lg-4"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="itemsForm['+add+'].item_number" name="itemsForm['+add+'].item_number"   class="form-control"   /></div></div>'

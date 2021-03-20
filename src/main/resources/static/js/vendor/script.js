@@ -233,8 +233,8 @@ function getLandTypeT(value) {
 }
 
 //getItemsTent
-function getItemsTent(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
-    console.log("nationality:- " + nationality);
+function getItemsTent(landType,nationalRegional,category,subCatId,elementIdwithRow) {
+
      console.log("landType:- " + landType);
        console.log("category:- " + category);
         console.log("subCatId:- " + subCatId);
@@ -242,7 +242,7 @@ function getItemsTent(nationality,landType,nationalRegional,category,subCatId,el
             type: "GET",
             url: formURL + "/ajax/getItemsviaSubCategoriesTent",
             data: {
-                        "nationality":nationality,
+
                         "landType":landType,
                         "regional":nationalRegional,
                         "category":category,
@@ -271,8 +271,8 @@ function getItemsTent(nationality,landType,nationalRegional,category,subCatId,el
 
 
 //getItemsNR
-function getItemsNR(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
-    console.log("nationality:- " + nationality);
+function getItemsNR(landType,nationalRegional,category,subCatId,elementIdwithRow) {
+
      console.log("landType:- " + landType);
        console.log("category:- " + category);
         console.log("subCatId:- " + subCatId);
@@ -281,7 +281,7 @@ function getItemsNR(nationality,landType,nationalRegional,category,subCatId,elem
             type: "GET",
             url: formURL + "/ajax/getItemsviaSubCategoriesNR",
             data: {
-                        "nationality":nationality,
+
                         "landType":landType,
                         "category":category,
                         "regional":nationalRegional,
@@ -308,8 +308,8 @@ function getItemsNR(nationality,landType,nationalRegional,category,subCatId,elem
 
 
 //getItemsitem_non_tent($('#nationality').val(),$('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');
-function getItemsnonTent(nationality,landType,nationalRegional,category,subCatId,elementIdwithRow) {
-    console.log("nationality:- " + nationality);
+function getItemsnonTent(landType,nationalRegional,category,subCatId,elementIdwithRow) {
+
      console.log("landType:- " + landType);
       console.log("nationalRegional:- " + nationalRegional);
        console.log("category:- " + category);
@@ -318,7 +318,7 @@ function getItemsnonTent(nationality,landType,nationalRegional,category,subCatId
             type: "GET",
             url: formURL + "/ajax/getItemsviaSubCategoriesNonTentNonRegional",
             data: {
-                        "nationality":nationality,
+
                         "landType":landType,
                         "regional":nationalRegional,
                         "category":category,

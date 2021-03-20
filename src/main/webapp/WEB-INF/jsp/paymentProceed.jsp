@@ -62,6 +62,10 @@
                      <td >Amount to Pay</td>
                      <td class="text-center" ><%= session.getAttribute("amount") %></input>
                   </tr>
+                  <tr class="text-center">
+                                       <td >Security Amount</td>
+                                       <td class="text-center" ><%= session.getAttribute("security") %></input>
+                                    </tr>
                </tbody>
             </table>
          </div>
@@ -82,10 +86,11 @@
                   <th>Regional/National</th>
                   <th>Items/Tent Number</th>
                   <th>Fee</th>
-                  <th>Security Amount</th>
                </tr>
             </thead>
             <tbody>
+
+            <!-- Show Fee Details -->
                <c:if test="${not empty user.app_items}">
                   <c:forEach items="${user.app_items}" var="application" varStatus="loopCounter">
                      <tr>
@@ -105,11 +110,14 @@
                            <td>${application.tentNumber}</td>
                            <td> ${application.item.fee * application.tentNumber} (${application.item.fee} x ${application.tentNumber})</td>
                         </c:if>
-
-                        <td class="text-center" rowspan="${fn:length(user.app_items)}">${application.item.securityAmount}</td>
+                       <!-- <td class="text-center" rowspan="${fn:length(user.app_items)}">${application.item.securityAmount}</td> -->
                      </tr>
                   </c:forEach>
                </c:if>
+                <!-- Show Fee Details -->
+
+
+
             </tbody>
          </table>
          <div class="col-lg-1"> &nbsp;  </div>

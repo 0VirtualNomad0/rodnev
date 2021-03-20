@@ -136,7 +136,7 @@ function checkValue(value) {
         x.style.display = "block";
         y.style.display = "none";
         z.style.display = "none";
-        getItemsTent($('#nationality').val(), $('#landType').val(), $('#nationalRegional').val(), $('#vendor').val(), $('#vendorType').val(), '');
+        getItemsTent($('#landType').val(), $('#nationalRegional').val(), $('#vendor').val(), $('#vendorType').val(), '');
 
 
     } else if (value == "7" || value == "3") {
@@ -149,7 +149,7 @@ function checkValue(value) {
         x.style.display = "none";
         y.style.display = "block";
         z.style.display = "none";
-        getItemsnonTent($('#nationality').val(), $('#landType').val(), $('#nationalRegional').val(), $('#vendor').val(), $('#vendorType').val(), '');
+        getItemsnonTent( $('#landType').val(), $('#nationalRegional').val(), $('#vendor').val(), $('#vendorType').val(), '');
 
 
     }

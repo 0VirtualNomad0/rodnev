@@ -15,10 +15,10 @@ import java.util.List;
 @CacheConfig(cacheNames = "subCategoryItems")
 public interface SubCategoryItemsRepository extends CrudRepository<SubCategoryItemsEntity,Integer> {
 
-    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType AND nationality_id =:nationality ", nativeQuery = true)
+    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType ", nativeQuery = true)
     @Cacheable
     List<Object[]> getItemsSubCategory(
-            @Param("nationality") Integer nationality ,
+
             @Param("landType") Integer landType ,
             @Param("category") Integer category ,
             @Param("subCategory") Integer subCategory );
@@ -27,20 +27,19 @@ public interface SubCategoryItemsRepository extends CrudRepository<SubCategoryIt
 
 
 
-    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType AND nationality_id =:nationality AND  nationalregional_id =:regional", nativeQuery = true)
+    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType  AND  nationalregional_id =:regional", nativeQuery = true)
     @Cacheable
     List<Object[]> getItemsSubCategoryNR(
-            @Param("nationality") Integer nationality ,
+
             @Param("landType") Integer landType ,
             @Param("category") Integer category ,
             @Param("regional") Integer regional ,
             @Param("subCategory") Integer subCategory );
 
 
-    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType AND nationality_id =:nationality ", nativeQuery = true)
+    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType  ", nativeQuery = true)
     @Cacheable
     List<Object[]> getItemsSubCategoryOthers(
-            @Param("nationality") Integer nationality ,
             @Param("landType") Integer landType ,
             @Param("category") Integer category ,
             @Param("subCategory") Integer subCategory );

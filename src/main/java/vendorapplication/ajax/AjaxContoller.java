@@ -410,7 +410,7 @@ public class AjaxContoller {
     @RequestMapping(value = "/ajax/getItemsviaSubCategoriesTent", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
     ResponseEntity<?> getItemsviaSubCategories(
-            @RequestParam(value = "nationality", required = true) String nationality,
+
             @RequestParam(value = "landType", required = true) String landType,
             @RequestParam(value = "category", required = true) String category,
             @RequestParam(value = "subCategory", required = true) String subCategory
@@ -419,7 +419,7 @@ public class AjaxContoller {
 
         Map<String, Object> map = null;
         List<Object[] > items = subCategoryItemsRepository.getItemsSubCategory(
-                Integer.parseInt(nationality),
+
                 Integer.parseInt(landType),
                 Integer.parseInt(category),
                 Integer.parseInt(subCategory));
@@ -449,7 +449,6 @@ public class AjaxContoller {
     @RequestMapping(value = "/ajax/getItemsviaSubCategoriesNR", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
     ResponseEntity<?> getItemsviaSubCategoriesNR(
-            @RequestParam(value = "nationality", required = true) String nationality,
             @RequestParam(value = "landType", required = true) String landType,
             @RequestParam(value = "category", required = true) String category,
             @RequestParam(value = "regional", required = true) String regional,
@@ -459,7 +458,7 @@ public class AjaxContoller {
 
         Map<String, Object> map = null;
         List<Object[] > items = subCategoryItemsRepository.getItemsSubCategoryNR(
-                Integer.parseInt(nationality),
+
                 Integer.parseInt(landType),
                 Integer.parseInt(category),
                 Integer.parseInt(regional),
@@ -489,7 +488,6 @@ public class AjaxContoller {
 @RequestMapping(value = "/ajax/getItemsviaSubCategoriesNonTentNonRegional", method = RequestMethod.GET,  produces="application/json")
 public @ResponseBody
 ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
-        @RequestParam(value = "nationality", required = true) String nationality,
         @RequestParam(value = "landType", required = true) String landType,
         @RequestParam(value = "category", required = true) String category,
         @RequestParam(value = "regional", required = true) String regional,
@@ -499,7 +497,6 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
 
     Map<String, Object> map = null;
     List<Object[] > items = subCategoryItemsRepository.getItemsSubCategoryOthers(
-            Integer.parseInt(nationality),
             Integer.parseInt(landType),
             Integer.parseInt(category),
             Integer.parseInt(subCategory));
