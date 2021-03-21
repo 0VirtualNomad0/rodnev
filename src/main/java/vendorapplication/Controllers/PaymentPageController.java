@@ -104,7 +104,7 @@ public class PaymentPageController {
 
                     transactionEntity.setName(appData.getUserId().getFirstName()+" "+ appData.getUserId().getLastName());
                     transactionEntity.setPhone(String.valueOf(appData.getUserId().getMobileNumber()));
-                    transactionEntity.setAmount(CalculateAmount.calculateAmount(appData));
+                    transactionEntity.setAmount(String.valueOf(paymentDetail.getAmount()));
                     transactionEntity.setPaymentStatus("");
                     transactionEntity.setTransactionId(paymentDetail.getTxnId());
                     transactionEntity.setActive(true);
