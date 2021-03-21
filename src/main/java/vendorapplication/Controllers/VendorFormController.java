@@ -141,7 +141,7 @@ public class VendorFormController {
 
             if (user != null) {
 
-                List<Object[]> dashboardDataServerList = userApplicationService.getApplicationsLocationWise(user.getStateId(),user.getDistrictId(),user.getBlockId());
+                List<Object[]> dashboardDataServerList = userApplicationService.getApplicationsLocationWise(user.getStateId(),user.getDistrictId());
                 List<ApplicationsViaLocations> applications = new ArrayList<>();
                 for (Object[] result : dashboardDataServerList) {
                     ApplicationsViaLocations pojo = new ApplicationsViaLocations();
@@ -359,6 +359,7 @@ public class VendorFormController {
             applicationData.setActive(true);
             applicationData.setWithdrawVenLicence("");
             applicationData.setFineDefaulter("");
+            applicationData.setApplicationStatus(Constants.PENDING);
 
             UserApplicationEntity savedApplication = userApplicationService.saveApplication(applicationData);
 

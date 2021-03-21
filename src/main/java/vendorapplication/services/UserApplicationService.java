@@ -55,7 +55,7 @@ public class UserApplicationService {
         return userApplicationRepository.updateDcAction(action,comments,appID,date);
     }
 
-    public List<Object[]> getApplicationsLocationWise(Integer state, Integer district, Integer block){
-        return userApplicationRepository.getApplicationsLocationWise(state,district,block);
+    public List<Object[]> getApplicationsLocationWise(Integer state, Integer district){
+        return userApplicationRepository.getApplicationsLocationWise(state,district);
     }
 }

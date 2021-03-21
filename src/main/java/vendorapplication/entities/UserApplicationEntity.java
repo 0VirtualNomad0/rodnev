@@ -76,6 +76,9 @@ public class UserApplicationEntity implements Serializable {
     @Column(name = "identity_doc")
     private String identityDoc;
 
+    @Column(name="applicationstatus")
+    private String applicationStatus;
+
     @Column(name = "photo_doc")
     private String photoDoc;
 
@@ -90,6 +93,15 @@ public class UserApplicationEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity = UserAppItemsEntity.class)
     @JoinColumn(name="app_id")
     private List<UserAppItemsEntity> app_items;
+
+
+    public String getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
 
     public List<UserAppItemsEntity> getApp_items() {
         return app_items;
@@ -288,6 +300,7 @@ public class UserApplicationEntity implements Serializable {
                 ", fineDefaulter='" + fineDefaulter + '\'' +
                 ", withdrawVenLicence='" + withdrawVenLicence + '\'' +
                 ", identityDoc='" + identityDoc + '\'' +
+                ", applicationStatus='" + applicationStatus + '\'' +
                 ", photoDoc='" + photoDoc + '\'' +
                 ", active=" + active +
                 ", createdDate=" + createdDate +
