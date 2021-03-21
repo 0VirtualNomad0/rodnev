@@ -47,4 +47,9 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
+
+	public List<Object[]> getLoggedInUserLocation(String username){
+		return userRepository.getUserGeoData(username);
+	}
+
 }

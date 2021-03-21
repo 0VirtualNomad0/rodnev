@@ -15,7 +15,7 @@
       <spring:bind path="categoryId">
          <div class="form-group  ${status.error ? 'has-error' : ''}">
             <form:label path="categoryId" for="categoryId">Select Category</form:label>
-            <form:select path="categoryId" name="categoryId" class="form-control" id="categoryId" onchange="getVendorCategory(this.value);">
+            <form:select path="categoryId" name="categoryId" class="form-control" id="categoryId" onchange="getVendorCategoryAdmin(this.value);">
             </form:select>
             <form:errors  path="categoryId"></form:errors>
          </div>

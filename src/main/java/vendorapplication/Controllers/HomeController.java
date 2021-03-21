@@ -3,6 +3,7 @@ package vendorapplication.Controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,8 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import vendorapplication.modal.AreaModal;
+import vendorapplication.modal.BlockModal;
+import vendorapplication.modal.LoggedInUserLocationSession;
+import vendorapplication.repositories.UserRepository;
+import vendorapplication.services.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -23,6 +32,9 @@ public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
+    @Autowired
+    UserService userService;
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainpage(Model model) {
@@ -30,7 +42,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String homePage(Model model) {
+    public String homePage(Model model, HttpServletRequest request) {
 
         String authority_ = null;
 
@@ -50,13 +62,36 @@ public class HomeController {
                 authority_ = authority.getAuthority().toString();
                 System.out.println(authority.getAuthority().toString());
             }
+            //Get the User Data and Set Set the Data in Session
+            List<Object[]> data = userService.getLoggedInUserLocation(username);
+
+            List<LoggedInUserLocationSession> loggedInUserLocationSessionsList = new ArrayList<>();
+
+
+            for (Object[] result : data) {
+                LoggedInUserLocationSession userSession = new LoggedInUserLocationSession();
+                userSession.setStateId((Integer) result[0]);
+                userSession.setDistrictId((Integer) result[1]);
+                userSession.setBlockId((Integer) result[2]);
+                userSession.setTehsilId((Integer) result[3]);
+                userSession.setPanchayatId((Integer) result[4]);
+
+                loggedInUserLocationSessionsList.add(userSession);
+            }
+
+
+
+
+
+            //Save the Object in Session
+            request.getSession().setAttribute("UserData", loggedInUserLocationSessionsList.get(0));
+
+
        if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin")) { return "homepage_new";}
          else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("BDO")) { return "redirect:/bdo_dfo"; }
          else { return "redirect:/vendorIndex";}
-
-
         }
-        // return "homepage_new";
+
     }
 
     @RequestMapping(value = "/gallery", method = RequestMethod.GET)

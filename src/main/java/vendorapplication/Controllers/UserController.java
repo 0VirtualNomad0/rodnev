@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import vendorapplication.modal.VendorDashboardList;
 import vendorapplication.services.RoleService;
 import vendorapplication.services.UserService;
 import vendorapplication.validators.UserValidator;

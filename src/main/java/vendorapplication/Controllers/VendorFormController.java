@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vendorapplication.entities.*;
 import vendorapplication.form.vendorApplicationForm;
-import vendorapplication.modal.VendorDashboardList;
+import vendorapplication.modal.ApplicationsViaLocations;
+import vendorapplication.modal.LoggedInUserLocationSession;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 import vendorapplication.validators.VendorApplicationFormValidator;
@@ -28,6 +29,7 @@ import vendorapplication.validators.VendorApplicationFormValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,6 +69,7 @@ public class VendorFormController {
     @RequestMapping(value = "/vendorIndex", method = RequestMethod.GET)
     public String vendorIndex(Model model, HttpServletRequest request) {
         request.getSession().setAttribute("successMessage", "");
+        System.out.println(request.getSession().getAttribute("UserData"));
         String authority_ = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -91,24 +94,24 @@ public class VendorFormController {
                 request.getSession().setAttribute("address", user.getpAddress());
                 //Get Applications via USer Details
                 List<Object[]> dashboardDataServerList = userApplicationService.getListByUserId((user.getUserId()).intValue());
-                List<VendorDashboardList> dashboardData = new ArrayList<>();
-                for (Object[] result : dashboardDataServerList) {
-                    VendorDashboardList pojo = new VendorDashboardList();
-                    pojo.setApp_id((Integer) result[0]);
-                    pojo.setApp_action_dc((String) result[1]);
-                    pojo.setApp_dc_date((Date) result[2]);
-                    pojo.setApp_action_dfo((String) result[3]);
-                    pojo.setApp_dfo_date((Date) result[4]);
-                    pojo.setApp_action_bdo((String) result[5]);
-                    pojo.setApp_bdo_date((Date) result[6]);
-                    pojo.setCreatedDate((Date) result[7]);
-                    pojo.setVendorType((String) result[8]);
-                    pojo.setVendorCategory((String) result[9]);
-                    dashboardData.add(pojo);
-                }
+//                List<VendorDashboardList> dashboardData = new ArrayList<>();
+//                for (Object[] result : dashboardDataServerList) {
+//                    VendorDashboardList pojo = new VendorDashboardList();
+//                    pojo.setApp_id((Integer) result[0]);
+//                    pojo.setApp_action_dc((String) result[1]);
+//                    pojo.setApp_dc_date((Date) result[2]);
+//                    pojo.setApp_action_dfo((String) result[3]);
+//                    pojo.setApp_dfo_date((Date) result[4]);
+//                    pojo.setApp_action_bdo((String) result[5]);
+//                    pojo.setApp_bdo_date((Date) result[6]);
+//                    pojo.setCreatedDate((Date) result[7]);
+//                    pojo.setVendorType((String) result[8]);
+//                    pojo.setVendorCategory((String) result[9]);
+//                    dashboardData.add(pojo);
+//                }
 
 
-                model.addAttribute("userApplications", dashboardData);
+                model.addAttribute("userApplications", dashboardDataServerList);
 
 
                 return "vendorIndex";
@@ -132,44 +135,28 @@ public class VendorFormController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String username = ((UserDetails) principal).getUsername();
 
-
-            UserEntity user = userService.getUserDetailsViaUsername(username);
-            System.out.println(user);
+            LoggedInUserLocationSession user = (LoggedInUserLocationSession) request.getSession().getAttribute("UserData");
+            System.out.println(user.toString());
 
             if (user != null) {
-                //Set Session UserID
-                request.getSession().setAttribute("user_Id", user.getUserId());
-                request.getSession().setAttribute("user_Name_First", user.getFirstName());
-                request.getSession().setAttribute("user_Name_LAst", user.getLastName());
-                request.getSession().setAttribute("user_Name_LAst", user.getUsername());
-                request.getSession().setAttribute("user_age", user.getAge());
-                request.getSession().setAttribute("Mobile_Number", user.getMobileNumber());
-                request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
-                request.getSession().setAttribute("address", user.getpAddress());
 
-
-                List<Object[]> dashboardDataServerList = userApplicationService.getBodDfoDashboard();
-                List<VendorDashboardList> dashboardData = new ArrayList<>();
+                List<Object[]> dashboardDataServerList = userApplicationService.getApplicationsLocationWise(user.getStateId(),user.getDistrictId(),user.getBlockId());
+                List<ApplicationsViaLocations> applications = new ArrayList<>();
                 for (Object[] result : dashboardDataServerList) {
-                    VendorDashboardList pojo = new VendorDashboardList();
+                    ApplicationsViaLocations pojo = new ApplicationsViaLocations();
                     pojo.setApp_id((Integer) result[0]);
-                    pojo.setApp_action_dc((String) result[1]);
-                    pojo.setApp_dc_date((Date) result[2]);
-                    pojo.setApp_action_dfo((String) result[3]);
-                    pojo.setApp_dfo_date((Date) result[4]);
-                    pojo.setApp_action_bdo((String) result[5]);
-                    pojo.setApp_bdo_date((Date) result[6]);
-                    pojo.setCreatedDate((Date) result[7]);
-                    pojo.setVendorType((String) result[8]);
-                    pojo.setVendorCategory((String) result[9]);
-                    pojo.setName((String) result[10]);
-                    dashboardData.add(pojo);
+                    pojo.setFirstName((String) result[1]);
+                    pojo.setLastName((String) result[2]);
+                    pojo.setMobileNumber((BigInteger) result[3]);
+                    pojo.setCategory((String) result[4]);
+                    pojo.setSubCategory((String) result[5]);
+                    pojo.setUser_id((Integer) result[6]);
+                    pojo.setApplication_status((String) result[7]);
+                    applications.add(pojo);
                 }
 
-                model.addAttribute("userApplications", dashboardData);
+                model.addAttribute("userApplications", applications);
 
                 return "bdo_dfo";
             } else {

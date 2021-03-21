@@ -651,6 +651,33 @@ function getVendorCategory(id) {
     });
     }
 
+
+    function getVendorCategoryAdmin(id) {
+        $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getVendorCategory",
+            data: {
+                "id": id
+            },
+            success: function(data) {
+                console.log(data.RESPONSE)
+                var selectRole = $('#vendorType'); // the state select element
+                selectRole.find('option').remove();
+                selectRole.append("<option value=" + 0 + " >" + "---Select---" + "</option>")
+                for (i = 0; i < data.RESPONSE.length; i++) {
+                    selectRole.append("<option  value=" + data.RESPONSE[i].vendorCategoryId + " >" + data.RESPONSE[i].vendorCategoryName + "</option>")
+
+
+                };
+
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+        }
+
     //getArea
     function getArea(id) {
 

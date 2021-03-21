@@ -55,7 +55,7 @@ public class UserApplicationService {
         return userApplicationRepository.updateDcAction(action,comments,appID,date);
     }
 
-    public List<Object[]> getBodDfoDashboard(){
-        return userApplicationRepository.getListByUsers();
+    public List<Object[]> getApplicationsLocationWise(Integer state, Integer district, Integer block){
+        return userApplicationRepository.getApplicationsLocationWise(state,district,block);
     }
 }

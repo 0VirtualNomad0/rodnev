@@ -5352,6 +5352,16 @@ CREATE TABLE otp_logs (
 ########################################################################################################################
 
 
+-- ALter Table Command (Added Two Columns)
+ALTER TABLE  user_application ADD COLUMN applicationstatus character varying (1);
+
+SELECT app_id, users.firstname, users.lastname, users.mobile_number, mst_category.category_name, subcategory_name ,user_application.user_id,applicationstatus
+FROM user_application
+INNER JOIN mst_category ON user_application.category_id = mst_category.category_id
+INNER JOIN mst_subcategory ON user_application.subcategory_id = mst_subcategory.subcategory_id
+INNER JOIN users ON user_application.user_id = users.user_id
+WHERE user_application.state_id = 9 AND user_application.district_id = 196 AND user_application.block_id = 1
+AND user_application.active = true  order by user_application.createddate desc
 
 
 

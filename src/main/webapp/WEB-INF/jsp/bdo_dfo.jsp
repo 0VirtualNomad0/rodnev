@@ -22,19 +22,7 @@
 <!-- START PAGE CONTENT-->
 <c:if test="${empty userApplications}">
    <div class="page-content fade-in-up">
-      <div class="row">
-         <div class="col-lg-3 col-md-6">
-            <a href="${pageContext.request.contextPath}/vendorForm">
-               <div class="ibox bg-success color-white widget-stat">
-                  <div class="ibox-body">
-                     <h2 class="m-b-5">Vendor Form</h2>
-                     <div class="m-b-5">Apply</div>
-                     <i class="fa fa-file widget-stat-icon"></i>
-                  </div>
-               </div>
-            </a>
-         </div>
-      </div>
+
       <div class="row">
          <h4 class="form-signin-heading col-lg-12" ><strong>No Applications Available. </strong></h4>
          <br>
@@ -56,12 +44,10 @@
 
                      <th class="text-center">S.No</th>
                      <th class="text-center">Name</th>
-                     <th class="text-center">Vendor Type</th>
-                     <th class="text-center">Vending Category</th>
-                     <th class="text-center">App Status (DC)</th>
-                     <th class="text-center">App Status (DFO)</th>
-                     <th class="text-center">App Status (BDO)</th>
-                     <th class="text-center">App Submitted Date</th>
+                      <th class="text-center">Mobile Number</th>
+                     <th class="text-center">Category</th>
+                     <th class="text-center">Subcategory</th>
+                     <th class="text-center">Status (DC)</th>
                      <th class="text-center">View</th>
 
                   </tr>
@@ -72,50 +58,23 @@
                         <td class="text-center">
                            <c:out value="${loopCounter.count}"/>
                         </td>
-                        <td class="text-center" >${application.name}</td>
-                         <td class="text-center" >${application.vendorType}</td>
-                          <td class="text-center">${application.vendorCategory}</td>
-                         <c:if test = "${application.app_action_dc == 'P'}">
+                        <td class="text-center" >${application.firstName} &nbsp; ${application.lastName}</td>
+                         <td class="text-center" >${application.mobileNumber} </td>
+                         <td class="text-center" >${application.category}</td>
+                          <td class="text-center">${application.subCategory}</td>
+                         <c:if test = "${application.application_status == 'P'}">
                                                    <td class="text-center btn-warning" style="color:white;">Pending</td>
                                                 </c:if>
-                                                <c:if test = "${application.app_action_dc == 'A'}">
+                                                <c:if test = "${application.application_status == 'A'}">
                                                    <td class="text-center btn-success" style="color:white;">Approved</td>
                                                 </c:if>
-                                                <c:if test = "${application.app_action_dc == 'R'}">
+                                                <c:if test = "${application.application_status == 'R'}">
                                                    <td class="text-center btn-danger" style="color:white;">Rejected</td>
                                                 </c:if>
-                                                <c:if test = "${application.app_action_dc == 'I'}">
+                                                <c:if test = "${application.application_status == 'I'}">
                                                    <td class="text-center btn-primary" style="color:white;">Incomplete</td>
                                                 </c:if>
 
-                        <c:if test = "${application.app_action_dfo == 'P'}">
-                                                  <td class="text-center btn-warning" style="color:white;">Pending</td>
-                                               </c:if>
-                                               <c:if test = "${application.app_action_dfo == 'A'}">
-                                                  <td class="text-center btn-success" style="color:white;">Approved</td>
-                                               </c:if>
-                                               <c:if test = "${application.app_action_dfo == 'R'}">
-                                                  <td class="text-center btn-danger" style="color:white;">Rejected</td>
-                                               </c:if>
-                                               <c:if test = "${application.app_action_dfo == 'I'}">
-                                                  <td class="text-center btn-primary" style="color:white;">Incomplete</td>
-                                               </c:if>
-
-                        <c:if test = "${application.app_action_bdo == 'P'}">
-                           <td class="text-center btn-warning" style="color:white;">Pending</td>
-                        </c:if>
-                        <c:if test = "${application.app_action_bdo == 'A'}">
-                           <td class="text-center btn-success" style="color:white;">Approved</td>
-                        </c:if>
-                        <c:if test = "${application.app_action_bdo == 'R'}">
-                           <td class="text-center btn-danger" style="color:white;">Rejected</td>
-                        </c:if>
-                        <c:if test = "${application.app_action_bdo == 'I'}">
-                           <td class="text-center btn-primary" style="color:white;">Incomplete</td>
-                        </c:if>
-                        <td class="text-center">
-                           <fmt:formatDate value="${application.createdDate}" pattern="dd-MM-yyyy hh:MM:ss" />
-                        </td>
                         <td class="text-center btn-success" style="color:white;" > <a href="${pageContext.request.contextPath}/getApplicationDetails/${application.app_id}" style="color:white; text-decoration:none;"> View  </a> </td>
                      </tr>
                   </c:forEach>
