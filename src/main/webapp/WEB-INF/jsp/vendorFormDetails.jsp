@@ -3,6 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/vendor/script.js"></script>
 <div class="content-wrapper" style="background-color:#FFFFFF;">
@@ -19,7 +22,7 @@
       <strong>Warning!</strong> ${serverError}
    </div>
 </c:if>
-<div class="row">
+<div class="row" style="padding=10px;">
    <h2 class="form-signin-heading col-lg-12"><strong>User Details</strong></h2>
    <br>
    <div class="form-group col-lg-4">
@@ -156,6 +159,12 @@
             autofocus="true"></input></a>
       </div>
 
+      <div class="form-group col-lg-4">
+               <label >Total number of days:- </label>
+               <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${applicationData.totalDays}"  readonly  class="form-control"
+                  autofocus="true"></input>
+            </div>
+
 <div class="form-group col-lg-4">
          <label >Defaulter (Fine)</label>
          <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${applicationData.fineDefaulter}"  readonly  class="form-control"
@@ -174,10 +183,63 @@
          autofocus="true"></input>
    </div>
 </div>
+
+<!-- Application Item Details Start -->
+ <div class="row" style="padding:10px;">
+ <br>
+  <h2 class="form-signin-heading col-lg-12"><strong>Vending Details</strong></h2>
+  <hr>
+    <br>
+         <div class="col-lg-1"> &nbsp;  </div>
+         <table class="col-lg-10 table table-hover table-bordered">
+            <thead>
+               <tr>
+                  <th>S.No</th>
+                  <th>Category Name</th>
+                  <th>Sub Category </th>
+                  <th>Land Type</th>
+                  <th>Nationality</th>
+                  <th>Regional/National</th>
+                  <th>Items/Tent Number</th>
+
+               </tr>
+            </thead>
+            <tbody>
+ <c:if test="${not empty applicationData.app_items}">
+                  <c:forEach items="${applicationData.app_items}" var="application" varStatus="loopCounter">
+                     <tr>
+                        <td>
+                           <c:out value="${loopCounter.count}"/>
+                        </td>
+                        <td>${application.item.category.categoryName}</td>
+                        <td>${application.item.subCategory.subCategoryName}</td>
+                        <td>${application.item.landType.landTypeName}</td>
+                        <td>${application.item.nationality.nationalityName}</td>
+                        <td>${application.item.nationalRegional.nationalRegionalName}</td>
+                        <c:if test="${application.tentNumber == 0}">
+                           <td>${application.item.itemName}</td>
+
+                        </c:if>
+                        <c:if test="${application.tentNumber != 0}">
+                           <td>${application.tentNumber}</td>
+                            </c:if>
+                       <!-- <td class="text-center" rowspan="${fn:length(user.app_items)}">${application.item.securityAmount}</td> -->
+                     </tr>
+                  </c:forEach>
+               </c:if>
+
+                 </tbody>
+                        </table>
+                        <div class="col-lg-1"> &nbsp;  </div>
+                        <br />
+
+<!-- Application Item Details Ends -->
+
+
 <!-- Row Transaction -->
 <c:if test="${not empty transaction}">
    <br>
-   <div class="row">
+   <div class="row" style="padding:10px;">
       <h2 class="form-signin-heading col-lg-12"><strong>Payment Details</strong></h2>
       <br>
       <div class="form-group col-lg-4">
