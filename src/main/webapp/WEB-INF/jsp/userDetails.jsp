@@ -121,18 +121,16 @@
                         <label>${userdata.earlierFlightServiceEmergency}</label>
                      </div>
                   </div>
-
                   <div class="row">
-                   <div class="clearfix"></div>
-                    <div class="col-lg-4">
-                                           <label> Destination Location </label>
-                                           <label>${userdata.district_id_dest.districtName}</label>
-                                        </div>
-                                       <div class="col-md-4">
-                                          <label> Destination Helipad: </label>
-                                          <label>${userdata.helipad_id_dest.helipadName}</label>
-                                       </div>
-
+                     <div class="clearfix"></div>
+                     <div class="col-lg-4">
+                        <label> Destination Location </label>
+                        <label>${userdata.district_id_dest.districtName}</label>
+                     </div>
+                     <div class="col-md-4">
+                        <label> Destination Helipad: </label>
+                        <label>${userdata.helipad_id_dest.helipadName}</label>
+                     </div>
                   </div>
                </div>
             </div>
@@ -150,7 +148,7 @@
                   <h2>Attached Documents</h2>
                   <hr>
                   <div class="row">
-                   <div class="col-lg-3"> &nbsp;  </div>
+                     <div class="col-lg-3"> &nbsp;  </div>
                      <div class="table-responsive">
                         <table class="table table-hover table-bordered" id="sampleTable">
                            <thead>
@@ -162,21 +160,18 @@
                            <tbody>
                               <c:if test="${not empty userdata.aadhaar_doc}">
                                  <tr>
-
                                     <td>Aadhaar Card</td>
                                     <td class="text-center btn-success" style="color:white;" > <a href="${pageContext.request.contextPath}/downloadFile/${userdata.aadhaar_doc}" style="color:white; text-decoration:none;"> View Details </a> </td>
                                  </tr>
                               </c:if>
                               <c:if test="${not empty userdata.officeCardDoc}">
                                  <tr>
-
                                     <td>Official Document</td>
                                     <td class="text-center btn-success" style="color:white;" > <a href="${pageContext.request.contextPath}/downloadFile/${userdata.officeCardDoc}" style="color:white; text-decoration:none;"> View Details </a> </td>
                                  </tr>
                               </c:if>
                               <c:if test="${not empty userdata.medicalDoc}">
                                  <tr>
-
                                     <td>Medical Document</td>
                                     <td class="text-center btn-success" style="color:white;" > <a href="${pageContext.request.contextPath}/downloadFile/${userdata.medicalDoc}" style="color:white; text-decoration:none;"> View Details </a> </td>
                                  </tr>
@@ -202,10 +197,8 @@
    </div>
    </div>
    <!-- Section Three Ends -->
-
-
-    <!-- Section Four -->
-    <c:if test="${not empty userdata.userFormDataPreviousServiceEntities}">
+   <!-- Section Four -->
+   <c:if test="${not empty userdata.userFormDataPreviousServiceEntities}">
       <div class="row user">
          <div class="col-md-12">
             <div class="tab-content">
@@ -213,169 +206,138 @@
                   <div class="timeline-post">
                      <h2>Other EarlierServices Availed</h2>
                      <hr>
-
-
                      <div class="row">
-                     			<div class="col-md-12">
-                     				<div class="tile">
-                     					<div class="tile-body">
-                     						<div class="table-responsive">
-                     							<table class="table table-hover table-bordered" id="sampleTable">
-                     								<thead>
-                     									<tr>
-                     										<th>S.No</th>
-                     										<th>Date</th>
-                     										<th>Location</th>
-                     										<th>Helipad Name</th>
-
-
-                     									</tr>
-                     								</thead>
-                     								<tbody>
-                     									<c:forEach items="${userdata.userFormDataPreviousServiceEntities}" var="application" varStatus="loopCounter">
-                     										<tr>
-                     											<td>
-                     												<c:out value="${loopCounter.count}"/>
-                     											</td>
-                     											<td>${application.date}</td>
-                     											<td>${application.districtId.districtName}</td>
-                     											<td>${application.helipadId.helipadName}</td>
-
-
-                     										</tr>
-                     									</c:forEach>
-                     								</tbody>
-                     							</table>
-                     						</div>
-                     					</div>
-                     					<div></div>
-                     				</div>
-
-
-
-
-
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      </div>
-      </c:if>
-      </div>
-      <!-- Section Four Ends -->
-
-
-
-
-
-
-
-      <!-- Section Payment transactionUser -->
-       <c:if test="${not empty transactionUser}">
-       <div class="row user">
-            <div class="col-md-12">
-               <div class="tab-content">
-                  <div id="user-timeline">
-                     <div class="timeline-post">
-                        <h2>Transaction Details</h2>
-                        <hr>
-                        <div class="row">
-                           <div class="col-lg-4">
-                              <label> Transaction Status </label>
-                              <label>${transactionUser.paymentStatus}</label>
+                        <div class="col-md-12">
+                           <div class="tile">
+                              <div class="tile-body">
+                                 <div class="table-responsive">
+                                    <table class="table table-hover table-bordered" id="sampleTable">
+                                       <thead>
+                                          <tr>
+                                             <th>S.No</th>
+                                             <th>Date</th>
+                                             <th>Location</th>
+                                             <th>Helipad Name</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <c:forEach items="${userdata.userFormDataPreviousServiceEntities}" var="application" varStatus="loopCounter">
+                                             <tr>
+                                                <td>
+                                                   <c:out value="${loopCounter.count}"/>
+                                                </td>
+                                                <td>${application.date}</td>
+                                                <td>${application.districtId.districtName}</td>
+                                                <td>${application.helipadId.helipadName}</td>
+                                             </tr>
+                                          </c:forEach>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                              <div></div>
                            </div>
-                           <div class="col-lg-4">
-                              <label> Transaction ID  </label>
-                              <label>${transactionUser.transactionId}</label>
-                           </div>
-                           <div class="col-lg-4">
-                              <label> Bank Reference Number: </label>
-                              <label>${transactionUser.bankRefNumber}</label>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="clearfix"></div>
-                           <div class="col-md-4">
-                              <label> Phone Number: </label>
-                              <label>${transactionUser.phone}</label>
-                           </div>
-                           <div class="clearfix"></div>
-                           <div class="col-md-12">
-                              <label> Email </label>
-                              <label>${transactionUser.email}</label>
-                           </div>
-
                         </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
+   </c:if>
+   </div>
+   <!-- Section Four Ends -->
+   <!-- Section Payment transactionUser -->
+   <c:if test="${not empty transactionUser}">
+      <div class="row user">
+         <div class="col-md-12">
+            <div class="tab-content">
+               <div id="user-timeline">
+                  <div class="timeline-post">
+                     <h2>Transaction Details</h2>
+                     <hr>
+                     <div class="row">
+                        <div class="col-lg-4">
+                           <label> Transaction Status </label>
+                           <label>${transactionUser.paymentStatus}</label>
+                        </div>
+                        <div class="col-lg-4">
+                           <label> Transaction ID  </label>
+                           <label>${transactionUser.transactionId}</label>
+                        </div>
+                        <div class="col-lg-4">
+                           <label> Bank Reference Number: </label>
+                           <label>${transactionUser.bankRefNumber}</label>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+                           <label> Phone Number: </label>
+                           <label>${transactionUser.phone}</label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                           <label> Email </label>
+                           <label>${transactionUser.email}</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
          </div>
-         </c:if>
-       <!-- Section Payment Ends -->
-
-
-
-
-
-
-
-
-      <!-- Section Five -->
-      <c:if test="${userdata.applicaionStatus == 'P'}">
-         <div class="row user">
-            <div class="col-md-12">
-               <div class="tab-content">
-                  <div id="user-timeline">
-                     <div class="timeline-post">
-                        <h2>Approve/Reject Application</h2>
-                        <hr>
-
-                        <div class="row">
+      </div>
+      </div>
+   </c:if>
+   <!-- Section Payment Ends -->
+   <!-- Section Five -->
+   <c:if test="${userdata.applicaionStatus == 'P'}">
+      <div class="row user">
+         <div class="col-md-12">
+            <div class="tab-content">
+               <div id="user-timeline">
+                  <div class="timeline-post">
+                     <h2>Approve/Reject Application</h2>
+                     <hr>
+                     <div class="row">
                         <div class="col-lg-12">
-<form:form method="POST"  modelAttribute="actionForm" action="${pageContext.request.contextPath}/updateApplication" class="form-signin">
-        <spring:bind path="action">
-                <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                   <form:label  path="action" > Please Select any Action </form:label>
-                   <form:select  path="action" class="form-control" id="earlierService">
-                         <form:option value=""> --Select-- </form:option>
-                         <form:option value="A"> Approve </form:option>
-                         <form:option value="R"> Reject </form:option>
-                   </form:select>
-                   <form:errors  style="color:red;" path="action"></form:errors>
-                </div>
-                 </spring:bind>
-
-      <spring:bind path="comments">
-              <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                 <label for="comments"> <spring:message code="form.addressss"  text="Comments" /> </label>
-                 <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
-                  <form:errors style="color:red;"  path="comments"></form:errors>
-              </div>
-               </spring:bind>
-
-      <spring:bind path="user_id">
-                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                       <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${userdata.userId}" />
-                        <form:errors style="color:red;"  path="user_id"></form:errors>
-                    </div>
-                     </spring:bind>
-
- <input type="submit"  value="<spring:message code="customhiring.submit" text="Submit"/>" class="btn btn-success">
-          <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-</form:form>
-</div>
+                           <form:form method="POST"  modelAttribute="actionForm" action="${pageContext.request.contextPath}/updateApplication" class="form-signin">
+                              <spring:bind path="action">
+                                 <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                                    <form:label  path="action" > Please Select any Action </form:label>
+                                    <form:select  path="action" class="form-control" id="earlierService">
+                                       <form:option value=""> --Select-- </form:option>
+                                       <form:option value="A"> Approve </form:option>
+                                       <form:option value="R"> Reject </form:option>
+                                    </form:select>
+                                    <form:errors  style="color:red;" path="action"></form:errors>
+                                 </div>
+                              </spring:bind>
+                              <spring:bind path="comments">
+                                 <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                                    <label for="comments">
+                                       <spring:message code="form.addressss"  text="Comments" />
+                                    </label>
+                                    <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
+                                    <form:errors style="color:red;"  path="comments"></form:errors>
+                                 </div>
+                              </spring:bind>
+                              <spring:bind path="user_id">
+                                 <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                                    <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${userdata.userId}" />
+                                    <form:errors style="color:red;"  path="user_id"></form:errors>
+                                 </div>
+                              </spring:bind>
+                              <input type="submit"  value="<spring:message code="customhiring.submit" text="Submit"/>" class="btn btn-success">
+                              <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                           </form:form>
                         </div>
-
-
                      </div>
                   </div>
                </div>
             </div>
          </div>
-         </div>
-         </c:if>
-         <!-- Section Five Ends -->
+      </div>
+      </div>
+   </c:if>
+   <!-- Section Five Ends -->
 </main>

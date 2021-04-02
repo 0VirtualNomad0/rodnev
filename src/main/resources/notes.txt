@@ -5265,6 +5265,25 @@ CREATE TABLE userapplication_items (
 
 );
 
+-- User Applications Permisisons
+CREATE TABLE userapplication_permissions (
+    id serial PRIMARY KEY  NOT NULL,
+    app_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+	role_id INTEGER NOT NULL,
+    status character varying(1),
+    comments character varying(255),
+    attachment character varying(255),
+	applicatnt_mobile character varying(255),
+    active boolean DEFAULT true NOT NULL,
+    createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (app_id) REFERENCES user_application(app_id),
+	FOREIGN KEY (role_id) REFERENCES roles
+
+);
+
+SELECT * FROM userapplication_permissions
 
  -- Users
 CREATE TABLE users(
@@ -5355,6 +5374,8 @@ CREATE TABLE otp_logs (
 -- ALter Table Command (Added Two Columns)
 ALTER TABLE  user_application ADD COLUMN applicationstatus character varying (1);
 
+
+-- List of Applications
 SELECT app_id, users.firstname, users.lastname, users.mobile_number, mst_category.category_name, subcategory_name ,user_application.user_id,applicationstatus
 FROM user_application
 INNER JOIN mst_category ON user_application.category_id = mst_category.category_id

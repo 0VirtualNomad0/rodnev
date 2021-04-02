@@ -1,5 +1,7 @@
 package vendorapplication.form;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
 
 public class ActionForm implements Serializable {
@@ -8,6 +10,9 @@ public class ActionForm implements Serializable {
     private String comments;
     private String user_role;
     private String app_id;
+    private String user_id;
+    private String applicant_mobile;
+    private MultipartFile attachment_if_any;
 
     public String getAction() {
         return action;
@@ -41,6 +46,30 @@ public class ActionForm implements Serializable {
         this.app_id = app_id;
     }
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getApplicant_mobile() {
+        return applicant_mobile;
+    }
+
+    public void setApplicant_mobile(String applicant_mobile) {
+        this.applicant_mobile = applicant_mobile;
+    }
+
+    public MultipartFile getAttachment_if_any() {
+        return attachment_if_any;
+    }
+
+    public void setAttachment_if_any(MultipartFile attachment_if_any) {
+        this.attachment_if_any = attachment_if_any;
+    }
+
     @Override
     public String toString() {
         return "ActionForm{" +
@@ -48,6 +77,9 @@ public class ActionForm implements Serializable {
                 ", comments='" + comments + '\'' +
                 ", user_role='" + user_role + '\'' +
                 ", app_id='" + app_id + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", applicant_mobile='" + applicant_mobile + '\'' +
+                ", attachment_if_any=" + attachment_if_any +
                 '}';
     }
 }

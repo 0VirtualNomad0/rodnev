@@ -1,11 +1,13 @@
 package vendorapplication.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.entities.UserEntity;
+import vendorapplication.entities.UserPermissionsEntity;
 import vendorapplication.entities.UserTranactionEntity;
 import vendorapplication.form.ActionForm;
+import vendorapplication.repositories.RolesRepository;
 import vendorapplication.repositories.UserRepository;
 import vendorapplication.repositories.UserTranactionRepository;
-import vendorapplication.services.UserApplicationService;
-import vendorapplication.services.UserTransactionService;
+import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +33,19 @@ import java.util.Date;
 public class ApplicationDetailsController {
 
     @Autowired
+    UserPermissionsService userPermissionsService;
+
+    @Autowired
     UserApplicationService userApplicationService;
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleService rolesService;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @Autowired
     UserTransactionService userTransactionService;
@@ -79,7 +91,7 @@ public class ApplicationDetailsController {
     }
 
     //Update Action for Application
-    @RequestMapping(value = "/updateActionApplication", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateActionApplication", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
     public String update_application(@ModelAttribute("actionForm") ActionForm actionForm, BindingResult bindingResult, Model model, HttpServletRequest request) {
         // roleValidator.validate(roleForm, bindingResult);
@@ -92,49 +104,59 @@ public class ApplicationDetailsController {
         } else {
             try {
 
-                    if (actionForm.getAction().equalsIgnoreCase("A")) {
-                        Action = Constants.APPROVED;
-                    } else if (actionForm.getAction().equalsIgnoreCase("R")) {
-                        Action = Constants.REJECTED;
-                    } else if (actionForm.getAction().equalsIgnoreCase("I")) {
-                        Action = Constants.INCOMPLETE;
-                    }else {
-                        Action = Constants.PENDING;
-                    }
-                    if(actionForm.getUser_role().equalsIgnoreCase("BDO")){
-                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                        Date date = new Date(timestamp.getTime());
-                        int value = userApplicationService.updateBdoAction(Action,actionForm.getComments(),Integer.parseInt(actionForm.getApp_id()),date);
-                        if(value>0){
+                UserPermissionsEntity permissionsEntity = new UserPermissionsEntity();
+
+                permissionsEntity.setActive(true);
+
+                if(actionForm.getComments().isEmpty()) permissionsEntity.setComments("");
+                else permissionsEntity.setComments(actionForm.getComments());
+
+                if (actionForm.getAction().equalsIgnoreCase("A")) {
+                    Action = Constants.APPROVED;
+                    permissionsEntity.setStatus(Action);
+                } else if (actionForm.getAction().equalsIgnoreCase("R")) {
+                    Action = Constants.REJECTED;
+                    permissionsEntity.setStatus(Action);
+                } else {
+                    Action = Constants.PENDING;
+                    permissionsEntity.setStatus(Action);
+                }
+
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                Date date = new Date(timestamp.getTime());
+                permissionsEntity.setCreateddate(date);
+
+                permissionsEntity.setAppId(Integer.parseInt(actionForm.getApp_id()));
+
+                UserEntity entityUSer = new UserEntity();
+                entityUSer.setUserId((long) Integer.parseInt(actionForm.getUser_id()));
+                permissionsEntity.setUserId(entityUSer);
+
+                permissionsEntity.setRoleId(rolesService.checkRoleName(actionForm.getUser_role()).getRoleId().intValue());
+
+                if (!actionForm.getAttachment_if_any().getOriginalFilename().isEmpty()) {
+                    String fileName = StringUtils.cleanPath(actionForm.getAttachment_if_any().getOriginalFilename());
+                    fileName = fileName.toLowerCase().replaceAll(" ", "_");
+                    fileName = System.currentTimeMillis() + "__" + fileName;
+                    permissionsEntity.setAttachemnts(fileName);
+                    fileStorageService.storeFile(actionForm.getAttachment_if_any(), fileName);
+                } else {
+                    permissionsEntity.setAttachemnts("");
+                }
+
+
+
+                        UserPermissionsEntity  savedEntity = userPermissionsService.addPermission(permissionsEntity);
+                        if(savedEntity!=null){
                             System.out.println("Data Updated");
+                            System.out.println(savedEntity.toString());
+                            request.getSession().setAttribute("successMessage", "Data Saved Successfully.");
                         }else{
-                            System.out.println("Data Not Updated");
+                            request.getSession().setAttribute("successMessage", "Unable to save the Data. Please try again Later.");
                         }
 
-                    }else if(actionForm.getUser_role().equalsIgnoreCase("DFO")){
-                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                        Date date = new Date(timestamp.getTime());
-                        int value = userApplicationService.updateDfoAction(Action,actionForm.getComments(),Integer.parseInt(actionForm.getApp_id()),date);
-                        if(value>0){
-                            System.out.println("Data Updated");
-                        }else{
-                            System.out.println("Data Not Updated");
-                        }
-                    }else{
-                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                        Date date = new Date(timestamp.getTime());
-                        int value = userApplicationService.updateDcAction(Action,actionForm.getComments(),Integer.parseInt(actionForm.getApp_id()),date);
-                        if(value>0){
-                            System.out.println("Data Updated");
-                        }else{
-                            System.out.println("Data Not Updated");
-                        }
-                    }
 
-//
-//               // FlightFormEntity savedData = flightFormService.saveUser(user);
-//                model.addAttribute("userdata", savedData);
-//                model.addAttribute("successMessage", "Application Updated");
+
                 return "vendorFormDetails";
 
             } catch (Exception ex) {

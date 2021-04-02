@@ -94,6 +94,10 @@ public class UserApplicationEntity implements Serializable {
     @JoinColumn(name="app_id")
     private List<UserAppItemsEntity> app_items;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity = UserPermissionsEntity.class)
+    @JoinColumn(name="app_id")
+    private List<UserPermissionsEntity> app_permissions;
+
 
     public String getApplicationStatus() {
         return applicationStatus;
@@ -279,6 +283,14 @@ public class UserApplicationEntity implements Serializable {
         this.createdDate = createdDate;
     }
 
+    public List<UserPermissionsEntity> getApp_permissions() {
+        return app_permissions;
+    }
+
+    public void setApp_permissions(List<UserPermissionsEntity> app_permissions) {
+        this.app_permissions = app_permissions;
+    }
+
     @Override
     public String toString() {
         return "UserApplicationEntity{" +
@@ -305,6 +317,7 @@ public class UserApplicationEntity implements Serializable {
                 ", active=" + active +
                 ", createdDate=" + createdDate +
                 ", app_items=" + app_items +
+                ", app_permissions=" + app_permissions +
                 '}';
     }
 }
