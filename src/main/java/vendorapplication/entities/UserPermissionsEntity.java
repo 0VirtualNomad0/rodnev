@@ -17,12 +17,12 @@ public class UserPermissionsEntity implements Serializable {
     @Column(name = "app_id")
     private Integer appId;
 
-    @OneToOne
-    @JoinColumn(name="user_id" ,updatable = false)
-    private UserEntity userId;
 
-    @Column(name = "role_id")
-    private Integer roleId;
+    @Column(name="user_id" ,updatable = false)
+    private Integer userId;
+
+    @Column(name = "role_name")
+    private String roleName;
 
     @Column(name = "status")
     private String status;
@@ -43,12 +43,12 @@ public class UserPermissionsEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createddate;
 
-    public Integer getRoleId() {
-        return roleId;
+    public String getRoleId() {
+        return roleName;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setRoleId(String roleId) {
+        this.roleName = roleId;
     }
 
     public Integer getId() {
@@ -67,11 +67,11 @@ public class UserPermissionsEntity implements Serializable {
         this.appId = appId;
     }
 
-    public UserEntity getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(UserEntity userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -129,7 +129,7 @@ public class UserPermissionsEntity implements Serializable {
                 "id=" + id +
                 ", appId=" + appId +
                 ", userId=" + userId +
-                ", roleId=" + roleId +
+                ", roleId=" + roleName +
                 ", status='" + status + '\'' +
                 ", comments='" + comments + '\'' +
                 ", attachemnts='" + attachemnts + '\'' +

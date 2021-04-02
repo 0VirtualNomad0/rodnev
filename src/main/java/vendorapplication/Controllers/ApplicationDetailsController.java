@@ -128,11 +128,10 @@ public class ApplicationDetailsController {
 
                 permissionsEntity.setAppId(Integer.parseInt(actionForm.getApp_id()));
 
-                UserEntity entityUSer = new UserEntity();
-                entityUSer.setUserId((long) Integer.parseInt(actionForm.getUser_id()));
-                permissionsEntity.setUserId(entityUSer);
 
-                permissionsEntity.setRoleId(rolesService.checkRoleName(actionForm.getUser_role()).getRoleId().intValue());
+                permissionsEntity.setUserId(Integer.valueOf(actionForm.getUser_id()));
+
+                permissionsEntity.setRoleId(actionForm.getUser_role());
 
                 if (!actionForm.getAttachment_if_any().getOriginalFilename().isEmpty()) {
                     String fileName = StringUtils.cleanPath(actionForm.getAttachment_if_any().getOriginalFilename());

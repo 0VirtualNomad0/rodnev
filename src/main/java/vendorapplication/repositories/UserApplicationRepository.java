@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-//@CacheConfig(cacheNames = "userApplications")
 public interface UserApplicationRepository extends CrudRepository<UserApplicationEntity,Integer> {
 
     @Query(value = "SELECT *  from public.user_application where user_id =:userId AND active = true  order by createddate desc", nativeQuery = true)
@@ -27,7 +26,7 @@ public interface UserApplicationRepository extends CrudRepository<UserApplicatio
      *
      * @param state
      * @param district
-     * @param Block
+
      * @return
      */
     @Query(value = "SELECT app_id, users.firstname, users.lastname, users.mobile_number, mst_category.category_name, subcategory_name ,user_application.user_id,applicationstatus FROM user_application INNER JOIN mst_category ON user_application.category_id = mst_category.category_id INNER JOIN mst_subcategory ON user_application.subcategory_id = mst_subcategory.subcategory_id INNER JOIN users ON user_application.user_id = users.user_id WHERE user_application.state_id = :state AND user_application.district_id = :district  AND user_application.active = true  order by user_application.createddate desc", nativeQuery = true)
