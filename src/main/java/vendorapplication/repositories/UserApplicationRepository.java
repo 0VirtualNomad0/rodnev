@@ -45,6 +45,7 @@ public interface UserApplicationRepository extends CrudRepository<UserApplicatio
     int updateDcAction(@Param("dc_action") String action, @Param("dc_comments") String bdoComments, @Param("app_id") Integer appId , @Param("updatedDate") Date date);
 
 
-
-
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE user_application  set applicationstatus =:action   where app_id =:app_id", nativeQuery = true )
+    int updateApplicationByDc(Integer app_id, String action);
 }

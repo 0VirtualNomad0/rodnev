@@ -197,6 +197,10 @@ public class ApplicationDetailsController {
 
 
                         UserPermissionsEntity  savedEntity = userPermissionsService.addPermission(permissionsEntity);
+                        if(actionForm.getUser_role().equalsIgnoreCase("DC")){
+                            //Change Application Status to A
+                            userApplicationService.updateUserApplication(actionForm.getApp_id(),Action);
+                        }
                         if(savedEntity!=null){
                             System.out.println("Data Updated");
                             System.out.println(savedEntity.toString());

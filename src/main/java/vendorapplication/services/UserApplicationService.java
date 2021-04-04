@@ -58,4 +58,8 @@ public class UserApplicationService {
     public List<Object[]> getApplicationsLocationWise(Integer state, Integer district){
         return userApplicationRepository.getApplicationsLocationWise(state,district);
     }
+
+    public int updateUserApplication(String app_id, String action) {
+        return userApplicationRepository.updateApplicationByDc(Integer.parseInt(app_id), action);
+    }
 }
