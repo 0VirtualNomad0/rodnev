@@ -43,17 +43,7 @@ public class UserApplicationService {
         return (List<UserApplicationEntity>) userApplicationRepository.findAll();
     }
 
-    public int updateBdoAction(String action, String comments, Integer appID, Date date){
-        return userApplicationRepository.updateBdoAction(action,comments,appID,date);
-    }
 
-    public int updateDfoAction(String action, String comments, Integer appID, Date date){
-        return userApplicationRepository.updateDfoAction(action,comments,appID,date);
-    }
-
-    public int updateDcAction(String action, String comments, Integer appID, Date date){
-        return userApplicationRepository.updateDcAction(action,comments,appID,date);
-    }
 
     public List<Object[]> getApplicationsLocationWise(Integer state, Integer district){
         return userApplicationRepository.getApplicationsLocationWise(state,district);
@@ -72,9 +62,16 @@ public class UserApplicationService {
         return userApplicationRepository.getApprovedApplications(appStatus);
     }
 
-    //Total Approved Application
 
-    //Total Rejected Applications
+    public Integer getTotalApplicationsRole(Integer stateId, Integer districtId) {
+        return userApplicationRepository.getApplicationsCountRole(stateId,districtId);
+    }
 
-    //Total Pending Applications
+    public Integer getApprovedApplicationsRole(Integer stateId, Integer districtId, String approved) {
+        return userApplicationRepository.getApprovedApplicationsRole(stateId,districtId,approved);
+    }
+
+    public List<Object[]> getApplicationsLocationWiseStatus(Integer stateId, Integer districtId, String status) {
+        return userApplicationRepository.getApplicationsLocationWiseStatus(stateId,districtId,status);
+    }
 }

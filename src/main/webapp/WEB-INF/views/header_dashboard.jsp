@@ -113,14 +113,11 @@
                            </li>
                         </ul>
                      </li>
-                     <li>
-                        <a href="${pageContext.request.contextPath}/bdo_dfo"><i class="sidebar-item-icon fa fa-dashboard"></i>
-                        <span class="nav-label">Applications List </span></a>
-                     </li>
+
                   </sec:authorize>
                   <sec:authorize access="hasAnyAuthority('BDO', 'DFO','DC')">
                      <li>
-                        <a href="${pageContext.request.contextPath}/bdo_dfo"><i class="sidebar-item-icon fa fa-dashboard"></i>
+                        <a href="${pageContext.request.contextPath}/applications"><i class="sidebar-item-icon fa fa-dashboard"></i>
                         <span class="nav-label">Applications List </span></a>
                      </li>
                   </sec:authorize>

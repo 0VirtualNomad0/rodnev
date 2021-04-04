@@ -41,8 +41,7 @@ public class HomeController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    UserApplicationService userApplicationService;
+
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -98,49 +97,14 @@ public class HomeController {
 
 
        if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin") || authority_.equalsIgnoreCase("DC")) { return "redirect:/dashboard";}
-         else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("BDO") ) { return "redirect:/bdo_dfo"; }
+         else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("BDO") ) { return "redirect:/dashboard"; } //applications
          else { return "redirect:/vendorIndex";}
         }
 
     }
 
 
-    //dashboard  homepage_new
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String dashboard(Model model, HttpServletRequest request,HttpSession session) {
 
-
-        request.getSession().setAttribute("successMessage", "");
-
-        String authority_ = null;
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        } else {
-
-            LoggedInUserLocationSession user = (LoggedInUserLocationSession) request.getSession().getAttribute("UserData");
-            System.out.println(user.toString());
-
-            if (user != null) {
-
-                Integer applicationCountTotal = userApplicationService.getTotalApplications();
-                Integer approvedApplications = userApplicationService.getApprovedApplications(Constants.APPROVED);
-                Integer rejectedApplications = userApplicationService.getApprovedApplications(Constants.REJECTED);
-                Integer pendingApplications = userApplicationService.getApprovedApplications(Constants.PENDING);
-                System.out.println(applicationCountTotal);
-                model.addAttribute("totalApplications", applicationCountTotal);
-                model.addAttribute("approvedApplications", approvedApplications);
-                model.addAttribute("rejectedApplications", rejectedApplications);
-                model.addAttribute("pendingApplications", pendingApplications);
-
-                return "homepage_new";
-            } else {
-                return "errorPage";
-            }
-
-        }
-    }
 
 
     @RequestMapping(value = "/gallery", method = RequestMethod.GET)

@@ -6,40 +6,45 @@
 
 <div class="content-wrapper">
             <!-- START PAGE CONTENT-->
+
             <div class="page-content fade-in-up">
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-success color-white widget-stat">
                             <div class="ibox-body">
                                 <h2 class="m-b-5 font-strong">${totalApplications}</h2>
-                                <div class="m-b-5">Total Applications </div><i class="ti-shopping-cart widget-stat-icon"></i>
+                               <a href="${pageContext.request.contextPath}/applications" style="color:white;">  <div class="m-b-5">Total Applications </div><i class="ti-shopping-cart widget-stat-icon"></i> </a>
                                 <div><i class="m-r-5"></i><small>&nbsp;</small></div>
                             </div>
                         </div>
                     </div>
+                    </a>
+
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-info color-white widget-stat">
                             <div class="ibox-body">
                                 <h2 class="m-b-5 font-strong">${approvedApplications}</h2>
-                                <div class="m-b-5">Approved Applications </div><i class="ti-bar-chart widget-stat-icon"></i>
+                                 <a href="${pageContext.request.contextPath}/getApplications/A" style="color:white;"> <div class="m-b-5">Approved Applications </div><i class="ti-bar-chart widget-stat-icon"></i></a>
                                 <div><i class="m-r-5"></i><small>&nbsp;</small></div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-warning color-white widget-stat">
                             <div class="ibox-body">
                                 <h2 class="m-b-5 font-strong">${pendingApplications}</h2>
-                                <div class="m-b-5">Pending Applications</div><i class="fa fa-money widget-stat-icon"></i>
+                                <a href="${pageContext.request.contextPath}/getApplications/P" style="color:white;"> <div class="m-b-5">Pending Applications</div><i class="fa fa-money widget-stat-icon"></i> </a>
                                 <div><i class="m-r-5"></i><small>&nbsp;</small></div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-danger color-white widget-stat">
                             <div class="ibox-body">
                                 <h2 class="m-b-5 font-strong">${rejectedApplications}</h2>
-                                <div class="m-b-5">Rejected Applications</div><i class="ti-user widget-stat-icon"></i>
+                                <a href="${pageContext.request.contextPath}/getApplications/R" style="color:white;"><div class="m-b-5">Rejected Applications</div><i class="ti-user widget-stat-icon"></i></a>
                                 <div><i class="m-r-5"></i><small>&nbsp;</small></div>
                             </div>
                         </div>

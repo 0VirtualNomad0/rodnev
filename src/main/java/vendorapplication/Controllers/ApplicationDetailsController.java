@@ -211,7 +211,7 @@ public class ApplicationDetailsController {
 
 
 
-                return "vendorFormDetails";
+                return "applications";
 
             } catch (Exception ex) {
 

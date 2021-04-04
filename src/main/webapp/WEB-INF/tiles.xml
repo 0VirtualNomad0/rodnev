@@ -101,8 +101,8 @@
     </definition>
 
 
-    <definition name="bdo_dfo" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/bdo_dfo.jsp" />
+    <definition name="applications_list" extends="baselayoutdashboard">
+        <put-attribute name="content" value="/WEB-INF/jsp/allApplications.jsp" />
     </definition>
 
     <definition name="checkpayment" extends="baselayoutdashboard">
@@ -143,13 +143,13 @@
 
 
 
-    <definition name="applications" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/applications.jsp" />
-    </definition>
+<!--    <definition name="applications" extends="baselayoutdashboard">-->
+<!--        <put-attribute name="content" value="/WEB-INF/jsp/applications.jsp" />-->
+<!--    </definition>-->
 
-    <definition name="applications_all" extends="baselayoutdashboard">
-        <put-attribute name="content" value="/WEB-INF/jsp/applications_all.jsp" />
-    </definition>
+<!--    <definition name="applications_all" extends="baselayoutdashboard">-->
+<!--        <put-attribute name="content" value="/WEB-INF/jsp/applications_all.jsp" />-->
+<!--    </definition>-->
 
 
     <definition name="userdetails" extends="baselayoutdashboard">

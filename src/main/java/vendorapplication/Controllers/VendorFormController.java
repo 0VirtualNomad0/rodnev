@@ -125,8 +125,8 @@ public class VendorFormController {
     }
 
     //bdo_dfo
-    @RequestMapping(value = "/bdo_dfo", method = RequestMethod.GET)
-    public String bdo_dfo(Model model, HttpServletRequest request, HttpSession session) {
+    @RequestMapping(value = "/applications", method = RequestMethod.GET)
+    public String applications(Model model, HttpServletRequest request, HttpSession session) {
         request.getSession().setAttribute("successMessage", "");
 
         String authority_ = null;
@@ -158,7 +158,7 @@ public class VendorFormController {
 
                 model.addAttribute("userApplications", applications);
 
-                return "bdo_dfo";
+                return "applications_list";
             } else {
                 return "errorPage";
             }
