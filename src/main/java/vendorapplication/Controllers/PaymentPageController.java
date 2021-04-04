@@ -59,6 +59,7 @@ public class PaymentPageController {
         Integer appId_ = (Integer) session.getAttribute("appId");
         System.out.println(appId_);
         UserApplicationEntity appData = null;
+        PaymentUtil paymentUtil = new PaymentUtil();
 
         try {
             appData = userApplicationService.getUserApplicationViaAppId(appId_);
@@ -91,7 +92,7 @@ public class PaymentPageController {
                     }
 
 
-                    paymentDetail = PaymentUtil.populatePaymentDetail(paymentDetail);
+                    paymentDetail = paymentUtil.populatePaymentDetail(paymentDetail);
 
                     //Save Data to Entity
                     UserTranactionEntity transactionEntity = new UserTranactionEntity();
@@ -162,6 +163,7 @@ public class PaymentPageController {
                                   @RequestParam (value = "additionalCharges", required = false, defaultValue = "") String additionalCharges
                                  ) {
         PaymentCallback paymentCallback = new PaymentCallback();
+        PaymentUtil paymentUtil = new PaymentUtil();
         UserTranactionEntity entity_ = null;
 
         try {
@@ -277,7 +279,7 @@ public class PaymentPageController {
                     return "paymentResponse";
                 }else{
                     //Check Hash
-                    if(hash.equalsIgnoreCase(PaymentUtil.verifyHash(paymentCallback))){
+                    if(hash.equalsIgnoreCase(paymentUtil.verifyHash(paymentCallback))){
                        if(status.equalsIgnoreCase("success")){
                            entity_.setPaymentStatus("Success");
                            entity_.setBankRefNumber(bank_ref_num);

@@ -65,7 +65,7 @@
                   </div>
                </div>
                <ul class="side-menu metismenu">
-                  <sec:authorize access="hasAnyAuthority('Super Admin','Admin','DC')">
+                  <sec:authorize access="hasAnyAuthority('Super Admin','Admin','DC','BDO','DFO')">
                      <li>
                         <a class="active" href="${pageContext.request.contextPath}/dashboard"><i class="sidebar-item-icon fa fa-th-large"></i>
                         <span class="nav-label">Dashboard</span>

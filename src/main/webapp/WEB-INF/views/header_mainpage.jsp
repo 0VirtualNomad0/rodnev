@@ -33,7 +33,6 @@
                      <li > <a   href="#">A<sub>+</sub></a></li>
                   </ul>
                   <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/login" >Login</a> </div>
-                  <div class="register_department" ><a class="text_decorate" href="${pageContext.request.contextPath}/registration" >Vendor Registration Form</a> </div>
                   <div class="form-group col-lg-5">
                      <select class="form-control" id="locales">
                         <option value="">
@@ -108,7 +107,6 @@
                   <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
-                  <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
                   <li><a href="${pageContext.request.contextPath}/vendorForm">Register as Vendor </a></li>
                </ul>
             </div>
@@ -119,7 +117,6 @@
                   <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                   <li><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank">Grievance</a></li>
-                  <li><a href="https://eflight.hp.gov.in">Flight Service</a></li>
                    <li><a href="${pageContext.request.contextPath}/vendorForm">Register as Vendor </a></li>
                </div>
                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->

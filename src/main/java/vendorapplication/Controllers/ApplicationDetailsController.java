@@ -101,7 +101,7 @@ public class ApplicationDetailsController {
                     LoggedInUserLocationSession user = (LoggedInUserLocationSession) request.getSession().getAttribute("UserData");
                     System.out.println(user.toString());
 
-                    System.out.println(transactionalUser.toString());
+
                     model.addAttribute("applicationData", userApplicationEntity);
                     model.addAttribute("transaction",transactionalUser);
                     model.addAttribute("userId",user.getUserID());
@@ -211,7 +211,7 @@ public class ApplicationDetailsController {
 
 
 
-                return "applications";
+                return "redirect:/applications";
 
             } catch (Exception ex) {
 
