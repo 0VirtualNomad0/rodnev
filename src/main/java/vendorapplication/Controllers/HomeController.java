@@ -75,6 +75,7 @@ public class HomeController {
                 userSession.setBlockId((Integer) result[2]);
                 userSession.setTehsilId((Integer) result[3]);
                 userSession.setPanchayatId((Integer) result[4]);
+                userSession.setUserID((Integer)result[5]);
 
                 loggedInUserLocationSessionsList.add(userSession);
             }
@@ -88,7 +89,7 @@ public class HomeController {
 
 
        if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin")) { return "homepage_new";}
-         else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("BDO")) { return "redirect:/bdo_dfo"; }
+         else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("BDO") || authority_.equalsIgnoreCase("DC")) { return "redirect:/bdo_dfo"; }
          else { return "redirect:/vendorIndex";}
         }
 

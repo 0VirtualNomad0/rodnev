@@ -43,12 +43,12 @@ public class UserPermissionsEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createddate;
 
-    public String getRoleId() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleName = roleId;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Integer getId() {
@@ -129,7 +129,7 @@ public class UserPermissionsEntity implements Serializable {
                 "id=" + id +
                 ", appId=" + appId +
                 ", userId=" + userId +
-                ", roleId=" + roleName +
+                ", roleName=" + roleName +
                 ", status='" + status + '\'' +
                 ", comments='" + comments + '\'' +
                 ", attachemnts='" + attachemnts + '\'' +

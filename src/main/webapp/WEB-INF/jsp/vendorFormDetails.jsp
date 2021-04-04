@@ -221,6 +221,12 @@
 <div class="col-lg-1"> &nbsp;  </div>
 <br />
 <!-- Application Item Details Ends -->
+
+
+
+
+
+
 <!-- Row Transaction -->
 <c:if test="${not empty transaction}">
    <br>
@@ -265,15 +271,68 @@
    </div>
 </c:if>
 <!-- Row Transaction -->
+
 <!-- Comments by DC, BDO and DFO -->
+<c:if test="${not empty applicationData.app_permissions}">
+<div class="row" style="padding:10px;">
+<br>
+<br>
+<h2 class="form-signin-heading col-lg-12"><strong>Application Permissions</strong></h2>
+<hr>
+<br>
+
+<table class="col-lg-12 table table-hover table-bordered">
+   <thead>
+      <tr>
+         <th>S.No</th>
+         <th>Role Name</th>
+         <th>Application Status </th>
+         <th>Comments</th>
+            <th>Date</th>
+         <th>Attachment</th>
+
+      </tr>
+   </thead>
+   <tbody>
+
+         <c:forEach items="${applicationData.app_permissions}" var="application" varStatus="loopCounter">
+            <tr>
+               <td>
+                  <c:out value="${loopCounter.count}"/>
+               </td>
+               <td>${application.roleName}</td>
+                <c:if test = "${application.status == 'P'}">
+                                                                    <td class="text-center btn-warning" style="color:white;">Pending</td>
+                                                            </c:if>
+                                                             <c:if test = "${application.status == 'A'}">
+                                                             <td class="text-center btn-success" style="color:white;">Approved</td>
+                                                              </c:if>
+                                                             <c:if test = "${application.status == 'R'}">
+                                                              <td class="text-center btn-danger" style="color:white;">Rejected</td>
+                                                               </c:if>
+               <td>${application.comments}</td>
+               <td style="color:red;"><fmt:formatDate value='${application.createddate}' pattern='dd-MM-yyyy HH:mm:ss' /></td>
+               <td><a href="${pageContext.request.contextPath}/downloadFile/${application.attachemnts}">Download</a></td>
+
+
+              </tr>
+         </c:forEach>
+
+   </tbody>
+</table>
+ </c:if>
+<br />
 <!-- Comments by DC, BDO and DFO ENDS -->
+
+
+
+
 <!-- Actions By DC,BDO and DFO -->
 
 <!-- BDO Starts -->
 <sec:authorize access="hasAuthority('BDO')">
-   <!-- Check Weather the list is empty or not -->
-   <c:if test="${empty applicationData.app_permissions}">
-      <!-- No Permission Found  -->
+   <!-- Can Give PErmission or not -->
+   <c:if test="${canGivePermission}">
       <!-- Give Permission -->
       <div class="col-lg-12">
          <h2 class="form-signin-heading col-lg-12"><strong>Actions BDO (Approve/Reject)</strong></h2>
@@ -321,7 +380,7 @@
                </spring:bind>
                <spring:bind path="user_id">
                   <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                     <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${applicationData.userId.userId}" />
+                     <form:input type="hidden" path="user_id" id="user_id" class="form-control" value="${ userId }" />
                   </div>
                   <form:errors  style="color:red;" path="user_id"></form:errors>
                </spring:bind>
@@ -337,107 +396,7 @@
          </div>
       </div>
    </c:if>
-   <c:if test="${ not empty applicationData.app_permissions}">
-      <!--  Permission Found We dont know what permission it is  -->
-      <!-- If list not empty parse the list to check weather BDO is there or not -->
-      <c:forEach items="${applicationData.app_permissions}" var="permissions" varStatus="loopCounter">
-         <c:if test="${permissions.roleId == 'BDO'}" >
-            <!-- Nothing to Show -->
-            <div class="row" style="padding:10px;">
-               <br>
-               <h2 class="form-signin-heading col-lg-12"><strong>BDO Action:- </strong></h2>
-               <br>
-               <div class="form-group col-lg-4">
-                  <label >Approved By:- </label>
-                  <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${permissions.roleId}" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-               <div class="form-group col-lg-4">
-                  <label >Application Status</label>
-                  <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${permissions.status}" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-               <div class="form-group col-lg-4">
-                  <label >Comments</label>
-                  <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false"  value="${permissions.comments}" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-               <div class="form-group col-lg-4">
-                  <label>Approval Date</label>
-                  <input type="text" onkeypress="return alpha(event)" style="color:red;" oncopy="return false" onpaste="return false"  value="<fmt:formatDate value='${permissions.createddate}' pattern='dd-MM-yyyy HH:mm:ss' />" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-            </div>
-         </c:if>
-         <!-- Give Permission -->
-         <c:if test="${permissions.roleId != 'BDO'}" >
-            <!-- Nothing to Show -->
-            <p> BDO NOT FOUND IN LIST</p>
-            <!-- Give Permission -->
-            <div class="col-lg-12">
-               <h2 class="form-signin-heading col-lg-12"><strong>Actions BDO (Approve/Reject)</strong></h2>
-               <br>
-               <div class="col-lg-12">
-                  <form:form method="POST"  modelAttribute="actionForm" enctype="multipart/form-data"  action="${pageContext.request.contextPath}/updateActionApplication" class="form-signin">
-                     <spring:bind path="action">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:label  path="action" > Please Select any Action </form:label>
-                           <form:select  path="action" class="form-control" id="earlierService">
-                              <option value=""> --Select-- </option>
-                              <option value="A"> Approve </option>
-                              <option value="R"> Reject </option>
-                           </form:select>
-                           <form:errors  style="color:red;" path="action"></form:errors>
-                        </div>
-                     </spring:bind>
-                     <spring:bind path="comments">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:label path="comments" for="comments"> Comments </form:label>
-                           <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
-                        </div>
-                        <form:errors  style="color:red;" path="comments"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="attachment_if_any">
-                        <div class="form-group col-lg-4">
-                           <form:label path="attachment_if_any" for="attachment_if_any" >
-                              Add Attachment (PDF) if any
-                           </form:label>
-                           <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="attachment_if_any" id="attachment_if_any" name="attachment_if_any"/>
-                           <form:errors  path="attachment_if_any"></form:errors>
-                        </div>
-                     </spring:bind>
-                     <spring:bind path="user_role">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="user_role" id="user_role" class="form-control"  value="BDO" />
-                        </div>
-                        <form:errors  style="color:red;" path="user_role"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="app_id">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="app_id" id="app_id" class="form-control"  value="${applicationData.appId}" />
-                        </div>
-                        <form:errors  style="color:red;" path="app_id"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="user_id">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${applicationData.userId.userId}" />
-                        </div>
-                        <form:errors  style="color:red;" path="user_id"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="applicant_mobile">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="applicant_mobile" id="applicant_mobile" class="form-control"  value="${applicationData.userId.mobileNumber}" />
-                        </div>
-                        <form:errors  style="color:red;" path="applicant_mobile"></form:errors>
-                     </spring:bind>
-                     <input type="submit"  value="Submit" class="btn btn-success col-lg-12">
-                     <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-                  </form:form>
-               </div>
-            </div>
-         </c:if>
-      </c:forEach>
-   </c:if>
+
 </sec:authorize>
 <!-- BDO Ends -->
 
@@ -445,173 +404,142 @@
 
 <!-- DFO Starts-->
 <sec:authorize access="hasAuthority('DFO')">
-   <!-- Check Weather the list is empty or not -->
-   <c:if test="${empty applicationData.app_permissions}">
-      <!-- No Permission Found  -->
-      <!-- Give Permission -->
-      <div class="col-lg-12">
-         <h2 class="form-signin-heading col-lg-12"><strong>Actions DFO (Approve/Reject)</strong></h2>
-         <br>
-         <div class="col-lg-12">
-            <form:form method="POST"  modelAttribute="actionForm" enctype="multipart/form-data"  action="${pageContext.request.contextPath}/updateActionApplication" class="form-signin">
-               <spring:bind path="action">
-                  <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                     <form:label  path="action" > Please Select any Action </form:label>
-                     <form:select  path="action" class="form-control" id="earlierService">
-                        <option value=""> --Select-- </option>
-                        <option value="A"> Approve </option>
-                        <option value="R"> Reject </option>
-                     </form:select>
-                     <form:errors  style="color:red;" path="action"></form:errors>
-                  </div>
-               </spring:bind>
-               <spring:bind path="comments">
-                  <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                     <form:label path="comments" for="comments"> Comments </form:label>
-                     <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
-                  </div>
-                  <form:errors  style="color:red;" path="comments"></form:errors>
-               </spring:bind>
-               <spring:bind path="attachment_if_any">
-                  <div class="form-group col-lg-4">
-                     <form:label path="attachment_if_any" for="attachment_if_any" >
-                        Add Attachment (PDF) if any
-                     </form:label>
-                     <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="attachment_if_any" id="attachment_if_any" name="attachment_if_any"/>
-                     <form:errors  path="attachment_if_any"></form:errors>
-                  </div>
-               </spring:bind>
-               <spring:bind path="user_role">
-                  <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                     <form:input type="hidden" path="user_role" id="user_role" class="form-control"  value="DFO" />
-                  </div>
-                  <form:errors  style="color:red;" path="user_role"></form:errors>
-               </spring:bind>
-               <spring:bind path="app_id">
-                  <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                     <form:input type="hidden" path="app_id" id="app_id" class="form-control"  value="${applicationData.appId}" />
-                  </div>
-                  <form:errors  style="color:red;" path="app_id"></form:errors>
-               </spring:bind>
-               <spring:bind path="user_id">
-                  <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                     <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${applicationData.userId.userId}" />
-                  </div>
-                  <form:errors  style="color:red;" path="user_id"></form:errors>
-               </spring:bind>
-               <spring:bind path="applicant_mobile">
-                  <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                     <form:input type="hidden" path="applicant_mobile" id="applicant_mobile" class="form-control"  value="${applicationData.userId.mobileNumber}" />
-                  </div>
-                  <form:errors  style="color:red;" path="applicant_mobile"></form:errors>
-               </spring:bind>
-               <input type="submit"  value="Submit" class="btn btn-success col-lg-12">
-               <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-            </form:form>
-         </div>
-      </div>
-   </c:if>
-   <c:if test="${ not empty applicationData.app_permissions}">
-      <!--  Permission Found We dont know what permission it is  -->
-      <!-- If list not empty parse the list to check weather BDO is there or not -->
-      <c:forEach items="${applicationData.app_permissions}" var="permissions" varStatus="loopCounter">
-         <c:if test="${permissions.roleId == 'DFO'}" >
-            <!-- Nothing to Show -->
-            <div class="row" style="padding:10px;">
-               <br>
-               <h2 class="form-signin-heading col-lg-12"><strong>DFO Action:- </strong></h2>
-               <br>
-               <div class="form-group col-lg-4">
-                  <label >Approved By:- </label>
-                  <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${permissions.roleId}" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-               <div class="form-group col-lg-4">
-                  <label >Application Status</label>
-                  <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false" value="${permissions.status}" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-               <div class="form-group col-lg-4">
-                  <label >Comments</label>
-                  <input type="text" onkeypress="return alpha(event)" oncopy="return true" onpaste="return false"  value="${permissions.comments}" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-               <div class="form-group col-lg-4">
-                  <label>Approval Date</label>
-                  <input type="text" onkeypress="return alpha(event)" style="color:red;" oncopy="return false" onpaste="return false"  value="<fmt:formatDate value='${permissions.createddate}' pattern='dd-MM-yyyy HH:mm:ss' />" readonly  class="form-control"
-                     autofocus="true"></input>
-               </div>
-            </div>
-         </c:if>
-         <!-- Give Permission -->
-         <c:if test="${permissions.roleId != 'DFO'}" >
-            <!-- Nothing to Show -->
-            <p> BDO NOT FOUND IN LIST</p>
-            <!-- Give Permission -->
-            <div class="col-lg-12">
-               <h2 class="form-signin-heading col-lg-12"><strong>Actions BDO (Approve/Reject)</strong></h2>
-               <br>
-               <div class="col-lg-12">
-                  <form:form method="POST"  modelAttribute="actionForm" enctype="multipart/form-data"  action="${pageContext.request.contextPath}/updateActionApplication" class="form-signin">
-                     <spring:bind path="action">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:label  path="action" > Please Select any Action </form:label>
-                           <form:select  path="action" class="form-control" id="earlierService">
-                              <option value=""> --Select-- </option>
-                              <option value="A"> Approve </option>
-                              <option value="R"> Reject </option>
-                           </form:select>
-                           <form:errors  style="color:red;" path="action"></form:errors>
-                        </div>
-                     </spring:bind>
-                     <spring:bind path="comments">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:label path="comments" for="comments"> Comments </form:label>
-                           <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
-                        </div>
-                        <form:errors  style="color:red;" path="comments"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="attachment_if_any">
-                        <div class="form-group col-lg-4">
-                           <form:label path="attachment_if_any" for="attachment_if_any" >
-                              Add Attachment (PDF) if any
-                           </form:label>
-                           <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="attachment_if_any" id="attachment_if_any" name="attachment_if_any"/>
-                           <form:errors  path="attachment_if_any"></form:errors>
-                        </div>
-                     </spring:bind>
-                     <spring:bind path="user_role">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="user_role" id="user_role" class="form-control"  value="DFO" />
-                        </div>
-                        <form:errors  style="color:red;" path="user_role"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="app_id">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="app_id" id="app_id" class="form-control"  value="${applicationData.appId}" />
-                        </div>
-                        <form:errors  style="color:red;" path="app_id"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="user_id">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${applicationData.userId.userId}" />
-                        </div>
-                        <form:errors  style="color:red;" path="user_id"></form:errors>
-                     </spring:bind>
-                     <spring:bind path="applicant_mobile">
-                        <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
-                           <form:input type="hidden" path="applicant_mobile" id="applicant_mobile" class="form-control"  value="${applicationData.userId.mobileNumber}" />
-                        </div>
-                        <form:errors  style="color:red;" path="applicant_mobile"></form:errors>
-                     </spring:bind>
-                     <input type="submit"  value="Submit" class="btn btn-success col-lg-12">
-                     <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-                  </form:form>
-               </div>
-            </div>
-         </c:if>
-      </c:forEach>
-   </c:if>
+  <!-- Can Give PErmission or not -->
+     <c:if test="${canGivePermission}">
+        <!-- Give Permission -->
+        <div class="col-lg-12">
+           <h2 class="form-signin-heading col-lg-12"><strong>Actions DFO (Approve/Reject)</strong></h2>
+           <br>
+           <div class="col-lg-12">
+              <form:form method="POST"  modelAttribute="actionForm" enctype="multipart/form-data"  action="${pageContext.request.contextPath}/updateActionApplication" class="form-signin">
+                 <spring:bind path="action">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:label  path="action" > Please Select any Action </form:label>
+                       <form:select  path="action" class="form-control" id="earlierService">
+                          <option value=""> --Select-- </option>
+                          <option value="A"> Approve </option>
+                          <option value="R"> Reject </option>
+                       </form:select>
+                       <form:errors  style="color:red;" path="action"></form:errors>
+                    </div>
+                 </spring:bind>
+                 <spring:bind path="comments">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:label path="comments" for="comments"> Comments </form:label>
+                       <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
+                    </div>
+                    <form:errors  style="color:red;" path="comments"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="attachment_if_any">
+                    <div class="form-group col-lg-4">
+                       <form:label path="attachment_if_any" for="attachment_if_any" >
+                          Add Attachment (PDF) if any
+                       </form:label>
+                       <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="attachment_if_any" id="attachment_if_any" name="attachment_if_any"/>
+                       <form:errors  path="attachment_if_any"></form:errors>
+                    </div>
+                 </spring:bind>
+                 <spring:bind path="user_role">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="user_role" id="user_role" class="form-control"  value="DFO" />
+                    </div>
+                    <form:errors  style="color:red;" path="user_role"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="app_id">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="app_id" id="app_id" class="form-control"  value="${applicationData.appId}" />
+                    </div>
+                    <form:errors  style="color:red;" path="app_id"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="user_id">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${ userId }" />
+                    </div>
+                    <form:errors  style="color:red;" path="user_id"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="applicant_mobile">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="applicant_mobile" id="applicant_mobile" class="form-control"  value="${applicationData.userId.mobileNumber}" />
+                    </div>
+                    <form:errors  style="color:red;" path="applicant_mobile"></form:errors>
+                 </spring:bind>
+                 <input type="submit"  value="Submit" class="btn btn-success col-lg-12">
+                 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+              </form:form>
+           </div>
+        </div>
+     </c:if>
+</sec:authorize>
+<!-- DFO Ends -->
+
+
+<!-- DFO Starts-->
+<sec:authorize access="hasAuthority('DC')">
+  <!-- Can Give PErmission or not -->
+     <c:if test="${canGivePermission}">
+        <!-- Give Permission -->
+        <div class="col-lg-12">
+           <h2 class="form-signin-heading col-lg-12"><strong>Actions DC (Approve/Reject)</strong></h2>
+           <br>
+           <div class="col-lg-12">
+              <form:form method="POST"  modelAttribute="actionForm" enctype="multipart/form-data"  action="${pageContext.request.contextPath}/updateActionApplication" class="form-signin">
+                 <spring:bind path="action">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:label  path="action" > Please Select any Action </form:label>
+                       <form:select  path="action" class="form-control" id="earlierService">
+                          <option value=""> --Select-- </option>
+                          <option value="A"> Approve </option>
+                          <option value="R"> Reject </option>
+                       </form:select>
+                       <form:errors  style="color:red;" path="action"></form:errors>
+                    </div>
+                 </spring:bind>
+                 <spring:bind path="comments">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:label path="comments" for="comments"> Comments </form:label>
+                       <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
+                    </div>
+                    <form:errors  style="color:red;" path="comments"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="attachment_if_any">
+                    <div class="form-group col-lg-4">
+                       <form:label path="attachment_if_any" for="attachment_if_any" >
+                          Add Attachment (PDF) if any
+                       </form:label>
+                       <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="attachment_if_any" id="attachment_if_any" name="attachment_if_any"/>
+                       <form:errors  path="attachment_if_any"></form:errors>
+                    </div>
+                 </spring:bind>
+                 <spring:bind path="user_role">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="user_role" id="user_role" class="form-control"  value="DC" />
+                    </div>
+                    <form:errors  style="color:red;" path="user_role"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="app_id">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="app_id" id="app_id" class="form-control"  value="${applicationData.appId}" />
+                    </div>
+                    <form:errors  style="color:red;" path="app_id"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="user_id">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${ userId }" />
+                    </div>
+                    <form:errors  style="color:red;" path="user_id"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="applicant_mobile">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="applicant_mobile" id="applicant_mobile" class="form-control"  value="${applicationData.userId.mobileNumber}" />
+                    </div>
+                    <form:errors  style="color:red;" path="applicant_mobile"></form:errors>
+                 </spring:bind>
+                 <input type="submit"  value="Submit" class="btn btn-success col-lg-12">
+                 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+              </form:form>
+           </div>
+        </div>
+     </c:if>
 </sec:authorize>
 <!-- DFO Ends -->
 

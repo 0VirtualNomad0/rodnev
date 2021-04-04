@@ -5270,7 +5270,7 @@ CREATE TABLE userapplication_permissions (
     id serial PRIMARY KEY  NOT NULL,
     app_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
-	role_id INTEGER NOT NULL,
+	role_name character varying NOT NULL,
     status character varying(1),
     comments character varying(255),
     attachment character varying(255),
@@ -5278,8 +5278,7 @@ CREATE TABLE userapplication_permissions (
     active boolean DEFAULT true NOT NULL,
     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (app_id) REFERENCES user_application(app_id),
-	FOREIGN KEY (role_id) REFERENCES roles
+    FOREIGN KEY (app_id) REFERENCES user_application(app_id)
 
 );
 

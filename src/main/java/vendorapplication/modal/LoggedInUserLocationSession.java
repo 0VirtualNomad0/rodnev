@@ -9,7 +9,15 @@ public class LoggedInUserLocationSession implements Serializable {
     private Integer blockId;
     private Integer TehsilId;
     private Integer panchayatId;
+    private Integer userID;
 
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
 
     public Integer getStateId() {
         return stateId;
@@ -59,6 +67,7 @@ public class LoggedInUserLocationSession implements Serializable {
                 ", blockId=" + blockId +
                 ", TehsilId=" + TehsilId +
                 ", panchayatId=" + panchayatId +
+                ", userID=" + userID +
                 '}';
     }
 }
