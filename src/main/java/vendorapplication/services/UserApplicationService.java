@@ -62,4 +62,19 @@ public class UserApplicationService {
     public int updateUserApplication(String app_id, String action) {
         return userApplicationRepository.updateApplicationByDc(Integer.parseInt(app_id), action);
     }
+
+    //Total Applications
+    public Integer getTotalApplications(){
+        return userApplicationRepository.getApplicationsCount();
+    }
+
+    public Integer getApprovedApplications(String appStatus) {
+        return userApplicationRepository.getApprovedApplications(appStatus);
+    }
+
+    //Total Approved Application
+
+    //Total Rejected Applications
+
+    //Total Pending Applications
 }

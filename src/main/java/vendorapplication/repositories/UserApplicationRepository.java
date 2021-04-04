@@ -48,4 +48,10 @@ public interface UserApplicationRepository extends CrudRepository<UserApplicatio
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE user_application  set applicationstatus =:action   where app_id =:app_id", nativeQuery = true )
     int updateApplicationByDc(Integer app_id, String action);
+
+    @Query(value = "SELECT count(*) FROM user_application WHERE user_application.active = true", nativeQuery = true)
+    Integer getApplicationsCount();
+
+    @Query(value = "SELECT count(*) FROM user_application WHERE user_application.active = true AND applicationstatus =:appStatus", nativeQuery = true)
+    Integer getApprovedApplications(String appStatus);
 }

@@ -65,15 +65,15 @@
                   </div>
                </div>
                <ul class="side-menu metismenu">
-                  <sec:authorize access="hasAuthority('Super Admin')">
+                  <sec:authorize access="hasAnyAuthority('Super Admin','Admin','DC')">
                      <li>
-                        <a class="active" href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
+                        <a class="active" href="${pageContext.request.contextPath}/dashboard"><i class="sidebar-item-icon fa fa-th-large"></i>
                         <span class="nav-label">Dashboard</span>
                         </a>
                      </li>
                   </sec:authorize>
                   <li class="heading">OPTIONS</li>
-                  <sec:authorize access="hasAnyAuthority('Super Admin', 'Admin')">
+                  <sec:authorize access="hasAnyAuthority('Super Admin', 'Admin','DC')">
                      <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
                         <span class="nav-label">Super Admin Features</span><i class="fa fa-angle-left arrow"></i></a>
@@ -118,7 +118,7 @@
                         <span class="nav-label">Applications List </span></a>
                      </li>
                   </sec:authorize>
-                  <sec:authorize access="hasAnyAuthority('BDO', 'DFO')">
+                  <sec:authorize access="hasAnyAuthority('BDO', 'DFO','DC')">
                      <li>
                         <a href="${pageContext.request.contextPath}/bdo_dfo"><i class="sidebar-item-icon fa fa-dashboard"></i>
                         <span class="nav-label">Applications List </span></a>
