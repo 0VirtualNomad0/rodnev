@@ -1,10 +1,6 @@
 package vendorapplication.entities;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
-import org.springframework.context.annotation.Lazy;
-import sun.jvm.hotspot.opto.Block;
+
 
 import javax.persistence.*;
 import java.util.Date;

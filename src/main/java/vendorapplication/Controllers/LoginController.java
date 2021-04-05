@@ -15,9 +15,11 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+
     @GetMapping("/login")
     public String login(Model model, String error, String logout, HttpSession httpSession) {
 
+        logger.info("Inside Login Controller.");
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
         }
@@ -40,6 +42,7 @@ public class LoginController {
     @RequestMapping(value =  "/logout" , method = RequestMethod.GET)
     public String logout(Model model) {
         System.out.println("Logout Successful");
+        logger.info("Logout Successful");
         return "login";
     }
 }

@@ -1,22 +1,13 @@
 package vendorapplication.paymentutility;
 
 import com.google.gson.JsonObject;
-import com.oracle.javafx.jmx.json.JSONException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import vendorapplication.exception.FileStorageException;
-import vendorapplication.property.FileStorageProperties;
-import vendorapplication.property.PaymentGatewayProperties;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
@@ -152,11 +143,9 @@ public class PaymentUtil {
             while ((line = rd.readLine()) != null) {
                 response += line;
             }
-            try {
+
                 return response;
-            } catch (JSONException e) {
-                return e.getLocalizedMessage();
-            }
+
 
         } catch (IOException e) {
             return e.getLocalizedMessage().toString();
