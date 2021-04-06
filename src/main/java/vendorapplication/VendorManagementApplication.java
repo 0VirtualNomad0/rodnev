@@ -33,15 +33,7 @@ public class VendorManagementApplication {
 		srb.addUrlMappings("/captcha.jpg");
 		return srb;
 	}
-//
-//	@Bean
-//	ServletRegistrationBean captchaServletRegistrationLogin () {
-//		ServletRegistrationBean srb = new ServletRegistrationBean();
-//		srb.setName("CaptchaServletLogin");
-//		srb.setServlet(new CaptchaGenServletLogin());
-//		srb.addUrlMappings("/captcha.jpg");
-//		return srb;
-//	}
+
 
 
 	@Bean

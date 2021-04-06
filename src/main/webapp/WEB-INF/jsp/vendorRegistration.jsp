@@ -17,7 +17,7 @@
             <strong>Warning!</strong> ${serverError}
          </div>
       </c:if>
-      <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vendor Details</strong></h4>
+      <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Details </p> </div>
       <hr>
       <div class="row">
          <spring:bind path="firstname">
@@ -77,7 +77,8 @@
       </div>
       <!-- Address (Local) -->
       <br>
-      <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong>Vendor Local Address</strong></h4>
+            <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Local Address </p> </div>
+
       <hr>
       <div class="row">
          <spring:bind path="state">
@@ -132,7 +133,7 @@
       <!-- Application Details -->
       <br>
       <hr>
-      <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vendor Application Details</strong></h4>
+            <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Application Details </p> </div>
       <hr>
       <div class="row">
          <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vending Location</strong></h4>
@@ -185,8 +186,10 @@
          </spring:bind>
       </div>
       <!-- Vending Type -->
+       <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Details (Category, Sub-Category and Dates) </p> </div>
+                  <hr>
       <div class="row">
-         <h4 class="login-title col-lg-12 text-left breadcrumb" style="background-color:#FFFFFF"> <strong>Vending Details (Category, Sub Category and Time )</strong></h4>
+
          <spring:bind path="fromDate">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <label for="fromDate">
@@ -308,8 +311,12 @@
          </div>
       </div>
       <br>
+
+          <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Documents</p> </div>
+       <hr>
+
       <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Documents </strong></h4>
+
          <spring:bind path="identityDoc">
             <div class="form-group col-lg-4">
                <form:label path="identityDoc" for="identityDoc" >

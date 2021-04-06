@@ -1,13 +1,13 @@
 <!--- footer Starts --->
       <div class="container-fluid">
          <div class="row">
-            <div style="margin-top:20px; background-color: #0074B3; width:100%;">
+            <div style="margin-top:20px; background-color: #2AABE4; width:100%;">
                &nbsp;
             </div>
          </div>
       </div>
       <div class="container-fluid" >
-         <div class="row" style="background-color: #114368; ">
+         <div class="row" style="background-color: #006FB9; box-shadow: 0 0 5px #000; ">
             <div class="col-lg-4">
                <h3 style="margin-top:0; padding-top:20px; padding-bottom:10px; padding-left:30px; color:#FFF;">Other Department Links</h3>
                <ul class="footer_list">
@@ -15,6 +15,7 @@
                   <li ><a href="https://cmsankalp.hp.gov.in/" target="_blank">CM Helpline</a></li>
                   <li ><a href="http://cmhimachal.nic.in/" target="_blank">CM Relief Refund</a></li>
                   <li ><a href="https://eflight.hp.gov.in/" target="_blank">eFlight</a></li>
+                   <li >&nbsp;</li>
 
                </ul>
             </div>

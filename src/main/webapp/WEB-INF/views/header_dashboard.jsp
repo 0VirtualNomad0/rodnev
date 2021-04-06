@@ -43,7 +43,6 @@
                      <img src="${pageContext.request.contextPath}/resources/images/admin-avatar.png" />
                      <span></span>${pageContext.request.userPrincipal.name}<i class="fa fa-angle-down m-l-5"></i></a>
                      <ul class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/updateProfile"><i class="fa fa-user"></i>Edit Profile</a>
                         <li class="dropdown-divider"></li>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><i class="fa fa-power-off"></i>Logout</a>
                      </ul>
