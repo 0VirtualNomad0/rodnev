@@ -183,15 +183,20 @@ public class VendorFormController {
             return "vendorRegistration";
         } else {
             vendorApplicationFormValidator.validate(vendorForm, bindingResult);
+            logger.info("================================= Form Validated Successfully =================================");
+            logger.info("\n");
             if (bindingResult.hasErrors()) {
                 return "vendorRegistration";
             }
             try {
                 System.out.println(vendorForm.toString());
+                logger.info("Vendor Form:- " +vendorForm.toString());
+                logger.info("\n");
                 UserEntity user = new UserEntity();
                 UserApplicationEntity userApplication = new UserApplicationEntity();
 
                 user = populateBean(vendorForm);
+                logger.info("User Data Form:- " +user.toString());
 
                 if (user != null) {
 
@@ -376,7 +381,8 @@ public class VendorFormController {
     //User Details
     private UserEntity populateBean(vendorApplicationForm vendorForm) {
 
-        logger.info("Inside Populate Function Add User");
+        logger.info("========= Populating User Data From Form ========");
+        logger.info("\n");
 
         UserEntity user = new UserEntity();
         StateEntity state = new StateEntity();
@@ -390,35 +396,98 @@ public class VendorFormController {
         try {
 
             user.setActive(true);
+            logger.info("User Is Active:- " + user.isActive());
+            logger.info("\n");
+
             user.setFirstName(vendorForm.getFirstname());
+            logger.info("User First Name:- " + user.getFirstName());
+            logger.info("\n");
+
             user.setLastName(vendorForm.getLastname());
+            logger.info("User Last Name:- " + user.getLastName());
+            logger.info("\n");
+
             user.setUsername(Constants.createUsername(vendorForm.getFirstname(), vendorForm.getLastname(), vendorForm.getAge(), "vendor"));
+            logger.info("User Username:- " + user.getUsername());
+            logger.info("\n");
+
             state.setStateID(Integer.parseInt(vendorForm.getState()));
             user.setState(state);
+            logger.info("User State Id:- " + user.getState().getStateID());
+            logger.info("\n");
+
             district.setDistrictId(Integer.parseInt(vendorForm.getLocalDistrict()));
             user.setDistrict(district);
+            logger.info("User District Id:- " + user.getDistrict().getDistrictId());
+            logger.info("\n");
+
             block.setDistrictId(Integer.parseInt(vendorForm.getLocalBlock()));
             user.setBlock(block);
+            logger.info("User Block Id:- " + user.getBlock().getDistrictId());
+            logger.info("\n");
+
+
             tehsil.setDistrictId(Integer.parseInt(vendorForm.getLocalTehsil()));
             user.setTehsil(tehsil);
+            logger.info("User Tehsil Id:- " + user.getTehsil().getDistrictId());
+            logger.info("\n");
+
+
             grampanchayat.setPanchayatId(Integer.parseInt(vendorForm.getLocalgp()));
             user.setGrampanchayat(grampanchayat);
+            logger.info("User Gram Panchayat Id:- " + user.getGrampanchayat().getPanchayatId());
+            logger.info("\n");
+
             user.setDeleted(false);
+            logger.info("User IsDeleted:- " + user.isDeleted());
+            logger.info("\n");
+
+
             user.setMobileNumber(Long.valueOf(vendorForm.getMobileNumber()));
+            logger.info("User Mobile Number:- " + user.getMobileNumber());
+            logger.info("\n");
+
+
             user.setPassword(encoder.encode("Demo@123"));
+            logger.info("User Password :- " + user.getPassword());
+            logger.info("\n");
+
+
             user.setpAddress(vendorForm.getP_address());
+            logger.info("User Address:- " + user.getpAddress());
+            logger.info("\n");
+
             user.setAge(Integer.parseInt(vendorForm.getAge()));
+            logger.info("User Age :- " + user.getAge());
+            logger.info("\n");
+
+
             if (vendorForm.getEmailAddress().isEmpty() || vendorForm.getEmailAddress() == null) {
                 user.setEmail("");
+                logger.info("User Email :- " + user.getEmail());
+                logger.info("\n");
             } else {
                 user.setEmail(vendorForm.getEmailAddress());
+                logger.info("User Email :- " + user.getEmail());
+                logger.info("\n");
+
             }
             gender.setGenderId(Integer.parseInt(vendorForm.getGender()));
             user.setGenderID(gender);
+            logger.info("User Gender :- " + user.getGenderID());
+            logger.info("\n");
+
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Date date = new Date(timestamp.getTime());
             user.setCreatedDate(date);
+            logger.info("User Created Date :- " + user.getCreatedDate());
+            logger.info("\n");
+
             String roleIid = vendorForm.getRoleId();
+            logger.info("User Role ID :- " + vendorForm.getRoleId());
+            logger.info("\n");
+
+
             Optional<RolesEntity> role = roleService.getRoleDetails(roleIid);
             if (role.get() != null) {
                 List<RolesEntity> list = new ArrayList<RolesEntity>();
@@ -433,6 +502,9 @@ public class VendorFormController {
                 return user;
             }
         } catch (Exception ex) {
+            logger.info("========== Error While Populating User Data ==========");
+            logger.info(ex.toString());
+            logger.info(ex.getLocalizedMessage());
             user = null;
         }
         logger.info(user.toString());
