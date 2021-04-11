@@ -5401,3 +5401,10 @@ CREATE INDEX idx_userFormData_district_id ON userFormData USING btree (district_
 CREATE INDEX idx_userFormData_helipad_id ON userFormData USING btree (helipad_id);
 CREATE INDEX idx_userFormData_full_name ON userFormData USING btree (full_name);
 
+
+--- In case the Sequence is Disturbed
+SELECT MAX(role_id) FROM roles;
+
+SELECT nextval('roles_role_id_seq');
+
+SELECT setval('roles_role_id_seq', (SELECT MAX(role_id) FROM roles)+1);

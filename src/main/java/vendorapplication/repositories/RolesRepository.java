@@ -17,7 +17,7 @@ import java.util.List;
 public interface RolesRepository extends CrudRepository<RolesEntity, Long> {
 
     @Query(value = "SELECT role_id, role_name from roles where active = true", nativeQuery = true)
-    @Cacheable
+   // @Cacheable
     List<Object[]> getRoles();
 
     @Query(value = "SELECT * from roles where active = true AND role_name =:role_name_" , nativeQuery = true)
