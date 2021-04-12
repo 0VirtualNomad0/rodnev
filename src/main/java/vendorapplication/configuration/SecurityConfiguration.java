@@ -73,6 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 http.authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .antMatchers("/downloadFile/**").permitAll()
+                        .antMatchers("/resources/css/fonts").denyAll()
                 .antMatchers("/saveapplication/").hasAnyRole( "Vendor")
                 .antMatchers("/paymentpage/**").authenticated()
                 .antMatchers("/vendorapplication.ajax/**").authenticated()
