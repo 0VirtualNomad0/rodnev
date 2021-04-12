@@ -55,7 +55,7 @@
       <spring:bind path="itemName">
          <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:label path="itemName" for="itemName">Enter Item Name</form:label>
-            <form:input type="text" path="itemName" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Item Name"
+            <form:input type="text" path="itemName" autocomplete="off" onfocus="this.removeAttribute('readonly');" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Item Name"
                autofocus="true" ></form:input>
             <form:errors  path="itemName"></form:errors>
          </div>
@@ -63,7 +63,7 @@
       <spring:bind path="fee">
          <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:label path="landType" for="landType">Enter Fee</form:label>
-            <form:input type="text" path="fee" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Fee"
+            <form:input type="text" path="fee" autocomplete="off" onfocus="this.removeAttribute('readonly');" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Fee"
                autofocus="true" ></form:input>
             <form:errors  path="fee"></form:errors>
          </div>
@@ -71,12 +71,13 @@
       <spring:bind path="security">
          <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:label path="security" for="security">Enter Security Amount</form:label>
-            <form:input type="text" path="security" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Security Fee"
+            <form:input type="text" path="security" autocomplete="off" onfocus="this.removeAttribute('readonly');" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Security Fee"
                autofocus="true" ></form:input>
             <form:errors  path="security"></form:errors>
          </div>
       </spring:bind>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+      <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
       <c:remove var="successMessage" scope="session" />
    </form:form>
 </div>

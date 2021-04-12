@@ -12,11 +12,11 @@
             <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
             <div class="form-group col-lg-12">
                <label class="control-label" for="username" >Username:</label><br>
-               <input class="form-control" type="text" oncopy="return false" onpaste="return false" maxlength="20" onkeypress="return alpha(event)"  required autofocus name="username" id="username">
+               <input class="form-control" type="text" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" maxlength="20" onkeypress="return alpha(event)"  required autofocus name="username" id="username">
             </div>
             <div class="form-group col-lg-12">
                <label class="control-label" for="password" >Password:</label><br>
-               <input class="form-control" type="password" oncopy="return false" onpaste="return false" name="password"  maxLength="10"  size="10" id="password">
+               <input class="form-control" type="password" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" name="password"  maxLength="10"  size="10" id="password">
             </div>
             <!-- Captcha -->
 
@@ -30,7 +30,7 @@
 
 
 
-                       <div class="col-lg-12"><input  class="form-control" maxlength="5" required onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  id="captcha" name="captcha" /></div>
+                       <div class="col-lg-12"><input autocomplete="off" onfocus="this.removeAttribute('readonly');" class="form-control" maxlength="5" required onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  id="captcha" name="captcha" /></div>
 <br>
             <!-- Captcha Ends -->
             <div class="form-group col-lg-12">

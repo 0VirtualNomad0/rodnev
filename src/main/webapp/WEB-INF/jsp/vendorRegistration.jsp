@@ -23,7 +23,7 @@
          <spring:bind path="firstname">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="firstname" for="firstname">First Name</form:label>
-               <form:input id="firstname" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="firstname" name="firstname" class="form-control"
+               <form:input id="firstname" type="text" onkeypress="return alpha(event)" oncopy="return false" onfocus="this.removeAttribute('readonly');" onpaste="return false" autocomplete="off" path="firstname" name="firstname" class="form-control"
                   autofocus="true"></form:input>
                <form:errors  path="firstname"></form:errors>
             </div>
@@ -31,7 +31,7 @@
          <spring:bind path="lastname">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="lastname" for="lastname">Last Name</form:label>
-               <form:input id="lastname" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="lastname" name="lastname" class="form-control"
+               <form:input id="lastname" type="text" onkeypress="return alpha(event)" oncopy="return false" onfocus="this.removeAttribute('readonly');" onpaste="return false" autocomplete="off"  path="lastname" name="lastname" class="form-control"
                   autofocus="true"></form:input>
                <form:errors  path="lastname"></form:errors>
             </div>
@@ -47,21 +47,21 @@
          <spring:bind path="mobileNumber">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="mobileNumber"  for="mobileNumber">Mobile Number</form:label>
-               <form:input type="text"  id="mobileNumber" required="required" oncopy="return false" onpaste="return false" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" ></form:input>
+               <form:input type="text"  id="mobileNumber" required="required" oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" ></form:input>
                <form:errors  path="mobileNumber"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="age">
             <div class="form-group col-lg-4  ${status.error ? 'has-error' : ''}">
                <form:label path="age" for="age">Age</form:label>
-               <form:input type="text" id="age" required="required" oncopy="return false" onpaste="return false" path="age" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="age"  ></form:input>
+               <form:input type="text" id="age" required="required" oncopy="return false" onpaste="return false" path="age" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="age"  ></form:input>
                <form:errors  path="age"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="emailAddress">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="emailAddress" for="emailAddress">Email</form:label>
-               <form:input type="text"  id="emailAddress"  oncopy="return false" onpaste="return false" path="emailAddress" maxlength="40" minlength="10"  class="form-control"  name="emailAddress"  ></form:input>
+               <form:input type="text"  id="emailAddress"  oncopy="return false" onpaste="return false" path="emailAddress" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="40" minlength="10"  class="form-control"  name="emailAddress"  ></form:input>
                <form:errors  path="emailAddress"></form:errors>
             </div>
          </spring:bind>
@@ -125,7 +125,7 @@
          <spring:bind path="p_address">
             <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="p_address" for="p_address">Full Address (House Number/Street/Landmark/Village names etc)</form:label>
-               <form:textarea id="p_address" rows="4" type="text"  required="required" oncopy="return false" onpaste="return false" path="p_address" maxlength="40" minlength="10"  class="form-control"  name="p_address"  />
+               <form:textarea id="p_address" rows="4" type="text" autocomplete="off" onfocus="this.removeAttribute('readonly');"  required="required" oncopy="return false" onpaste="return false" path="p_address" maxlength="40" minlength="10"  class="form-control"  name="p_address"  />
                <form:errors  path="p_address"></form:errors>
             </div>
          </spring:bind>
@@ -180,7 +180,7 @@
          <spring:bind path="loc_address">
             <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="loc_address" for="loc_address">Enter Location</form:label>
-               <form:textarea id="loc_address" rows="4" type="text"  required="required" oncopy="return false" onpaste="return false" path="loc_address" maxlength="40" minlength="10"  class="form-control"  name="loc_address"  />
+               <form:textarea id="loc_address" rows="4" type="text" autocomplete="off"  onfocus="this.removeAttribute('readonly');" required="required" oncopy="return false" onpaste="return false" path="loc_address" maxlength="40" minlength="10"  class="form-control"  name="loc_address"  />
                <form:errors  path="loc_address"></form:errors>
             </div>
          </spring:bind>
@@ -195,7 +195,7 @@
                <label for="fromDate">
                Select From Date
                </label>
-               <form:input maxlength="10"  path="fromDate" id="fromDate" oncopy="return false" onpaste="return false" type="date" class="form-control input-sm" />
+               <form:input maxlength="10"  path="fromDate" id="fromDate" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" type="date" class="form-control input-sm" />
                <form:errors  style="color:red;" path="fromDate"></form:errors>
             </div>
          </spring:bind>
@@ -204,21 +204,21 @@
                <label for="toDate">
                Select To Date
                </label>
-               <form:input maxlength="10"  path="toDate" oncopy="return false" onpaste="return false" id="toDate" type="date" onchange="calculateDays();" class="form-control input-sm" />
+               <form:input maxlength="10"  path="toDate" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" id="toDate" type="date" onchange="calculateDays();" class="form-control input-sm" />
                <form:errors  style="color:red;" path="toDate"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="totalDays">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="totalDays"  for="totalDays">Total Number of Days</form:label>
-               <form:input type="text"  id="totalDays" readonly="true" oncopy="return false" onpaste="return false" path="totalDays"  class="form-control" onKeyPress="return isNumber(event)"  name="totalDays" ></form:input>
+               <form:input type="text"  id="totalDays" readonly="true" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="totalDays"  class="form-control" onKeyPress="return isNumber(event)"  name="totalDays" ></form:input>
                <form:errors  path="totalDays"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="nationality">
             <div class="form-group col-lg-4">
                <form:label path="nationality" for="nationality">Nationality</form:label>
-               <form:select  path="nationality" name="nationality" class="form-control" id="nationality">
+               <form:select  path="nationality" name="nationality"  class="form-control" id="nationality">
                </form:select>
                <form:errors  path="nationality"></form:errors>
             </div>
@@ -300,7 +300,7 @@
                <spring:bind path="itemsForm[0].item_number">
                   <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                      <form:label path="itemsForm[0].item_number" for="itemsForm[0].item_number">Enter Number of Tents</form:label>
-                     <form:input id="itemsForm[0].item_number" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="itemsForm[0].item_number"  class="form-control"
+                     <form:input id="itemsForm[0].item_number" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="itemsForm[0].item_number"  class="form-control"
                         autofocus="true"></form:input>
                      <form:errors  path="itemsForm[0].item_number"></form:errors>
                   </div>
@@ -357,7 +357,7 @@
                   <tr>
                      <td>Enter Image Text</td>
                      <td>
-                        <form:input  onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" />
+                        <form:input  onkeypress="return alpha(event)" oncopy="return false"  autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="captcha" id="captcha" name="captcha" />
                      </td>
                      <form:errors style="color:red;" path="captcha"></form:errors>
                   </tr>

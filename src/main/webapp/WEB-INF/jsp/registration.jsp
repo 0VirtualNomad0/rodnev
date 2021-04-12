@@ -3,7 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/vendor/script.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/flight_application_form.js"></script>
+
+
 <script type="text/javascript">
    $( document ).ready(function() {
        getroles();
@@ -32,21 +33,21 @@
       <div class="row">
          <spring:bind path="firstname">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="firstname" name="firstname" class="form-control" placeholder="First Name"
+               <form:input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false"  path="firstname" name="firstname" class="form-control" placeholder="First Name"
                   autofocus="true"></form:input>
                <form:errors  path="firstname"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="lastname">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="lastname" name="lastname" class="form-control" placeholder="Last Name"
+               <form:input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false"  path="lastname" name="lastname" class="form-control" placeholder="Last Name"
                   autofocus="true"></form:input>
                <form:errors  path="lastname"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="username">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="username" name="username" class="form-control" placeholder="Username"
+               <form:input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false"  path="username" name="username" class="form-control" placeholder="Username"
                   autofocus="true"></form:input>
                <form:errors  path="username"></form:errors>
             </div>
@@ -55,19 +56,19 @@
       <div class="row">
          <spring:bind path="mobileNumber">
             <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:input type="text"  required="required" oncopy="return false" onpaste="return false" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" placeholder="Mobile Number" ></form:input>
+               <form:input type="text"  required="required" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" placeholder="Mobile Number" ></form:input>
                <form:errors  path="mobileNumber"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="age">
             <div class="form-group col-lg-4  ${status.error ? 'has-error' : ''}">
-               <form:input type="text"  required="required" oncopy="return false" onpaste="return false" path="age" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="age" placeholder="Age" ></form:input>
+               <form:input type="text"  required="required" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="age" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="age" placeholder="Age" ></form:input>
                <form:errors  path="age"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="emailAddress">
             <div class="form-group col-lg-4  ${status.error ? 'has-error' : ''}">
-               <form:input type="text"  required="required" oncopy="return false" onpaste="return false" path="emailAddress" maxlength="40" minlength="10"  class="form-control"  name="emailAddress" placeholder="Email Address" ></form:input>
+               <form:input type="text"  required="required" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="emailAddress" maxlength="40" minlength="10"  class="form-control"  name="emailAddress" placeholder="Email Address" ></form:input>
                <form:errors  path="emailAddress"></form:errors>
             </div>
          </spring:bind>
@@ -116,7 +117,7 @@
          </spring:bind>
          <spring:bind path="p_address">
             <div class="form-group col-lg-4  ${status.error ? 'has-error' : ''}">
-               <form:textarea rows="4" type="text"  required="required" oncopy="return false" onpaste="return false" path="p_address" maxlength="40" minlength="10"  class="form-control"  name="p_address" placeholder="Permanent Address" />
+               <form:textarea rows="4" type="text" onkeypress="return alpha(event)" required="required" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" path="p_address" maxlength="40" minlength="10"  class="form-control"  name="p_address" placeholder="Permanent Address" />
                <form:errors  path="p_address"></form:errors>
             </div>
          </spring:bind>
@@ -148,7 +149,7 @@
          <spring:bind path="passwordConfirm">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
             <form:label path="passwordConfirm" for="passwordConfirm">Confirm Password</form:label>
-               <form:input type="password" oncopy="return false" onpaste="return false" path="passwordConfirm" class="form-control"
+               <form:input type="password" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="passwordConfirm" class="form-control"
                   placeholder="Confirm your password"></form:input>
                <form:errors path="passwordConfirm"></form:errors>
             </div>
@@ -173,7 +174,7 @@
                <tr>
                   <td>Enter Image Text</td>
                   <td>
-                     <form:input onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" />
+                     <form:input onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" path="captcha" id="captcha" name="captcha" />
                   </td>
                   <form:errors style="color:red;" path="captcha"></form:errors>
                </tr>
@@ -182,6 +183,7 @@
          <!-- Captcha -->
 <br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+      <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
       <c:remove var="successMessage" scope="session" />
    </form:form>
 </div>

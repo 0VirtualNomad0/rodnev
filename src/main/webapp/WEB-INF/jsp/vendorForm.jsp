@@ -23,47 +23,47 @@
       <br>
       <div class="form-group col-lg-4">
          <label >First Name</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.firstName}" readonly  class="form-control"
+         <input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" value="${user.firstName}" readonly  class="form-control"
             autofocus="true"></input>
       </div>
       <div class="form-group col-lg-4">
          <label >Last Name</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.lastName}" readonly  class="form-control"
+         <input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" value="${user.lastName}" readonly  class="form-control"
             autofocus="true"></input>
       </div>
       <div class="form-group col-lg-4">
          <label >User Name</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.username}"  readonly  class="form-control"
+         <input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" value="${user.username}"  readonly  class="form-control"
             autofocus="true"></input>
       </div>
       <div class="form-group col-lg-4">
          <label >Mobile Number</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  value="${user.mobileNumber}" readonly  class="form-control"
+         <input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false"  value="${user.mobileNumber}" readonly  class="form-control"
             autofocus="true"></input>
       </div>
       <div class="form-group col-lg-4">
          <label >Age</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.age}" readonly  class="form-control"
+         <input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" value="${user.age}" readonly  class="form-control"
             autofocus="true"></input>
       </div>
       <div class="form-group col-lg-4">
          <label >Email</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.email}" readonly  class="form-control"
+         <input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" value="${user.email}" readonly  class="form-control"
             autofocus="true"></input>
       </div>
       <div class="form-group col-lg-4">
          <label >Gender</label>
-         <input type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  readonly value="${user.genderID.genderName}" class="form-control"
+         <input type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false"  readonly value="${user.genderID.genderName}" class="form-control"
             autofocus="true"></input>
       </div>
       <div class="form-group col-lg-4">
          <label >Permanent Address</label>
-         <textarea rows="4" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.pAddress}" readonly  class="form-control"
+         <textarea rows="4" type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');"  oncopy="return false" onpaste="return false" value="${user.pAddress}" readonly  class="form-control"
             autofocus="true">${user.pAddress}</textarea>
       </div>
       <div class="form-group col-lg-4">
          <label >Correspondence Address</label>
-         <textarea rows="4" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false" value="${user.cAddress}" readonly  class="form-control"
+         <textarea rows="4" type="text" onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" value="${user.cAddress}" readonly  class="form-control"
             autofocus="true">${user.cAddress}</textarea>
       </div>
    </div>
@@ -105,7 +105,7 @@
       <spring:bind path="tentNumber">
       <div id="tentDiv" style="display:none;" class="form-group col-lg-4">
                <form:label path="tentNumber" for="tentNumber">Tent Number</form:label>
-               <form:input  path="tentNumber" name="tentNumber" type="text" onKeyPress="return isNumber(event)" maxlength="3"  class="form-control" id="tentNumber" />
+               <form:input  path="tentNumber" autocomplete="off" onfocus="this.removeAttribute('readonly');" name="tentNumber" type="text" onKeyPress="return isNumber(event)" maxlength="3"  class="form-control" id="tentNumber" />
 
                 <form:errors  path="tentNumber"></form:errors>
             </div>
@@ -150,6 +150,7 @@
    </div>
    <div class="form-group col-lg-12">
       <button class="btn btn-info btn-block" type="submit">Submit</button>
+      <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
       <c:remove var="successMessage" scope="session" />
    </div>
 </div>

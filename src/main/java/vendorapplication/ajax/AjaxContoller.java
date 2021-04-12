@@ -144,24 +144,35 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getDistrictsViaState(@RequestParam(value = "id", required = true) String id) throws Exception {
 
-
         Map<String, Object> map = null;
-        List<Object[] > districtsObject = districtRepository.getDistrictsViaId(Integer.parseInt(id));
-        List<DistrictModal> districtModals = new ArrayList<>();
+
+        try{
+            Integer id_ = Integer.parseInt(id);
+            List<Object[] > districtsObject = districtRepository.getDistrictsViaId(id_);
+            List<DistrictModal> districtModals = new ArrayList<>();
 
 
-        for (Object[] result : districtsObject) {
-            DistrictModal pojo = new DistrictModal();
-            pojo.setDistrictId((Integer) result[0]);
-            pojo.setDistrictName((String) result[1]);
-            districtModals.add(pojo);
+            for (Object[] result : districtsObject) {
+                DistrictModal pojo = new DistrictModal();
+                pojo.setDistrictId((Integer) result[0]);
+                pojo.setDistrictName((String) result[1]);
+                districtModals.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, districtModals);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse );
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         }
 
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, districtModals);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }
@@ -170,26 +181,33 @@ public class AjaxContoller {
     @RequestMapping(value = "/ajax/getBlocks", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
     ResponseEntity<?> getBlocks(@RequestParam(value = "id", required = true) String id) throws Exception {
-
-
         Map<String, Object> map = null;
-        List<Object[] > blockObjects = blockRepository.getBlocksViaDistrict(Integer.parseInt(id));
-        List<BlockModal> blockModals = new ArrayList<>();
+
+        try{
+            List<Object[] > blockObjects = blockRepository.getBlocksViaDistrict(Integer.parseInt(id));
+            List<BlockModal> blockModals = new ArrayList<>();
 
 
-        for (Object[] result : blockObjects) {
-            BlockModal pojo = new BlockModal();
-            pojo.setBlockId((Integer) result[0]);
-            pojo.setBlockName((String) result[1]);
-            blockModals.add(pojo);
+            for (Object[] result : blockObjects) {
+                BlockModal pojo = new BlockModal();
+                pojo.setBlockId((Integer) result[0]);
+                pojo.setBlockName((String) result[1]);
+                blockModals.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, blockModals);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         }
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, blockModals);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-
 
     }
 
@@ -197,26 +215,34 @@ public class AjaxContoller {
     @RequestMapping(value = "/ajax/getTehsils", method = RequestMethod.GET,  produces="application/json")
     public @ResponseBody
     ResponseEntity<?> getTehsils(@RequestParam(value = "id", required = true) String id) throws Exception {
-
-
         Map<String, Object> map = null;
-        List<Object[] > TehsilObjects = tehsilRepository.getTehsilViaDistrict(Integer.parseInt(id));
-        List<TehsilModal> tehsilModal = new ArrayList<>();
+
+        try{
+
+            List<Object[] > TehsilObjects = tehsilRepository.getTehsilViaDistrict(Integer.parseInt(id));
+            List<TehsilModal> tehsilModal = new ArrayList<>();
 
 
-        for (Object[] result : TehsilObjects) {
-            TehsilModal pojo = new TehsilModal();
-            pojo.setTehsilId((Integer) result[0]);
-            pojo.setTehsilName((String) result[1]);
-            tehsilModal.add(pojo);
+            for (Object[] result : TehsilObjects) {
+                TehsilModal pojo = new TehsilModal();
+                pojo.setTehsilId((Integer) result[0]);
+                pojo.setTehsilName((String) result[1]);
+                tehsilModal.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, tehsilModal);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        }catch (Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         }
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, tehsilModal);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-
 
     }
 
@@ -227,22 +253,32 @@ public class AjaxContoller {
 
 
         Map<String, Object> map = null;
-        List<Object[] > gpObjects = gpRepository.getgpViaId(Integer.parseInt(id));
-        List<GramPanchayatModal> gpModalList = new ArrayList<>();
+
+        try{
+            List<Object[] > gpObjects = gpRepository.getgpViaId(Integer.parseInt(id));
+            List<GramPanchayatModal> gpModalList = new ArrayList<>();
 
 
-        for (Object[] result : gpObjects) {
-            GramPanchayatModal pojo = new GramPanchayatModal();
-            pojo.setGpId((Integer) result[0]);
-            pojo.setGpName((String) result[1]);
-            gpModalList.add(pojo);
+            for (Object[] result : gpObjects) {
+                GramPanchayatModal pojo = new GramPanchayatModal();
+                pojo.setGpId((Integer) result[0]);
+                pojo.setGpName((String) result[1]);
+                gpModalList.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, gpModalList);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         }
 
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, gpModalList);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }
@@ -386,23 +422,31 @@ public class AjaxContoller {
 
 
             Map<String, Object> map = null;
-            List<Object[] > vendorsCategorys = vendorTypeRepository.getSubCategories(Integer.parseInt(id));
-            List<VendorCategoryModal> vendorCatModal = new ArrayList<>();
+            try{
+
+                List<Object[] > vendorsCategorys = vendorTypeRepository.getSubCategories(Integer.parseInt(id));
+                List<VendorCategoryModal> vendorCatModal = new ArrayList<>();
 
 
-            for (Object[] result : vendorsCategorys) {
-                VendorCategoryModal pojo = new VendorCategoryModal();
-                pojo.setVendorCategoryId((Integer) result[0]);
-                pojo.setVendorCategoryName((String) result[1]);
-                vendorCatModal.add(pojo);
+                for (Object[] result : vendorsCategorys) {
+                    VendorCategoryModal pojo = new VendorCategoryModal();
+                    pojo.setVendorCategoryId((Integer) result[0]);
+                    pojo.setVendorCategoryName((String) result[1]);
+                    vendorCatModal.add(pojo);
+                }
+
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, vendorCatModal);
+                map.put(Constants.keyMessage, Constants.valueMessage);
+                map.put(Constants.keyStatus, HttpStatus.OK);
+                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            }catch(Exception ex){
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+                map.put(Constants.keyMessage, Constants.valueMessage);
+                map.put(Constants.keyStatus, HttpStatus.OK);
+                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
             }
-
-            map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, vendorCatModal);
-            map.put(Constants.keyMessage, Constants.valueMessage);
-            map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-
 
     }
 
@@ -418,28 +462,38 @@ public class AjaxContoller {
 
 
         Map<String, Object> map = null;
-        List<Object[] > items = subCategoryItemsRepository.getItemsSubCategory(
 
-                Integer.parseInt(landType),
-                Integer.parseInt(category),
-                Integer.parseInt(subCategory));
-        List<Items> itemModal = new ArrayList<>();
+        try {
+
+            List<Object[]> items = subCategoryItemsRepository.getItemsSubCategory(
+
+                    Integer.parseInt(landType),
+                    Integer.parseInt(category),
+                    Integer.parseInt(subCategory));
+            List<Items> itemModal = new ArrayList<>();
 
 
-        for (Object[] result : items) {
-            Items pojo = new Items();
-            pojo.setItemId((Integer) result[0]);
-            pojo.setItemName((String) result[1]);
-            pojo.setRate((String)result[2]);
-            pojo.setSecurityamount((String)result[3]);
-            itemModal.add(pojo);
+            for (Object[] result : items) {
+                Items pojo = new Items();
+                pojo.setItemId((Integer) result[0]);
+                pojo.setItemName((String) result[1]);
+                pojo.setRate((String) result[2]);
+                pojo.setSecurityamount((String) result[3]);
+                itemModal.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, itemModal);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         }
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, itemModal);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }
@@ -457,29 +511,37 @@ public class AjaxContoller {
 
 
         Map<String, Object> map = null;
-        List<Object[] > items = subCategoryItemsRepository.getItemsSubCategoryNR(
+        try {
+            List<Object[]> items = subCategoryItemsRepository.getItemsSubCategoryNR(
 
-                Integer.parseInt(landType),
-                Integer.parseInt(category),
-                Integer.parseInt(regional),
-                Integer.parseInt(subCategory));
-        List<Items> itemModal = new ArrayList<>();
+                    Integer.parseInt(landType),
+                    Integer.parseInt(category),
+                    Integer.parseInt(regional),
+                    Integer.parseInt(subCategory));
+            List<Items> itemModal = new ArrayList<>();
 
 
-        for (Object[] result : items) {
-            Items pojo = new Items();
-            pojo.setItemId((Integer) result[0]);
-            pojo.setItemName((String) result[1]);
-            pojo.setRate((String)result[2]);
-            pojo.setSecurityamount((String)result[3]);
-            itemModal.add(pojo);
+            for (Object[] result : items) {
+                Items pojo = new Items();
+                pojo.setItemId((Integer) result[0]);
+                pojo.setItemName((String) result[1]);
+                pojo.setRate((String) result[2]);
+                pojo.setSecurityamount((String) result[3]);
+                itemModal.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, itemModal);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         }
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, itemModal);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }
@@ -496,27 +558,35 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
 
 
     Map<String, Object> map = null;
-    List<Object[] > items = subCategoryItemsRepository.getItemsSubCategoryOthers(
-            Integer.parseInt(landType),
-            Integer.parseInt(category),
-            Integer.parseInt(subCategory));
-    List<Items> itemModal = new ArrayList<>();
+    try {
+        List<Object[]> items = subCategoryItemsRepository.getItemsSubCategoryOthers(
+                Integer.parseInt(landType),
+                Integer.parseInt(category),
+                Integer.parseInt(subCategory));
+        List<Items> itemModal = new ArrayList<>();
 
 
-    for (Object[] result : items) {
-        Items pojo = new Items();
-        pojo.setItemId((Integer) result[0]);
-        pojo.setItemName((String) result[1]);
-        pojo.setRate((String)result[2]);
-        pojo.setSecurityamount((String)result[3]);
-        itemModal.add(pojo);
+        for (Object[] result : items) {
+            Items pojo = new Items();
+            pojo.setItemId((Integer) result[0]);
+            pojo.setItemName((String) result[1]);
+            pojo.setRate((String) result[2]);
+            pojo.setSecurityamount((String) result[3]);
+            itemModal.add(pojo);
+        }
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, itemModal);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }catch(Exception ex){
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
-
-    map = new HashMap<String, Object>();
-    map.put(Constants.keyResponse, itemModal);
-    map.put(Constants.keyMessage, Constants.valueMessage);
-    map.put(Constants.keyStatus, HttpStatus.OK);
-    return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
 }
@@ -551,24 +621,31 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
     public @ResponseBody
     ResponseEntity<?> getArea(@RequestParam(value = "id", required = true) String id) throws Exception {
 
-
         Map<String, Object> map = null;
-        List<Object[] > areaDistrictWise = availableAreaRepository.getAvailableAreaDistrict(Integer.parseInt(id));
-        List<AreaModal> areaModal = new ArrayList<>();
+        try {
+            List<Object[]> areaDistrictWise = availableAreaRepository.getAvailableAreaDistrict(Integer.parseInt(id));
+            List<AreaModal> areaModal = new ArrayList<>();
 
 
-        for (Object[] result : areaDistrictWise) {
-            AreaModal pojo = new AreaModal();
-            pojo.setAreaId((Integer) result[0]);
-            pojo.setAreaName((String) result[1]);
-            areaModal.add(pojo);
+            for (Object[] result : areaDistrictWise) {
+                AreaModal pojo = new AreaModal();
+                pojo.setAreaId((Integer) result[0]);
+                pojo.setAreaName((String) result[1]);
+                areaModal.add(pojo);
+            }
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, areaModal);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         }
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, areaModal);
-        map.put(Constants.keyMessage, Constants.valueMessage);
-        map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }

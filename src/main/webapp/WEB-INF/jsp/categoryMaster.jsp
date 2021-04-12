@@ -21,7 +21,7 @@
 
             <spring:bind path="categoryName">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" path="categoryName" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Category Name"
+                    <form:input type="text" path="categoryName" onkeypress="return alpha(event) " autocomplete="off" onfocus="this.removeAttribute('readonly');"  oncopy="return false" onpaste="return false" class="form-control" placeholder="Category Name"
                                 autofocus="true" ></form:input>
                     <form:errors  path="categoryName"></form:errors>
                 </div>
@@ -31,6 +31,7 @@
 
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
             <c:remove var="successMessage" scope="session" />
         </form:form>
 

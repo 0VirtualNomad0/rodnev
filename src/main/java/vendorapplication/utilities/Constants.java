@@ -34,6 +34,7 @@ public class Constants {
 
     public static final String SuccessRegistration = "Registration Successful. Please Login using your credentials to fill the vendor application form. ";
 
+    public static final String ErrorAjaxResponse = "Unable to retrieve data from Server. Please try again and check weather you are connected to Internet or Not.";
 
     public static boolean isValid(String email)
     {

@@ -3,6 +3,7 @@ package vendorapplication.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +32,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
@@ -64,12 +66,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
                 http.csrf().ignoringAntMatchers("/nocsrf", "/paymentResponse/**");
+                http.headers().frameOptions().sameOrigin();
+
+
+
                 http.authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .antMatchers("/downloadFile/**").permitAll()
                 .antMatchers("/saveapplication/").hasAnyRole( "Vendor")
                 .antMatchers("/paymentpage/**").authenticated()
-                .antMatchers("/resources/**").permitAll()
                 .antMatchers("/vendorapplication.ajax/**").authenticated()
                 .antMatchers("/admin/**").hasAnyRole("Admin","Super Admin")
                 .antMatchers("/createuser/**").hasAnyRole("Admin","Super Admin")
@@ -119,12 +124,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         response.addCookie(cookie);
                     }
                 }
+
+                Collection<String> headers = response.getHeaders("Set-Cookie");
+                boolean firstHeader = true;
+                for (String header : headers) {
+                    if (firstHeader) {
+                        response.setHeader("Set-Cookie", String.format("%s; %s", header, "SameSite=Strict"));
+                        firstHeader = false;
+                        continue;
+                    }
+                    response.addHeader("Set-Cookie", String.format("%s; %s", header, "SameSite=Strict"));
+                }
                 request.setCharacterEncoding("UTF-8");
                 response.setContentType("text/html; charset=UTF-8");
                 response.setHeader("pragma", "no-cache");
                 response.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
-               // response.setHeader("Set-Cookie", "SameSite=lax");
-                //  response.setHeader("Set-Cookie", "locale=de;  SameSite=same-origin");  //HttpOnly;
                 filterChain.doFilter(request, response);
             }
         };

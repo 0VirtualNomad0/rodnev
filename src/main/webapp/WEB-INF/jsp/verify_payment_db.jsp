@@ -28,7 +28,7 @@
 
                           <spring:bind path="application_id">
                           <div class="col-md-4 form-group  ${status.error ? 'has-error' : ''}">
-                            <form:input path="application_id" onkeypress="return alpha(event)" oncopy="return false" onpaste="return true"  size="10" name="application_id" class="form-control" type="text" placeholder="Enter Application Id" required="required"  />
+                            <form:input path="application_id" autocomplete="off" onfocus="this.removeAttribute('readonly');" onkeypress="return alpha(event)" oncopy="return false" onpaste="return true"  size="10" name="application_id" class="form-control" type="text" placeholder="Enter Application Id" required="required"  />
                               <form:errors  path="application_id"></form:errors>
                             </div>
                              </spring:bind>
@@ -37,6 +37,7 @@
 
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
                <c:remove var="successMessage" scope="session" />
 
                </div>

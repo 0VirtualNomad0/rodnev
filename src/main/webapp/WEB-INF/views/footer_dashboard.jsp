@@ -21,6 +21,7 @@
 
     <!-- CORE SCRIPTS-->
     <script src="${pageContext.request.contextPath}/resources/js/vendor/app.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/flight_application_form.js"></script>
 
 
 
