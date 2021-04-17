@@ -1,27 +1,23 @@
 package vendorapplication.test;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.annotation.Rollback;
-import vendorapplication.entities.*;
-import vendorapplication.modal.DistrictModal;
-import vendorapplication.modal.StateModal;
-import vendorapplication.repositories.DistrictRepository;
-import vendorapplication.repositories.RolesRepository;
-import vendorapplication.repositories.StateRepository;
-import vendorapplication.repositories.UserRepository;
-import vendorapplication.services.GenderService;
+import org.xml.sax.SAXException;
+import vendorapplication.security.EncryptDecrypt;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @SpringBootTest
 public class VendorManagementApplicationTests {
+
+
 
 //    @Autowired
 //    RolesRepository rolesRepository;
@@ -82,4 +78,24 @@ public class VendorManagementApplicationTests {
 //
 //	 userRepository.save(user1);
 //	}
+
+
+      @Test
+    public  void checkCrypto() throws ParserConfigurationException, IOException, SAXException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+
+          EncryptDecrypt AES = new EncryptDecrypt();
+
+          System.out.println("\n\n\t");
+          String encryptFile = AES.encrypt("Kush Kumar Dhawan");
+          System.out.println(" Encryption of File:-  " + encryptFile);
+          System.out.println("\n\n\t");
+          String decryptFile = AES.decrypt(encryptFile);
+          System.out.println("Decryption of File:- " + decryptFile);
+
+      }
+
+
+
+
+
 }

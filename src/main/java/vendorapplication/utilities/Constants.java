@@ -83,4 +83,9 @@ public class Constants {
         return sb.toString();
     }
 
+
+    /**
+     * Security Key AES
+     */
+    public static final String securityKeyAES = "hPelahaul@17_04_21";
 }
