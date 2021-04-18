@@ -17,12 +17,14 @@
             <strong>Warning!</strong> ${serverError}
          </div>
       </c:if>
-      <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Details </p> </div>
+      <div class="container grey_top_bar">
+         <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.one" /> </p>
+      </div>
       <hr>
       <div class="row">
          <spring:bind path="firstname">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="firstname" for="firstname">First Name</form:label>
+               <form:label path="firstname" for="firstname"><spring:message code="form.username.first" /></form:label>
                <form:input id="firstname" type="text" onkeypress="return alpha(event)" oncopy="return false" onfocus="this.removeAttribute('readonly');" onpaste="return false" autocomplete="off" path="firstname" name="firstname" class="form-control"
                   autofocus="true"></form:input>
                <form:errors  path="firstname"></form:errors>
@@ -30,7 +32,7 @@
          </spring:bind>
          <spring:bind path="lastname">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="lastname" for="lastname">Last Name</form:label>
+               <form:label path="lastname" for="lastname"><spring:message code="form.username.last" /></form:label>
                <form:input id="lastname" type="text" onkeypress="return alpha(event)" oncopy="return false" onfocus="this.removeAttribute('readonly');" onpaste="return false" autocomplete="off"  path="lastname" name="lastname" class="form-control"
                   autofocus="true"></form:input>
                <form:errors  path="lastname"></form:errors>
@@ -38,7 +40,7 @@
          </spring:bind>
          <spring:bind path="gender">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="gender" for="gender">Select Gender</form:label>
+               <form:label path="gender" for="gender"><spring:message code="form.gender" /></form:label>
                <form:select path="gender"  name="gender" class="form-control" id="gender">
                </form:select>
                <form:errors  path="gender"></form:errors>
@@ -46,29 +48,28 @@
          </spring:bind>
          <spring:bind path="mobileNumber">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="mobileNumber"  for="mobileNumber">Mobile Number</form:label>
+               <form:label path="mobileNumber"  for="mobileNumber"><spring:message code="form.mobile" /></form:label>
                <form:input type="text"  id="mobileNumber" required="required" oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" ></form:input>
                <form:errors  path="mobileNumber"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="age">
             <div class="form-group col-lg-4  ${status.error ? 'has-error' : ''}">
-               <form:label path="age" for="age">Age</form:label>
+               <form:label path="age" for="age"><spring:message code="form.age" /></form:label>
                <form:input type="text" id="age" required="required" oncopy="return false" onpaste="return false" path="age" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="age"  ></form:input>
                <form:errors  path="age"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="emailAddress">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="emailAddress" for="emailAddress">Email</form:label>
+               <form:label path="emailAddress" for="emailAddress"><spring:message code="form.email" /></form:label>
                <form:input type="text"  id="emailAddress"  oncopy="return false" onpaste="return false" path="emailAddress" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="40" minlength="10"  class="form-control"  name="emailAddress"  ></form:input>
                <form:errors  path="emailAddress"></form:errors>
             </div>
          </spring:bind>
-
- <spring:bind path="roleId">
+         <spring:bind path="roleId">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="roleId" for="roles">Role</form:label>
+               <form:label path="roleId" for="roles"><spring:message code="form.usertype" /></form:label>
                <form:select path="roleId" name="roleId" class="form-control" id="roles">
                </form:select>
                <form:errors  path="roleId"></form:errors>
@@ -77,13 +78,14 @@
       </div>
       <!-- Address (Local) -->
       <br>
-            <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Local Address </p> </div>
-
+      <div class="container grey_top_bar">
+         <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.two" /> </p>
+      </div>
       <hr>
       <div class="row">
          <spring:bind path="state">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="state" for="state">State</form:label>
+               <form:label path="state" for="state"><spring:message code="form.local.state" /></form:label>
                <form:select path="state"  name="state" class="form-control" id="state">
                </form:select>
                <form:errors  path="state"></form:errors>
@@ -91,7 +93,7 @@
          </spring:bind>
          <spring:bind path="localDistrict">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="localDistrict" for="localDistrict">District</form:label>
+               <form:label path="localDistrict" for="localDistrict"><spring:message code="form.local.district" /></form:label>
                <form:select path="localDistrict"  name="localDistrict" class="form-control" id="localDistrict" onchange="getBlocks(this.value);getTehsils(this.value);">
                </form:select>
                <form:errors  path="localDistrict"></form:errors>
@@ -99,7 +101,7 @@
          </spring:bind>
          <spring:bind path="localBlock">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="localBlock" for="localBlock">Block/Town</form:label>
+               <form:label path="localBlock" for="localBlock"><spring:message code="form.local.block" /></form:label>
                <form:select path="localBlock" onchange="getWardPanchayat(this.value);"  name="localBlock" class="form-control" id="localBlock">
                </form:select>
                <form:errors  path="localBlock"></form:errors>
@@ -107,7 +109,7 @@
          </spring:bind>
          <spring:bind path="localTehsil">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="localTehsil" for="localTehsil">Tehsil</form:label>
+               <form:label path="localTehsil" for="localTehsil"><spring:message code="form.local.tehsil" /></form:label>
                <form:select path="localTehsil"  name="localTehsil" class="form-control" id="localTehsil">
                </form:select>
                <form:errors  path="localTehsil"></form:errors>
@@ -115,7 +117,7 @@
          </spring:bind>
          <spring:bind path="localgp">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="localgp" for="localgp">Panchayat/Wards</form:label>
+               <form:label path="localgp" for="localgp"><spring:message code="form.local.grampanchayat" /></form:label>
                <form:select path="localgp"  name="localgp" class="form-control" id="localgp">
                </form:select>
                <form:errors  path="localgp"></form:errors>
@@ -124,7 +126,7 @@
          <div class="col-lg-4">&nbsp;</div>
          <spring:bind path="p_address">
             <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="p_address" for="p_address">Full Address (House Number/Street/Landmark/Village names etc)</form:label>
+               <form:label path="p_address" for="p_address"><spring:message code="form.local.fulladdress" /></form:label>
                <form:textarea id="p_address" rows="4" type="text" autocomplete="off" onfocus="this.removeAttribute('readonly');"  required="required" oncopy="return false" onpaste="return false" path="p_address" maxlength="40" minlength="10"  class="form-control"  name="p_address"  />
                <form:errors  path="p_address"></form:errors>
             </div>
@@ -133,13 +135,14 @@
       <!-- Application Details -->
       <br>
       <hr>
-            <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Application Details </p> </div>
+      <div class="container grey_top_bar">
+         <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.three" /> </p>
+      </div>
       <hr>
       <div class="row">
-         <h4 class="login-title col-lg-12 text-left" style="background-color:#FFFFFF"> <strong> Vending Location</strong></h4>
          <spring:bind path="vstate">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vstate" for="state">State</form:label>
+               <form:label path="vstate" for="state"><spring:message code="form.vending.state" /></form:label>
                <form:select path="vstate"  name="vstate" class="form-control" id="vstate">
                </form:select>
                <form:errors  path="vstate"></form:errors>
@@ -147,7 +150,7 @@
          </spring:bind>
          <spring:bind path="vlocalDistrict">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vlocalDistrict" for="vlocalDistrict">District</form:label>
+               <form:label path="vlocalDistrict" for="vlocalDistrict"><spring:message code="form.vending.district" /></form:label>
                <form:select path="vlocalDistrict"  name="vlocalDistrict" class="form-control" id="vlocalDistrict" onchange="getvBlocks(this.value);getvTehsils(this.value);">
                </form:select>
                <form:errors  path="vlocalDistrict"></form:errors>
@@ -155,7 +158,7 @@
          </spring:bind>
          <spring:bind path="vlocalBlock">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vlocalBlock" for="localBlock">Block/Town</form:label>
+               <form:label path="vlocalBlock" for="localBlock"><spring:message code="form.vending.block" /></form:label>
                <form:select path="vlocalBlock" onchange="getvWardPanchayat(this.value);"  name="localBlock" class="form-control" id="vlocalBlock">
                </form:select>
                <form:errors  path="vlocalBlock"></form:errors>
@@ -163,7 +166,7 @@
          </spring:bind>
          <spring:bind path="vlocalTehsil">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vlocalTehsil" for="vlocalTehsil">Tehsil</form:label>
+               <form:label path="vlocalTehsil" for="vlocalTehsil"><spring:message code="form.vending.tehsil" /></form:label>
                <form:select path="vlocalTehsil"  name="vlocalTehsil" class="form-control" id="vlocalTehsil">
                </form:select>
                <form:errors  path="vlocalTehsil"></form:errors>
@@ -171,7 +174,7 @@
          </spring:bind>
          <spring:bind path="vlocalgp">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="vlocalgp" for="vlocalgp">Panchayat/Wards</form:label>
+               <form:label path="vlocalgp" for="vlocalgp"><spring:message code="form.vending.grampanchayat" /></form:label>
                <form:select path="vlocalgp"  name="vlocalgp" class="form-control" id="vlocalgp">
                </form:select>
                <form:errors  path="vlocalgp"></form:errors>
@@ -179,22 +182,21 @@
          </spring:bind>
          <spring:bind path="loc_address">
             <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="loc_address" for="loc_address">Enter Location</form:label>
+               <form:label path="loc_address" for="loc_address"><spring:message code="form.vending.fulladdress" /></form:label>
                <form:textarea id="loc_address" rows="4" type="text" autocomplete="off"  onfocus="this.removeAttribute('readonly');" required="required" oncopy="return false" onpaste="return false" path="loc_address" maxlength="40" minlength="10"  class="form-control"  name="loc_address"  />
                <form:errors  path="loc_address"></form:errors>
             </div>
          </spring:bind>
       </div>
       <!-- Vending Type -->
-       <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vendor Details (Category, Sub-Category and Dates) </p> </div>
-                  <hr>
+      <div class="container grey_top_bar">
+         <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.four" /> </p>
+      </div>
+      <hr>
       <div class="row">
-
          <spring:bind path="fromDate">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <label for="fromDate">
-               Select From Date
-               </label>
+               <label for="fromDate"><spring:message code="form.fromdate" /></label>
                <form:input maxlength="10"  path="fromDate" id="fromDate" autocomplete="off" onfocus="this.removeAttribute('readonly');" oncopy="return false" onpaste="return false" type="date" class="form-control input-sm" />
                <form:errors  style="color:red;" path="fromDate"></form:errors>
             </div>
@@ -202,7 +204,7 @@
          <spring:bind path="toDate">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <label for="toDate">
-               Select To Date
+               <spring:message code="form.todate" />
                </label>
                <form:input maxlength="10"  path="toDate" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" id="toDate" type="date" onchange="calculateDays();" class="form-control input-sm" />
                <form:errors  style="color:red;" path="toDate"></form:errors>
@@ -210,32 +212,30 @@
          </spring:bind>
          <spring:bind path="totalDays">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="totalDays"  for="totalDays">Total Number of Days</form:label>
+               <form:label path="totalDays"  for="totalDays"><spring:message code="form.totaldays" /></form:label>
                <form:input type="text"  id="totalDays" readonly="true" oncopy="return false" autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="totalDays"  class="form-control" onKeyPress="return isNumber(event)"  name="totalDays" ></form:input>
                <form:errors  path="totalDays"></form:errors>
             </div>
          </spring:bind>
          <spring:bind path="nationality">
             <div class="form-group col-lg-4">
-               <form:label path="nationality" for="nationality">Nationality</form:label>
+               <form:label path="nationality" for="nationality"><spring:message code="form.nationality" /></form:label>
                <form:select  path="nationality" name="nationality"  class="form-control" id="nationality">
                </form:select>
                <form:errors  path="nationality"></form:errors>
             </div>
          </spring:bind>
-
-        <spring:bind path="landType">
-                             <div class="form-group col-lg-4">
-                                <form:label path="landType" for="land_item">Purpose of Activity</form:label>
-                                <form:select  path="landType"  class="form-control" onchange="changeValues();"  id="landType">
-                                </form:select>
-                                <form:errors  path="landType"></form:errors>
-                             </div>
-                          </spring:bind>
-
+         <spring:bind path="landType">
+            <div class="form-group col-lg-4">
+               <form:label path="landType" for="land_item"><spring:message code="form.purposeOfActivity" /></form:label>
+               <form:select  path="landType"  class="form-control" onchange="changeValues();"  id="landType">
+               </form:select>
+               <form:errors  path="landType"></form:errors>
+            </div>
+         </spring:bind>
          <spring:bind path="vendor">
             <div class="form-group col-lg-4">
-               <form:label path="vendor" >Vendor Category</form:label>
+               <form:label path="vendor" ><spring:message code="form.category" /></form:label>
                <form:select  path="vendor" name="vendor" class="form-control" id="vendor" onchange="getVendorCategory(this.value);">
                </form:select>
                <form:errors  path="vendor"></form:errors>
@@ -243,47 +243,41 @@
          </spring:bind>
          <spring:bind path="vendorType">
             <div class="form-group col-lg-4">
-               <form:label path="vendorType" for="vendorType">Vending Sub Category</form:label>
+               <form:label path="vendorType" for="vendorType"><spring:message code="form.subcategory" /></form:label>
                <form:select  path="vendorType" name="vendorType" class="form-control"  id="vendorType" onchange="checkValue(this.value);">
                </form:select>
                <form:errors  path="vendorType"></form:errors>
             </div>
          </spring:bind>
-
-
-                  <div class="col-lg-4" style="display:none;" id="div_regional_nonregional">
-                  <spring:bind path="regional_national">
-                     <div class="form-group  ${status.error ? 'has-error' : ''}">
-                        <form:label path="regional_national" for="regional_national">Regional/National</form:label>
-                        <form:select path="regional_national" onchange="getItemsNR($('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');"   class="form-control" id="nationalRegional">
-                        </form:select>
-                        <form:errors  path="regional_national"></form:errors>
-                     </div>
-                  </spring:bind>
-                  </div>
-
+         <div class="col-lg-4" style="display:none;" id="div_regional_nonregional">
+            <spring:bind path="regional_national">
+               <div class="form-group  ${status.error ? 'has-error' : ''}">
+                  <form:label path="regional_national" for="regional_national"><spring:message code="form.national.regional" /></form:label>
+                  <form:select path="regional_national" onchange="getItemsNR($('#landType').val(),$('#nationalRegional').val(),$('#vendor').val(),$('#vendorType').val(),'');"   class="form-control" id="nationalRegional">
+                  </form:select>
+                  <form:errors  path="regional_national"></form:errors>
+               </div>
+            </spring:bind>
+         </div>
          <div class="col-lg-4" style="display:none;" id="non_tent_Items">
             <spring:bind path="item">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
-                  <form:label path="item" for="item">Select Item</form:label>
+                  <form:label path="item" for="item"><spring:message code="form.item" /></form:label>
                   <form:select path="item"   class="form-control" id="item_non_tent">
                   </form:select>
                   <form:errors  path="item"></form:errors>
                </div>
             </spring:bind>
          </div>
-
-          <div class="col-lg-4" style="display:none;" id="div_numberItems">
-                                       <spring:bind path="numberItems">
-                                          <div class="form-group  ${status.error ? 'has-error' : ''}">
-                                             <form:label path="numberItems" for="numberItems">Enter Number</form:label>
-               <form:input type="text"  id="numberItems"  oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" ></form:input>
-
-                                             <form:errors  path="numberItems"></form:errors>
-                                          </div>
-                                       </spring:bind>
-                     </div>
-
+         <div class="col-lg-4" style="display:none;" id="div_numberItems">
+            <spring:bind path="numberItems">
+               <div class="form-group  ${status.error ? 'has-error' : ''}">
+                  <form:label path="numberItems" for="numberItems"><spring:message code="form.enterNumber" /></form:label>
+                  <form:input type="text"  id="numberItems"  oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" ></form:input>
+                  <form:errors  path="numberItems"></form:errors>
+               </div>
+            </spring:bind>
+         </div>
       </div>
       <div class="row">
          <!-- tableDiv -->
@@ -292,20 +286,20 @@
                <div class="col-lg-9">
                   <hr>
                   <strong>
-                     <spring:message code="from.give.details.all.the.services.availed" text="Please Provide Tent Details : -" />
+                     <spring:message code="form.tent.heading"/>
                   </strong>
                   <hr>
                </div>
                <div class="col-lg-3 ">
                   <br/>
-                  <button type="button"  class="btn btn-success" data-style="slide-right" onclick="return addNewRow();" >Add Row</button>
-                  <button type="button"  class="btn btn-danger" data-style="slide-right" onclick="return deleteRow();" >Delete Row</button>
+                  <button type="button"  class="btn btn-success" data-style="slide-right" onclick="return addNewRow();" ><spring:message code="form.tent.add.row" /></button>
+                  <button type="button"  class="btn btn-danger" data-style="slide-right" onclick="return deleteRow();" ><spring:message code="form.tent.delete.row" /></button>
                </div>
             </div>
             <div class="row" style="margin-top:10px">
                <spring:bind path="itemsForm[0].item">
                   <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-                     <form:label path="itemsForm[0].item" for="item">Select Type of Tents</form:label>
+                     <form:label path="itemsForm[0].item" for="item"><spring:message code="form.tentType" /></form:label>
                      <form:select path="itemsForm[0].item"   class="form-control" id="item">
                      </form:select>
                      <form:errors  path="itemsForm[0].item"></form:errors>
@@ -313,7 +307,7 @@
                </spring:bind>
                <spring:bind path="itemsForm[0].item_number">
                   <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-                     <form:label path="itemsForm[0].item_number" for="itemsForm[0].item_number">Enter Number of Tents</form:label>
+                     <form:label path="itemsForm[0].item_number" for="itemsForm[0].item_number"><spring:message code="form.tentsNumber" /></form:label>
                      <form:input id="itemsForm[0].item_number" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="itemsForm[0].item_number"  class="form-control"
                         autofocus="true"></form:input>
                      <form:errors  path="itemsForm[0].item_number"></form:errors>
@@ -325,16 +319,15 @@
          </div>
       </div>
       <br>
-
-          <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Documents</p> </div>
-       <hr>
-
+      <div class="container grey_top_bar">
+         <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.five" /></p>
+      </div>
+      <hr>
       <div class="row">
-
          <spring:bind path="identityDoc">
             <div class="form-group col-lg-4">
                <form:label path="identityDoc" for="identityDoc" >
-                  Identity Proof *
+                  <spring:message code="form.identityDoc" />
                </form:label>
                <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="identityDoc" id="identityDoc" name="identityDoc"/>
                <form:errors  path="identityDoc"></form:errors>
@@ -343,7 +336,7 @@
          <spring:bind path="photoDoc">
             <div class="form-group col-lg-4">
                <form:label path="photoDoc" for="photoDoc" >
-                  Vendor Photograph *
+                  <spring:message code="form.photo" />
                </form:label>
                <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="photoDoc" id="photoDoc" name="photoDoc"/>
                <form:errors  path="photoDoc"></form:errors>
@@ -369,7 +362,7 @@
                      </td>
                   </tr>
                   <tr>
-                     <td>Enter Image Text</td>
+                     <td><spring:message code="form.captcha" /></td>
                      <td>
                         <form:input  onkeypress="return alpha(event)" oncopy="return false"  autocomplete="off" onfocus="this.removeAttribute('readonly');" onpaste="return false" path="captcha" id="captcha" name="captcha" />
                      </td>
