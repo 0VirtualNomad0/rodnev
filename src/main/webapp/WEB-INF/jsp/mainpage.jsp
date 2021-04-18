@@ -1,4 +1,7 @@
-
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
       <!-- Section More Options-->
       <!--Section Slider and Quick Links-->
       <section>
@@ -55,14 +58,14 @@
       <!-- Investment Count-->
 <hr>
 <section>
-  <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> Vending Categories </p> </div>
+  <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="mainpage.vending.categories" text="Vending Categories"/></p> </div>
          <div class="container" style=" margin-bottom:10px;">
           <div class="row">
  <div class="col-lg-3">
           <div class="card" >
             <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/tent.jpeg" alt="Card image cap">
             <div class="card-body" style="max-height:150px;">
-              <p class="card-text" >Tents, Dhabas and Various Categories of Tents</p>
+              <p class="card-text" ><spring:message code="mainpage.vending.tentsdhabhas" text="Tents, Dhaba & Camping Sites"/></p>
             </div>
           </div>
           </div>
@@ -71,7 +74,7 @@
            <div class="card" >
                       <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/shooting.jpeg" alt="Card image cap">
                       <div class="card-body" style="max-height:150px;">
-                        <p class="card-text" >Film, Documentary Films, Local Films, Regional Films</p>
+                        <p class="card-text" ><spring:message code="mainpage.vending.shooting" text="Film Shooting, Documentary Films, Regional and Non Regional Films"/></p>
                       </div>
                     </div>
                     </div>
@@ -80,7 +83,7 @@
                      <div class="card" >
                                 <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/foodvan.jpeg" alt="Card image cap">
                                 <div class="card-body" style="max-height:150px;">
-                                  <p class="card-text" >Food Van , Photography and Local Foods</p>
+                                  <p class="card-text" ><spring:message code="mainpage.vending.others" text="Food Van, Photography, Local Food"/></p>
                                 </div>
                               </div>
                               </div>
@@ -89,7 +92,7 @@
                                <div class="card" >
                                           <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/sports.jpeg" alt="Card image cap">
                                           <div class="card-body" style="max-height:150px;">
-                                            <p class="card-text" >Any Sports Activity</p>
+                                            <p class="card-text" ><spring:message code="mainpage.vending.sports" text="Skiings, Cycling, Bike Riding etc."/></p>
                                           </div>
                                         </div>
                                         </div>
@@ -106,26 +109,26 @@
 
       <a  class="queries_div circle_div" href="#" >
          <img src="${pageContext.request.contextPath}/resources/images/vector/worker.svg" alt="sometext" height="50px" width="50px" />
-         <p style="font-size: 14px; color:#5B3560; font-weight: bold;">Queries</p>
+         <p style="font-size: 14px; color:#5B3560; font-weight: bold;"><spring:message code="mainpage.queries.heading" text="Queries"/></p>
          <div class="queries_menu">
             <div class="container">
                <div class="row">
                     <div  class="queries_live">
                             <div class="queries_key" >
-                               <p class="queries_key_p" >General Queries</p>
+                               <p class="queries_key_p" ><spring:message code="mainpage.queries.general" text="General"/></p>
                             </div>
                             <div class="queries_value">
-                               <p class="queries_value_p">Name XXXXXXXXXX</p>
+                               <p class="queries_value_p"><spring:message code="mainpage.queries.general.name" text="Name with Phone"/></p>
                             </div>
                          </div>
 
 
                              <div  class="queries_live">
                                     <div class="queries_key" >
-                                       <p class="queries_key_p" >Technical Support</p>
+                                       <p class="queries_key_p" ><spring:message code="mainpage.queries.technical" text="Technical"/></p>
                                     </div>
                                     <div class="queries_value">
-                                       <p class="queries_value_p">Name XXXXXXXXXX</p>
+                                       <p class="queries_value_p"><spring:message code="mainpage.queries.technical.name" text="Name with Phone"/></p>
                                     </div>
                              </div>
 
@@ -133,7 +136,7 @@
 
                </div>
                <div class="row">
-                  <p class="queries_text">( ALL THE QUERIES WILL BE ANSWERED FROM 10:00 AM to 5:00 PM ON ALL WORKING DAYS )</p>
+                  <p class="queries_text"><spring:message code="mainpage.queries.note" /></p>
                </div>
             </div>
          </div>

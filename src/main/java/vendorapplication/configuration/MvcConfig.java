@@ -11,7 +11,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.context.MessageSource;
 
 @Configuration
-//@ComponentScan(basePackages = "com.hp.dit.Flight.Application.Form.vendorapplication.configuration")
 public class MvcConfig implements WebMvcConfigurer {
 
     @Bean
