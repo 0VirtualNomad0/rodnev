@@ -256,7 +256,10 @@ function getItemsTent(landType,nationalRegional,category,subCatId,elementIdwithR
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
                 for (i = 0; i < data.RESPONSE.length; i++) {
-                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (data.RESPONSE[i].rate) +"/-"  + "</option>")
+                  var amountForest_Panchayat = 0
+                amountForest_Panchayat = parseInt(data.RESPONSE[i].rate) + parseInt(data.RESPONSE[i].fee_panchayat);
+
+                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
                 }
 
             },
@@ -295,7 +298,10 @@ function getItemsNR(landType,nationalRegional,category,subCatId,elementIdwithRow
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
                 for (i = 0; i < data.RESPONSE.length; i++) {
-                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (data.RESPONSE[i].rate) +"/-"  + "</option>")
+                 var amountForest_Panchayat = 0
+                amountForest_Panchayat = parseInt(data.RESPONSE[i].rate) + parseInt(data.RESPONSE[i].fee_panchayat);
+
+                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
                 }
 
             },
@@ -332,7 +338,10 @@ function getItemsnonTent(landType,nationalRegional,category,subCatId,elementIdwi
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
                 for (i = 0; i < data.RESPONSE.length; i++) {
-                                       selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (data.RESPONSE[i].rate) +"/-"  + "</option>")
+                  var amountForest_Panchayat = 0
+                amountForest_Panchayat = parseInt(data.RESPONSE[i].rate) + parseInt(data.RESPONSE[i].fee_panchayat);
+
+                                       selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
 
                 }
 

@@ -149,6 +149,7 @@ CREATE TABLE mst_subcategoryitems (
     FOREIGN KEY (nationalregional_id) REFERENCES mst_nationalRegional(nationalregional_id)
 );
 
+ALTER TABLE  mst_subcategoryitems ADD COLUMN fee_panchayat character varying (10);
 
 
 
@@ -5250,6 +5251,10 @@ CREATE TABLE user_application (
     FOREIGN KEY (tehsil_id) REFERENCES mst_tehsil(tehsil_id),
     FOREIGN KEY (panchayat_id) REFERENCES mst_gram_panchyat(panchayat_id)
 );
+
+-- numberItems
+ALTER TABLE  user_application ADD COLUMN numberItems character varying (10);
+
 
 
 -- userFormData_previousService

@@ -41,6 +41,7 @@ public class vendorApplicationForm implements Serializable {
     private MultipartFile photoDoc;
     private String captcha;
     private String roleId;
+    private String numberItems;
 
     public String getRoleId() {
         return roleId;
@@ -298,6 +299,14 @@ public class vendorApplicationForm implements Serializable {
         this.captcha = captcha;
     }
 
+    public String getNumberItems() {
+        return numberItems;
+    }
+
+    public void setNumberItems(String numberItems) {
+        this.numberItems = numberItems;
+    }
+
     @Override
     public String toString() {
         return "vendorApplicationForm{" +
@@ -332,7 +341,8 @@ public class vendorApplicationForm implements Serializable {
                 ", identityDoc=" + identityDoc +
                 ", photoDoc=" + photoDoc +
                 ", captcha='" + captcha + '\'' +
-                ", roleId=" + roleId +
+                ", roleId='" + roleId + '\'' +
+                ", numberItems='" + numberItems + '\'' +
                 '}';
     }
 }

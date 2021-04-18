@@ -15,7 +15,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "subCategoryItems")
 public interface SubCategoryItemsRepository extends CrudRepository<SubCategoryItemsEntity,Integer> {
 
-    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType ", nativeQuery = true)
+    @Query(value = "SELECT items_id, items_name, fee, securityamount,fee_panchayat from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType ", nativeQuery = true)
     @Cacheable
     List<Object[]> getItemsSubCategory(
 
@@ -27,7 +27,7 @@ public interface SubCategoryItemsRepository extends CrudRepository<SubCategoryIt
 
 
 
-    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType  AND  nationalregional_id =:regional", nativeQuery = true)
+    @Query(value = "SELECT items_id, items_name, fee, securityamount,fee_panchayat from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType  AND  nationalregional_id =:regional", nativeQuery = true)
     @Cacheable
     List<Object[]> getItemsSubCategoryNR(
 
@@ -37,7 +37,7 @@ public interface SubCategoryItemsRepository extends CrudRepository<SubCategoryIt
             @Param("subCategory") Integer subCategory );
 
 
-    @Query(value = "SELECT items_id, items_name, fee, securityamount from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType  ", nativeQuery = true)
+    @Query(value = "SELECT items_id, items_name, fee, securityamount, fee_panchayat from mst_subcategoryitems where active = true AND subcategory_id =:subCategory AND category_id =:category AND landtype_id =:landType  ", nativeQuery = true)
     @Cacheable
     List<Object[]> getItemsSubCategoryOthers(
             @Param("landType") Integer landType ,

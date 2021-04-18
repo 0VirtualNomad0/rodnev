@@ -250,6 +250,7 @@
             </div>
          </spring:bind>
 
+
                   <div class="col-lg-4" style="display:none;" id="div_regional_nonregional">
                   <spring:bind path="regional_national">
                      <div class="form-group  ${status.error ? 'has-error' : ''}">
@@ -260,6 +261,7 @@
                      </div>
                   </spring:bind>
                   </div>
+
          <div class="col-lg-4" style="display:none;" id="non_tent_Items">
             <spring:bind path="item">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
@@ -270,6 +272,18 @@
                </div>
             </spring:bind>
          </div>
+
+          <div class="col-lg-4" style="display:none;" id="div_numberItems">
+                                       <spring:bind path="numberItems">
+                                          <div class="form-group  ${status.error ? 'has-error' : ''}">
+                                             <form:label path="numberItems" for="numberItems">Enter Number</form:label>
+               <form:input type="text"  id="numberItems"  oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" ></form:input>
+
+                                             <form:errors  path="numberItems"></form:errors>
+                                          </div>
+                                       </spring:bind>
+                     </div>
+
       </div>
       <div class="row">
          <!-- tableDiv -->
@@ -375,7 +389,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/vendor/script.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/pages/registration.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/pages/vendorApplicationForm.js"></script>
 <script type="text/javascript">
    $( document ).ready(function() {

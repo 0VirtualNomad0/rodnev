@@ -337,6 +337,14 @@ public class VendorFormController {
             subCategoryEntity.setSubCategoryId(Integer.parseInt(vendorForm.getVendorType()));
             applicationData.setSubcategory(subCategoryEntity);
 
+            if(vendorForm.getNumberItems().isEmpty()){
+                applicationData.setNumberItems("0");
+                logger.info("Number of Items:- 0");
+            }else{
+                applicationData.setNumberItems(vendorForm.getNumberItems());
+                logger.info("Number of Items:- "+vendorForm.getNumberItems());
+            }
+
             if (!vendorForm.getIdentityDoc().getOriginalFilename().isEmpty()) {
                 String fileName = StringUtils.cleanPath(vendorForm.getIdentityDoc().getOriginalFilename());
                 fileName = fileName.toLowerCase().replaceAll(" ", "_");

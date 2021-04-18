@@ -137,6 +137,7 @@ public class SubCategoryController {
                 rolesEntity.setNationality(nationalityEntity);
                 rolesEntity.setNationalRegional(nationalRegional);
                 rolesEntity.setFee(subCategoryItemsForm.getFee());
+                rolesEntity.setFee_bdo(subCategoryItemsForm.getFee_panchayat());
                 rolesEntity.setSecurityAmount(subCategoryItemsForm.getSecurity());
                 rolesEntity.setItemName(subCategoryItemsForm.getItemName());
 

@@ -7,7 +7,16 @@ public class Items implements Serializable {
     private Integer itemId;
     private String itemName;
     private String rate;
+    private String fee_panchayat;
     private String securityamount;
+
+    public String getFee_panchayat() {
+        return fee_panchayat;
+    }
+
+    public void setFee_panchayat(String fee_panchayat) {
+        this.fee_panchayat = fee_panchayat;
+    }
 
     public String getSecurityamount() {
         return securityamount;
@@ -47,6 +56,7 @@ public class Items implements Serializable {
                 "itemId=" + itemId +
                 ", itemName='" + itemName + '\'' +
                 ", rate='" + rate + '\'' +
+                ", fee_panchayat='" + fee_panchayat + '\'' +
                 ", securityamount='" + securityamount + '\'' +
                 '}';
     }

@@ -28,6 +28,7 @@ public class SubCategoryItemsValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "security", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fee", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"itemName", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"fee_panchayat", "NotEmpty");
 
         if(user.getCategoryId().equalsIgnoreCase("0")){
             errors.rejectValue("categoryId", "Select.subCategoryItemsForm.categoryId");

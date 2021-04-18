@@ -43,6 +43,9 @@ public class SubCategoryItemsEntity implements Serializable {
     @Column(name = "fee")
     private String fee;
 
+    @Column(name = "fee_panchayat")
+    private String fee_bdo;
+
     @Column(name = "active")
     private Boolean active;
 
@@ -139,6 +142,14 @@ public class SubCategoryItemsEntity implements Serializable {
         this.createdDate = createdDate;
     }
 
+    public String getFee_bdo() {
+        return fee_bdo;
+    }
+
+    public void setFee_bdo(String fee_bdo) {
+        this.fee_bdo = fee_bdo;
+    }
+
     @Override
     public String toString() {
         return "SubCategoryItemsEntity{" +
@@ -151,6 +162,7 @@ public class SubCategoryItemsEntity implements Serializable {
                 ", nationalRegional=" + nationalRegional +
                 ", securityAmount='" + securityAmount + '\'' +
                 ", fee='" + fee + '\'' +
+                ", fee_bdo='" + fee_bdo + '\'' +
                 ", active=" + active +
                 ", createdDate=" + createdDate +
                 '}';

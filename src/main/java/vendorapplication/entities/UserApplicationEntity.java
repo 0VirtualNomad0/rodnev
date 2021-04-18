@@ -42,6 +42,9 @@ public class UserApplicationEntity implements Serializable {
     @Column(name = "vending_address")
     private String vendingAddress;
 
+    @Column(name = "numberItems")
+    private String numberItems;
+
     @Column(name = "from_date")
     private String fromDate;
 
@@ -291,6 +294,14 @@ public class UserApplicationEntity implements Serializable {
         this.app_permissions = app_permissions;
     }
 
+    public String getNumberItems() {
+        return numberItems;
+    }
+
+    public void setNumberItems(String numberItems) {
+        this.numberItems = numberItems;
+    }
+
     @Override
     public String toString() {
         return "UserApplicationEntity{" +
@@ -302,6 +313,7 @@ public class UserApplicationEntity implements Serializable {
                 ", tehsil=" + tehsil +
                 ", panchayat=" + panchayat +
                 ", vendingAddress='" + vendingAddress + '\'' +
+                ", numberItems='" + numberItems + '\'' +
                 ", fromDate='" + fromDate + '\'' +
                 ", to_date='" + to_date + '\'' +
                 ", totalDays=" + totalDays +

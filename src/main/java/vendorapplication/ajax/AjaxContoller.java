@@ -479,6 +479,7 @@ public class AjaxContoller {
                 pojo.setItemName((String) result[1]);
                 pojo.setRate((String) result[2]);
                 pojo.setSecurityamount((String) result[3]);
+                pojo.setFee_panchayat((String) result[4]);
                 itemModal.add(pojo);
             }
 
@@ -527,6 +528,7 @@ public class AjaxContoller {
                 pojo.setItemName((String) result[1]);
                 pojo.setRate((String) result[2]);
                 pojo.setSecurityamount((String) result[3]);
+                pojo.setFee_panchayat((String) result[4]);
                 itemModal.add(pojo);
             }
 
@@ -572,6 +574,7 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
             pojo.setItemName((String) result[1]);
             pojo.setRate((String) result[2]);
             pojo.setSecurityamount((String) result[3]);
+            pojo.setFee_panchayat((String) result[4]);
             itemModal.add(pojo);
         }
 

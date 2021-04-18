@@ -10,8 +10,17 @@ public class SubCategoryItemsForm implements Serializable {
     private String landType;
     private String security;
     private String fee;
+    private String fee_panchayat;
     private String nationality;
     private String nationalRegional;
+
+    public String getFee_panchayat() {
+        return fee_panchayat;
+    }
+
+    public void setFee_panchayat(String fee_panchayat) {
+        this.fee_panchayat = fee_panchayat;
+    }
 
     public String getItemName() {
         return itemName;
@@ -86,6 +95,7 @@ public class SubCategoryItemsForm implements Serializable {
                 ", landType='" + landType + '\'' +
                 ", security='" + security + '\'' +
                 ", fee='" + fee + '\'' +
+                ", fee_panchayat='" + fee_panchayat + '\'' +
                 ", nationality='" + nationality + '\'' +
                 ", nationalRegional='" + nationalRegional + '\'' +
                 '}';

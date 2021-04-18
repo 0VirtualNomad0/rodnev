@@ -131,11 +131,13 @@ function checkValue(value) {
     var x = document.getElementById("tableDiv_tent");
     var y = document.getElementById("non_tent_Items");
     var z = document.getElementById("div_regional_nonregional");
+    var a = document.getElementById("div_numberItems");
 
     if (value == "2") {
         x.style.display = "block";
         y.style.display = "none";
         z.style.display = "none";
+        a.style.display = "none";
         getItemsTent($('#landType').val(), $('#nationalRegional').val(), $('#vendor').val(), $('#vendorType').val(), '');
 
 
@@ -143,12 +145,23 @@ function checkValue(value) {
         x.style.display = "none";
         y.style.display = "block";
         z.style.display = "block";
+        a.style.display = "none";
+    }   else if (value == "28" || value == "13" || value == "15" || value=="16" || value=="18") {
+         //-- 28 snow scooters, 13 PAraGliding, 15 yark, 16 horse, 18 raft
+                 x.style.display = "none";
+                 y.style.display = "block";
+                 z.style.display = "none";
+                 a.style.display = "block";
+                  getItemsnonTent( $('#landType').val(), $('#nationalRegional').val(), $('#vendor').val(), $('#vendorType').val(), '');
 
 
-    } else {
+             }
+
+    else {
         x.style.display = "none";
         y.style.display = "block";
         z.style.display = "none";
+        a.style.display = "none";
         getItemsnonTent( $('#landType').val(), $('#nationalRegional').val(), $('#vendor').val(), $('#vendorType').val(), '');
 
 

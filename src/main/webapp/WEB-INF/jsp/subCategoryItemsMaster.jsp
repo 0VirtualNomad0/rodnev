@@ -62,12 +62,20 @@
       </spring:bind>
       <spring:bind path="fee">
          <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:label path="landType" for="landType">Enter Fee</form:label>
+            <form:label path="landType" for="landType">Enter Fee (Forest)</form:label>
             <form:input type="text" path="fee" autocomplete="off" onfocus="this.removeAttribute('readonly');" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Fee"
                autofocus="true" ></form:input>
             <form:errors  path="fee"></form:errors>
          </div>
       </spring:bind>
+      <spring:bind path="fee_panchayat">
+               <div class="form-group ${status.error ? 'has-error' : ''}">
+                  <form:label path="fee_panchayat" for="fee_panchayat">Enter Fee (Panchayat)</form:label>
+                  <form:input type="text" path="fee_panchayat" autocomplete="off" onfocus="this.removeAttribute('readonly');" onkeypress="return alpha(event) "  oncopy="return false" onpaste="return false" class="form-control" placeholder="Fee Panchayat"
+                     autofocus="true" ></form:input>
+                  <form:errors  path="fee_panchayat"></form:errors>
+               </div>
+            </spring:bind>
       <spring:bind path="security">
          <div class="form-group ${status.error ? 'has-error' : ''}">
             <form:label path="security" for="security">Enter Security Amount</form:label>
