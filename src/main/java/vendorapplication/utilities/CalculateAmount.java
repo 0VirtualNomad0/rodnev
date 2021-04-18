@@ -110,7 +110,7 @@ public class CalculateAmount {
             fee += itemFee;
             security = Double.parseDouble(user.getApp_items().get(i).getItem().getSecurityAmount());
         }
-        return Double.toString((fee * user.getTotalDays()) + security);
+        return Double.toString((fee) + security);
 
     }
 
