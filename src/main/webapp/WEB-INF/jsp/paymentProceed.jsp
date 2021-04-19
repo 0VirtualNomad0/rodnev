@@ -22,48 +22,48 @@
       <div class="row ">
          <div class="col-lg-3"> &nbsp;  </div>
          <div class="table-responsive col-lg-6">
-            <h4 class="text-left col-lg-12">Verify the Details before proceeding :</h4>
+            <h4 class="text-left col-lg-12"><spring:message code="paymentpage.heading"/></h4>
             <hr>
             <table class="table table-hover table-bordered">
                <tbody>
                   <tr>
-                     <td class="text-center">Application No.</td>
+                     <td class="text-center"><spring:message code="paymentpage.application.no"/></td>
                      <td class="text-center" >${user.appId}
                      </td>
                   </tr>
                   <tr>
-                     <td class="text-center">User Full Name:</td>
+                     <td class="text-center"><spring:message code="paymentpage.application.username"/></td>
                      <td class="text-center" >${user.userId.firstName} &nbsp; ${user.userId.lastName}
                      </td>
                   </tr>
                   <tr>
-                     <td class="text-center">Age</td>
+                     <td class="text-center"><spring:message code="paymentpage.application.age"/></td>
                      <td class="text-center" > ${user.userId.age}  </td>
                   </tr>
                   <tr class="text-center">
-                     <td>Vendor Category</td>
+                     <td><spring:message code="paymentpage.application.category"/></td>
                      <td class="text-center"> ${user.category.categoryName}  </td>
                   </tr>
                   <tr class="text-center">
-                     <td>Vendor Type</td>
+                     <td><spring:message code="paymentpage.application.type"/></td>
                      <td class="text-center"  > ${user.subcategory.subCategoryName}  </td>
                   </tr>
                   <tr>
-                     <td class="text-center">Mobile Number</td>
+                     <td class="text-center"><spring:message code="paymentpage.application.mobile"/></td>
                      <td class="text-center" >${user.userId.mobileNumber}</input>
                      </td>
                   </tr>
                   <tr>
-                     <td class="text-center">Total Number of Days (Selected)</td>
+                     <td class="text-center"><spring:message code="paymentpage.application.totaldays"/></td>
                      <td class="text-center" >${user.totalDays}</input>
                      </td>
                   </tr>
                   <tr class="text-center">
-                     <td >Amount to Pay</td>
+                     <td ><spring:message code="paymentpage.application.amounttopay"/></td>
                      <td class="text-center" ><%= session.getAttribute("amount") %></input>
                   </tr>
                   <tr class="text-center">
-                                       <td >Security Amount</td>
+                                       <td ><spring:message code="paymentpage.application.security"/></td>
                                        <td class="text-center" ><%= session.getAttribute("security") %></input>
                                     </tr>
                </tbody>
@@ -71,21 +71,21 @@
          </div>
          <div class="col-lg-3"> &nbsp;  </div>
       </div>
-      <h4 class="text-center col-lg-12" >Fee Details :</h4>
+      <h4 class="text-center col-lg-12" ><spring:message code="paymentpage.application.feedetails"/></h4>
 
       <div class="row">
          <div class="col-lg-1"> &nbsp;  </div>
          <table class="col-lg-10 table table-hover table-bordered">
             <thead>
                <tr>
-                  <th>S.No</th>
-                  <th>Category Name</th>
-                  <th>Sub Category </th>
-                  <th>Land Type</th>
-                  <th>Nationality</th>
-                  <th>Regional/National</th>
-                  <th>Items/Tent Number</th>
-                  <th>Fee</th>
+                  <th><spring:message code="paymentpage.application.sno"/></th>
+                  <th><spring:message code="paymentpage.application.categoryname"/></th>
+                  <th><spring:message code="paymentpage.application.subcategory"/></th>
+                  <th><spring:message code="paymentpage.application.landtype"/></th>
+                  <th><spring:message code="paymentpage.application.nationality"/></th>
+                  <th><spring:message code="paymentpage.application.regionalNational"/></th>
+                  <th><spring:message code="paymentpage.application.items"/></th>
+                  <th><spring:message code="paymentpage.application.fee"/></th>
                </tr>
             </thead>
             <tbody>

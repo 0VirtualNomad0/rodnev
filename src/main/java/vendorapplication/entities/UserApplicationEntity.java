@@ -42,7 +42,7 @@ public class UserApplicationEntity implements Serializable {
     @Column(name = "vending_address")
     private String vendingAddress;
 
-    @Column(name = "numberItems")
+    @Column(name = "numberitems")
     private String numberItems;
 
     @Column(name = "from_date")

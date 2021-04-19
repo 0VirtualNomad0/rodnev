@@ -22,7 +22,7 @@ public class CalculateAmount {
         }else if(user.getSubcategory().getSubCategoryId() == 4){
             return calculateFeeInCaseOfDocumentaryFilms(user);
         }else{
-            return null;
+            return "0";
         }
     }
 

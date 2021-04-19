@@ -273,7 +273,7 @@
             <spring:bind path="numberItems">
                <div class="form-group  ${status.error ? 'has-error' : ''}">
                   <form:label path="numberItems" for="numberItems"><spring:message code="form.enterNumber" /></form:label>
-                  <form:input type="text"  id="numberItems"  oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="mobileNumber" maxlength="10" minlength="10"  class="form-control" onKeyPress="return isNumber(event)"  name="mobileNumber" ></form:input>
+                  <form:input type="text"  id="numberItems"  oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="numberItems" maxlength="3" class="form-control" onKeyPress="return isNumber(event)"  name="numberItems" ></form:input>
                   <form:errors  path="numberItems"></form:errors>
                </div>
             </spring:bind>
