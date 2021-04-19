@@ -64,7 +64,7 @@
                   </div>
                </div>
                <ul class="side-menu metismenu">
-                  <sec:authorize access="hasAnyAuthority('Super Admin','Admin','DC','BDO','DFO')">
+                  <sec:authorize access="hasAnyAuthority('Super Admin','Admin','DC','BDO','DFO','PCB')">
                      <li>
                         <a class="active" href="${pageContext.request.contextPath}/dashboard"><i class="sidebar-item-icon fa fa-th-large"></i>
                         <span class="nav-label">Dashboard</span>
@@ -114,7 +114,7 @@
                      </li>
 
                   </sec:authorize>
-                  <sec:authorize access="hasAnyAuthority('BDO', 'DFO','DC')">
+                  <sec:authorize access="hasAnyAuthority('BDO', 'DFO','DC','PCB')">
                      <li>
                         <a href="${pageContext.request.contextPath}/applications"><i class="sidebar-item-icon fa fa-dashboard"></i>
                         <span class="nav-label">Applications List </span></a>

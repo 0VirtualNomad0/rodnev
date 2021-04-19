@@ -39,4 +39,18 @@ public interface UserApplicationRepository extends CrudRepository<UserApplicatio
 
     @Query(value = "SELECT app_id, users.firstname, users.lastname, users.mobile_number, mst_category.category_name, subcategory_name ,user_application.user_id,applicationstatus FROM user_application INNER JOIN mst_category ON user_application.category_id = mst_category.category_id INNER JOIN mst_subcategory ON user_application.subcategory_id = mst_subcategory.subcategory_id INNER JOIN users ON user_application.user_id = users.user_id WHERE user_application.state_id = :stateId AND user_application.district_id =:districtId  AND user_application.active = true AND user_application.applicationstatus =:status  order by user_application.createddate  desc", nativeQuery = true)
     List<Object[]> getApplicationsLocationWiseStatus(@Param("stateId") Integer stateId, @Param("districtId") Integer districtId, @Param("status") String status);
+
+    //PCB Only In Case of Tent
+    @Query(value = "SELECT count(*) FROM user_application WHERE user_application.active = true  AND state_id =:state_id AND district_id =:district_id AND subcategory_id = :appID", nativeQuery = true)
+    Integer getApplicationsCountRolePCB(@Param("state_id")  Integer stateId, @Param("district_id") Integer districtId, @Param("appID")  Integer appId);
+
+    @Query(value = "SELECT count(*) FROM user_application WHERE user_application.active = true AND applicationstatus =:appStatus AND state_id =:state_id AND district_id =:district_id AND subcategory_id = :appID", nativeQuery = true)
+    Integer getApprovedApplicationsRolePCB(@Param("state_id") Integer stateId, @Param("district_id") Integer districtId, @Param("appStatus") String appStatus, @Param("appID")Integer appId);
+
+    @Query(value = "SELECT app_id, users.firstname, users.lastname, users.mobile_number, mst_category.category_name, subcategory_name ,user_application.user_id,applicationstatus FROM user_application INNER JOIN mst_category ON user_application.category_id = mst_category.category_id INNER JOIN mst_subcategory ON user_application.subcategory_id = mst_subcategory.subcategory_id INNER JOIN users ON user_application.user_id = users.user_id WHERE user_application.state_id = :stateId AND user_application.district_id =:districtId  AND user_application.active = true AND user_application.applicationstatus =:status  AND user_application.subcategory_id =:appId order by user_application.createddate  desc", nativeQuery = true)
+    List<Object[]> getApplicationsLocationWiseStatusPcb(@Param("stateId") Integer stateId, @Param("districtId") Integer districtId, @Param("status") String status , @Param("appId") Integer appID);
+
+    @Query(value = "SELECT app_id, users.firstname, users.lastname, users.mobile_number, mst_category.category_name, subcategory_name ,user_application.user_id,applicationstatus FROM user_application INNER JOIN mst_category ON user_application.category_id = mst_category.category_id INNER JOIN mst_subcategory ON user_application.subcategory_id = mst_subcategory.subcategory_id INNER JOIN users ON user_application.user_id = users.user_id WHERE user_application.state_id = :state AND user_application.district_id = :district  AND user_application.active = true AND user_application.subcategory_id =:appID order by user_application.createddate desc", nativeQuery = true)
+    List<Object[]> getApplicationsLocationWisePcb(@Param("state")Integer state, @Param("district") Integer district,@Param("appID") Integer appId);
+
 }

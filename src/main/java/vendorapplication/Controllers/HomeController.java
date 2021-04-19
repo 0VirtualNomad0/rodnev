@@ -97,8 +97,8 @@ public class HomeController {
 
 
        if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin") || authority_.equalsIgnoreCase("DC")) { return "redirect:/dashboard";}
-         else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("BDO") ) { return "redirect:/dashboard"; } //applications
-         else { return "redirect:/vendorIndex";}
+       else if(authority_.equalsIgnoreCase("DFO") || authority_.equalsIgnoreCase("PCB") || authority_.equalsIgnoreCase("BDO") ) { return "redirect:/dashboard"; }
+       else { return "redirect:/vendorIndex";}
         }
 
     }

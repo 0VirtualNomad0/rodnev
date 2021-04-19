@@ -67,7 +67,18 @@ public class Dashboard {
                     model.addAttribute("approvedApplications", approvedApplications);
                     model.addAttribute("rejectedApplications", rejectedApplications);
                     model.addAttribute("pendingApplications", pendingApplications);
-                }else{
+                }else if(authority_.equalsIgnoreCase("PCB")){
+                    Integer applicationCountTotal = userApplicationService.getTotalApplicationsRolePCB(user.getStateId(),user.getDistrictId(),2);
+                    Integer approvedApplications = userApplicationService.getApprovedApplicationsRolePCB(user.getStateId(),user.getDistrictId(),Constants.APPROVED,2);
+                    Integer rejectedApplications = userApplicationService.getApprovedApplicationsRolePCB(user.getStateId(),user.getDistrictId(),Constants.REJECTED,2);
+                    Integer pendingApplications = userApplicationService.getApprovedApplicationsRolePCB(user.getStateId(),user.getDistrictId(),Constants.PENDING,2);
+                    System.out.println(applicationCountTotal);
+                    model.addAttribute("totalApplications", applicationCountTotal);
+                    model.addAttribute("approvedApplications", approvedApplications);
+                    model.addAttribute("rejectedApplications", rejectedApplications);
+                    model.addAttribute("pendingApplications", pendingApplications);
+                }
+                else{
                     Integer applicationCountTotal = userApplicationService.getTotalApplicationsRole(user.getStateId(),user.getDistrictId());
                     Integer approvedApplications = userApplicationService.getApprovedApplicationsRole(user.getStateId(),user.getDistrictId(),Constants.APPROVED);
                     Integer rejectedApplications = userApplicationService.getApprovedApplicationsRole(user.getStateId(),user.getDistrictId(),Constants.REJECTED);
@@ -89,6 +100,12 @@ public class Dashboard {
         }
     }
 
+
+
+
+
+
+
     @RequestMapping(value = "/getApplications/{status}", method= RequestMethod.GET)
     public String getApplicationsStatus(@PathVariable("status")String status,
                                         Model model, HttpServletRequest request) {
@@ -101,13 +118,31 @@ public class Dashboard {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         } else {
+            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+            for (GrantedAuthority authority : authorities) {
+                authority_ = authority.getAuthority().toString();
+                System.out.println(authority.getAuthority().toString());
+            }
 
             LoggedInUserLocationSession user = (LoggedInUserLocationSession) request.getSession().getAttribute("UserData");
             System.out.println(user.toString());
 
+
+
             if (user != null) {
 
-                List<Object[]> dashboardDataServerList = userApplicationService.getApplicationsLocationWiseStatus(user.getStateId(), user.getDistrictId(), status);
+                List<Object[]> dashboardDataServerList = null;
+                if(authority_.equalsIgnoreCase("PCB")){
+                    dashboardDataServerList = userApplicationService.getApplicationsLocationWiseStatusPcb(user.getStateId(), user.getDistrictId(), status,2);
+
+                }else{
+                   dashboardDataServerList = userApplicationService.getApplicationsLocationWiseStatus(user.getStateId(), user.getDistrictId(), status);
+
+                }
+
+
+
                 List<ApplicationsViaLocations> applications = new ArrayList<>();
                 for (Object[] result : dashboardDataServerList) {
                     ApplicationsViaLocations pojo = new ApplicationsViaLocations();

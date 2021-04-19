@@ -1,7 +1,10 @@
 package vendorapplication.paymentutility;
 
 import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import vendorapplication.property.PaymentProperties;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -18,22 +21,19 @@ import java.util.Random;
 public class PaymentUtil {
 
 
+    @Autowired
+    static private PaymentProperties properties;
+
+
+
     private static final String paymentKey = "7rnFly";
     private static final String paymentSalt = "pjVQAWpA";
-
-
-
-
-
     private static final String serverPath = ServletUriComponentsBuilder.fromCurrentContextPath().path("/paymentResponse").toUriString();
-
     private static final String fUrl = serverPath;
     private static final String sUrl = serverPath;
 
 
     public  PaymentDetail populatePaymentDetail(PaymentDetail paymentDetail) {
-        System.out.println(paymentKey);
-        System.out.println(paymentSalt);
         String hashString = "";
         Random rand = new Random();
         String rndm = Integer.toString(rand.nextInt()) + (System.currentTimeMillis() / 1000L);
@@ -48,7 +48,6 @@ public class PaymentUtil {
         hashString = hashString.replace("productinfo", paymentDetail.getProductInfo());
         hashString = hashString.replace("firstname", paymentDetail.getName());
         hashString = hashString.replace("email", paymentDetail.getEmail());
-
         hash = hashCal("SHA-512", hashString);
         paymentDetail.setHash(hash);
         paymentDetail.setfUrl(fUrl);

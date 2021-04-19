@@ -92,7 +92,12 @@ public class ApplicationDetailsController {
                         //Check Weather DFO has gave permission to the application
                         canGivePermission =  checkPermissionByRole(userApplicationEntity.getApp_permissions(),"DFO");
                         model.addAttribute("canGivePermission", canGivePermission);
-                    }else{
+                    }else if(authority_.equalsIgnoreCase("PCB")){
+                        //Check Weather DFO has gave permission to the application
+                        canGivePermission =  checkPermissionByRole(userApplicationEntity.getApp_permissions(),"PCB");
+                        model.addAttribute("canGivePermission", canGivePermission);
+                    }
+                    else{
                         //Check weather DC Has Given Permission to the application
                         canGivePermission = checkPermissionByRole(userApplicationEntity.getApp_permissions(),"DC");
                         model.addAttribute("canGivePermission", canGivePermission);

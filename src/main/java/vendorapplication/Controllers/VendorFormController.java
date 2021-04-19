@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,10 +32,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class VendorFormController {
@@ -136,12 +134,28 @@ public class VendorFormController {
             return "login";
         } else {
 
+            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+            for (GrantedAuthority authority : authorities) {
+                authority_ = authority.getAuthority().toString();
+                System.out.println(authority.getAuthority().toString());
+            }
+
             LoggedInUserLocationSession user = (LoggedInUserLocationSession) request.getSession().getAttribute("UserData");
             System.out.println(user.toString());
 
             if (user != null) {
 
-                List<Object[]> dashboardDataServerList = userApplicationService.getApplicationsLocationWise(user.getStateId(),user.getDistrictId());
+
+                List<Object[]> dashboardDataServerList = null;
+                if(authority_.equalsIgnoreCase("PCB")){
+                    dashboardDataServerList = userApplicationService.getApplicationsLocationWisePcb(user.getStateId(),user.getDistrictId(),2);
+
+                }else{
+                    dashboardDataServerList =  userApplicationService.getApplicationsLocationWise(user.getStateId(),user.getDistrictId());
+
+                }
+
                 List<ApplicationsViaLocations> applications = new ArrayList<>();
                 for (Object[] result : dashboardDataServerList) {
                     ApplicationsViaLocations pojo = new ApplicationsViaLocations();

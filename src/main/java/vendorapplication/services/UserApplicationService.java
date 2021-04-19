@@ -49,6 +49,10 @@ public class UserApplicationService {
         return userApplicationRepository.getApplicationsLocationWise(state,district);
     }
 
+    public List<Object[]> getApplicationsLocationWisePcb(Integer state, Integer district , Integer appId){
+        return userApplicationRepository.getApplicationsLocationWisePcb(state,district,appId);
+    }
+
     public int updateUserApplication(String app_id, String action) {
         return userApplicationRepository.updateApplicationByDc(Integer.parseInt(app_id), action);
     }
@@ -71,7 +75,22 @@ public class UserApplicationService {
         return userApplicationRepository.getApprovedApplicationsRole(stateId,districtId,approved);
     }
 
+    public Integer getTotalApplicationsRolePCB(Integer stateId, Integer districtId,Integer subcategoryID) {
+        return userApplicationRepository.getApplicationsCountRolePCB(stateId,districtId,subcategoryID);
+    }
+
+    public Integer getApprovedApplicationsRolePCB(Integer stateId, Integer districtId, String approved, Integer subcategoryID) {
+        return userApplicationRepository.getApprovedApplicationsRolePCB(stateId,districtId,approved,subcategoryID);
+    }
+
+
+
+
     public List<Object[]> getApplicationsLocationWiseStatus(Integer stateId, Integer districtId, String status) {
         return userApplicationRepository.getApplicationsLocationWiseStatus(stateId,districtId,status);
+    }
+
+    public List<Object[]> getApplicationsLocationWiseStatusPcb(Integer stateId, Integer districtId, String status, Integer appId) {
+        return userApplicationRepository.getApplicationsLocationWiseStatusPcb(stateId,districtId,status, appId);
     }
 }

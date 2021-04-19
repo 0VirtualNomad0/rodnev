@@ -33,6 +33,12 @@ public class CalculateAmount {
         }
     }
 
+    /**
+     * Calculate Amount Left Rest Out Cases.
+     * @param user
+     * @return
+     */
+
     private static String calculateFeeInCaseOfothers(UserApplicationEntity user) {
         Integer numberOfDays = user.getTotalDays();
         String amountToDeposit = null;

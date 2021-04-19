@@ -312,7 +312,11 @@
                                                                </c:if>
                <td>${application.comments}</td>
                <td style="color:red;"><fmt:formatDate value='${application.createddate}' pattern='dd-MM-yyyy HH:mm:ss' /></td>
-               <td><a href="${pageContext.request.contextPath}/downloadFile/${application.attachemnts}">Download</a></td>
+
+                <c:if test="${not empty application.attachemnts}">
+                 <td><a href="${pageContext.request.contextPath}/downloadFile/${application.attachemnts}">Download</a></td>
+                </c:if>
+
 
 
               </tr>
@@ -542,6 +546,77 @@
      </c:if>
 </sec:authorize>
 <!-- DFO Ends -->
+
+
+<!-- PCB Starts-->
+<sec:authorize access="hasAuthority('PCB')">
+  <!-- Can Give PErmission or not -->
+     <c:if test="${canGivePermission}">
+        <!-- Give Permission -->
+        <div class="col-lg-12">
+           <h2 class="form-signin-heading col-lg-12"><strong>Actions PCB (Approve/Reject)</strong></h2>
+           <br>
+           <div class="col-lg-12">
+              <form:form method="POST"  modelAttribute="actionForm" enctype="multipart/form-data"  action="${pageContext.request.contextPath}/updateActionApplication" class="form-signin">
+                 <spring:bind path="action">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:label  path="action" > Please Select any Action </form:label>
+                       <form:select  path="action" class="form-control" id="earlierService">
+                          <option value=""> --Select-- </option>
+                          <option value="A"> Approve </option>
+                          <option value="R"> Reject </option>
+                       </form:select>
+                       <form:errors  style="color:red;" path="action"></form:errors>
+                    </div>
+                 </spring:bind>
+                 <spring:bind path="comments">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:label path="comments" for="comments"> Comments </form:label>
+                       <form:textarea rows="4" path="comments" id="comments" class="form-control" onkeypress="return alpha(event)"  oncopy="return false" onpaste="return false" />
+                    </div>
+                    <form:errors  style="color:red;" path="comments"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="attachment_if_any">
+                    <div class="form-group col-lg-4">
+                       <form:label path="attachment_if_any" for="attachment_if_any" >
+                          Add Attachment (PDF) if any
+                       </form:label>
+                       <form:input class="form-control" oncopy="return false" onpaste="return false" type="file" path="attachment_if_any" id="attachment_if_any" name="attachment_if_any"/>
+                       <form:errors  path="attachment_if_any"></form:errors>
+                    </div>
+                 </spring:bind>
+                 <spring:bind path="user_role">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="user_role" id="user_role" class="form-control"  value="PCB" />
+                    </div>
+                    <form:errors  style="color:red;" path="user_role"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="app_id">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="app_id" id="app_id" class="form-control"  value="${applicationData.appId}" />
+                    </div>
+                    <form:errors  style="color:red;" path="app_id"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="user_id">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="user_id" id="user_id" class="form-control"  value="${ userId }" />
+                    </div>
+                    <form:errors  style="color:red;" path="user_id"></form:errors>
+                 </spring:bind>
+                 <spring:bind path="applicant_mobile">
+                    <div class="form-group col-lg-12 ${status.error ? 'has-error' : ''}">
+                       <form:input type="hidden" path="applicant_mobile" id="applicant_mobile" class="form-control"  value="${applicationData.userId.mobileNumber}" />
+                    </div>
+                    <form:errors  style="color:red;" path="applicant_mobile"></form:errors>
+                 </spring:bind>
+                 <input type="submit"  value="Submit" class="btn btn-success col-lg-12">
+                 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+              </form:form>
+           </div>
+        </div>
+     </c:if>
+</sec:authorize>
+<!-- PCB Ends -->
 
 
 <!-- Actions by DC, BDO and DFO ENDS-->
