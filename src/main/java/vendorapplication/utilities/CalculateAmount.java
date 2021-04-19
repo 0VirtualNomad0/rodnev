@@ -21,9 +21,55 @@ public class CalculateAmount {
             return calculateFeeInCaseOfFilmShooting(user);
         }else if(user.getSubcategory().getSubCategoryId() == 4){
             return calculateFeeInCaseOfDocumentaryFilms(user);
-        }else{
-            return "0";
+        }else if(user.getSubcategory().getSubCategoryId() == 28 ||
+                user.getSubcategory().getSubCategoryId() == 13 ||
+                user.getSubcategory().getSubCategoryId() == 15 ||
+                user.getSubcategory().getSubCategoryId() == 16 ||
+                user.getSubcategory().getSubCategoryId() == 18){
+
+            return calculateFeeInCaseOfParaGliging_Yark_Horse_Raft_SnowScooters(user);
+        } else{
+            return calculateFeeInCaseOfothers(user);
         }
+    }
+
+    private static String calculateFeeInCaseOfothers(UserApplicationEntity user) {
+        Integer numberOfDays = user.getTotalDays();
+        String amountToDeposit = null;
+        Double fee = 0.0;
+        Double security = 0.0;
+
+        for(int i=0; i<user.getApp_items().size(); i++){
+            Double itemFee = 0.0;
+            itemFee =
+                    Double.parseDouble(user.getApp_items().get(i).getItem().getFee()) +
+                            Double.parseDouble(user.getApp_items().get(i).getItem().getFee_bdo()) ;
+            fee += itemFee;
+            security = Double.parseDouble(user.getApp_items().get(i).getItem().getSecurityAmount());
+        }
+        return Double.toString(fee + security);
+    }
+
+    /**
+     * Caluculate Amount 28 snow scooters, 13 PAraGliding, 15 yark, 16 horse, 18 raft
+     */
+
+    private static String calculateFeeInCaseOfParaGliging_Yark_Horse_Raft_SnowScooters(UserApplicationEntity user) {
+        Integer numberOfDays = user.getTotalDays();
+        String amountToDeposit = null;
+        Double fee = 0.0;
+        Double security = 0.0;
+
+        for(int i=0; i<user.getApp_items().size(); i++){
+            Double itemFee = 0.0;
+            itemFee =
+                    Double.parseDouble(user.getApp_items().get(i).getItem().getFee()) +
+                            Double.parseDouble(user.getApp_items().get(i).getItem().getFee_bdo()) ;
+            fee += itemFee;
+            security = Double.parseDouble(user.getApp_items().get(i).getItem().getSecurityAmount());
+        }
+        return Double.toString((fee * Integer.parseInt(user.getNumberItems())) + security);
+
     }
 
 
@@ -40,8 +86,11 @@ public class CalculateAmount {
 
         for(int i=0; i<user.getApp_items().size(); i++){
             Double itemFee = 0.0;
-            itemFee = (Double.parseDouble(user.getApp_items().get(i).getItem().getFee())) * user.getApp_items().get(i).getTentNumber();
-            fee += itemFee;
+            itemFee =    (Double.parseDouble(user.getApp_items().get(i).getItem().getFee()) +
+                    Double.parseDouble(user.getApp_items().get(i).getItem().getFee_bdo())) *
+            user.getApp_items().get(i).getTentNumber();
+
+                    fee += itemFee;
             security = Double.parseDouble(user.getApp_items().get(i).getItem().getSecurityAmount());
         }
         return Double.toString((fee * user.getTotalDays()) + security);
@@ -63,7 +112,8 @@ public class CalculateAmount {
 
         for(int i=0; i<user.getApp_items().size(); i++){
             Double itemFee = 0.0;
-            itemFee = Double.parseDouble(user.getApp_items().get(i).getItem().getFee());
+            itemFee =    Double.parseDouble(user.getApp_items().get(i).getItem().getFee()) +
+                    Double.parseDouble(user.getApp_items().get(i).getItem().getFee_bdo()) ;
             fee += itemFee;
             security = Double.parseDouble(user.getApp_items().get(i).getItem().getSecurityAmount());
         }
@@ -84,7 +134,8 @@ public class CalculateAmount {
 
         for(int i=0; i<user.getApp_items().size(); i++){
             Double itemFee = 0.0;
-            itemFee = Double.parseDouble(user.getApp_items().get(i).getItem().getFee());
+            itemFee =    Double.parseDouble(user.getApp_items().get(i).getItem().getFee()) +
+                    Double.parseDouble(user.getApp_items().get(i).getItem().getFee_bdo()) ;
             fee += itemFee;
             security = Double.parseDouble(user.getApp_items().get(i).getItem().getSecurityAmount());
         }
@@ -106,7 +157,8 @@ public class CalculateAmount {
 
         for(int i=0; i<user.getApp_items().size(); i++){
             Double itemFee = 0.0;
-            itemFee = Double.parseDouble(user.getApp_items().get(i).getItem().getFee());
+            itemFee =    Double.parseDouble(user.getApp_items().get(i).getItem().getFee()) +
+                    Double.parseDouble(user.getApp_items().get(i).getItem().getFee_bdo()) ;
             fee += itemFee;
             security = Double.parseDouble(user.getApp_items().get(i).getItem().getSecurityAmount());
         }

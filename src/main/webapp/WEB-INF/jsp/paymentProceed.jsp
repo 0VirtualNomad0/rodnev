@@ -58,14 +58,20 @@
                      <td class="text-center" >${user.totalDays}</input>
                      </td>
                   </tr>
+                  <tr>
+                                       <td class="text-center"><spring:message code="paymentpage.application.itemNumber"/></td>
+                                       <td class="text-center" >${user.numberItems}</input>
+                                       </td>
+                                    </tr>
+                   <tr class="text-center">
+                                                         <td ><spring:message code="paymentpage.application.security"/></td>
+                                                         <td class="text-center" ><%= session.getAttribute("security") %></input>
+                                                      </tr>
                   <tr class="text-center">
                      <td ><spring:message code="paymentpage.application.amounttopay"/></td>
                      <td class="text-center" ><%= session.getAttribute("amount") %></input>
                   </tr>
-                  <tr class="text-center">
-                                       <td ><spring:message code="paymentpage.application.security"/></td>
-                                       <td class="text-center" ><%= session.getAttribute("security") %></input>
-                                    </tr>
+
                </tbody>
             </table>
          </div>
@@ -104,13 +110,13 @@
                         <td>${application.item.nationalRegional.nationalRegionalName}</td>
                         <c:if test="${application.tentNumber == 0}">
                            <td>${application.item.itemName}</td>
-                           <td>${application.item.fee}</td>
+                           <td>${application.item.fee + application.item.fee_bdo}</td>
                         </c:if>
                         <c:if test="${application.tentNumber != 0}">
                            <td>${application.tentNumber}</td>
                            <td> ${application.item.fee * application.tentNumber} (${application.item.fee} x ${application.tentNumber})</td>
                         </c:if>
-                       <!-- <td class="text-center" rowspan="${fn:length(user.app_items)}">${application.item.securityAmount}</td> -->
+                       <!-- <td class="text-center" rowspan="${fn:length(user.app_items)}">${application.item.fee}+${application.item.fee_bdo}</td> -->
                      </tr>
                   </c:forEach>
                </c:if>
@@ -132,7 +138,7 @@
          <input type="hidden" name="productinfo" value="<%= session.getAttribute("productinfo") %>" />
          <input type="hidden" name="surl" value="<%= session.getAttribute("surl") %>" size="64" />
          <input type="hidden" name="furl" value="<%= session.getAttribute("furl") %>" size="64" />
-         <input class="col-lg-12 btn-success" name="submit" type="submit" value="Proceed to Payment ." />
+         <input class=" col-lg-12 btn-success" name="submit" type="submit" value="Proceed to Payment ." />
          <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
          <br/>
       </div>
