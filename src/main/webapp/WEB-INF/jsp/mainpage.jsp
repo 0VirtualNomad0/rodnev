@@ -36,10 +36,18 @@
                </div>
                <!-- SLIDER ENDS -->
 
-               <!-- CM Minister Links-->
+               <!-- About eLahaul-->
                <div class="col-lg-6" style="background-color:white;">
 
-                    About eVending
+                    <div class="card text-center" style="max-height:300px; min-height:300px;">
+                        <div class="card-header">&nbsp;</div>
+                        <div class="card-body">
+                            <h5 class="card-title"><spring:message code="mainpage.about.elahaul.heading"/></h5>
+                            <p class="card-text"><spring:message code="mainpage.about.elahaul.paragraph"/></p>
+
+                        </div>
+                        <div class="btn btn-primary"><a style="text-decoration:none; color:white;" href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.about.applyhere"/></a></div>
+                    </div>
 
             </div>
                <!-- CM Minister Links-->
