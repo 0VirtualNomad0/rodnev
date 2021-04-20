@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import vendorapplication.entities.UserPermissionsEntity;
 import vendorapplication.repositories.UserPermissionsRepository;
 
+import java.util.List;
+
 @Service
 public class UserPermissionsService {
 
@@ -13,5 +15,15 @@ public class UserPermissionsService {
 
     public UserPermissionsEntity addPermission(UserPermissionsEntity permissionsEntity) {
         return  userPermissionsRepository.save(permissionsEntity);
+    }
+
+    /**
+     *
+     * @param mobile
+     * @param appId
+     * @return
+     */
+    public List<UserPermissionsEntity> checkApplicationStatus(int appId, long mobile) {
+        return userPermissionsRepository.getAllPermissionsByAppIDandMobile(appId,mobile);
     }
 }

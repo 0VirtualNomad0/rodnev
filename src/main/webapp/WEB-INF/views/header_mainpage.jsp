@@ -87,6 +87,8 @@
                   <li><a href="${pageContext.request.contextPath}/contactus"><spring:message code="mainpage.menu.contatus" text="Contact Us"/></a></li>
                   <li><a href="https://cmsankalp.hp.gov.in/" target="_blank"><spring:message code="mainpage.menu.grienence" text="Grievance"/></a></li>
                   <li><a href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.menu.apply" text="Apply"/> </a></li>
+               <li><a href="${pageContext.request.contextPath}/checkStatus"><spring:message code="mainpage.menu.checkstatus" /> </a></li>
+
                </ul>
             </div>
             <div class="topnav">

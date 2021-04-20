@@ -23,13 +23,20 @@
          </c:if>
 
          <div class="form-inline">
-         <spring:bind path="applicationId">
+         <spring:bind path="appId">
             <label class="col-lg-3 col-md-3 col-xs-12 col-sm-12" for="id1"><strong>Check Application Status</strong></label>
             <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 ${status.error ? 'has-error' : ''}">
-               <form:input onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');"  oncopy="return false" onpaste="return false" maxlength="10" class="form-control " path="applicationId" name="applicationId" type="text" id="applicationId" />
-               <form:errors  path="applicationId"></form:errors>
+               <form:input onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');"  oncopy="return false" onpaste="return false" maxlength="10" class="form-control " path="appId" name="appId" type="text" id="appId" />
+               <form:errors  path="appId"></form:errors>
             </div>
             </spring:bind>
+            <spring:bind path="mobileNumber">
+                        <label class="col-lg-3 col-md-3 col-xs-12 col-sm-12" for="id1"><strong>Check Application Status</strong></label>
+                        <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 ${status.error ? 'has-error' : ''}">
+                           <form:input onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');"  oncopy="return false" onpaste="return false" maxlength="10" class="form-control " path="mobileNumber" name="mobileNumber" type="text" id="mobileNumber" />
+                           <form:errors  path="mobileNumber"></form:errors>
+                        </div>
+                        </spring:bind>
             <input type="submit"  value="Submit" text="Submit" class="btn btn-success pull-left col-lg-3 col-md-3 col-xs-12 col-sm-12">
              <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
             <c:remove var="successMessage" scope="session" />
@@ -38,7 +45,7 @@
       </div>
    </form:form>
    </div>
-   <c:if test="${not empty applicationData}">
+   <c:if test="${not empty appPermissions}">
      <div class="container">
       <div class="row">
       <div class="col-lg-1">&nbsp; </div>
@@ -57,7 +64,8 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <c:forEach items="${applicationData}" var="application" varStatus="loopCounter">
+                     <c:forEach items="${appPermissions}" var="application" varStatus="loopCounter">
+                     <c:forEach items="${appPermissions}" var="application" varStatus="loopCounter">
                         <tr>
                            <c:if test = "${application.applicationStatus == 'P'}">
                               <td class="text-center btn-warning" style="color:white;">Pending</td>
