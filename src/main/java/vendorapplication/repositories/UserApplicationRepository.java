@@ -1,5 +1,6 @@
 package vendorapplication.repositories;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import vendorapplication.entities.UserApplicationEntity;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -52,5 +54,16 @@ public interface UserApplicationRepository extends CrudRepository<UserApplicatio
 
     @Query(value = "SELECT app_id, users.firstname, users.lastname, users.mobile_number, mst_category.category_name, subcategory_name ,user_application.user_id,applicationstatus FROM user_application INNER JOIN mst_category ON user_application.category_id = mst_category.category_id INNER JOIN mst_subcategory ON user_application.subcategory_id = mst_subcategory.subcategory_id INNER JOIN users ON user_application.user_id = users.user_id WHERE user_application.state_id = :state AND user_application.district_id = :district  AND user_application.active = true AND user_application.subcategory_id =:appID order by user_application.createddate desc", nativeQuery = true)
     List<Object[]> getApplicationsLocationWisePcb(@Param("state")Integer state, @Param("district") Integer district,@Param("appID") Integer appId);
+
+    @Query(value = "SELECT *  from public.user_application where app_id =:appId AND active = true ", nativeQuery = true)
+    UserApplicationEntity getUserApplication(@Param("appId")Integer appID);
+
+    //PCB Only In Case of Tent
+    @Query(value = "SELECT count(*) FROM user_application INNER JOIN users ON users.user_id = user_application.user_id WHERE users.mobile_number =:mobile AND user_application.active = true  AND user_application.app_id =:appId", nativeQuery = true)
+    Integer countApplicationsViaAppIs(@Param("mobile") Long mobile, @Param("appId")  Integer appId);
+
+    @Query(value = "SELECT createddate FROM user_application WHERE active = true AND app_id =:appID ", nativeQuery = true)
+    Object[] getApplicationCreatedDate(@Param("appID") Integer appID);
+
 
 }

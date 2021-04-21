@@ -63,7 +63,7 @@ public class Constants {
      * E Ticket PDF Instructions
      */
 
-    public static String TICKET_HEADING = "E-FLIGHT TICKET";
+    public static String TICKET_HEADING = "E-Lahaul V1.0";
     public static String INSTRUCTUIN_0 = "Instructions:";
     public static String INSTRUCTUIN_I = "The Luggage Should not exceed 10KG. ";
     public static String INSTRUCTUIN_II = "The amount charged shall be refunded if the booking is cancelled before 6 hours of scheduled flight.";

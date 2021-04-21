@@ -71,7 +71,7 @@
           <th>Application Status </th>
           <th>Comments</th>
           <th>Date</th>
-          <th>Attachment</th>
+         <!-- <th>Attachment</th>  -->
 
        </tr>
     </thead>
@@ -95,9 +95,9 @@
                 <td>${application.comments}</td>
                 <td style="color:red;"><fmt:formatDate value='${application.createddate}' pattern='dd-MM-yyyy HH:mm:ss' /></td>
 
-                 <c:if test="${not empty application.attachemnts}">
+              <!--   <c:if test="${not empty application.attachemnts}">
                   <td><a href="${pageContext.request.contextPath}/downloadFile/${application.attachemnts}">Download</a></td>
-                 </c:if>
+                 </c:if>  -->
 
 
 
@@ -109,6 +109,38 @@
   </c:if>
  <br />
  <!-- Comments by DC, BDO and DFO ENDS -->
+
+ <!-- downloadApplication -->
+
+  <c:if test = "${downloadApplication}">
+   <br>
+   <h2 class="form-signin-heading col-lg-12"><strong><spring:message code="checkstatus.downloadReport"/></strong></h2>
+<br>
+  <div class="container">
+  <div class="row">
+   <div class="text-center btn-success col-lg-12" style="color:white; padding: 10px;" >
+   <a href="${pageContext.request.contextPath}/generatePdf/${applicatoinId}" target= "_blank" style="color:white; padding:10px; text-decoration:none;"> <strong><spring:message code="checkstatus.download"/></strong> </a> </div>
+   </div>
+   </div>
+   </c:if>
+
+
+
+   <!-- autoApproved -->
+   <c:if test = "${autoApproved}">
+      <br>
+      <h2 class="form-signin-heading col-lg-12"><strong><spring:message code="checkstatus.downloadReport"/></strong></h2>
+         <h4 class="form-signin-heading col-lg-12"><strong><spring:message code="checkstatus.autoApproved"/></strong></h4>
+
+   <br>
+     <div class="container">
+     <div class="row">
+      <div class="text-center btn-success col-lg-12" style="color:white; padding: 10px;" >
+      <a href="${pageContext.request.contextPath}/generatePdf/${applicatoinId}" target= "_blank" style="color:white; padding:10px; text-decoration:none;"> <strong><spring:message code="checkstatus.download"/></strong> </a> </div>
+      </div>
+      </div>
+      </c:if>
+
 
 
 </main>

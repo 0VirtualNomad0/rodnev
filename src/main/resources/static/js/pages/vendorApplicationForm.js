@@ -111,8 +111,8 @@ function validateFields() {
     } else if (photoDoc == null || photoDoc == "") {
         alert("Please attach any Photograph");
         return false;
-    } else if (!hasExtension('photoDoc', ['.jpg', '.jpeg', '.png', '.pdf'])) {
-        alert("Only PDF or Images are allowed");
+    } else if (!hasExtension('photoDoc', ['.jpg', '.jpeg', '.png'])) {
+        alert("Only Images are allowed [Applicant Photograph]");
         return false;
     } else if (p_address == "" || p_address == null) {
         alert("Please Enter Permanent Address.");

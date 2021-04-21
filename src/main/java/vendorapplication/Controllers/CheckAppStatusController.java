@@ -18,6 +18,8 @@ import vendorapplication.entities.UserPermissionsEntity;
 import vendorapplication.form.CheckStatusForm;
 import vendorapplication.repositories.UserApplicationRepository;
 import vendorapplication.services.UserPermissionsService;
+import vendorapplication.utilities.Constants;
+import vendorapplication.utilities.DateUtilities;
 import vendorapplication.utilities.GeneratePdfReport;
 import vendorapplication.validators.CheckStatusValidator;
 
@@ -25,22 +27,21 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 @Controller
 public class CheckAppStatusController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CheckAppStatusController.class);
     @Autowired
     private CheckStatusValidator checkStatusValidator;
-
     @Autowired
     private UserPermissionsService userPermissionsService;
 
+    //Check Status
     @Autowired
     private UserApplicationRepository userApplicationRepository;
-
-    //Check Status
-
-    private static final Logger logger = LoggerFactory.getLogger(CheckAppStatusController.class);
 
     @RequestMapping(value = "/checkStatus", method = RequestMethod.GET)
     public String checkStatus(Model model) {
@@ -58,27 +59,174 @@ public class CheckAppStatusController {
         }
 
         try {
+            boolean downloadApplication , applicationRejected= false;
             List<UserPermissionsEntity> data = null;
+            Long DatesDifference;
+
+
             data = userPermissionsService.checkApplicationStatus(Integer.parseInt(form.getAppId()), form.getMobileNumber());
 
             if (!data.isEmpty()) {
-                request.getSession().setAttribute("successMessage", "Data found Successfully");
-                model.addAttribute("appPermissions", data);
-                return "checkStatus";
+                downloadApplication = checkApplicationDownloadable(data, "DC", "PCB");
+               if(downloadApplication){
+                   request.getSession().setAttribute("successMessage", "Data found Successfully");
+                   model.addAttribute("appPermissions", data);
+                   model.addAttribute("downloadApplication", downloadApplication);
+                   model.addAttribute("applicatoinId", form.getAppId());
+                   model.addAttribute("autoApproved", false);
+                   return "checkStatus";
+               }else {
+
+                   applicationRejected = checkApplicationREjected(data, "DC", "PCB");
+
+                   if(applicationRejected){
+                       request.getSession().setAttribute("successMessage", "Data found Successfully"); model.addAttribute("downloadApplication", false);
+                       model.addAttribute("applicatoinId", form.getAppId());
+                       model.addAttribute("appPermissions", data);
+                       model.addAttribute("autoApproved", false);
+                       return "checkStatus";
+                   }else{
+                       Map<String, Object> map = null;
+                       Object[] dates_server = userApplicationRepository.getApplicationCreatedDate(Integer.parseInt(form.getAppId()));
+
+                       if (dates_server.length == 1) {
+                           //Calculate Dates
+                           System.out.println("Created Date of Application:- " + dates_server[0].toString());
+                           System.out.println("Today's Date:- " + DateUtilities.getCurrentDate());
+
+                           DatesDifference = DateUtilities.getDifferenceDays(DateUtilities.convertToDate(dates_server[0].toString()), DateUtilities.convertToDate(DateUtilities.getCurrentDate()));
+                           System.out.println(DatesDifference);
+
+                           if (DatesDifference > 7) {
+                               //Application Auto Approved
+                               model.addAttribute("successMessage", "Data Found Successfully.");
+                               model.addAttribute("downloadApplication", downloadApplication);
+                               model.addAttribute("appPermissions", data);
+                               model.addAttribute("applicatoinId", form.getAppId());
+                               model.addAttribute("autoApproved", true);
+                               return "checkStatus";
+                           } else {
+                               //Application Not Auto Approved
+                               model.addAttribute("successMessage", " Application Pending. Application not yet approved by the DC or PCB.");
+                               model.addAttribute("downloadApplication", downloadApplication);
+                               model.addAttribute("appPermissions", data);
+                               model.addAttribute("applicatoinId", form.getAppId());
+                               model.addAttribute("autoApproved", false);
+                               return "checkStatus";
+                           }
+
+
+                       } else {
+                           model.addAttribute("serverError", "No Data available for the current Application ID and Mobile Number.");
+                           model.addAttribute("downloadApplication", false);
+                           model.addAttribute("applicatoinId", form.getAppId());
+                           model.addAttribute("autoApproved", false);
+                           return "checkStatus";
+                       }
+                   }
+
+
+               }
+
+
+
+
             } else {
-                model.addAttribute("serverError", "No Data available for the current Application ID and Mobile Number.");
-                return "checkStatus";
+
+                //Check Weather the Application is There in Application Table and get Date
+                if (userApplicationRepository.countApplicationsViaAppIs(Long.parseLong(form.getMobileNumber()), Integer.parseInt(form.getAppId())) != 1) {
+                    model.addAttribute("serverError", "No Data available for the current Application ID and Mobile Number.");
+                    model.addAttribute("downloadApplication", false);
+                    model.addAttribute("applicatoinId", form.getAppId());
+                    return "checkStatus";
+
+                } else {
+
+                    Map<String, Object> map = null;
+                    Object[] dates_server = userApplicationRepository.getApplicationCreatedDate(Integer.parseInt(form.getAppId()));
+
+                    if (dates_server.length == 1) {
+                        //Calculate Dates
+                        System.out.println("Created Date of Application:- " + dates_server[0].toString());
+                        System.out.println("Today's Date:- " + DateUtilities.getCurrentDate());
+
+                        DatesDifference = DateUtilities.getDifferenceDays(DateUtilities.convertToDate(dates_server[0].toString()), DateUtilities.convertToDate(DateUtilities.getCurrentDate()));
+                        System.out.println(DatesDifference);
+
+                        if (DatesDifference > 7) {
+                            //Application Auto Approved
+                            model.addAttribute("successMessage", "Data Found Successfully.");
+                            model.addAttribute("downloadApplication", true);
+                            model.addAttribute("applicatoinId", form.getAppId());
+                            model.addAttribute("autoApproved", true);
+                            return "checkStatus";
+                        } else {
+                            //Application Not Auto Approved
+                            model.addAttribute("successMessage", " Application Pending. Application not yet approved by the DC or PCB.");
+                            model.addAttribute("downloadApplication", false);
+                            model.addAttribute("applicatoinId", form.getAppId());
+                            model.addAttribute("autoApproved", false);
+                            return "checkStatus";
+                        }
+
+
+                    } else {
+                        model.addAttribute("serverError", "No Data available for the current Application ID and Mobile Number.");
+                        model.addAttribute("downloadApplication", false);
+                        model.addAttribute("applicatoinId", form.getAppId());
+                        model.addAttribute("autoApproved", false);
+                        return "checkStatus";
+                    }
+                }
+
+
             }
 
 
         } catch (Exception ex) {
             model.addAttribute("serverError", ex.toString());
+            model.addAttribute("downloadApplication", false);
+            model.addAttribute("applicatoinId", "");
+            model.addAttribute("autoApproved", false);
             return "checkStatus";
         }
     }
 
+    private boolean checkApplicationDownloadable(List<UserPermissionsEntity> data, String roleDc, String rolePCB) {
+        try {
+            //Check Weather the Application is Approved By DC or PCB
+            boolean checkRole = data.stream().filter(fixture ->
+                    (fixture.getRoleName().equals(roleDc) && fixture.getStatus().equals(Constants.APPROVED)) ||
+                            (fixture.getRoleName().equals(rolePCB) && fixture.getStatus().equals(Constants.APPROVED))
+            ).findFirst().isPresent();
+            System.out.println(checkRole);
+            if (checkRole) return true;
+            else return false;
+        } catch (Exception ex) {
+            logger.info("Exception While Downloading Application:- " + ex.getLocalizedMessage().toLowerCase(Locale.ROOT));
+            return false;
+        }
 
-        //generatePdf
+    }
+
+    private boolean checkApplicationREjected(List<UserPermissionsEntity> data, String roleDc, String rolePCB) {
+        try {
+            //Check Weather the Application is Approved By DC or PCB
+            boolean checkRole = data.stream().filter(fixture ->
+                    (fixture.getRoleName().equals(roleDc) && fixture.getStatus().equals(Constants.REJECTED)) ||
+                            (fixture.getRoleName().equals(rolePCB) && fixture.getStatus().equals(Constants.REJECTED))
+            ).findFirst().isPresent();
+            System.out.println(checkRole);
+            if (checkRole) return true;
+            else return false;
+        } catch (Exception ex) {
+            logger.info("Exception While Downloading Application:- " + ex.getLocalizedMessage().toLowerCase(Locale.ROOT));
+            return false;
+        }
+
+    }
+
+    //generatePdf
     @RequestMapping(value = "/generatePdf/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody

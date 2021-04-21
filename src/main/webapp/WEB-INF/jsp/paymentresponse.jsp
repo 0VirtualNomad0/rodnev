@@ -66,6 +66,12 @@
                </tr>
             </tbody>
          </table>
+             <br />
+                        <a href="${pageContext.request.contextPath}/checkStatus" class="btn-success col-lg-12 text-center"> Check Status of Submitted Application </a>
+                        <br/>
+                     </div>
+                     <div class="col-lg-3"> &nbsp;  </div>
+                  </div>
       </div>
 
 </div>

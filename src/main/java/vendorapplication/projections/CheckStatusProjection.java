@@ -1,43 +1,25 @@
 package vendorapplication.projections;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class CheckStatusProjection implements Serializable {
 
-    private String applicationStatus;
-    private String comments;
-    private Integer userId;
+    private Date applicationCreatedDate;
 
-    public String getApplicationStatus() {
-        return applicationStatus;
+
+    public Date getApplicationCreatedDate() {
+        return applicationCreatedDate;
     }
 
-    public void setApplicationStatus(String applicationStatus) {
-        this.applicationStatus = applicationStatus;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setApplicationCreatedDate(Date applicationCreatedDate) {
+        this.applicationCreatedDate = applicationCreatedDate;
     }
 
     @Override
     public String toString() {
         return "CheckStatusProjection{" +
-                "applicationStatus='" + applicationStatus + '\'' +
-                ", comments='" + comments + '\'' +
-                ", userId='" + userId + '\'' +
+                "applicationCreatedDate=" + applicationCreatedDate +
                 '}';
     }
 }
