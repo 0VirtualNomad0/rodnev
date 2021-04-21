@@ -22,7 +22,10 @@ public class CheckStatusValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "appId", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mobileNumber", "NotEmpty");
         if (checkStatus.getAppId()== null || checkStatus.getAppId().isEmpty()) {
-            errors.rejectValue("applicationId", "Size.checkStatus.appId");
+            errors.rejectValue("appId", "Size.checkStatus.appId");
+        }
+        if (checkStatus.getMobileNumber().length() != 10 ) {
+            errors.rejectValue("mobileNumber", "Size.checkStatus.mobileNumber");
         }
 
     }

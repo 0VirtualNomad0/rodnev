@@ -13,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.entities.UserPermissionsEntity;
 import vendorapplication.form.CheckStatusForm;
+import vendorapplication.repositories.UserApplicationRepository;
 import vendorapplication.services.UserPermissionsService;
+import vendorapplication.utilities.GeneratePdfReport;
 import vendorapplication.validators.CheckStatusValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +34,9 @@ public class CheckAppStatusController {
 
     @Autowired
     private UserPermissionsService userPermissionsService;
+
+    @Autowired
+    private UserApplicationRepository userApplicationRepository;
 
     //Check Status
 
@@ -53,15 +59,14 @@ public class CheckAppStatusController {
 
         try {
             List<UserPermissionsEntity> data = null;
-            data = userPermissionsService.checkApplicationStatus(Integer.parseInt(form.getAppId()), Long.parseLong(form.getMobileNumber()));
+            data = userPermissionsService.checkApplicationStatus(Integer.parseInt(form.getAppId()), form.getMobileNumber());
 
             if (!data.isEmpty()) {
-
                 request.getSession().setAttribute("successMessage", "Data found Successfully");
                 model.addAttribute("appPermissions", data);
                 return "checkStatus";
             } else {
-                model.addAttribute("serverError", "No Data available for the current District and Barrier");
+                model.addAttribute("serverError", "No Data available for the current Application ID and Mobile Number.");
                 return "checkStatus";
             }
 
@@ -74,23 +79,23 @@ public class CheckAppStatusController {
 
 
         //generatePdf
-//    @RequestMapping(value = "/generatePdf/{id}", method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_PDF_VALUE)
-//    public @ResponseBody
-//    ResponseEntity<InputStreamResource> printId(@PathVariable("id") String id) throws IOException, WriterException, DocumentException {
-//
-//        FlightFormEntity vehicleOwnerEntries = flightFormService.getDataByUserID(Integer.parseInt(id));
-//        ByteArrayInputStream bis = GeneratePdfReport.generateIdCard(vehicleOwnerEntries);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "inline; filename=" + vehicleOwnerEntries.getFullName() + ".pdf");
-//
-//
-//        return ResponseEntity
-//                .ok()
-//                .headers(headers)
-//                .contentType(MediaType.APPLICATION_PDF)
-//                .body(new InputStreamResource(bis));
-//
-//    }
+    @RequestMapping(value = "/generatePdf/{id}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody
+    ResponseEntity<InputStreamResource> printId(@PathVariable("id") String id) throws IOException, WriterException, DocumentException {
+
+        UserApplicationEntity userApplicationEntity = userApplicationRepository.findById(Integer.parseInt(id)).get();
+        ByteArrayInputStream bis = GeneratePdfReport.generateIdCard(userApplicationEntity);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=" + userApplicationEntity.getUserId().getMobileNumber() + ".pdf");
+
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+
+    }
 
 }

@@ -1,4 +1,9 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrapd.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
@@ -12,7 +17,7 @@
       <div class="container" style="padding:10px; margin-top:20px; margin:bottom:20px;">
          <h4 class="text-center">Check Application Status</h4>
          <ol class="breadcrumb">
-            <li> &nbsp; </li>
+            <li> <spring:message code="checkstatus.heading"/> </li>
          </ol>
          <c:if test="${not empty successMessage}">
             <div id="serverError" class="successMessage">${successMessage}</div>
@@ -22,22 +27,24 @@
             <div id="serverError" class="plErroMessage">${serverError}</div>
          </c:if>
 
-         <div class="form-inline">
+         <div class="row">
          <spring:bind path="appId">
-            <label class="col-lg-3 col-md-3 col-xs-12 col-sm-12" for="id1"><strong>Check Application Status</strong></label>
+            <label class="col-lg-3 col-md-3 col-xs-12 col-sm-12 text-center" for="id1"><strong><spring:message code="checkstatus.enterappId"/></strong></label>
             <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 ${status.error ? 'has-error' : ''}">
                <form:input onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');"  oncopy="return false" onpaste="return false" maxlength="10" class="form-control " path="appId" name="appId" type="text" id="appId" />
                <form:errors  path="appId"></form:errors>
             </div>
             </spring:bind>
             <spring:bind path="mobileNumber">
-                        <label class="col-lg-3 col-md-3 col-xs-12 col-sm-12" for="id1"><strong>Check Application Status</strong></label>
+                        <label class="col-lg-3 col-md-3 col-xs-12 col-sm-12 text-center" for="id1"><strong><spring:message code="checkstatus.enterMobileNumber"/></strong></label>
                         <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 ${status.error ? 'has-error' : ''}">
                            <form:input onkeypress="return alpha(event)" autocomplete="off" onfocus="this.removeAttribute('readonly');"  oncopy="return false" onpaste="return false" maxlength="10" class="form-control " path="mobileNumber" name="mobileNumber" type="text" id="mobileNumber" />
                            <form:errors  path="mobileNumber"></form:errors>
                         </div>
                         </spring:bind>
-            <input type="submit"  value="Submit" text="Submit" class="btn btn-success pull-left col-lg-3 col-md-3 col-xs-12 col-sm-12">
+                        <br>
+                        <br>
+            <input type="submit"  value="Submit" text="Submit" class="btn btn-success pull-left col-lg-12 col-md-12 col-xs-12 col-sm-12">
              <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
             <c:remove var="successMessage" scope="session" />
          </div>
@@ -45,51 +52,63 @@
       </div>
    </form:form>
    </div>
-   <c:if test="${not empty appPermissions}">
-     <div class="container">
-      <div class="row">
-      <div class="col-lg-1">&nbsp; </div>
-      <div class="col-lg-10">
-      <hr>
-      <div class="tile">
-         <div class="tile-body">
-            <div class="table-responsive">
 
-               <table class="table table-hover table-bordered" id="sampleTable">
-                  <thead>
-                     <tr>
-                        <th class="text-center">Application Status</th>
-                        <th class="text-center">Comments</th>
-                        <th class="text-center">Action</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <c:forEach items="${appPermissions}" var="application" varStatus="loopCounter">
-                     <c:forEach items="${appPermissions}" var="application" varStatus="loopCounter">
-                        <tr>
-                           <c:if test = "${application.applicationStatus == 'P'}">
-                              <td class="text-center btn-warning" style="color:white;">Pending</td>
-                           </c:if>
-                           <c:if test = "${application.applicationStatus == 'A'}">
-                              <td class="text-center btn-success" style="color:white;">Approved</td>
-                           </c:if>
-                           <c:if test = "${application.applicationStatus == 'R'}">
-                              <td class="text-center btn-danger" style="color:white;">Rejected</td>
-                           </c:if>
-                            <td class="text-center" style="color:#000000;"><strong>${application.comments}</strong></td>
-                             <c:if test = "${application.applicationStatus == 'A'}">
-                           <td class="text-center btn-primary" style="color:white;" > <a href="${pageContext.request.contextPath}/generatePdf/${application.userId}" target= "_blank" style="color:white; text-decoration:none;"> Download </a> </td>
-                           </c:if>
-                        </tr>
-                     </c:forEach>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-         <div>
-         <div class="col-lg-1">&nbsp; </div>
-         </div>
-      </div>
-      </div>
-   </c:if>
+
+ <!-- Comments by DC, BDO and DFO -->
+ <c:if test="${not empty appPermissions}">
+ <div class="container" style="padding:10px;">
+ <br>
+ <br>
+ <h2 class="form-signin-heading col-lg-12"><strong><spring:message code="checkstatus.appPermissions"/></strong></h2>
+ <hr>
+ <br>
+
+ <table class="col-lg-12 table table-hover table-bordered">
+    <thead>
+       <tr>
+          <th>S.No</th>
+          <th>Role Name</th>
+          <th>Application Status </th>
+          <th>Comments</th>
+          <th>Date</th>
+          <th>Attachment</th>
+
+       </tr>
+    </thead>
+    <tbody>
+
+          <c:forEach items="${appPermissions}" var="application" varStatus="loopCounter">
+             <tr>
+                <td>
+                   <c:out value="${loopCounter.count}"/>
+                </td>
+                <td><a href="${pageContext.request.contextPath}/viewRoleDetails/${application.userId}" style="text-decoration:none;">${application.roleName}</a></td>
+                 <c:if test = "${application.status == 'P'}">
+                                                                     <td class="text-center btn-warning" style="color:white;">Pending</td>
+                                                             </c:if>
+                                                              <c:if test = "${application.status == 'A'}">
+                                                              <td class="text-center btn-success" style="color:white;">Approved</td>
+                                                               </c:if>
+                                                              <c:if test = "${application.status == 'R'}">
+                                                               <td class="text-center btn-danger" style="color:white;">Rejected</td>
+                                                                </c:if>
+                <td>${application.comments}</td>
+                <td style="color:red;"><fmt:formatDate value='${application.createddate}' pattern='dd-MM-yyyy HH:mm:ss' /></td>
+
+                 <c:if test="${not empty application.attachemnts}">
+                  <td><a href="${pageContext.request.contextPath}/downloadFile/${application.attachemnts}">Download</a></td>
+                 </c:if>
+
+
+
+               </tr>
+          </c:forEach>
+
+    </tbody>
+ </table>
+  </c:if>
+ <br />
+ <!-- Comments by DC, BDO and DFO ENDS -->
+
+
 </main>

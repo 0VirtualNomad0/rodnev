@@ -23,7 +23,7 @@ public class UserPermissionsService {
      * @param appId
      * @return
      */
-    public List<UserPermissionsEntity> checkApplicationStatus(int appId, long mobile) {
+    public List<UserPermissionsEntity> checkApplicationStatus(int appId, String mobile) {
         return userPermissionsRepository.getAllPermissionsByAppIDandMobile(appId,mobile);
     }
 }

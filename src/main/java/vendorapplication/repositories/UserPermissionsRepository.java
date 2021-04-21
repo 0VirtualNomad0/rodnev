@@ -14,6 +14,5 @@ public interface UserPermissionsRepository extends CrudRepository<UserPermission
 
 
     @Query(value = "SELECT * from userapplication_permissions where active = true AND app_id = :appId AND applicatnt_mobile =:mobileNumber ", nativeQuery = true)
-    @Cacheable
-    List<UserPermissionsEntity> getAllPermissionsByAppIDandMobile(@Param("appId") Integer appID, @Param("mobileNumber") Long mobileNumber);
+    List<UserPermissionsEntity> getAllPermissionsByAppIDandMobile(@Param("appId") Integer appID, @Param("mobileNumber") String mobileNumber);
 }
