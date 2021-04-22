@@ -38,6 +38,11 @@ public class UserApplicationService {
         return userApplicationRepository.findById(appId).get();
     }
 
+    public UserApplicationEntity getUserApplicationViaAppIdUserId(Integer appId, Integer userId){
+
+        return userApplicationRepository.getUserApplicationviaAppIdUserID(appId,userId);
+    }
+
     public List<UserApplicationEntity> getApplications(){
 
         return (List<UserApplicationEntity>) userApplicationRepository.findAll();

@@ -65,5 +65,8 @@ public interface UserApplicationRepository extends CrudRepository<UserApplicatio
     @Query(value = "SELECT createddate FROM user_application WHERE active = true AND app_id =:appID ", nativeQuery = true)
     Object[] getApplicationCreatedDate(@Param("appID") Integer appID);
 
+    @Query(value = "SELECT *  from public.user_application where app_id =:appId AND user_id =:userId AND active = true ", nativeQuery = true)
+    UserApplicationEntity getUserApplicationviaAppIdUserID(@Param("appId")Integer appID, @Param("userId") Integer userId);
+
 
 }

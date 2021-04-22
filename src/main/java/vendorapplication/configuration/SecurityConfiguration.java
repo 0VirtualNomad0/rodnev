@@ -66,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
                 http.csrf().ignoringAntMatchers("/nocsrf", "/paymentResponse/**");
+                http.csrf().ignoringAntMatchers("/nocsrf", "/api/**");
                 http.headers().frameOptions().sameOrigin();
 
 
@@ -73,6 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 http.authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .antMatchers("/downloadFile/**").permitAll()
+                        .antMatchers("/api/**").permitAll()
                         .antMatchers("/resources/css/fonts").denyAll()
                 .antMatchers("/saveapplication/").hasAnyRole( "Vendor")
                 .antMatchers("/paymentpage/**").authenticated()
