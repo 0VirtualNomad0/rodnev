@@ -91,4 +91,12 @@ public class Constants {
      * Security Key AES
      */
     public static final String securityKeyAES = "hPelahaul@17_04_21";
+
+
+    /**
+     * Report Constants
+     */
+    public static Integer reportTableSpacing = 20;
+
+
 }
