@@ -15,9 +15,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.entities.UserPermissionsEntity;
+import vendorapplication.entities.UserTranactionEntity;
 import vendorapplication.form.CheckStatusForm;
 import vendorapplication.repositories.UserApplicationRepository;
 import vendorapplication.services.UserPermissionsService;
+import vendorapplication.services.UserTransactionService;
 import vendorapplication.utilities.Constants;
 import vendorapplication.utilities.DateUtilities;
 import vendorapplication.utilities.GeneratePdfReport;
@@ -38,6 +40,9 @@ public class CheckAppStatusController {
     private CheckStatusValidator checkStatusValidator;
     @Autowired
     private UserPermissionsService userPermissionsService;
+
+    @Autowired
+    private UserTransactionService userTransactionService;
 
     //Check Status
     @Autowired
@@ -233,7 +238,8 @@ public class CheckAppStatusController {
     ResponseEntity<InputStreamResource> printId(@PathVariable("id") String id) throws IOException, WriterException, DocumentException {
 
         UserApplicationEntity userApplicationEntity = userApplicationRepository.findById(Integer.parseInt(id)).get();
-        ByteArrayInputStream bis = GeneratePdfReport.generateIdCard(userApplicationEntity);
+        UserTranactionEntity userTranactionEntity = userTransactionService.getUserTransaction(Integer.parseInt(id));
+        ByteArrayInputStream bis = GeneratePdfReport.generateIdCard(userApplicationEntity,userTranactionEntity);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=" + userApplicationEntity.getUserId().getMobileNumber() + ".pdf");
 

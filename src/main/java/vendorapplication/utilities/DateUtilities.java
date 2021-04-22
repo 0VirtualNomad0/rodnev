@@ -39,6 +39,15 @@ public class DateUtilities {
         return converted_date;
     }
 
+    public static String convertToDateCustom(String date) throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("IST"));
+        Date converted_date = sdf.parse(date);
+
+        return converted_date.toString();
+    }
+
     public static String getCurrentDate() throws ParseException {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdfDate.setTimeZone(TimeZone.getTimeZone("IST"));
