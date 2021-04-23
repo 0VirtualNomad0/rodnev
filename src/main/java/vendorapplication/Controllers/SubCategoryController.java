@@ -119,23 +119,15 @@ public class SubCategoryController {
             try {
                 SubCategoryItemsEntity rolesEntity = new SubCategoryItemsEntity();
 
-                CategoryEntity category = new CategoryEntity();
-                category.setCategoryID(Integer.parseInt(subCategoryItemsForm.getCategoryId()));
-                SubCategoryEntity subCategory =  new SubCategoryEntity();
-                subCategory.setSubCategoryId(Integer.parseInt(subCategoryItemsForm.getVendorType()));
-                LandTypeEntity landType = new LandTypeEntity();
-                landType.setLandTypeId(Integer.parseInt(subCategoryItemsForm.getLandType()));
-                NationalityEntity nationalityEntity = new NationalityEntity();
-                nationalityEntity.setNationalityId(Integer.parseInt(subCategoryItemsForm.getNationality()));
-                NationalRegionalEntity nationalRegional = new NationalRegionalEntity();
-                nationalRegional.setNationalRegionalId(Integer.parseInt(subCategoryItemsForm.getNationalRegional()));
+                rolesEntity.setCategory(Integer.parseInt(subCategoryItemsForm.getCategoryId()));
+                rolesEntity.setSubCategory(Integer.parseInt(subCategoryItemsForm.getVendorType()));
+                rolesEntity.setLandType(Integer.parseInt(subCategoryItemsForm.getLandType()));
+                rolesEntity.setNationality(Integer.parseInt(subCategoryItemsForm.getNationality()));
 
+                NationalRegionalEntity nationalRegionalEntity = new NationalRegionalEntity();
+                nationalRegionalEntity.setNationalRegionalId(Integer.parseInt(subCategoryItemsForm.getNationalRegional()));
+                rolesEntity.setNationalRegional(nationalRegionalEntity);
                 rolesEntity.setActive(true);
-                rolesEntity.setCategory(category);
-                rolesEntity.setSubCategory(subCategory);
-                rolesEntity.setLandType(landType);
-                rolesEntity.setNationality(nationalityEntity);
-                rolesEntity.setNationalRegional(nationalRegional);
                 rolesEntity.setFee(subCategoryItemsForm.getFee());
                 rolesEntity.setFee_bdo(subCategoryItemsForm.getFee_panchayat());
                 rolesEntity.setSecurityAmount(subCategoryItemsForm.getSecurity());

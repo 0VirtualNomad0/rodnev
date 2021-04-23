@@ -201,10 +201,10 @@
                <td>
                   <c:out value="${loopCounter.count}"/>
                </td>
-               <td>${application.item.category.categoryName}</td>
-               <td>${application.item.subCategory.subCategoryName}</td>
-               <td>${application.item.landType.landTypeName}</td>
-               <td>${application.item.nationality.nationalityName}</td>
+               <td>${applicationData.category.categoryName}</td>
+               <td>${applicationData.subcategory.subCategoryName}</td>
+               <td>${applicationData.purposeActivity.landTypeName}</td>
+               <td>${applicationData.nationalityEntity.nationalityName}</td>
                <td>${application.item.nationalRegional.nationalRegionalName}</td>
                <c:if test="${application.tentNumber == 0}">
                   <td>${application.item.itemName}</td>

@@ -55,14 +55,9 @@ public class API {
 
         try {
             UserApplicationEntity data = userApplicationService.getUserApplicationViaAppIdUserId(Integer.parseInt(appId), Integer.parseInt(userId));
-
-
-            // Creating Object of ObjectMapper define in Jakson Api
             ObjectMapper Obj = new ObjectMapper();
             String jsonStr = null;
-
             jsonStr = Obj.writeValueAsString(data);
-
             EncryptDecrypt ED = new EncryptDecrypt();
             encrypted = ED.encrypt(jsonStr);
 

@@ -292,7 +292,7 @@ public class GeneratePdfReport {
 
                 for (int i = 0; i < userApplicationEntity.getApp_items().size(); i++) {
                     feeTable.addCell(getCell(String.valueOf(i + 1), boldFont2));
-                    feeTable.addCell(getCell(userApplicationEntity.getApp_items().get(i).getItem().getCategory().getCategoryName(), boldFont2));
+                    feeTable.addCell(getCell(userApplicationEntity.getCategory().getCategoryName(), boldFont2));
                     feeTable.addCell(getCell(userApplicationEntity.getApp_items().get(i).getItem().getItemName(), boldFont2));
                     feeTable.addCell(getCell(userApplicationEntity.getApp_items().get(i).getItem().getFee(), boldFont2));
                     feeTable.addCell(getCell(userApplicationEntity.getApp_items().get(i).getItem().getFee_bdo(), boldFont2));

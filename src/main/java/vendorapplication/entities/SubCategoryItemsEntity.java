@@ -14,24 +14,28 @@ public class SubCategoryItemsEntity implements Serializable {
     @Column(name = "items_id")
     private Integer itemId;
 
-    @OneToOne
-    @JoinColumn(name="category_id" )
-    private CategoryEntity category;
+   // @OneToOne
+    //@JoinColumn(name="category_id" )
+    @Column(name="category_id")
+    private Integer category;
 
-    @OneToOne
-    @JoinColumn(name="subcategory_id" )
-    private SubCategoryEntity subCategory;
+   // @OneToOne
+   // @JoinColumn(name="subcategory_id" )
+   @Column(name="subcategory_id")
+    private Integer subCategory;
 
     @Column(name = "items_name")
     private String itemName;
 
-    @OneToOne
-    @JoinColumn(name="landtype_id" )
-    private LandTypeEntity landType;
+   // @OneToOne
+    //@JoinColumn(name="landtype_id" )
+   @Column(name="landtype_id")
+    private Integer landType;
 
-    @OneToOne
-    @JoinColumn(name="nationality_id" )
-    private NationalityEntity nationality;
+  //  @OneToOne
+    //@JoinColumn(name="nationality_id" )
+  @Column(name="nationality_id")
+    private Integer nationality;
 
     @OneToOne
     @JoinColumn(name="nationalregional_id" )
@@ -53,7 +57,6 @@ public class SubCategoryItemsEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-
     public Integer getItemId() {
         return itemId;
     }
@@ -62,19 +65,19 @@ public class SubCategoryItemsEntity implements Serializable {
         this.itemId = itemId;
     }
 
-    public CategoryEntity getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryEntity category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
-    public SubCategoryEntity getSubCategory() {
+    public Integer getSubCategory() {
         return subCategory;
     }
 
-    public void setSubCategory(SubCategoryEntity subCategory) {
+    public void setSubCategory(Integer subCategory) {
         this.subCategory = subCategory;
     }
 
@@ -86,19 +89,19 @@ public class SubCategoryItemsEntity implements Serializable {
         this.itemName = itemName;
     }
 
-    public LandTypeEntity getLandType() {
+    public Integer getLandType() {
         return landType;
     }
 
-    public void setLandType(LandTypeEntity landType) {
+    public void setLandType(Integer landType) {
         this.landType = landType;
     }
 
-    public NationalityEntity getNationality() {
+    public Integer getNationality() {
         return nationality;
     }
 
-    public void setNationality(NationalityEntity nationality) {
+    public void setNationality(Integer nationality) {
         this.nationality = nationality;
     }
 
@@ -126,6 +129,14 @@ public class SubCategoryItemsEntity implements Serializable {
         this.fee = fee;
     }
 
+    public String getFee_bdo() {
+        return fee_bdo;
+    }
+
+    public void setFee_bdo(String fee_bdo) {
+        this.fee_bdo = fee_bdo;
+    }
+
     public Boolean getActive() {
         return active;
     }
@@ -140,14 +151,6 @@ public class SubCategoryItemsEntity implements Serializable {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public String getFee_bdo() {
-        return fee_bdo;
-    }
-
-    public void setFee_bdo(String fee_bdo) {
-        this.fee_bdo = fee_bdo;
     }
 
     @Override
