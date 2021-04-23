@@ -15,9 +15,10 @@ public class SubCategoryEntity implements Serializable {
     private Integer subCategoryId;
 
 
-    @OneToOne
-    @JoinColumn(name="category_id" )
-    private CategoryEntity categoryId;
+   // @OneToOne
+   // @JoinColumn(name="category_id" )
+   @Column(name = "category_id")
+    private Integer categoryId;
 
     @Column(name = "subcategory_name")
     private String subCategoryName;
@@ -37,11 +38,11 @@ public class SubCategoryEntity implements Serializable {
         this.subCategoryId = subCategoryId;
     }
 
-    public CategoryEntity getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(CategoryEntity categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 

@@ -63,7 +63,7 @@ public class API {
 
             if (data != null ) {
                 map = new HashMap<String, Object>();
-                map.put(Constants.keyResponse, encrypted);
+                map.put(Constants.keyResponse, data);
                 map.put(Constants.keyMessage, Constants.valueMessage);
                 map.put(Constants.keyStatus, HttpStatus.OK.value());
                 return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

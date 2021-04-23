@@ -71,11 +71,9 @@ public class SubCategoryController {
             }
             try {
                 SubCategoryEntity rolesEntity = new SubCategoryEntity();
-                CategoryEntity category = new CategoryEntity();
                 rolesEntity.setActive(true);
                 rolesEntity.setSubCategoryName(subCategoryForm.getSubcategoryName());
-                category.setCategoryID(subCategoryForm.getCategoryId());
-                rolesEntity.setCategoryId(category);
+                rolesEntity.setCategoryId(subCategoryForm.getCategoryId());
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Date date = new Date(timestamp.getTime());
                 rolesEntity.setCreatedDate(date);
