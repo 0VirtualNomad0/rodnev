@@ -1,5 +1,6 @@
 package vendorapplication.ajax;
 
+import org.apache.tomcat.util.bcel.Const;
 import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +67,7 @@ public class AjaxContoller {
     private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
 
 
-    @RequestMapping(value = "/ajax/getRoles", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getRoles, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getRoles() {
         Map<String, Object> map = null;
@@ -90,7 +91,7 @@ public class AjaxContoller {
 
     }
 
-    @RequestMapping(value = "/ajax/getGender", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getGender, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getGender() {
         Map<String, Object> map = null;
@@ -115,7 +116,7 @@ public class AjaxContoller {
     }
 
     //Get State
-    @RequestMapping(value = "/ajax/getState", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getState, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getState() {
         Map<String, Object> map = null;
@@ -140,9 +141,9 @@ public class AjaxContoller {
     }
 
     //Get Districs
-    @RequestMapping(value = "/ajax/getDistrictsViaState", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getDistrictsViaState, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getDistrictsViaState(@RequestParam(value = "id", required = true) String id) throws Exception {
+    ResponseEntity<?> getDistrictsViaState(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
 
         Map<String, Object> map = null;
 
@@ -178,9 +179,9 @@ public class AjaxContoller {
     }
 
     //getBlocks
-    @RequestMapping(value = "/ajax/getBlocks", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getBlocks, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getBlocks(@RequestParam(value = "id", required = true) String id) throws Exception {
+    ResponseEntity<?> getBlocks(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
         Map<String, Object> map = null;
 
         try{
@@ -212,9 +213,9 @@ public class AjaxContoller {
     }
 
     //getTehsils
-    @RequestMapping(value = "/ajax/getTehsils", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getTehsils, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getTehsils(@RequestParam(value = "id", required = true) String id) throws Exception {
+    ResponseEntity<?> getTehsils(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
         Map<String, Object> map = null;
 
         try{
@@ -247,9 +248,9 @@ public class AjaxContoller {
     }
 
     //getWardPanchayat
-    @RequestMapping(value = "/ajax/getWardPanchayat", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getWardPanchayat, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getWardPanchayat(@RequestParam(value = "id", required = true) String id) throws Exception {
+    ResponseEntity<?> getWardPanchayat(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
 
 
         Map<String, Object> map = null;
@@ -285,7 +286,7 @@ public class AjaxContoller {
 
 
     //getNationality
-    @RequestMapping(value = "/ajax/getNationality", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getNationality, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getNationality() {
         Map<String, Object> map = null;
@@ -313,7 +314,7 @@ public class AjaxContoller {
 
 
     //getNationalRegional
-    @RequestMapping(value = "/ajax/getNationalRegional", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getNationalRegional, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getNationalRegional() {
         Map<String, Object> map = null;
@@ -340,7 +341,7 @@ public class AjaxContoller {
 
     //LandType
     //getNationalRegional
-    @RequestMapping(value = "/ajax/getLandType", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getLandType, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getLandType() {
         Map<String, Object> map = null;
@@ -365,7 +366,7 @@ public class AjaxContoller {
 
     }
 
-    @RequestMapping(value = "/ajax/getrolesVendor", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getrolesVendor, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getrolesVendor() {
         Map<String, Object> map = null;
@@ -390,7 +391,7 @@ public class AjaxContoller {
     }
 
     //getVendor
-    @RequestMapping(value = "/ajax/getVendor", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getVendor, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getVendor() {
         Map<String, Object> map = null;
@@ -416,9 +417,9 @@ public class AjaxContoller {
 
 
     //getVendorCategory
-        @RequestMapping(value = "/ajax/getVendorCategory", method = RequestMethod.GET,  produces="application/json")
+        @RequestMapping(value = Constants.getVendorCategory, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getVendorCategory(@RequestParam(value = "id", required = true) String id) throws Exception {
+    ResponseEntity<?> getVendorCategory(@RequestParam(value = Constants.requestParam, required = true) String id) throws Exception {
 
 
             Map<String, Object> map = null;
@@ -451,13 +452,13 @@ public class AjaxContoller {
     }
 
     //getItemsviaSubCategories
-    @RequestMapping(value = "/ajax/getItemsviaSubCategoriesTent", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getItemsviaSubCategoriesTent, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getItemsviaSubCategories(
 
-            @RequestParam(value = "landType", required = true) String landType,
-            @RequestParam(value = "category", required = true) String category,
-            @RequestParam(value = "subCategory", required = true) String subCategory
+            @RequestParam(value = Constants.landType, required = true) String landType,
+            @RequestParam(value = Constants.category, required = true) String category,
+            @RequestParam(value = Constants.subCategory, required = true) String subCategory
              ) throws Exception {
 
 
@@ -501,13 +502,13 @@ public class AjaxContoller {
 
 
     //getItemsviaSubCategoriesNR
-    @RequestMapping(value = "/ajax/getItemsviaSubCategoriesNR", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getItemsviaSubCategoriesNR, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getItemsviaSubCategoriesNR(
-            @RequestParam(value = "landType", required = true) String landType,
-            @RequestParam(value = "category", required = true) String category,
-            @RequestParam(value = "regional", required = true) String regional,
-            @RequestParam(value = "subCategory", required = true) String subCategory
+            @RequestParam(value = Constants.landType, required = true) String landType,
+            @RequestParam(value = Constants.category, required = true) String category,
+            @RequestParam(value = Constants.regional, required = true) String regional,
+            @RequestParam(value = Constants.subCategory, required = true) String subCategory
     ) throws Exception {
 
 
@@ -549,13 +550,13 @@ public class AjaxContoller {
     }
 
 // getItemsviaSubCategoriesNonTentNonRegional
-@RequestMapping(value = "/ajax/getItemsviaSubCategoriesNonTentNonRegional", method = RequestMethod.GET,  produces="application/json")
+@RequestMapping(value = Constants.getItemsviaSubCategoriesNonTentNonRegional, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
 public @ResponseBody
 ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
-        @RequestParam(value = "landType", required = true) String landType,
-        @RequestParam(value = "category", required = true) String category,
-        @RequestParam(value = "regional", required = true) String regional,
-        @RequestParam(value = "subCategory", required = true) String subCategory
+        @RequestParam(value = Constants.landType, required = true) String landType,
+        @RequestParam(value = Constants.category, required = true) String category,
+        @RequestParam(value = Constants.regional, required = true) String regional,
+        @RequestParam(value = Constants.subCategory, required = true) String subCategory
 ) throws Exception {
 
 
@@ -595,7 +596,7 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
 }
 
     //getDistrict
-    @RequestMapping(value = "/ajax/getDistrict", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getDistrict, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getDistrict() {
         Map<String, Object> map = null;
@@ -620,9 +621,9 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
     }
 
     //getArea
-    @RequestMapping(value = "/ajax/getArea", method = RequestMethod.GET,  produces="application/json")
+    @RequestMapping(value = Constants.getArea, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getArea(@RequestParam(value = "id", required = true) String id) throws Exception {
+    ResponseEntity<?> getArea(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
 
         Map<String, Object> map = null;
         try {

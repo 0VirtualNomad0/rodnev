@@ -3,7 +3,6 @@ package vendorapplication.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.WebUtils;
 import vendorapplication.captcha.CaptchaAuthenticationProvider;
 import vendorapplication.captcha.CaptchaDetailsSource;
+import vendorapplication.utilities.Constants;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -93,19 +93,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage(Constants.loginController)
                 .successHandler(loginSuccessHandler())
                 .failureHandler(loginFailureHandler())
                 .authenticationDetailsSource(detailsSource).permitAll().and()
                 .logout().logoutSuccessHandler(logoutSuccessHandler())
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
+                .deleteCookies(Constants.JSESSIONID)
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)
                 .and()
-                .invalidSessionUrl("/login");
+                .invalidSessionUrl(Constants.loginController);
 
 
     }
@@ -117,31 +117,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
                 if (csrf != null) {
-                    Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
+                    Cookie cookie = WebUtils.getCookie(request, Constants.headerNameXSRF);
                     String token = csrf.getToken();
                     if (cookie == null || token != null && !token.equals(cookie.getValue())) {
-                        cookie = new Cookie("XSRF-TOKEN", token);
-                        cookie.setPath("/");
+                        cookie = new Cookie(Constants.headerNameXSRF, token);
+                        cookie.setPath(Constants.seperator);
                         cookie.setSecure(true);
                         cookie.setHttpOnly(true);
                         response.addCookie(cookie);
                     }
                 }
 
-                Collection<String> headers = response.getHeaders("Set-Cookie");
+                Collection<String> headers = response.getHeaders(Constants.setHeaderCokkie);
                 boolean firstHeader = true;
                 for (String header : headers) {
                     if (firstHeader) {
-                        response.setHeader("Set-Cookie", String.format("%s; %s", header, "SameSite=Strict"));
+                        response.setHeader(Constants.setHeaderCokkie, String.format(Constants.formatting, header, Constants.SameSite_Strict));
                         firstHeader = false;
                         continue;
                     }
-                    response.addHeader("Set-Cookie", String.format("%s; %s", header, "SameSite=Strict"));
+                    response.addHeader(Constants.setHeaderCokkie, String.format(Constants.formatting, header, Constants.SameSite_Strict));
                 }
-                request.setCharacterEncoding("UTF-8");
-                response.setContentType("text/html; charset=UTF-8");
-                response.setHeader("pragma", "no-cache");
-                response.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
+                request.setCharacterEncoding(Constants.utf8);
+                response.setContentType(Constants.text_html);
+                response.setHeader(Constants.pragma, Constants.no_cache);
+                response.setHeader(Constants.Cache_control, Constants.nocache_nostore_mustrevalidate);
                 filterChain.doFilter(request, response);
             }
         };
@@ -149,7 +149,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private CsrfTokenRepository csrfTokenRepository() {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
+        repository.setHeaderName(Constants.headerNameXXSRF);
 
 
         return repository;
@@ -158,20 +158,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private AuthenticationSuccessHandler loginSuccessHandler() {
         return (request, response, authentication) -> response
-                .sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path("/index").toUriString());
+                .sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path(Constants.indexController).toUriString());
     }
 
     private AuthenticationFailureHandler loginFailureHandler() {
         return (request, response, exception) -> {
-            request.getSession().setAttribute("error", "Please Enter valid User Credentials and Captcha");
-            response.sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
+            request.getSession().setAttribute(Constants.errorsec, Constants.secError);
+            response.sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path(Constants.loginController).toUriString());
         };
     }
 
     private LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, authentication) -> {
-            request.getSession().setAttribute("message", "Logout Successful.");
-            response.sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
+            request.getSession().setAttribute(Constants.messagesec, Constants.secMessage);
+            response.sendRedirect(ServletUriComponentsBuilder.fromCurrentContextPath().path(Constants.loginController).toUriString());
         };
     }
 

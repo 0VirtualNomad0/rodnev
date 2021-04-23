@@ -1,13 +1,15 @@
 package vendorapplication.captcha;
 
+import vendorapplication.utilities.Constants;
+
 import java.util.Random;
 
 public class Util {
     public static String generateCaptchaTextMethod1() 	 {
 
         Random rdm=new Random();
-        int rl=rdm.nextInt(); // Random numbers are generated.
-        String hash1 = Integer.toHexString(rl); // Random numbers are converted to Hexa Decimal.
+        int rl=rdm.nextInt();
+        String hash1 = Integer.toHexString(rl);
 
         return hash1;
 
@@ -15,16 +17,13 @@ public class Util {
 
     public static String generateCaptchaTextMethod2(int captchaLength) 	 {
 
-      //  String saltChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        String saltChars = "1234567890";
         StringBuffer captchaStrBuffer = new StringBuffer();
         java.util.Random rnd = new java.util.Random();
 
-        // build a random captchaLength chars salt
         while (captchaStrBuffer.length() < captchaLength)
         {
-            int index = (int) (rnd.nextFloat() * saltChars.length());
-            captchaStrBuffer.append(saltChars.substring(index, index+1));
+            int index = (int) (rnd.nextFloat() * Constants.captchaSaltCharacters.length());
+            captchaStrBuffer.append(Constants.captchaSaltCharacters.substring(index, index+1));
         }
 
         return captchaStrBuffer.toString();

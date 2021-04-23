@@ -99,4 +99,92 @@ public class Constants {
     public static Integer reportTableSpacing = 20;
 
 
+    /**
+     * Json Data Rest Service
+     */
+    public static final String application_id = "application_id";
+    public static final String user_id = "user_id";
+    public static final String mobule_number="mobile_number";
+    public static final String genericError = "Something Bad Happened. Please try again later.";
+    public static final String nothingFound = "No Record Found";
+    public static final String consumesProducesJson = "application/json";
+    public static final String apiMethod = "/api/getCompleteApplication";
+    public static final String applicationDataEmpty = "Application Data Empty";
+
+    /**
+     * Captcha Salt Characters
+     */
+    public static final String captchaSaltCharacters = "1234567890";
+
+    /**
+     * AJAX Constants
+     * All the Javascript Mappings defined as constants
+     * AJAX Constants Parameters
+     */
+    public static final String requestParam = "id";
+    public static final String getArea = "/ajax/getArea";
+    public static final String getDistrict = "/ajax/getDistrict";
+    public static final String getItemsviaSubCategoriesNonTentNonRegional = "/ajax/getItemsviaSubCategoriesNonTentNonRegional";
+    public static final String getItemsviaSubCategoriesNR = "/ajax/getItemsviaSubCategoriesNR";
+    public static final String getItemsviaSubCategoriesTent = "/ajax/getItemsviaSubCategoriesTent";
+    public static final String getVendorCategory="/ajax/getVendorCategory";
+    public static final String getVendor="/ajax/getVendor";
+    public static final String getrolesVendor="/ajax/getrolesVendor";
+    public static final String getLandType ="/ajax/getLandType";
+    public static final String getNationalRegional="/ajax/getNationalRegional";
+    public static final String getNationality="/ajax/getNationality";
+    public static final String getWardPanchayat="/ajax/getWardPanchayat";
+    public static final String getTehsils="/ajax/getTehsils";
+    public static final String getBlocks="/ajax/getBlocks";
+    public static final String getDistrictsViaState="/ajax/getDistrictsViaState";
+    public static final String getState="/ajax/getState";
+    public static final String getGender="/ajax/getGender";
+    public static final String getRoles="/ajax/getRoles";
+
+    public static final String landType = "landType";
+    public static final String category = "category";
+    public static final String subCategory = "subCategory";
+    public static final String regional = "regional";
+
+
+    /**
+     * Cache String
+     */
+    public static final String cacheLogString = "========================================================="   + "Using cache manager: " +" =========================================================";
+
+    /**
+     * Configuration Package Constants
+     */
+    public static final String messageSource ="messageSource";
+    public static final String utf8 = "UTF-8";
+    public static final String lang_messages ="lang/messages";
+    public static final String lang = "lang";
+
+    /**
+     * Security Configuration
+     */
+    public static final String secMessage ="Logout Successful.";
+    public static final String secError ="Please Enter valid User Credentials and Captcha";
+    public static final String errorsec ="error";
+    public static final String messagesec ="message";
+
+
+    /**
+     * Controllers Mapping
+     */
+    public static final String loginController ="/login";
+    public static final String indexController ="/index";
+    public static final String headerNameXXSRF ="X-XSRF-TOKEN";
+    public static final String setHeaderCokkie= "Set-Cookie";
+    public static final String headerNameXSRF="XSRF-TOKEN";
+    public static final String JSESSIONID="JSESSIONID";
+    public static final String SameSite_Strict ="SameSite=Strict";
+    public static final String formatting = "%s; %s";
+    public static final String nocache_nostore_mustrevalidate="no-cache, no-store, must-revalidate";
+    public static  final String no_cache = "no-cache";
+    public static final String text_html="text/html; charset=UTF-8";
+    public static final String pragma ="pragma";
+    public static final String Cache_control = "Cache-control";
+    public static final String seperator = "/";
+
 }
