@@ -65,31 +65,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
-                http.csrf().ignoringAntMatchers("/nocsrf", "/paymentResponse/**");
-                http.csrf().ignoringAntMatchers("/nocsrf", "/api/**");
+                http.csrf().ignoringAntMatchers(Constants.nocrf, Constants.permitPaymentResponse);
+                http.csrf().ignoringAntMatchers(Constants.nocrf, Constants.permitApi);
                 http.headers().frameOptions().sameOrigin();
 
 
 
                 http.authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers("/downloadFile/**").permitAll()
-                        .antMatchers("/api/**").permitAll()
-                        .antMatchers("/resources/css/fonts").denyAll()
-                .antMatchers("/saveapplication/").hasAnyRole( "Vendor")
-                .antMatchers("/paymentpage/**").authenticated()
-                .antMatchers("/vendorapplication.ajax/**").authenticated()
-                .antMatchers("/admin/**").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/createuser/**").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/saveuser/").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/createrole/").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/filterApplications/").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/applications/").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/getUserDetails/**").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/updateApplication/**").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/applications_all/**").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/checkpayment/**").hasAnyRole("Admin","Super Admin")
-                .antMatchers("/index/**").hasAnyRole("Admin","Super Admin")
+                .antMatchers(Constants.permitAll).permitAll()
+                .antMatchers(Constants.permitDownloadFile).permitAll()
+                        .antMatchers(Constants.permitApi).permitAll()
+                        .antMatchers(Constants.denyPermitResourcesFonts).denyAll()
+                .antMatchers(Constants.permitSaveApplication).hasAnyRole( Constants.vendor)
+                .antMatchers(Constants.permitPaymentPage).authenticated()
+                .antMatchers(Constants.permitVendorApplicationAjax).authenticated()
+                .antMatchers(Constants.permitAdmin).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitCreateUser).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitSaveUser).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitCreateRole).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitFilterApplication).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitApplications).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitGetUserDetails).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitUpdateApplication).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitApplicationsAll_).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitCheckPayment).hasAnyRole(Constants.admin,Constants.superAdmin)
+                .antMatchers(Constants.permitIndex).hasAnyRole(Constants.admin,Constants.superAdmin)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
