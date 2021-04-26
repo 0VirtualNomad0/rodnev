@@ -15,7 +15,7 @@ import vendorapplication.utilities.Constants;
 import java.math.BigInteger;
 import java.util.*;
 
-@Controller
+@RestController
 public class AjaxContoller {
 
     @Autowired

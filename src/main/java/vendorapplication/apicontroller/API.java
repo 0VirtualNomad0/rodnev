@@ -36,7 +36,7 @@ public class API {
     /**
      * Get Application Details Via Application Id and Mobile Number
      */
-    @RequestMapping(value = Constants.apiMethod, method = RequestMethod.POST, consumes = Constants.consumesProducesJson, produces = Constants.consumesProducesJson)
+    @RequestMapping(value = Constants.apiMethod, method = RequestMethod.POST, consumes = Constants.getConsumesProducesPlainText, produces = Constants.consumesProducesJson)
     @ResponseBody
     public synchronized ResponseEntity<?> getApplicationDetails(@RequestBody String jsonDataApp ) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         logger.info("Json App Date:- "+ jsonDataApp);

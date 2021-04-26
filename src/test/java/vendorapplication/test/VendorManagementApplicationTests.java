@@ -86,7 +86,11 @@ public class VendorManagementApplicationTests {
           EncryptDecrypt AES = new EncryptDecrypt();
 
           System.out.println("\n\n\t");
-          String encryptFile = AES.encrypt("ou have been successfully registered for E-Flight Service. Your Application ID is:-");
+          String encryptFile = AES.encrypt("{\n" +
+                  "    \"application_id\":113,\n" +
+                  "    \"mobile_number\": 9459619235,\n" +
+                  "    \"user_id\": 130\n" +
+                  "}");
           System.out.println(" Encryption of File:-  " + encryptFile);
           System.out.println("\n\n\t");
           String decryptFile = AES.decrypt(encryptFile);

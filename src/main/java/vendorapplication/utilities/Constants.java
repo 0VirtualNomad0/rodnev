@@ -59,6 +59,7 @@ public class Constants {
     public static final String genericError = "Something Bad Happened. Please try again later.";
     public static final String nothingFound = "No Record Found";
     public static final String consumesProducesJson = "application/json";
+    public static final String getConsumesProducesPlainText = "text/plain";
     public static final String apiMethod = "/api/getCompleteApplication";
     public static final String applicationDataEmpty = "Application Data Empty";
     /**
