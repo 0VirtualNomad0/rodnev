@@ -55,13 +55,17 @@ public class Constants {
      */
     public static final String application_id = "application_id";
     public static final String user_id = "user_id";
+    public static final String username = "username";
+    public static final String password = "password";
     public static final String mobule_number = "mobile_number";
     public static final String genericError = "Something Bad Happened. Please try again later.";
     public static final String nothingFound = "No Record Found";
     public static final String consumesProducesJson = "application/json";
     public static final String getConsumesProducesPlainText = "text/plain";
     public static final String apiMethod = "/api/getCompleteApplication";
+    public static final String apiMethodLogin = "/api/login";
     public static final String applicationDataEmpty = "Application Data Empty";
+    public static final String userDetailsDataEmpty = "User Details  Data Empty";
     /**
      * Captcha Salt Characters
      */

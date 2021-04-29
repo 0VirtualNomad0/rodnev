@@ -1,9 +1,14 @@
 package vendorapplication.test;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.xml.sax.SAXException;
+import vendorapplication.entities.UserEntity;
 import vendorapplication.security.EncryptDecrypt;
+import vendorapplication.services.UserService;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -18,6 +23,8 @@ import java.security.NoSuchAlgorithmException;
 public class VendorManagementApplicationTests {
 
 
+    @Autowired
+    UserService userService;
 
 //    @Autowired
 //    RolesRepository rolesRepository;
@@ -85,12 +92,13 @@ public class VendorManagementApplicationTests {
 
           EncryptDecrypt AES = new EncryptDecrypt();
 
+           String userData = "{\n" +
+                   "  \"username\": \"kush2\",\n" +
+                   "  \"password\": \"Demo@123\"\n" +
+                   "}";
+
           System.out.println("\n\n\t");
-          String encryptFile = AES.encrypt("{\n" +
-                  "    \"application_id\":113,\n" +
-                  "    \"mobile_number\": 9459619235,\n" +
-                  "    \"user_id\": 130\n" +
-                  "}");
+          String encryptFile = AES.encrypt(userData);
           System.out.println(" Encryption of File:-  " + encryptFile);
           System.out.println("\n\n\t");
           String decryptFile = AES.decrypt(encryptFile);
@@ -98,6 +106,32 @@ public class VendorManagementApplicationTests {
 
       }
 
+
+
+
+//@Test
+//    public void checkUsernamrAndPassword() {
+//
+//    String username = "kush";
+//    String password = "Demo@123";
+//
+//
+//
+//    UserEntity user = userService.getUserDetailsViaUsername(username);
+//    System.out.println(user.toString());
+//
+//    PasswordEncoder encoder = new BCryptPasswordEncoder();
+//    System.out.println(encoder.encode(password));
+//
+//    boolean isPasswordMatch = encoder.matches(password, user.getPassword());
+//    System.out.println("Password : " + password + "   isPasswordMatch    : " + isPasswordMatch);
+//
+//
+//
+//
+//
+//
+//}
 
 
 

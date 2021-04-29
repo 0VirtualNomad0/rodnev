@@ -268,7 +268,7 @@ public class PaymentPageController {
                     entity_.setError("Transaction ID Null");
                     entity_.setMihpayId(mihpayid);
                     entity_.setEmail(email);
-                    request.getSession().setAttribute("paymentStatus", "Failed");
+                    request.getSession().setAttribute("paymentStatus", "Failed, Transaction Id Already Exists.");
                     request.getSession().setAttribute("TransactionId", entity_.getTransactionId());
                     request.getSession().setAttribute("Amount", entity_.getAmount());
                     request.getSession().setAttribute("ApplicationId", entity_.getUserId());
