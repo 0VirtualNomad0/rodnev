@@ -6,7 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.xml.sax.SAXException;
+import vendorapplication.entities.BlocksEntity;
 import vendorapplication.entities.UserEntity;
+import vendorapplication.repositories.blocks.BlockRepository;
 import vendorapplication.security.EncryptDecrypt;
 import vendorapplication.services.UserService;
 
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @SpringBootTest
 public class VendorManagementApplicationTests {
@@ -25,6 +28,9 @@ public class VendorManagementApplicationTests {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BlockRepository blockRepository;
 
 //    @Autowired
 //    RolesRepository rolesRepository;
@@ -105,6 +111,18 @@ public class VendorManagementApplicationTests {
           System.out.println("Decryption of File:- " + decryptFile);
 
       }
+
+    @Test
+    public  void getBlocks()  {
+
+        List<BlocksEntity> blocks = blockRepository.getBlocksViaDitricts(196);
+        System.out.println(blocks.toString());
+
+        List<BlocksEntity> active_blocks = blockRepository.getAllActiveBlocks(true, false);
+        System.out.println(active_blocks.toString());
+
+
+    }
 
 
 

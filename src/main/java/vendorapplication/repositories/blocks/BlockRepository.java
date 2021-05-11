@@ -1,4 +1,4 @@
-package vendorapplication.repositories;
+package vendorapplication.repositories.blocks;
 
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @CacheConfig(cacheNames = "blocks")
-public interface BlockRepository extends CrudRepository<BlocksEntity,Integer> {
+public interface BlockRepository extends CrudRepository<BlocksEntity,Integer>, BlockRepositoryCustom {
 
     @Query(value = "SELECT block_id, block_name from mst_block where is_active = true AND district_id =:id", nativeQuery = true)
     @Cacheable

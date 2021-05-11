@@ -1,15 +1,16 @@
 package vendorapplication.ajax;
 
-import org.apache.tomcat.util.bcel.Const;
+import jdk.nashorn.internal.ir.Block;
+import vendorapplication.entities.BlocksEntity;
 import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vendorapplication.repositories.*;
+import vendorapplication.repositories.blocks.BlockRepository;
 import vendorapplication.utilities.Constants;
 
 import java.math.BigInteger;
@@ -185,14 +186,14 @@ public class AjaxContoller {
         Map<String, Object> map = null;
 
         try{
-            List<Object[] > blockObjects = blockRepository.getBlocksViaDistrict(Integer.parseInt(id));
+            List<BlocksEntity > blockObjects = blockRepository.getBlocksViaDitricts(Integer.parseInt(id));
             List<BlockModal> blockModals = new ArrayList<>();
 
 
-            for (Object[] result : blockObjects) {
+            for (BlocksEntity result : blockObjects) {
                 BlockModal pojo = new BlockModal();
-                pojo.setBlockId((Integer) result[0]);
-                pojo.setBlockName((String) result[1]);
+                pojo.setBlockId(result.getDistrictId());
+                pojo.setBlockName(result.getDistrictName());
                 blockModals.add(pojo);
             }
 
@@ -211,6 +212,41 @@ public class AjaxContoller {
         }
 
     }
+
+    // Get Blocks Two
+//    @RequestMapping(value = Constants.getBlocks, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+//    public @ResponseBody
+//    ResponseEntity<?> getBlocksTwo(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+//        Map<String, Object> map = null;
+//
+//        try{
+//            List<BlocksEntity> blockObjects = blockRepository.getBlocksViaDitricts(Integer.parseInt(id));
+//
+//            if(!blockObjects.isEmpty()){
+//                map = new HashMap<String, Object>();
+//                map.put(Constants.keyResponse, blockObjects);
+//                map.put(Constants.keyMessage, Constants.valueMessage);
+//                map.put(Constants.keyStatus, HttpStatus.OK);
+//                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//            }else{
+//                map = new HashMap<String, Object>();
+//                map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+//                map.put(Constants.keyMessage, Constants.valueMessage);
+//                map.put(Constants.keyStatus, HttpStatus.OK);
+//                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//            }
+//
+//
+//        }catch(Exception ex){
+//
+//            map = new HashMap<String, Object>();
+//            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+//            map.put(Constants.keyMessage, Constants.valueMessage);
+//            map.put(Constants.keyStatus, HttpStatus.OK);
+//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//        }
+//
+//    }
 
     //getTehsils
     @RequestMapping(value = Constants.getTehsils, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
