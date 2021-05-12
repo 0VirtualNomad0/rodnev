@@ -18,12 +18,12 @@ public class LandTypeEntity implements Serializable {
     @Column(name = "landtye_name")
     private String landTypeName;
 
-//    @Column(name = "active")
-//    private Boolean active;
-//
-//    @Column(name = "createddate")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdDate;
+    @Column(name = "active")
+    private Boolean active;
+
+    @Column(name = "createddate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
 
     public Integer getLandTypeId() {
@@ -42,29 +42,29 @@ public class LandTypeEntity implements Serializable {
         this.landTypeName = landTypeName;
     }
 
-//    public Boolean getActive() {
-//        return active;
-//    }
-//
-//    public void setActive(Boolean active) {
-//        this.active = active;
-//    }
-//
-//    public Date getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(Date createdDate) {
-//        this.createdDate = createdDate;
-//    }
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
     @Override
     public String toString() {
         return "LandTypeEntity{" +
                 "landTypeId=" + landTypeId +
                 ", landTypeName='" + landTypeName + '\'' +
-               // ", active=" + active +
-               // ", createdDate=" + createdDate +
+                ", active=" + active +
+                ", createdDate=" + createdDate +
                 '}';
     }
 }

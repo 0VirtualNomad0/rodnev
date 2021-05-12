@@ -17,12 +17,12 @@ public class NationalityEntity implements Serializable {
     @Column(name = "nationality_name")
     private String nationalityName;
 
-//    @Column(name = "active")
-//    private Boolean active;
-//
-//    @Column(name = "createddate")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdDate;
+    @Column(name = "active")
+    private Boolean active;
+
+    @Column(name = "createddate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
     public Integer getNationalityId() {
         return nationalityId;
@@ -40,29 +40,29 @@ public class NationalityEntity implements Serializable {
         this.nationalityName = nationalityName;
     }
 
-//    public Boolean getActive() {
-//        return active;
-//    }
-//
-//    public void setActive(Boolean active) {
-//        this.active = active;
-//    }
-//
-//    public Date getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(Date createdDate) {
-//        this.createdDate = createdDate;
-//    }
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
     @Override
     public String toString() {
         return "NationalityEntity{" +
                 "nationalityId=" + nationalityId +
                 ", nationalityName='" + nationalityName + '\'' +
-//                ", active=" + active +
-//                ", createdDate=" + createdDate +
+                ", active=" + active +
+                ", createdDate=" + createdDate +
                 '}';
     }
 }

@@ -3,10 +3,15 @@ package vendorapplication.modal;
 
 import java.io.Serializable;
 
-public class VendorCategoryModal implements Serializable {
+public class SubCategoryModal implements Serializable {
 
     private Integer vendorCategoryId;
     private String vendorCategoryName;
+
+    public SubCategoryModal(Integer vendorCategoryId, String vendorCategoryName) {
+        this.vendorCategoryId = vendorCategoryId;
+        this.vendorCategoryName = vendorCategoryName;
+    }
 
     public Integer getVendorCategoryId() {
         return vendorCategoryId;
@@ -26,7 +31,7 @@ public class VendorCategoryModal implements Serializable {
 
     @Override
     public String toString() {
-        return "VendorCategoryModal{" +
+        return "SubCategoryModal{" +
                 "vendorCategoryId=" + vendorCategoryId +
                 ", vendorCategoryName='" + vendorCategoryName + '\'' +
                 '}';

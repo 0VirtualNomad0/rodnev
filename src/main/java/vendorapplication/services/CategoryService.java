@@ -3,7 +3,7 @@ package vendorapplication.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vendorapplication.entities.CategoryEntity;
-import vendorapplication.repositories.CategoryRepository;
+import vendorapplication.repositories.category.CategoryRepository;
 
 @Service
 public class CategoryService {

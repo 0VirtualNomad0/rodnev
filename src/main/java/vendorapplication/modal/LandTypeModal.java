@@ -7,6 +7,10 @@ public class LandTypeModal implements Serializable {
     private Integer landTypeId;
     private String landTypeName;
 
+    public LandTypeModal(Integer landTypeId, String landTypeName) {
+        this.landTypeId = landTypeId;
+        this.landTypeName = landTypeName;
+    }
 
     public Integer getLandTypeId() {
         return landTypeId;

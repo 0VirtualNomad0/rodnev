@@ -7,6 +7,11 @@ public class CategoryModal implements Serializable {
     private Integer categoryId;
     private String categoryName;
 
+    public CategoryModal(Integer categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
+
     public Integer getCategoryId() {
         return categoryId;
     }

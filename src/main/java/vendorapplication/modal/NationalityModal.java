@@ -7,6 +7,11 @@ public class NationalityModal implements Serializable {
     private Integer nationalityId;
     private String nationalityName;
 
+    public NationalityModal(Integer nationalityId, String nationalityName) {
+        this.nationalityId = nationalityId;
+        this.nationalityName = nationalityName;
+    }
+
     public Integer getNationalityId() {
         return nationalityId;
     }

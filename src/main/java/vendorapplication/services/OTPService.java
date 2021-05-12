@@ -1,10 +1,9 @@
 package vendorapplication.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import vendorapplication.entities.OTPEntity;
-import vendorapplication.repositories.OTPRepository;
+import vendorapplication.repositories.otp.OTPRepository;
 
 @Service
 public class OTPService {

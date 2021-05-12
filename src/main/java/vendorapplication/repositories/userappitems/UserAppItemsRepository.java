@@ -1,4 +1,4 @@
-package vendorapplication.repositories;
+package vendorapplication.repositories.userappitems;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

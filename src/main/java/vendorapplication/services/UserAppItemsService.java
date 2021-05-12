@@ -4,7 +4,7 @@ package vendorapplication.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vendorapplication.entities.UserAppItemsEntity;
-import vendorapplication.repositories.UserAppItemsRepository;
+import vendorapplication.repositories.userappitems.UserAppItemsRepository;
 
 import java.util.List;
 

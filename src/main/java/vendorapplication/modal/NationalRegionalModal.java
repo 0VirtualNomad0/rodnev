@@ -7,6 +7,11 @@ public class NationalRegionalModal implements Serializable {
     private Integer nationalRegionalId;
     private String nationalRegionalName;
 
+    public NationalRegionalModal(Integer nationalRegionalId, String nationalRegionalName) {
+        this.nationalRegionalId = nationalRegionalId;
+        this.nationalRegionalName = nationalRegionalName;
+    }
+
     public Integer getNationalRegionalId() {
         return nationalRegionalId;
     }

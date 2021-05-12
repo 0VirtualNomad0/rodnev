@@ -47,8 +47,7 @@ public class VendorFormController {
     RoleService roleService;
     @Autowired
     UserApplicationService userApplicationService;
-    @Autowired
-    ApplicatioRoutsService applicatioRoutsService;
+
     @Autowired
     UserAppItemsService availedServices;
     @Autowired

@@ -15,14 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import vendorapplication.entities.UserApplicationEntity;
-import vendorapplication.entities.UserEntity;
 import vendorapplication.entities.UserPermissionsEntity;
 import vendorapplication.entities.UserTranactionEntity;
 import vendorapplication.form.ActionForm;
 import vendorapplication.modal.LoggedInUserLocationSession;
-import vendorapplication.repositories.RolesRepository;
 import vendorapplication.repositories.UserRepository;
-import vendorapplication.repositories.UserTranactionRepository;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 

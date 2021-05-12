@@ -9,10 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vendorapplication.repositories.*;
 import vendorapplication.repositories.blocks.BlockRepository;
+import vendorapplication.repositories.category.CategoryRepository;
 import vendorapplication.repositories.district.DistrictRepository;
 import vendorapplication.repositories.gender.GenderRepository;
 import vendorapplication.repositories.grampanchayat.GPRepository;
+import vendorapplication.repositories.landtype.LandTypeRepository;
+import vendorapplication.repositories.nationality.NationalityRepository;
+import vendorapplication.repositories.nationalregional.NationalRegionalRepository;
 import vendorapplication.repositories.states.StateRepository;
+import vendorapplication.repositories.subcategory.SubCategoryRepository;
 import vendorapplication.repositories.tehsil.TehsilRepository;
 import vendorapplication.utilities.Constants;
 
@@ -40,8 +45,7 @@ public class AjaxContoller {
     @Autowired
     DistrictRepository districtRepository;
 
-    @Autowired
-    AvailableAreaRepository availableAreaRepository;
+
 
     @Autowired
     StateRepository stateRepository;
@@ -274,20 +278,12 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getNationality() {
         Map<String, Object> map = null;
-        List<Object[] > nationality = nationalityRepository.getNationalality();
-        List<NationalityModal> modelNationality = new ArrayList<>();
+        List<NationalityModal> nationality = nationalityRepository.getNationalality();
 
-
-        for (Object[] result : nationality) {
-            NationalityModal pojo = new NationalityModal();
-            pojo.setNationalityId((Integer) result[0]);
-            pojo.setNationalityName((String) result[1]);
-            modelNationality.add(pojo);
-        }
 
 
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, modelNationality);
+        map.put(Constants.keyResponse, nationality);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -301,24 +297,13 @@ public class AjaxContoller {
     @RequestMapping(value = Constants.getNationalRegional, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getNationalRegional() {
-        Map<String, Object> map = null;
-        List<Object[] > nationalRegional = nationalRegionalRepository.getNationalRegional();
-        List<NationalRegionalModal> modelNationalRegional = new ArrayList<>();
-
-
-        for (Object[] result : nationalRegional) {
-            NationalRegionalModal pojo = new NationalRegionalModal();
-            pojo.setNationalRegionalId((Integer) result[0]);
-            pojo.setNationalRegionalName((String) result[1]);
-            modelNationalRegional.add(pojo);
-        }
-
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, modelNationalRegional);
+        Map<String, Object> map;
+        List<NationalRegionalModal> nationalRegional = nationalRegionalRepository.getNationalRegional();
+        map = new HashMap<>();
+        map.put(Constants.keyResponse, nationalRegional);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        return new ResponseEntity<>(map, HttpStatus.OK);
 
 
     }
@@ -328,24 +313,13 @@ public class AjaxContoller {
     @RequestMapping(value = Constants.getLandType, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
     ResponseEntity<?> getLandType() {
-        Map<String, Object> map = null;
-        List<Object[] > landType = landTypeRepository.getLandType();
-        List<LandTypeModal> modalLandType = new ArrayList<>();
-
-
-        for (Object[] result : landType) {
-            LandTypeModal pojo = new LandTypeModal();
-            pojo.setLandTypeId((Integer) result[0]);
-            pojo.setLandTypeName((String) result[1]);
-            modalLandType.add(pojo);
-        }
-
-
-        map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, modalLandType);
+        Map<String, Object> map;
+        List<LandTypeModal> landType = landTypeRepository.getLandType();
+        map = new HashMap<>();
+        map.put(Constants.keyResponse, landType);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        return new ResponseEntity<>(map, HttpStatus.OK);
 
 
     }
@@ -379,19 +353,9 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getVendor() {
         Map<String, Object> map = null;
-        List<Object[] > vendors = vendorRepository.getCategories();
-        List<CategoryModal> vendorModal = new ArrayList<>();
-
-
-        for (Object[] result : vendors) {
-            CategoryModal pojo = new CategoryModal();
-            pojo.setCategoryId((Integer) result[0]);
-            pojo.setCategoryName((String) result[1]);
-            vendorModal.add(pojo);
-        }
-
+        List<CategoryModal> categories = vendorRepository.getCategories();
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, vendorModal);
+        map.put(Constants.keyResponse, categories);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -409,19 +373,10 @@ public class AjaxContoller {
             Map<String, Object> map = null;
             try{
 
-                List<Object[] > vendorsCategorys = vendorTypeRepository.getSubCategories(Integer.parseInt(id));
-                List<VendorCategoryModal> vendorCatModal = new ArrayList<>();
-
-
-                for (Object[] result : vendorsCategorys) {
-                    VendorCategoryModal pojo = new VendorCategoryModal();
-                    pojo.setVendorCategoryId((Integer) result[0]);
-                    pojo.setVendorCategoryName((String) result[1]);
-                    vendorCatModal.add(pojo);
-                }
+                List<SubCategoryModal> vendorsCategorys = vendorTypeRepository.getSubCategories(Integer.parseInt(id));
 
                 map = new HashMap<String, Object>();
-                map.put(Constants.keyResponse, vendorCatModal);
+                map.put(Constants.keyResponse, vendorsCategorys);
                 map.put(Constants.keyMessage, Constants.valueMessage);
                 map.put(Constants.keyStatus, HttpStatus.OK);
                 return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -596,38 +551,38 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
     }
 
     //getArea
-    @RequestMapping(value = Constants.getArea, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
-    public @ResponseBody
-    ResponseEntity<?> getArea(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
-
-        Map<String, Object> map = null;
-        try {
-            List<Object[]> areaDistrictWise = availableAreaRepository.getAvailableAreaDistrict(Integer.parseInt(id));
-            List<AreaModal> areaModal = new ArrayList<>();
-
-
-            for (Object[] result : areaDistrictWise) {
-                AreaModal pojo = new AreaModal();
-                pojo.setAreaId((Integer) result[0]);
-                pojo.setAreaName((String) result[1]);
-                areaModal.add(pojo);
-            }
-
-            map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, areaModal);
-            map.put(Constants.keyMessage, Constants.valueMessage);
-            map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-        }catch(Exception ex){
-            map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
-            map.put(Constants.keyMessage, Constants.valueMessage);
-            map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-        }
-
-
-    }
+//    @RequestMapping(value = Constants.getArea, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+//    public @ResponseBody
+//    ResponseEntity<?> getArea(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+//
+//        Map<String, Object> map = null;
+//        try {
+//            List<Object[]> areaDistrictWise = availableAreaRepository.getAvailableAreaDistrict(Integer.parseInt(id));
+//            List<AreaModal> areaModal = new ArrayList<>();
+//
+//
+//            for (Object[] result : areaDistrictWise) {
+//                AreaModal pojo = new AreaModal();
+//                pojo.setAreaId((Integer) result[0]);
+//                pojo.setAreaName((String) result[1]);
+//                areaModal.add(pojo);
+//            }
+//
+//            map = new HashMap<String, Object>();
+//            map.put(Constants.keyResponse, areaModal);
+//            map.put(Constants.keyMessage, Constants.valueMessage);
+//            map.put(Constants.keyStatus, HttpStatus.OK);
+//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//        }catch(Exception ex){
+//            map = new HashMap<String, Object>();
+//            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+//            map.put(Constants.keyMessage, Constants.valueMessage);
+//            map.put(Constants.keyStatus, HttpStatus.OK);
+//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//        }
+//
+//
+//    }
 
 
 
