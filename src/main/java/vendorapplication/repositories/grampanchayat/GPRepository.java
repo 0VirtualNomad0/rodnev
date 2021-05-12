@@ -1,4 +1,4 @@
-package vendorapplication.repositories;
+package vendorapplication.repositories.grampanchayat;
 
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,12 +12,8 @@ import java.util.List;
 
 @Repository
 @CacheConfig(cacheNames = "gram_panchayat")
-public interface GPRepository extends CrudRepository<DistrictEntity,Integer> {
+public interface GPRepository extends CrudRepository<DistrictEntity,Integer>, GPRepositoryCustom {
 
 
-
-    @Query(value = "SELECT panchayat_id, panchayat_name from mst_gram_panchyat where is_active = true AND block_id =:id", nativeQuery = true)
-    @Cacheable
-    List<Object[]> getgpViaId(@Param("id") Integer stringId);
 
 }

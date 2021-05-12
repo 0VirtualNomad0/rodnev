@@ -7,6 +7,11 @@ public class TehsilModal implements Serializable {
     private Integer tehsilId;
     private String tehsilName;
 
+    public TehsilModal(Integer tehsilId, String tehsilName) {
+        this.tehsilId = tehsilId;
+        this.tehsilName = tehsilName;
+    }
+
     public Integer getTehsilId() {
         return tehsilId;
     }

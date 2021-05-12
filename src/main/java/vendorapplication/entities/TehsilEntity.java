@@ -20,24 +20,18 @@ public class TehsilEntity implements Serializable {
     @Column(name = "tehsil_name")
     private String districtName;
 
-//    @Column(name = "sub_division_id")
-//    private Integer subDivision;
-//
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="district_id", updatable = false )
-//    @LazyToOne(LazyToOneOption.NO_PROXY)
-//    private DistrictEntity district;
-//
-//    @Column(name = "is_active")
-//    private Boolean active;
-//
-//
-//    @Column(name = "is_deleted")
-//    private Boolean deleted;
-//
-//    @Column(name = "created_on")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdDate;
+    @Column(name = "is_active")
+    private Boolean active;
+
+    @Column(name="district_id" )
+    private Integer district;
+
+    @Column(name = "is_deleted")
+    private Boolean deleted;
+
+    @Column(name = "created_on")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
     public Integer getDistrictId() {
         return districtId;
@@ -55,56 +49,47 @@ public class TehsilEntity implements Serializable {
         this.districtName = districtName;
     }
 
-//    public Integer getSubDivision() {
-//        return subDivision;
-//    }
-//
-//    public void setSubDivision(Integer subDivision) {
-//        this.subDivision = subDivision;
-//    }
-//
-//    public DistrictEntity getDistrict() {
-//        return district;
-//    }
-//
-//    public void setDistrict(DistrictEntity district) {
-//        this.district = district;
-//    }
-//
-//    public Boolean getActive() {
-//        return active;
-//    }
-//
-//    public void setActive(Boolean active) {
-//        this.active = active;
-//    }
-//
-//    public Boolean getDeleted() {
-//        return deleted;
-//    }
-//
-//    public void setDeleted(Boolean deleted) {
-//        this.deleted = deleted;
-//    }
-//
-//    public Date getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(Date createdDate) {
-//        this.createdDate = createdDate;
-//    }
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Integer getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(Integer district) {
+        this.district = district;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
     @Override
     public String toString() {
         return "TehsilEntity{" +
                 "districtId=" + districtId +
                 ", districtName='" + districtName + '\'' +
-//                ", subDivision=" + subDivision +
-//                ", district=" + district +
-//                ", active=" + active +
-//                ", deleted=" + deleted +
-//                ", createdDate=" + createdDate +
+                ", active=" + active +
+                ", district=" + district +
+                ", deleted=" + deleted +
+                ", createdDate=" + createdDate +
                 '}';
     }
 }

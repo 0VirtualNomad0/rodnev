@@ -1,4 +1,4 @@
-package vendorapplication.repositories;
+package vendorapplication.repositories.states;
 
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,10 +11,7 @@ import java.util.List;
 
 @Repository
 @CacheConfig(cacheNames = "states")
-public interface StateRepository extends CrudRepository<StateEntity,Integer> {
+public interface StateRepository extends CrudRepository<StateEntity,Integer>, StateRepositoryCustom {
 
 
-    @Query(value = "SELECT state_id, state_name from mst_state where is_active = true AND state_id=9", nativeQuery = true)
-    @Cacheable
-    List<Object[]> getStates();
 }

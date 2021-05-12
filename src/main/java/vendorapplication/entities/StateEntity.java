@@ -17,15 +17,15 @@ public class StateEntity {
     @Column(name="state_name")
     private String stateName;
 
-//    @Column(name="is_active")
-//    private boolean isActive;
-//
-//    @Column(name="is_deleted")
-//    private boolean isDeleted;
-//
-//    @Column(name = "created_on")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdDate;
+    @Column(name="is_active")
+    private boolean isActive;
+
+    @Column(name="is_deleted")
+    private boolean isDeleted;
+
+    @Column(name = "created_on")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
 
 
@@ -55,29 +55,38 @@ public class StateEntity {
         this.stateName = stateName;
     }
 
-//    public boolean isActive() {
-//        return isActive;
-//    }
-//
-//    public void setActive(boolean active) {
-//        isActive = active;
-//    }
-//
-//    public boolean isDeleted() {
-//        return isDeleted;
-//    }
-//
-//    public void setDeleted(boolean deleted) {
-//        isDeleted = deleted;
-//    }
-//
-//    public Date getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(Date createdDate) {
-//        this.createdDate = createdDate;
-//    }
+    public boolean isActive() {
+        return isActive;
+    }
 
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public String toString() {
+        return "StateEntity{" +
+                "stateID=" + stateID +
+                ", stateName='" + stateName + '\'' +
+                ", isActive=" + isActive +
+                ", isDeleted=" + isDeleted +
+                ", createdDate=" + createdDate +
+                '}';
+    }
 }

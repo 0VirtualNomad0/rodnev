@@ -7,6 +7,11 @@ public class StateModal implements Serializable {
     private Integer stateId;
     private String stateName;
 
+    public StateModal(Integer stateId, String stateName) {
+        this.stateId = stateId;
+        this.stateName = stateName;
+    }
+
     public Integer getStateId() {
         return stateId;
     }

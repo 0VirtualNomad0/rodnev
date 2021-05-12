@@ -41,6 +41,11 @@ public class Constants {
      */
     public static final String securityKeyAES = "hPelahaul@17_04_21";
 
+    /**
+     * State Id
+     */
+    public static final Integer stateID = 9;
+
 
     /**
      *

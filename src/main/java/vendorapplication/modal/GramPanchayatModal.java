@@ -7,6 +7,11 @@ public class GramPanchayatModal implements Serializable {
     private Integer gpId;
     private String gpName;
 
+    public GramPanchayatModal(Integer gpId, String gpName) {
+        this.gpId = gpId;
+        this.gpName = gpName;
+    }
+
     public Integer getGpId() {
         return gpId;
     }

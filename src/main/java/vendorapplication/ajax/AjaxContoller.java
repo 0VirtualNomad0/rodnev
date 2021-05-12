@@ -1,8 +1,5 @@
 package vendorapplication.ajax;
 
-import vendorapplication.entities.BlocksEntity;
-import vendorapplication.entities.DistrictEntity;
-import vendorapplication.entities.GenderEntity;
 import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +11,9 @@ import vendorapplication.repositories.*;
 import vendorapplication.repositories.blocks.BlockRepository;
 import vendorapplication.repositories.district.DistrictRepository;
 import vendorapplication.repositories.gender.GenderRepository;
+import vendorapplication.repositories.grampanchayat.GPRepository;
+import vendorapplication.repositories.states.StateRepository;
+import vendorapplication.repositories.tehsil.TehsilRepository;
 import vendorapplication.utilities.Constants;
 
 import java.math.BigInteger;
@@ -116,19 +116,9 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getState() {
         Map<String, Object> map = null;
-        List<Object[] > gender = stateRepository.getStates();
-        List<StateModal> modelState = new ArrayList<>();
-
-
-        for (Object[] result : gender) {
-            StateModal pojo = new StateModal();
-            pojo.setStateId((Integer) result[0]);
-            pojo.setStateName((String) result[1]);
-            modelState.add(pojo);
-        }
-
+        List<StateModal > states = stateRepository.getStates();
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, modelState);
+        map.put(Constants.keyResponse, states);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -233,29 +223,20 @@ public class AjaxContoller {
 
         try{
 
-            List<Object[] > TehsilObjects = tehsilRepository.getTehsilViaDistrict(Integer.parseInt(id));
-            List<TehsilModal> tehsilModal = new ArrayList<>();
+            List<TehsilModal> TehsilObjects = tehsilRepository.getTehsils(Integer.parseInt(id));
 
-
-            for (Object[] result : TehsilObjects) {
-                TehsilModal pojo = new TehsilModal();
-                pojo.setTehsilId((Integer) result[0]);
-                pojo.setTehsilName((String) result[1]);
-                tehsilModal.add(pojo);
-            }
-
-            map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, tehsilModal);
+            map = new HashMap<>();
+            map.put(Constants.keyResponse, TehsilObjects);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
 
         }catch (Exception ex){
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
 
     }
@@ -269,19 +250,9 @@ public class AjaxContoller {
         Map<String, Object> map = null;
 
         try{
-            List<Object[] > gpObjects = gpRepository.getgpViaId(Integer.parseInt(id));
-            List<GramPanchayatModal> gpModalList = new ArrayList<>();
-
-
-            for (Object[] result : gpObjects) {
-                GramPanchayatModal pojo = new GramPanchayatModal();
-                pojo.setGpId((Integer) result[0]);
-                pojo.setGpName((String) result[1]);
-                gpModalList.add(pojo);
-            }
-
+            List<GramPanchayatModal> gpObjects = gpRepository.getgpViaId(Integer.parseInt(id));
             map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, gpModalList);
+            map.put(Constants.keyResponse, gpObjects);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
             return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

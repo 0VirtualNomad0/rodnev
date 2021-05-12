@@ -4,7 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import vendorapplication.entities.BlocksEntity;
 
-import java.util.List;
 
 
 @Repository
