@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.xml.sax.SAXException;
 import vendorapplication.entities.BlocksEntity;
 import vendorapplication.entities.UserEntity;
+import vendorapplication.modal.BlockModal;
 import vendorapplication.repositories.blocks.BlockRepository;
 import vendorapplication.security.EncryptDecrypt;
 import vendorapplication.services.UserService;
@@ -115,10 +116,10 @@ public class VendorManagementApplicationTests {
     @Test
     public  void getBlocks()  {
 
-        List<BlocksEntity> blocks = blockRepository.getBlocksViaDitricts(196);
+        List<BlockModal> blocks = blockRepository.getBlocksViaDitricts(196,true,false);
         System.out.println(blocks.toString());
 
-        List<BlocksEntity> active_blocks = blockRepository.getAllActiveBlocks(true, false);
+        List<BlockModal> active_blocks = blockRepository.getAllActiveBlocks(true, false);
         System.out.println(active_blocks.toString());
 
 

@@ -4,6 +4,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import vendorapplication.entities.BlocksEntity;
+import vendorapplication.modal.BlockModal;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ import java.util.List;
 public interface BlockRepositoryCustom {
 
    // @Cacheable(value = "getActiveBlocks", key = "activeBlocks")
-    List<BlocksEntity> getAllActiveBlocks(Boolean active, Boolean deleted);
+    List<BlockModal> getAllActiveBlocks(Boolean active, Boolean deleted);
 
     @Cacheable
-    List<BlocksEntity> getBlocksViaDitricts(Integer districtId);
+    List<BlockModal> getBlocksViaDitricts(Integer districtId,Boolean active, Boolean deleted);
 }

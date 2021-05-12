@@ -1,7 +1,8 @@
 package vendorapplication.ajax;
 
-import jdk.nashorn.internal.ir.Block;
 import vendorapplication.entities.BlocksEntity;
+import vendorapplication.entities.DistrictEntity;
+import vendorapplication.entities.GenderEntity;
 import vendorapplication.modal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vendorapplication.repositories.*;
 import vendorapplication.repositories.blocks.BlockRepository;
+import vendorapplication.repositories.district.DistrictRepository;
+import vendorapplication.repositories.gender.GenderRepository;
 import vendorapplication.utilities.Constants;
 
 import java.math.BigInteger;
@@ -96,19 +99,11 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getGender() {
         Map<String, Object> map = null;
-        List<Object[] > gender = genderRepository.getGender();
-        List<GenderModal> modelGender = new ArrayList<>();
+        List<GenderModal> gender = genderRepository.getGender();
 
-
-        for (Object[] result : gender) {
-            GenderModal pojo = new GenderModal();
-            pojo.setGenderId((Integer) result[0]);
-            pojo.setGenderName((String) result[1]);
-            modelGender.add(pojo);
-        }
 
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, modelGender);
+        map.put(Constants.keyResponse, gender);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -150,19 +145,11 @@ public class AjaxContoller {
 
         try{
             Integer id_ = Integer.parseInt(id);
-            List<Object[] > districtsObject = districtRepository.getDistrictsViaId(id_);
-            List<DistrictModal> districtModals = new ArrayList<>();
+            List<DistrictModal> districtsObject = districtRepository.getDistrictsViaId(id_,false,true);
 
-
-            for (Object[] result : districtsObject) {
-                DistrictModal pojo = new DistrictModal();
-                pojo.setDistrictId((Integer) result[0]);
-                pojo.setDistrictName((String) result[1]);
-                districtModals.add(pojo);
-            }
 
             map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, districtModals);
+            map.put(Constants.keyResponse, districtsObject);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
             return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -186,19 +173,9 @@ public class AjaxContoller {
         Map<String, Object> map = null;
 
         try{
-            List<BlocksEntity > blockObjects = blockRepository.getBlocksViaDitricts(Integer.parseInt(id));
-            List<BlockModal> blockModals = new ArrayList<>();
-
-
-            for (BlocksEntity result : blockObjects) {
-                BlockModal pojo = new BlockModal();
-                pojo.setBlockId(result.getDistrictId());
-                pojo.setBlockName(result.getDistrictName());
-                blockModals.add(pojo);
-            }
-
+            List<BlockModal> blockObjects = blockRepository.getBlocksViaDitricts(Integer.parseInt(id),true,false);
             map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, blockModals);
+            map.put(Constants.keyResponse, blockObjects);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
             return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -636,19 +613,10 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
     public @ResponseBody
     ResponseEntity<?> getDistrict() {
         Map<String, Object> map = null;
-        List<Object[] > districts = districtRepository.getDistricts();
-        List<DistrictModal> districtModal = new ArrayList<>();
-
-
-        for (Object[] result : districts) {
-            DistrictModal pojo = new DistrictModal();
-            pojo.setDistrictId((Integer) result[0]);
-            pojo.setDistrictName((String) result[1]);
-            districtModal.add(pojo);
-        }
+        List<DistrictModal> districts = districtRepository.getDistricts(false,true);
 
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, districtModal);
+        map.put(Constants.keyResponse, districts);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

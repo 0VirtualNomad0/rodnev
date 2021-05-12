@@ -4,6 +4,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import vendorapplication.entities.BlocksEntity;
 import vendorapplication.entities.DistrictEntity;
+import vendorapplication.modal.BlockModal;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,28 +21,32 @@ public class BlockRepositoryCustomImpl implements BlockRepositoryCustom{
 
 
     @Override
-    public List<BlocksEntity> getAllActiveBlocks(Boolean active, Boolean deleted) {
+    public List<BlockModal> getAllActiveBlocks(Boolean active, Boolean deleted) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<BlocksEntity> cq = cb.createQuery(BlocksEntity.class);
+        CriteriaQuery<BlockModal> cq = cb.createQuery(BlockModal.class);
         Root<BlocksEntity> book = cq.from(BlocksEntity.class);
         Predicate isActive = cb.equal(book.get("active"), active);
         Predicate isDeleated = cb.equal(book.get("deleted"), deleted);
         cq.where(isActive,isDeleated);
-        TypedQuery<BlocksEntity> query = entityManager.createQuery(cq);
+        cq.multiselect(book.get("districtId"), book.get("districtName")).distinct(true);
+        TypedQuery<BlockModal> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
 
 
 
     @Override
-    public List<BlocksEntity> getBlocksViaDitricts(Integer districtId) {
+    public List<BlockModal> getBlocksViaDitricts(Integer districtId,Boolean active, Boolean deleted) {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<BlocksEntity> cq = cb.createQuery(BlocksEntity.class);
+        CriteriaQuery<BlockModal> cq = cb.createQuery(BlockModal.class);
         Root book = cq.from(BlocksEntity.class);
         Predicate authorNamePredicate = cb.equal(book.get("districtid"), districtId);
-        cq.where(authorNamePredicate);
-        TypedQuery<BlocksEntity> query = entityManager.createQuery(cq);
+        Predicate isActive = cb.equal(book.get("active"), active);
+        Predicate isDeleated = cb.equal(book.get("deleted"), deleted);
+        cq.where(authorNamePredicate,isActive,isDeleated);
+        cq.multiselect(book.get("districtId"), book.get("districtName")).distinct(true);
+        TypedQuery<BlockModal> query = entityManager.createQuery(cq);
         return query.getResultList();
     }
 

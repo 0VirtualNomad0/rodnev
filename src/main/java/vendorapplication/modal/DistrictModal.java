@@ -7,6 +7,11 @@ public class DistrictModal implements Serializable {
     private Integer districtId;
     private String districtName;
 
+    public DistrictModal(Integer districtId, String districtName) {
+        this.districtId = districtId;
+        this.districtName = districtName;
+    }
+
     public Integer getDistrictId() {
         return districtId;
     }
