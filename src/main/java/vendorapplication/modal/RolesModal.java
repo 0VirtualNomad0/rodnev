@@ -5,14 +5,19 @@ import java.math.BigInteger;
 
 public class RolesModal implements Serializable {
 
-    private BigInteger role_id;
+    private Long role_id;
     private String role_name;
 
-    public BigInteger getRole_id() {
+    public RolesModal(Long role_id, String role_name) {
+        this.role_id = role_id;
+        this.role_name = role_name;
+    }
+
+    public Long getRole_id() {
         return role_id;
     }
 
-    public void setRole_id(BigInteger role_id) {
+    public void setRole_id(Long role_id) {
         this.role_id = role_id;
     }
 

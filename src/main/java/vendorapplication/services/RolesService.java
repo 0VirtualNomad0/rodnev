@@ -3,7 +3,7 @@ package vendorapplication.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vendorapplication.repositories.RolesRepository;
+import vendorapplication.repositories.roles.RolesRepository;
 
 import java.util.List;
 
@@ -22,9 +22,7 @@ public class RolesService {
 		this.rolesRepository = rolesRepository;
 	}
 
-	public List<Object[]> getRoles(){
-		return rolesRepository.getRoles();
-	}
+
 
 
 

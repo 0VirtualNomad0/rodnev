@@ -4,7 +4,7 @@ package vendorapplication.services;
 import vendorapplication.entities.RolesEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vendorapplication.repositories.RolesRepository;
+import vendorapplication.repositories.roles.RolesRepository;
 
 import java.util.Optional;
 

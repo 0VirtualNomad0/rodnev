@@ -16,6 +16,7 @@ import vendorapplication.repositories.grampanchayat.GPRepository;
 import vendorapplication.repositories.landtype.LandTypeRepository;
 import vendorapplication.repositories.nationality.NationalityRepository;
 import vendorapplication.repositories.nationalregional.NationalRegionalRepository;
+import vendorapplication.repositories.roles.RolesRepository;
 import vendorapplication.repositories.states.StateRepository;
 import vendorapplication.repositories.subcategory.SubCategoryRepository;
 import vendorapplication.repositories.tehsil.TehsilRepository;
@@ -79,19 +80,9 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getRoles() {
         Map<String, Object> map = null;
-        List<Object[] > roles = rolesRepository.getRoles();
-        List<RolesModal> modelRole = new ArrayList<>();
-
-
-        for (Object[] result : roles) {
-            RolesModal pojo = new RolesModal();
-            pojo.setRole_id((BigInteger) result[0]);
-            pojo.setRole_name((String) result[1]);
-            modelRole.add(pojo);
-        }
-
+        List<RolesModal> roles = rolesRepository.getRoles();
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, modelRole);
+        map.put(Constants.keyResponse, roles);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -328,19 +319,9 @@ public class AjaxContoller {
     public @ResponseBody
     ResponseEntity<?> getrolesVendor() {
         Map<String, Object> map = null;
-        List<Object[] > roles = rolesRepository.getRoleVendor();
-        List<RolesModal> rolesModals = new ArrayList<>();
-
-
-        for (Object[] result : roles) {
-            RolesModal pojo = new RolesModal();
-            pojo.setRole_id((BigInteger) result[0]);
-            pojo.setRole_name((String) result[1]);
-            rolesModals.add(pojo);
-        }
-
+        List<RolesModal> roles = rolesRepository.getRoleVendor();
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, rolesModals);
+        map.put(Constants.keyResponse, roles);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
