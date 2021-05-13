@@ -9,15 +9,22 @@ public class LoggedInUserLocationSession implements Serializable {
     private Integer blockId;
     private Integer TehsilId;
     private Integer panchayatId;
-    private Integer userID;
+    private Long userID;
 
+    public LoggedInUserLocationSession(Integer stateId, Integer districtId, Integer blockId, Integer tehsilId, Integer panchayatId, Long userID) {
+        this.stateId = stateId;
+        this.districtId = districtId;
+        this.blockId = blockId;
+        TehsilId = tehsilId;
+        this.panchayatId = panchayatId;
+        this.userID = userID;
+    }
 
-
-    public Integer getUserID() {
+    public Long getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public void setUserID(Long userID) {
         this.userID = userID;
     }
 
