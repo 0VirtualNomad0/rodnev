@@ -17,7 +17,7 @@ import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.entities.UserPermissionsEntity;
 import vendorapplication.entities.UserTranactionEntity;
 import vendorapplication.form.CheckStatusForm;
-import vendorapplication.repositories.UserApplicationRepository;
+import vendorapplication.repositories.userapplication.UserApplicationRepository;
 import vendorapplication.services.UserPermissionsService;
 import vendorapplication.services.UserTransactionService;
 import vendorapplication.utilities.Constants;
