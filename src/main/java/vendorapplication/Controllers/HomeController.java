@@ -13,19 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import vendorapplication.modal.ApplicationsViaLocations;
-import vendorapplication.modal.AreaModal;
-import vendorapplication.modal.BlockModal;
 import vendorapplication.modal.LoggedInUserLocationSession;
-import vendorapplication.projections.CountApplications;
-import vendorapplication.repositories.UserRepository;
-import vendorapplication.services.UserApplicationService;
+import vendorapplication.repositories.user.UserRepository;
 import vendorapplication.services.UserService;
-import vendorapplication.utilities.Constants;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,6 +32,9 @@ public class HomeController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
 
 
 
@@ -71,7 +66,7 @@ public class HomeController {
                 System.out.println(authority.getAuthority().toString());
             }
             //Get the User Data and Set Set the Data in Session
-            List<Object[]> data = userService.getLoggedInUserLocation(username);
+            List<Object[]> data = userRepository.getUserGeoData(username);
 
             List<LoggedInUserLocationSession> loggedInUserLocationSessionsList = new ArrayList<>();
 

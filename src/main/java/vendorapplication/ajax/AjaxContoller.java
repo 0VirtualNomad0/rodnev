@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vendorapplication.repositories.*;
 import vendorapplication.repositories.blocks.BlockRepository;
 import vendorapplication.repositories.category.CategoryRepository;
 import vendorapplication.repositories.district.DistrictRepository;
@@ -19,10 +18,10 @@ import vendorapplication.repositories.nationalregional.NationalRegionalRepositor
 import vendorapplication.repositories.roles.RolesRepository;
 import vendorapplication.repositories.states.StateRepository;
 import vendorapplication.repositories.subcategory.SubCategoryRepository;
+import vendorapplication.repositories.subcategoryitems.SubCategoryItemsRepository;
 import vendorapplication.repositories.tehsil.TehsilRepository;
 import vendorapplication.utilities.Constants;
 
-import java.math.BigInteger;
 import java.util.*;
 
 @RestController
@@ -386,26 +385,15 @@ public class AjaxContoller {
 
         try {
 
-            List<Object[]> items = subCategoryItemsRepository.getItemsSubCategory(
+            List<Items> items = subCategoryItemsRepository.getItemsSubCategory(
 
                     Integer.parseInt(landType),
                     Integer.parseInt(category),
                     Integer.parseInt(subCategory));
-            List<Items> itemModal = new ArrayList<>();
 
-
-            for (Object[] result : items) {
-                Items pojo = new Items();
-                pojo.setItemId((Integer) result[0]);
-                pojo.setItemName((String) result[1]);
-                pojo.setRate((String) result[2]);
-                pojo.setSecurityamount((String) result[3]);
-                pojo.setFee_panchayat((String) result[4]);
-                itemModal.add(pojo);
-            }
 
             map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, itemModal);
+            map.put(Constants.keyResponse, items);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
             return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -432,38 +420,27 @@ public class AjaxContoller {
     ) throws Exception {
 
 
-        Map<String, Object> map = null;
+        Map<String, Object> map;
         try {
-            List<Object[]> items = subCategoryItemsRepository.getItemsSubCategoryNR(
+            List<Items> items = subCategoryItemsRepository.getItemsSubCategoryNR(
 
                     Integer.parseInt(landType),
                     Integer.parseInt(category),
                     Integer.parseInt(regional),
                     Integer.parseInt(subCategory));
-            List<Items> itemModal = new ArrayList<>();
 
 
-            for (Object[] result : items) {
-                Items pojo = new Items();
-                pojo.setItemId((Integer) result[0]);
-                pojo.setItemName((String) result[1]);
-                pojo.setRate((String) result[2]);
-                pojo.setSecurityamount((String) result[3]);
-                pojo.setFee_panchayat((String) result[4]);
-                itemModal.add(pojo);
-            }
-
-            map = new HashMap<String, Object>();
-            map.put(Constants.keyResponse, itemModal);
+            map = new HashMap<>();
+            map.put(Constants.keyResponse, items);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }catch(Exception ex){
-            map = new HashMap<String, Object>();
+            map = new HashMap<>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
 
 
@@ -482,25 +459,13 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
 
     Map<String, Object> map = null;
     try {
-        List<Object[]> items = subCategoryItemsRepository.getItemsSubCategoryOthers(
+        List<Items> items = subCategoryItemsRepository.getItemsSubCategoryOthers(
                 Integer.parseInt(landType),
                 Integer.parseInt(category),
                 Integer.parseInt(subCategory));
-        List<Items> itemModal = new ArrayList<>();
-
-
-        for (Object[] result : items) {
-            Items pojo = new Items();
-            pojo.setItemId((Integer) result[0]);
-            pojo.setItemName((String) result[1]);
-            pojo.setRate((String) result[2]);
-            pojo.setSecurityamount((String) result[3]);
-            pojo.setFee_panchayat((String) result[4]);
-            itemModal.add(pojo);
-        }
 
         map = new HashMap<String, Object>();
-        map.put(Constants.keyResponse, itemModal);
+        map.put(Constants.keyResponse, items);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

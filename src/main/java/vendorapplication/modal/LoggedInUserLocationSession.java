@@ -11,6 +11,8 @@ public class LoggedInUserLocationSession implements Serializable {
     private Integer panchayatId;
     private Integer userID;
 
+
+
     public Integer getUserID() {
         return userID;
     }

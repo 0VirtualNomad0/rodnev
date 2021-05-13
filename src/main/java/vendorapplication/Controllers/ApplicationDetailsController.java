@@ -19,7 +19,7 @@ import vendorapplication.entities.UserPermissionsEntity;
 import vendorapplication.entities.UserTranactionEntity;
 import vendorapplication.form.ActionForm;
 import vendorapplication.modal.LoggedInUserLocationSession;
-import vendorapplication.repositories.UserRepository;
+import vendorapplication.repositories.user.UserRepository;
 import vendorapplication.services.*;
 import vendorapplication.utilities.Constants;
 

@@ -3,11 +3,10 @@ package vendorapplication.services;
 import java.util.List;
 
 
-import org.springframework.cache.annotation.Cacheable;
 import vendorapplication.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vendorapplication.repositories.UserRepository;
+import vendorapplication.repositories.user.UserRepository;
 
 
 @Service

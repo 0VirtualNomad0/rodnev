@@ -15,6 +15,5 @@ public interface SubCategoryRepositoryCustom {
     @Cacheable
     List<SubCategoryModal> getSubCategories(Integer categoryId);
 
-   // @Query(value = "SELECT * from mst_subcategory where active = true AND subcategory_name =:role_name_" , nativeQuery = true)
     SubCategoryEntity checkSubCategory( String subCategory);
 }

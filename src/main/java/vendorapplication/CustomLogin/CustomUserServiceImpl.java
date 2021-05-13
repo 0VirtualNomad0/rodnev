@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vendorapplication.repositories.roles.RolesRepository;
-import vendorapplication.repositories.UserRepository;
+import vendorapplication.repositories.user.UserRepository;
 
 @Service
 public class CustomUserServiceImpl implements CustomUserService {

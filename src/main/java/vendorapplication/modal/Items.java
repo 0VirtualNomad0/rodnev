@@ -10,6 +10,14 @@ public class Items implements Serializable {
     private String fee_panchayat;
     private String securityamount;
 
+    public Items(Integer itemId, String itemName, String rate, String fee_panchayat, String securityamount) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.rate = rate;
+        this.fee_panchayat = fee_panchayat;
+        this.securityamount = securityamount;
+    }
+
     public String getFee_panchayat() {
         return fee_panchayat;
     }
