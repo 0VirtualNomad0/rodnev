@@ -90,7 +90,7 @@ public class VendorFormController {
                 request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
                 request.getSession().setAttribute("address", user.getpAddress());
                 //Get Applications via USer Details
-                List<Object[]> dashboardDataServerList = userApplicationService.getListByUserId((user.getUserId()).intValue());
+           //     List<Object[]> dashboardDataServerList = userApplicationService.getListByUserId((user.getUserId()).intValue());
 //                List<VendorDashboardList> dashboardData = new ArrayList<>();
 //                for (Object[] result : dashboardDataServerList) {
 //                    VendorDashboardList pojo = new VendorDashboardList();
@@ -108,7 +108,7 @@ public class VendorFormController {
 //                }
 
 
-                model.addAttribute("userApplications", dashboardDataServerList);
+             //   model.addAttribute("userApplications", dashboardDataServerList);
 
 
                 return "vendorIndex";

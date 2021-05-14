@@ -7,10 +7,8 @@ import vendorapplication.entities.UserEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -130,4 +128,27 @@ public class UserApplicationRepositoryCustomImpl implements UserApplicationRepos
         cq.select(cb.count(book)).where(isActive_,app_status);
         return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
     }
+
+    @Override
+    public Date getApplicationCreatedDate(Integer appID) {
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Date> cq = cb.createQuery(Date.class);
+        Root<UserApplicationEntity> book = cq.from(UserApplicationEntity.class);
+        Predicate isActive_ = cb.equal(book.get("active"), true);
+        Predicate app_id = cb.equal(book.get("appId"), appID);
+        cq.where(isActive_,app_id);
+        cq.select(book.get("createdDate"));
+        TypedQuery<Date> query =  entityManager.createQuery(cq);
+        return query.getSingleResult();
+
+
+
+
+    }
+
+
+
+
+
 }

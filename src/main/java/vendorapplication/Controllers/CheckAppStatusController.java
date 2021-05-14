@@ -28,6 +28,7 @@ import vendorapplication.validators.CheckStatusValidator;
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -92,14 +93,15 @@ public class CheckAppStatusController {
                        return "checkStatus";
                    }else{
                        Map<String, Object> map = null;
-                       Object[] dates_server = userApplicationRepository.getApplicationCreatedDate(Integer.parseInt(form.getAppId()));
+                       //Object[]
+                       Date dates_server = userApplicationRepository.getApplicationCreatedDate(Integer.parseInt(form.getAppId()));
 
-                       if (dates_server.length == 1) {
+                       if (!dates_server.toString().isEmpty() ) {
                            //Calculate Dates
-                           System.out.println("Created Date of Application:- " + dates_server[0].toString());
+                           System.out.println("Created Date of Application:- " + dates_server);
                            System.out.println("Today's Date:- " + DateUtilities.getCurrentDate());
 
-                           DatesDifference = DateUtilities.getDifferenceDays(DateUtilities.convertToDate(dates_server[0].toString()), DateUtilities.convertToDate(DateUtilities.getCurrentDate()));
+                           DatesDifference = DateUtilities.getDifferenceDays(DateUtilities.convertToDate(dates_server.toString()), DateUtilities.convertToDate(DateUtilities.getCurrentDate()));
                            System.out.println(DatesDifference);
 
                            if (DatesDifference > 7) {
@@ -148,14 +150,15 @@ public class CheckAppStatusController {
                 } else {
 
                     Map<String, Object> map = null;
-                    Object[] dates_server = userApplicationRepository.getApplicationCreatedDate(Integer.parseInt(form.getAppId()));
-
-                    if (dates_server.length == 1) {
+                    //Object[]
+                    Date dates_server = userApplicationRepository.getApplicationCreatedDate(Integer.parseInt(form.getAppId()));
+//dates_server.length == 1
+                    if (!dates_server.toString().isEmpty() ) {
                         //Calculate Dates
-                        System.out.println("Created Date of Application:- " + dates_server[0].toString());
+                        System.out.println("Created Date of Application:- " + dates_server);
                         System.out.println("Today's Date:- " + DateUtilities.getCurrentDate());
-
-                        DatesDifference = DateUtilities.getDifferenceDays(DateUtilities.convertToDate(dates_server[0].toString()), DateUtilities.convertToDate(DateUtilities.getCurrentDate()));
+//dates_server[0]
+                        DatesDifference = DateUtilities.getDifferenceDays(DateUtilities.convertToDate(dates_server.toString()), DateUtilities.convertToDate(DateUtilities.getCurrentDate()));
                         System.out.println(DatesDifference);
 
                         if (DatesDifference > 7) {

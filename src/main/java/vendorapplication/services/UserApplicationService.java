@@ -22,11 +22,11 @@ public class UserApplicationService {
         return userApplicationRepository.getUserApplications(id);
     }
 
-    //getUserApplications
-    public List<Object[]> getListByUserId(Integer id){
-
-        return userApplicationRepository.getListByUserId(id);
-    }
+    //getUserApplications earlier working
+//    public List<Object[]> getListByUserId(Integer id){
+//
+//        return userApplicationRepository.getListByUserId(id);
+//    }
 
 
     public UserApplicationEntity getUserApplicationViaAppId(Integer appId){
