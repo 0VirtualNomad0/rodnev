@@ -94,36 +94,36 @@ public class VendorManagementApplicationTests {
 //	}
 
 
-      @Test
-    public  void checkCrypto() throws ParserConfigurationException, IOException, SAXException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+//      @Test
+//    public  void checkCrypto() throws ParserConfigurationException, IOException, SAXException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+//
+//          EncryptDecrypt AES = new EncryptDecrypt();
+//
+//           String userData = "{\n" +
+//                   "  \"username\": \"kush2\",\n" +
+//                   "  \"password\": \"Demo@123\"\n" +
+//                   "}";
+//
+//          System.out.println("\n\n\t");
+//          String encryptFile = AES.encrypt(userData);
+//          System.out.println(" Encryption of File:-  " + encryptFile);
+//          System.out.println("\n\n\t");
+//          String decryptFile = AES.decrypt(encryptFile);
+//          System.out.println("Decryption of File:- " + decryptFile);
+//
+//      }
 
-          EncryptDecrypt AES = new EncryptDecrypt();
-
-           String userData = "{\n" +
-                   "  \"username\": \"kush2\",\n" +
-                   "  \"password\": \"Demo@123\"\n" +
-                   "}";
-
-          System.out.println("\n\n\t");
-          String encryptFile = AES.encrypt(userData);
-          System.out.println(" Encryption of File:-  " + encryptFile);
-          System.out.println("\n\n\t");
-          String decryptFile = AES.decrypt(encryptFile);
-          System.out.println("Decryption of File:- " + decryptFile);
-
-      }
-
-    @Test
-    public  void getBlocks()  {
-
-        List<BlockModal> blocks = blockRepository.getBlocksViaDitricts(196,true,false);
-        System.out.println(blocks.toString());
-
-        List<BlockModal> active_blocks = blockRepository.getAllActiveBlocks(true, false);
-        System.out.println(active_blocks.toString());
-
-
-    }
+//    @Test
+//    public  void getBlocks()  {
+//
+//        List<BlockModal> blocks = blockRepository.getBlocksViaDitricts(196,true,false);
+//        System.out.println(blocks.toString());
+//
+//        List<BlockModal> active_blocks = blockRepository.getAllActiveBlocks(true, false);
+//        System.out.println(active_blocks.toString());
+//
+//
+//    }
 
 
 

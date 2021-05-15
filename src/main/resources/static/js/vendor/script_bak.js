@@ -48,13 +48,13 @@ function getroles() {
         type: "GET",
         url: formURL + "/ajax/getRoles",
         success: function(data) {
-           var json_ = JSON.parse(data);
-            console.log(json_)
+         //  var json_ = JSON.parse(data);
+            console.log(data)
             var selectRole = $('#roles'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < json_.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + json_.RESPONSE[i].role_id + " >" + json_.RESPONSE[i].role_name + "</option>")
+            for (i = 0; i < data.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + data.RESPONSE[i].role_id + " >" + data.RESPONSE[i].role_name + "</option>")
             }
 
         },

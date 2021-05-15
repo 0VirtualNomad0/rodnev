@@ -65,7 +65,7 @@ public class Constants {
     public static final String mobule_number = "mobile_number";
     public static final String genericError = "Something Bad Happened. Please try again later.";
     public static final String nothingFound = "No Record Found";
-    public static final String consumesProducesJson = "application/json";
+    public static final String consumesProducesJson = "text/plain";  //application/*+json
     public static final String getConsumesProducesPlainText = "text/plain";
     public static final String apiMethod = "/api/getCompleteApplication";
     public static final String apiMethodLogin = "/api/login";
