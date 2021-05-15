@@ -34,6 +34,7 @@ public class GeneratePdfReport {
 
         userApplicationEntity = data;
         String postJson = objectMapper.writeValueAsString(userApplicationEntity);
+        logger.info("Genergate PDF===: " + userApplicationEntity);
         Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 
         document.addTitle(String.valueOf(userApplicationEntity.getAppId()));
@@ -111,12 +112,17 @@ public class GeneratePdfReport {
             userDetailTable.addCell(cellUserDetialsHeading);
             userDetailTable.addCell(getCell("Application ID:", boldFont21));
             userDetailTable.addCell(getCell(String.valueOf(userApplicationEntity.getAppId()), boldFont2));
+            logger.info("Genergate PDF===: " + userApplicationEntity.getAppId());
             userDetailTable.addCell(getCell("Application Created Date:", boldFont21));
             userDetailTable.addCell(getCell(DateUtilities.convertToDateCustom(userApplicationEntity.getCreatedDate().toString()), boldFont2));
+            logger.info("Genergate PDF===: " + DateUtilities.convertToDateCustom(userApplicationEntity.getCreatedDate().toString()));
             userDetailTable.addCell(getCell("Full Name:", boldFont21));
             userDetailTable.addCell(getCell(String.valueOf(userApplicationEntity.getUserId().getFirstName() + Constants.space + userApplicationEntity.getUserId().getLastName()), boldFont2));
+            logger.info("Genergate PDF===: " + userApplicationEntity.getUserId().getFirstName());
+
             userDetailTable.addCell(getCell("Gender:", boldFont21));
             userDetailTable.addCell(getCell(String.valueOf(userApplicationEntity.getUserId().getGenderID().getGenderName()), boldFont2));
+
             userDetailTable.addCell(getCell("Age:", boldFont21));
             userDetailTable.addCell(getCell(String.valueOf(userApplicationEntity.getUserId().getAge()), boldFont2));
             userDetailTable.addCell(getCell("Mobile Number:", boldFont21));
@@ -183,6 +189,7 @@ public class GeneratePdfReport {
             /**
              * User Application Details
              */
+
             PdfPTable userApplicationTable = new PdfPTable(4);
             float[] userApplicationTableColumns = {25f, 25f, 25f, 25f};
             userApplicationTable.setWidths(userApplicationTableColumns);
@@ -384,6 +391,8 @@ public class GeneratePdfReport {
             two.addCell(instructions_QrcodeTable);
             two.addCell(childTable2two);
 
+            logger.info("Genergate PDF===: " + "QR Code");
+
 
 
 
@@ -405,6 +414,8 @@ public class GeneratePdfReport {
             document.add(parent);
 
             document.close();
+            logger.info("Genergate PDF===: " + "Document Close");
+
 
         } catch (DocumentException | MalformedURLException ex) {
 

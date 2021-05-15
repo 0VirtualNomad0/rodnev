@@ -49,7 +49,7 @@ function getroles() {
         url: formURL + "/ajax/getRoles",
         success: function(data) {
            var json_ = JSON.parse(data);
-            console.log(json_)
+            console.log(json_);
             var selectRole = $('#roles'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
@@ -72,12 +72,13 @@ function getgender() {
         type: "GET",
         url: formURL + "/ajax/getGender",
         success: function(data) {
-            console.log(data.RESPONSE)
+        var json_ = JSON.parse(data);
+        console.log(json_);
             var selectRole = $('#gender'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].genderId + " >" + data.RESPONSE[i].genderName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].genderId + " >" + json_.RESPONSE[i].genderName + "</option>")
             }
 
         },
@@ -95,12 +96,13 @@ function getNationality() {
         type: "GET",
         url: formURL + "/ajax/getNationality",
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+            console.log(json_);
             var selectRole = $('#nationality'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].nationalityId + " >" + data.RESPONSE[i].nationalityName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].nationalityId + " >" + json_.RESPONSE[i].nationalityName + "</option>")
             }
 
         },
@@ -120,12 +122,13 @@ function getVendor() {
         type: "GET",
         url: formURL + "/ajax/getVendor",
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+            console.log(json_);
             var selectRole = $('#vendor'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].categoryId + " >" + data.RESPONSE[i].categoryName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
             }
 
         },
@@ -143,12 +146,13 @@ function getsVendor() {
         type: "GET",
         url: formURL + "/ajax/getVendor",
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+                        console.log(json_);
             var selectRole = $('#categoryId'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].categoryId + " >" + data.RESPONSE[i].categoryName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
             }
 
         },
@@ -166,12 +170,13 @@ function getNationalRegional() {
         type: "GET",
         url: formURL + "/ajax/getNationalRegional",
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#nationalRegional'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].nationalRegionalId + " >" + data.RESPONSE[i].nationalRegionalName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].nationalRegionalId + " >" + json_.RESPONSE[i].nationalRegionalName + "</option>")
             }
 
         },
@@ -189,15 +194,16 @@ function getNationalRegionalT(value) {
         type: "GET",
         url: formURL + "/ajax/getNationalRegional",
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
              var id_ = "#nationalRegional" + value;
               console.log(id_)
             var selectRole = $(id_); // the state select element
            // var selectRole = $('#nationalRegional'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].nationalRegionalId + " >" + data.RESPONSE[i].nationalRegionalName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].nationalRegionalId + " >" + json_.RESPONSE[i].nationalRegionalName + "</option>")
             }
 
         },
@@ -215,14 +221,15 @@ function getLandTypeT(value) {
         type: "GET",
         url: formURL + "/ajax/getLandType",
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var id_ = "#landType" + value;
                           console.log(id_)
             var selectRole = $(id_);
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].landTypeId + " >" + data.RESPONSE[i].landTypeName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].landTypeId + " >" + json_.RESPONSE[i].landTypeName + "</option>")
             }
 
         },
@@ -250,17 +257,18 @@ function getItemsTent(landType,nationalRegional,category,subCatId,elementIdwithR
                         "subCategory":subCatId
                     },
             success: function(data) {
-                console.log(data.RESPONSE)
+                var json_ = JSON.parse(data);
+                                       console.log(json_);
                 var id_ = "#item" + elementIdwithRow;
                                           console.log(id_)
                             var selectRole = $(id_);
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-                for (i = 0; i < data.RESPONSE.length; i++) {
+                for (i = 0; i < json_.RESPONSE.length; i++) {
                   var amountForest_Panchayat = 0
-                amountForest_Panchayat = parseInt(data.RESPONSE[i].rate) + parseInt(data.RESPONSE[i].fee_panchayat);
+                amountForest_Panchayat = parseInt(json_.RESPONSE[i].rate) + parseInt(json_.RESPONSE[i].fee_panchayat);
 
-                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
+                    selectRole.append("<option value=" + json_.RESPONSE[i].itemId + " >" + json_.RESPONSE[i].itemName +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
                 }
 
             },
@@ -292,17 +300,18 @@ function getItemsNR(landType,nationalRegional,category,subCatId,elementIdwithRow
                         "subCategory":subCatId
                     },
             success: function(data) {
-                console.log(data.RESPONSE)
+                 var json_ = JSON.parse(data);
+                                        console.log(json_);
                 var id_ = "#item_non_tent" + elementIdwithRow;
                                           console.log(id_)
                             var selectRole = $(id_);
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-                for (i = 0; i < data.RESPONSE.length; i++) {
+                for (i = 0; i < json_.RESPONSE.length; i++) {
                  var amountForest_Panchayat = 0
-                amountForest_Panchayat = parseInt(data.RESPONSE[i].rate) + parseInt(data.RESPONSE[i].fee_panchayat);
+                amountForest_Panchayat = parseInt(json_.RESPONSE[i].rate) + parseInt(json_.RESPONSE[i].fee_panchayat);
 
-                    selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
+                    selectRole.append("<option value=" + json_.RESPONSE[i].itemId + " >" + json_.RESPONSE[i].itemName  +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
                 }
 
             },
@@ -332,17 +341,18 @@ function getItemsnonTent(landType,nationalRegional,category,subCatId,elementIdwi
                         "subCategory":subCatId
                     },
             success: function(data) {
-                console.log(data.RESPONSE)
+                var json_ = JSON.parse(data);
+                                       console.log(json_);
                 var id_ = "#item_non_tent" + elementIdwithRow;
                                           console.log(id_)
                             var selectRole = $(id_);
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-                for (i = 0; i < data.RESPONSE.length; i++) {
+                for (i = 0; i < json_.RESPONSE.length; i++) {
                   var amountForest_Panchayat = 0
-                amountForest_Panchayat = parseInt(data.RESPONSE[i].rate) + parseInt(data.RESPONSE[i].fee_panchayat);
+                amountForest_Panchayat = parseInt(json_.RESPONSE[i].rate) + parseInt(json_.RESPONSE[i].fee_panchayat);
 
-                                       selectRole.append("<option value=" + data.RESPONSE[i].itemId + " >" + data.RESPONSE[i].itemName  +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
+                                       selectRole.append("<option value=" + json_.RESPONSE[i].itemId + " >" + json_.RESPONSE[i].itemName  +" "+ (amountForest_Panchayat) +"/-"  + "</option>")
 
                 }
 
@@ -361,12 +371,13 @@ function getLandType() {
         type: "GET",
         url: formURL + "/ajax/getLandType",
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+                                   console.log(json_);
             var selectRole = $('#landType'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].landTypeId + " >" + data.RESPONSE[i].landTypeName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].landTypeId + " >" + json_.RESPONSE[i].landTypeName + "</option>")
             }
 
         },
@@ -386,11 +397,12 @@ function getState() {
         type: "GET",
         url: formURL + "/ajax/getState",
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+                                   console.log(json_);
             var selectRole = $('#state'); // the state select element
             selectRole.find('option').remove();
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].stateId + " >" + data.RESPONSE[i].stateName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].stateId + " >" + json_.RESPONSE[i].stateName + "</option>")
             }
 
         },
@@ -407,11 +419,12 @@ function getvState() {
         type: "GET",
         url: formURL + "/ajax/getState",
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+                                   console.log(json_);
             var selectRole = $('#vstate'); // the state select element
             selectRole.find('option').remove();
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].stateId + " >" + data.RESPONSE[i].stateName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].stateId + " >" + json_.RESPONSE[i].stateName + "</option>")
             }
 
         },
@@ -431,12 +444,13 @@ function getDistrictsViaState(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#localDistrict'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].districtId + " >" + data.RESPONSE[i].districtName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].districtId + " >" + json_.RESPONSE[i].districtName + "</option>")
             }
 
         },
@@ -456,12 +470,13 @@ function getvDistrictsViaState(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#vlocalDistrict'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].districtId + " >" + data.RESPONSE[i].districtName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].districtId + " >" + json_.RESPONSE[i].districtName + "</option>")
             }
 
         },
@@ -482,12 +497,13 @@ function getBlocks(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#localBlock'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].blockId + " >" + data.RESPONSE[i].blockName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].blockId + " >" + json_.RESPONSE[i].blockName + "</option>")
             }
 
         },
@@ -508,12 +524,13 @@ function getvBlocks(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#vlocalBlock'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].blockId + " >" + data.RESPONSE[i].blockName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].blockId + " >" + json_.RESPONSE[i].blockName + "</option>")
             }
 
         },
@@ -534,12 +551,13 @@ function getTehsils(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+                                   console.log(json_);
             var selectRole = $('#localTehsil'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].tehsilId + " >" + data.RESPONSE[i].tehsilName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].tehsilId + " >" + json_.RESPONSE[i].tehsilName + "</option>")
             }
 
         },
@@ -560,12 +578,13 @@ function getvTehsils(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+            var json_ = JSON.parse(data);
+                                   console.log(json_);
             var selectRole = $('#vlocalTehsil'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].tehsilId + " >" + data.RESPONSE[i].tehsilName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].tehsilId + " >" + json_.RESPONSE[i].tehsilName + "</option>")
             }
 
         },
@@ -586,12 +605,13 @@ function getWardPanchayat(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#localgp'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].gpId + " >" + data.RESPONSE[i].gpName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].gpId + " >" + json_.RESPONSE[i].gpName + "</option>")
             }
 
         },
@@ -612,12 +632,13 @@ function getvWardPanchayat(id) {
                     "id": id
                 },
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#vlocalgp'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + data.RESPONSE[i].gpId + " >" + data.RESPONSE[i].gpName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].gpId + " >" + json_.RESPONSE[i].gpName + "</option>")
             }
 
         },
@@ -643,12 +664,13 @@ function getVendorCategory(id) {
             "id": id
         },
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+                                    console.log(json_);
             var selectRole = $('#vendorType'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option  value=" + data.RESPONSE[i].vendorCategoryId + " >" + data.RESPONSE[i].vendorCategoryName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option  value=" + json_.RESPONSE[i].vendorCategoryId + " >" + json_.RESPONSE[i].vendorCategoryName + "</option>")
 
 
             };
@@ -670,12 +692,13 @@ function getVendorCategory(id) {
                 "id": id
             },
             success: function(data) {
-                console.log(data.RESPONSE)
+                 var json_ = JSON.parse(data);
+                                        console.log(json_);
                 var selectRole = $('#vendorType'); // the state select element
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Select---" + "</option>")
-                for (i = 0; i < data.RESPONSE.length; i++) {
-                    selectRole.append("<option  value=" + data.RESPONSE[i].vendorCategoryId + " >" + data.RESPONSE[i].vendorCategoryName + "</option>")
+                for (i = 0; i < json_.RESPONSE.length; i++) {
+                    selectRole.append("<option  value=" + json_.RESPONSE[i].vendorCategoryId + " >" + json_.RESPONSE[i].vendorCategoryName + "</option>")
 
 
                 };
@@ -698,12 +721,13 @@ function getVendorCategory(id) {
                 "id": id
             },
             success: function(data) {
-                console.log(data.RESPONSE)
+                 var json_ = JSON.parse(data);
+                                        console.log(json_);
                 var selectRole = $('#locationAvailable'); // the state select element
                 selectRole.find('option').remove();
 
-                for (i = 0; i < data.RESPONSE.length; i++) {
-                    selectRole.append("<option  value=" + data.RESPONSE[i].areaId + " >" + data.RESPONSE[i].areaName + "</option>")
+                for (i = 0; i < json_.RESPONSE.length; i++) {
+                    selectRole.append("<option  value=" + json_.RESPONSE[i].areaId + " >" + json_.RESPONSE[i].areaName + "</option>")
 
 
                 };
@@ -724,11 +748,12 @@ function getrolesVendor() {
            type: "GET",
            url: formURL + "/ajax/getrolesVendor",
            success: function(data) {
-               console.log(data.RESPONSE)
+                var json_ = JSON.parse(data);
+                                       console.log(json_);
                var selectRole = $('#roles'); // the state select element
                selectRole.find('option').remove();
-               for (i = 0; i < data.RESPONSE.length; i++) {
-                   selectRole.append("<option value=" + data.RESPONSE[i].role_id + " >" + data.RESPONSE[i].role_name + "</option>")
+               for (i = 0; i < json_.RESPONSE.length; i++) {
+                   selectRole.append("<option value=" + json_.RESPONSE[i].role_id + " >" + json_.RESPONSE[i].role_name + "</option>")
                }
 
            },
@@ -746,12 +771,13 @@ function getDistrict() {
         type: "GET",
         url: formURL + "/ajax/getDistrict",
         success: function(data) {
-            console.log(data.RESPONSE)
+             var json_ = JSON.parse(data);
+             console.log(json_);
             var selectRole = $('#district'); // the state select element
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Select---" + "</option>")
-            for (i = 0; i < data.RESPONSE.length; i++) {
-                selectRole.append("<option  value=" + data.RESPONSE[i].districtId + " >" + data.RESPONSE[i].districtName + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option  value=" + json_.RESPONSE[i].districtId + " >" + json_.RESPONSE[i].districtName + "</option>")
 
 
             };

@@ -99,8 +99,8 @@ public class AjaxContoller {
     }
 
     @RequestMapping(value = Constants.getGender, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
-    public @ResponseBody
-    ResponseEntity<?> getGender() {
+    public @ResponseBody   //ResponseEntity<?>
+    String getGender() throws JsonProcessingException {
         Map<String, Object> map = null;
         List<GenderModal> gender = genderRepository.getGender();
 
@@ -109,30 +109,43 @@ public class AjaxContoller {
         map.put(Constants.keyResponse, gender);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+       // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
     }
 
     //Get State
     @RequestMapping(value = Constants.getState, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
-    public @ResponseBody
-    ResponseEntity<?> getState() {
+    public @ResponseBody  // ResponseEntity<?>
+    String getState() throws JsonProcessingException {
         Map<String, Object> map = null;
         List<StateModal > states = stateRepository.getStates();
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, states);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+       // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
 
 
     }
 
     //Get Districs
     @RequestMapping(value = Constants.getDistrictsViaState, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
-    public @ResponseBody
-    ResponseEntity<?> getDistrictsViaState(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+    public @ResponseBody  //ResponseEntity<?>
+     String getDistrictsViaState(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
 
         Map<String, Object> map = null;
 
@@ -145,14 +158,26 @@ public class AjaxContoller {
             map.put(Constants.keyResponse, districtsObject);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
 
         }catch(Exception ex){
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse );
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }
 
 
@@ -162,7 +187,7 @@ public class AjaxContoller {
     //getBlocks
     @RequestMapping(value = Constants.getBlocks, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getBlocks(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+    String getBlocks(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
         Map<String, Object> map = null;
 
         try{
@@ -171,14 +196,26 @@ public class AjaxContoller {
             map.put(Constants.keyResponse, blockObjects);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }catch(Exception ex){
 
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }
 
     }
@@ -221,7 +258,7 @@ public class AjaxContoller {
     //getTehsils
     @RequestMapping(value = Constants.getTehsils, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getTehsils(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+    String getTehsils(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
         Map<String, Object> map = null;
 
         try{
@@ -232,14 +269,28 @@ public class AjaxContoller {
             map.put(Constants.keyResponse, TehsilObjects);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<>(map, HttpStatus.OK);
+           // return new ResponseEntity<>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
 
         }catch (Exception ex){
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<>(map, HttpStatus.OK);
+           // return new ResponseEntity<>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }
 
     }
@@ -247,7 +298,7 @@ public class AjaxContoller {
     //getWardPanchayat
     @RequestMapping(value = Constants.getWardPanchayat, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getWardPanchayat(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+    String getWardPanchayat(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
 
 
         Map<String, Object> map = null;
@@ -258,13 +309,27 @@ public class AjaxContoller {
             map.put(Constants.keyResponse, gpObjects);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+           // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }catch(Exception ex){
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+           // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }
 
 
@@ -275,7 +340,7 @@ public class AjaxContoller {
     //getNationality
     @RequestMapping(value = Constants.getNationality, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getNationality() {
+    String getNationality() throws JsonProcessingException {
         Map<String, Object> map = null;
         List<NationalityModal> nationality = nationalityRepository.getNationalality();
 
@@ -285,7 +350,14 @@ public class AjaxContoller {
         map.put(Constants.keyResponse, nationality);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+       // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
 
 
     }
@@ -295,14 +367,20 @@ public class AjaxContoller {
     //getNationalRegional
     @RequestMapping(value = Constants.getNationalRegional, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getNationalRegional() {
+    String getNationalRegional() throws JsonProcessingException {
         Map<String, Object> map;
         List<NationalRegionalModal> nationalRegional = nationalRegionalRepository.getNationalRegional();
         map = new HashMap<>();
         map.put(Constants.keyResponse, nationalRegional);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        //return new ResponseEntity<>(map, HttpStatus.OK);
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
 
 
     }
@@ -311,28 +389,41 @@ public class AjaxContoller {
     //getNationalRegional
     @RequestMapping(value = Constants.getLandType, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getLandType() {
+   String getLandType() throws JsonProcessingException {
         Map<String, Object> map;
         List<LandTypeModal> landType = landTypeRepository.getLandType();
         map = new HashMap<>();
         map.put(Constants.keyResponse, landType);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<>(map, HttpStatus.OK);
+      //  return new ResponseEntity<>(map, HttpStatus.OK);
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
 
 
     }
 
     @RequestMapping(value = Constants.getrolesVendor, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getrolesVendor() {
+    String getrolesVendor() throws JsonProcessingException {
         Map<String, Object> map = null;
         List<RolesModal> roles = rolesRepository.getRoleVendor();
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, roles);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+       // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
 
 
     }
@@ -340,14 +431,20 @@ public class AjaxContoller {
     //getVendor
     @RequestMapping(value = Constants.getVendor, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getVendor() {
+    String getVendor() throws JsonProcessingException {
         Map<String, Object> map = null;
         List<CategoryModal> categories = vendorRepository.getCategories();
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, categories);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
 
 
     }
@@ -356,7 +453,7 @@ public class AjaxContoller {
     //getVendorCategory
         @RequestMapping(value = Constants.getVendorCategory, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getVendorCategory(@RequestParam(value = Constants.requestParam, required = true) String id) throws Exception {
+    String getVendorCategory(@RequestParam(value = Constants.requestParam, required = true) String id) throws Exception {
 
 
             Map<String, Object> map = null;
@@ -368,13 +465,27 @@ public class AjaxContoller {
                 map.put(Constants.keyResponse, vendorsCategorys);
                 map.put(Constants.keyMessage, Constants.valueMessage);
                 map.put(Constants.keyStatus, HttpStatus.OK);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+               // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+                ObjectMapper Obj = new ObjectMapper();
+                String jsonStr = null;
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+
+                return jsonStr;
             }catch(Exception ex){
                 map = new HashMap<String, Object>();
                 map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
                 map.put(Constants.keyMessage, Constants.valueMessage);
                 map.put(Constants.keyStatus, HttpStatus.OK);
-                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+               // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+                ObjectMapper Obj = new ObjectMapper();
+                String jsonStr = null;
+                jsonStr = Obj.writeValueAsString(map);
+                logger.info(jsonStr);
+
+                return jsonStr;
             }
 
     }
@@ -382,7 +493,7 @@ public class AjaxContoller {
     //getItemsviaSubCategories
     @RequestMapping(value = Constants.getItemsviaSubCategoriesTent, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getItemsviaSubCategories(
+    String getItemsviaSubCategories(
 
             @RequestParam(value = Constants.landType, required = true) String landType,
             @RequestParam(value = Constants.category, required = true) String category,
@@ -405,13 +516,27 @@ public class AjaxContoller {
             map.put(Constants.keyResponse, items);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+           // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }catch(Exception ex){
             map = new HashMap<String, Object>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }
 
 
@@ -421,7 +546,7 @@ public class AjaxContoller {
     //getItemsviaSubCategoriesNR
     @RequestMapping(value = Constants.getItemsviaSubCategoriesNR, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getItemsviaSubCategoriesNR(
+    String getItemsviaSubCategoriesNR(
             @RequestParam(value = Constants.landType, required = true) String landType,
             @RequestParam(value = Constants.category, required = true) String category,
             @RequestParam(value = Constants.regional, required = true) String regional,
@@ -443,13 +568,27 @@ public class AjaxContoller {
             map.put(Constants.keyResponse, items);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<>(map, HttpStatus.OK);
+           // return new ResponseEntity<>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }catch(Exception ex){
             map = new HashMap<>();
             map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
             map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            return new ResponseEntity<>(map, HttpStatus.OK);
+            //return new ResponseEntity<>(map, HttpStatus.OK);
+
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
         }
 
 
@@ -458,7 +597,7 @@ public class AjaxContoller {
 // getItemsviaSubCategoriesNonTentNonRegional
 @RequestMapping(value = Constants.getItemsviaSubCategoriesNonTentNonRegional, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
 public @ResponseBody
-ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
+String getItemsviaSubCategoriesNonTentNonRegional(
         @RequestParam(value = Constants.landType, required = true) String landType,
         @RequestParam(value = Constants.category, required = true) String category,
         @RequestParam(value = Constants.regional, required = true) String regional,
@@ -477,13 +616,27 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
         map.put(Constants.keyResponse, items);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
     }catch(Exception ex){
         map = new HashMap<String, Object>();
         map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+      //  return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
     }
 
 
@@ -492,7 +645,7 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
     //getDistrict
     @RequestMapping(value = Constants.getDistrict, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
     public @ResponseBody
-    ResponseEntity<?> getDistrict() {
+    String getDistrict() throws JsonProcessingException {
         Map<String, Object> map = null;
         List<DistrictModal> districts = districtRepository.getDistricts(false,true);
 
@@ -500,87 +653,16 @@ ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
         map.put(Constants.keyResponse, districts);
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+       // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
-
-    }
-
-    //getArea
-//    @RequestMapping(value = Constants.getArea, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
-//    public @ResponseBody
-//    ResponseEntity<?> getArea(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
-//
-//        Map<String, Object> map = null;
-//        try {
-//            List<Object[]> areaDistrictWise = availableAreaRepository.getAvailableAreaDistrict(Integer.parseInt(id));
-//            List<AreaModal> areaModal = new ArrayList<>();
-//
-//
-//            for (Object[] result : areaDistrictWise) {
-//                AreaModal pojo = new AreaModal();
-//                pojo.setAreaId((Integer) result[0]);
-//                pojo.setAreaName((String) result[1]);
-//                areaModal.add(pojo);
-//            }
-//
-//            map = new HashMap<String, Object>();
-//            map.put(Constants.keyResponse, areaModal);
-//            map.put(Constants.keyMessage, Constants.valueMessage);
-//            map.put(Constants.keyStatus, HttpStatus.OK);
-//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//        }catch(Exception ex){
-//            map = new HashMap<String, Object>();
-//            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
-//            map.put(Constants.keyMessage, Constants.valueMessage);
-//            map.put(Constants.keyStatus, HttpStatus.OK);
-//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//        }
-//
-//
-//    }
-
-
-    @GetMapping("/student")
-    ResponseEntity<?> student() {
-        // Custom logic
-        return ResponseEntity.ok(new Student("John", "Wiliams", "AA"));
-    }
-
-    @RequestMapping(value = "/dest",method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<Map<String,Object>> handleRequest() throws Exception{
-        List<DistrictModal> districts = districtRepository.getDistricts(false,true);
-
-        Map<String, Object> message = new HashMap<String, Object>();
-
-        message.put("severity", "info");
-        message.put("user", districts);
-        message.put("summary", "Not successfully.");
-        message.put("code", 200);
-
-        Map<String, Object> json = new HashMap<String, Object>();
-        json.put("success", true);
-        json.put("message", message);
-
-        return new ResponseEntity<Map<String,Object>>(message,HttpStatus.CREATED);
-    }
-
-    @GetMapping("/hello")
-    @ResponseBody
-    public String hello() throws JsonProcessingException {
-        List<DistrictModal> districts = districtRepository.getDistricts(false,true);
         ObjectMapper Obj = new ObjectMapper();
         String jsonStr = null;
-        jsonStr = Obj.writeValueAsString(districts);
+        jsonStr = Obj.writeValueAsString(map);
         logger.info(jsonStr);
 
-        Map<String, Object> json = new HashMap<String, Object>();
-        json.put("success", true);
-        json.put("message", jsonStr);
+        return jsonStr;
 
-        logger.info("===Map is=================================== \n \t"+ json.toString());
 
-        return json.toString();
     }
 
 
