@@ -28,7 +28,7 @@ public class GeneratePdfReport {
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(GeneratePdfReport.class);
 
 
-    public static ByteArrayInputStream generateIdCard(UserApplicationEntity data, UserTranactionEntity transaction) throws JsonProcessingException, MalformedURLException {
+    public static ByteArrayOutputStream generateIdCard(UserApplicationEntity data, UserTranactionEntity transaction) throws JsonProcessingException, MalformedURLException {
         UserApplicationEntity userApplicationEntity = null;
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -409,6 +409,7 @@ public class GeneratePdfReport {
 
 
             PdfWriter.getInstance(document, out);
+            logger.info("Genergate PDF Document===: " +  document.toString());
             document.open();
 
             document.add(parent);
@@ -426,7 +427,7 @@ public class GeneratePdfReport {
             e.printStackTrace();
         }
 
-        return new ByteArrayInputStream(out.toByteArray());
+        return  out;
     }
 
     private static PdfPCell getCell(String data, Font font) {

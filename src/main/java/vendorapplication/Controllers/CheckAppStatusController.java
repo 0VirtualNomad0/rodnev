@@ -26,8 +26,8 @@ import vendorapplication.utilities.GeneratePdfReport;
 import vendorapplication.validators.CheckStatusValidator;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -234,25 +234,32 @@ public class CheckAppStatusController {
 
     }
 
-    //generatePdf
-    @RequestMapping(value = "/generatePdf/{id}", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody
-    ResponseEntity<InputStreamResource> printId(@PathVariable("id") String id) throws IOException, WriterException, DocumentException {
 
-        UserApplicationEntity userApplicationEntity = userApplicationRepository.findById(Integer.parseInt(id)).get();
-        UserTranactionEntity userTranactionEntity = userTransactionService.getUserTransaction(Integer.parseInt(id));
-        ByteArrayInputStream bis = GeneratePdfReport.generateIdCard(userApplicationEntity,userTranactionEntity);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=" + userApplicationEntity.getUserId().getMobileNumber() + ".pdf");
+    @RequestMapping(value = "/generatePdf/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public void downloadPDF(@PathVariable("id") String id,HttpServletRequest request, HttpServletResponse response)
+            throws IOException{
 
+        try {
+            UserApplicationEntity userApplicationEntity = userApplicationRepository.findById(Integer.parseInt(id)).get();
+            UserTranactionEntity userTranactionEntity = userTransactionService.getUserTransaction(Integer.parseInt(id));
+            ByteArrayOutputStream bis = GeneratePdfReport.generateIdCard(userApplicationEntity, userTranactionEntity);
 
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(bis));
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition","attachment;filename=" + userApplicationEntity.getUserId().getMobileNumber() + ".pdf");
+            logger.info("We are In the End");
+            logger.info("Bis Length===" + bis.size());
+            DataOutputStream os = new DataOutputStream(response.getOutputStream());
+            response.setHeader("Content-Length", String.valueOf(bis.size()));
+            logger.info("Content-Length===" + bis.size());
 
+             os.write(bis.toByteArray());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
+
 
 }
