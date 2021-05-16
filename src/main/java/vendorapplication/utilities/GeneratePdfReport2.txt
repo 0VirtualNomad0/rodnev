@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.entities.UserTranactionEntity;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
