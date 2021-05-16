@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import vendorapplication.modal.RolesModal;
 import vendorapplication.services.RoleService;
 
 @Component
@@ -32,7 +33,9 @@ public class RoleValidator implements Validator {
         if (user.getRoleName().length() <= 3 || user.getRoleName().length() > 32) {
             errors.rejectValue("roleName", "Size.rolesForm.roleName");
         }
-        if (roleService.checkRoleName(user.getRoleName()) != null) {
+        RolesModal modal = roleService.checkRoleName(user.getRoleName());
+
+        if (modal != null) {
             errors.rejectValue("roleName", "Duplicate.rolesForm.roleName");
         }
 

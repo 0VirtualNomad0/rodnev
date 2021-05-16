@@ -17,7 +17,7 @@ public interface RolesRepositoryCustom {
 
     List<RolesModal> getRoles();
 
-    RolesEntity checkRole(String rolenmae);
+    RolesModal checkRole(String rolenmae);
 
      @Cacheable
     List<RolesModal> getRoleVendor();

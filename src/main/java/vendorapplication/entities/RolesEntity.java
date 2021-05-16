@@ -22,7 +22,6 @@ public class RolesEntity   {
     private boolean active;
 
 
-
     public Long getRoleId() {
         return roleId;
     }

@@ -177,7 +177,7 @@
 <!--            <artifactId>jackson-module-jaxb-annotations</artifactId>-->
 <!--            <version>2.5.2</version>-->
 <!--        </dependency>-->
-        <!-- JBoss Logging and Server Configurations  Ends-->
+<!--        &lt;!&ndash; JBoss Logging and Server Configurations  Ends&ndash;&gt;-->
 
         <dependency>
             <groupId>commons-codec</groupId>

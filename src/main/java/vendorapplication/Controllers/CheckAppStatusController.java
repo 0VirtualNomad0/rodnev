@@ -27,7 +27,10 @@ import vendorapplication.validators.CheckStatusValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -107,7 +110,7 @@ public class CheckAppStatusController {
                            if (DatesDifference > 7) {
                                //Application Auto Approved
                                model.addAttribute("successMessage", "Data Found Successfully.");
-                               model.addAttribute("downloadApplication", false);
+                               model.addAttribute("downloadApplication", downloadApplication);
                                model.addAttribute("appPermissions", data);
                                model.addAttribute("applicatoinId", form.getAppId());
                                model.addAttribute("autoApproved", true);
@@ -164,7 +167,7 @@ public class CheckAppStatusController {
                         if (DatesDifference > 7) {
                             //Application Auto Approved
                             model.addAttribute("successMessage", "Data Found Successfully.");
-                            model.addAttribute("downloadApplication", false);
+                            model.addAttribute("downloadApplication", true);
                             model.addAttribute("applicatoinId", form.getAppId());
                             model.addAttribute("autoApproved", true);
                             return "checkStatus";
@@ -234,7 +237,7 @@ public class CheckAppStatusController {
 
     }
 
-
+    //generatePdf
     @RequestMapping(value = "/generatePdf/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
     public void downloadPDF(@PathVariable("id") String id,HttpServletRequest request, HttpServletResponse response)
             throws IOException{
@@ -245,21 +248,18 @@ public class CheckAppStatusController {
             ByteArrayOutputStream bis = GeneratePdfReport.generateIdCard(userApplicationEntity, userTranactionEntity);
 
             response.setContentType("application/pdf");
-            response.setHeader("Content-disposition","attachment;filename=" + userApplicationEntity.getUserId().getMobileNumber()+"_"+userApplicationEntity.getUserId().getFirstName() + ".pdf");
+            response.setHeader("Content-disposition","attachment;filename=" + userApplicationEntity.getUserId().getMobileNumber() + ".pdf");
             logger.info("We are In the End");
             logger.info("Bis Length===" + bis.size());
             DataOutputStream os = new DataOutputStream(response.getOutputStream());
             response.setHeader("Content-Length", String.valueOf(bis.size()));
             logger.info("Content-Length===" + bis.size());
 
-             os.write(bis.toByteArray());
+            os.write(bis.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
 }

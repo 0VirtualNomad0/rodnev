@@ -4,6 +4,7 @@ package vendorapplication.services;
 import vendorapplication.entities.RolesEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vendorapplication.modal.RolesModal;
 import vendorapplication.repositories.roles.RolesRepository;
 
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class RoleService {
 	}
 
 
-	public RolesEntity checkRoleName(String roleName) {
+	public RolesModal checkRoleName(String roleName) {
 		return rolesRepository.checkRole(roleName);
 	}
 
