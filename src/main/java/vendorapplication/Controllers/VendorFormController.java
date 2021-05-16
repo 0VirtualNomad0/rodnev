@@ -89,26 +89,7 @@ public class VendorFormController {
                 request.getSession().setAttribute("Mobile_Number", user.getMobileNumber());
                 request.getSession().setAttribute("gender", user.getGenderID().getGenderName());
                 request.getSession().setAttribute("address", user.getpAddress());
-                //Get Applications via USer Details
-           //     List<Object[]> dashboardDataServerList = userApplicationService.getListByUserId((user.getUserId()).intValue());
-//                List<VendorDashboardList> dashboardData = new ArrayList<>();
-//                for (Object[] result : dashboardDataServerList) {
-//                    VendorDashboardList pojo = new VendorDashboardList();
-//                    pojo.setApp_id((Integer) result[0]);
-//                    pojo.setApp_action_dc((String) result[1]);
-//                    pojo.setApp_dc_date((Date) result[2]);
-//                    pojo.setApp_action_dfo((String) result[3]);
-//                    pojo.setApp_dfo_date((Date) result[4]);
-//                    pojo.setApp_action_bdo((String) result[5]);
-//                    pojo.setApp_bdo_date((Date) result[6]);
-//                    pojo.setCreatedDate((Date) result[7]);
-//                    pojo.setVendorType((String) result[8]);
-//                    pojo.setVendorCategory((String) result[9]);
-//                    dashboardData.add(pojo);
-//                }
 
-
-             //   model.addAttribute("userApplications", dashboardDataServerList);
 
 
                 return "vendorIndex";

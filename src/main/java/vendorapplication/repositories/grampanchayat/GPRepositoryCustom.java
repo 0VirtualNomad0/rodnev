@@ -12,7 +12,6 @@ import java.util.List;
 @CacheConfig(cacheNames = "gram_panchayat_")
 public interface GPRepositoryCustom {
 
-
     @Cacheable
     List<GramPanchayatModal> getgpViaId(Integer blockId);
 }

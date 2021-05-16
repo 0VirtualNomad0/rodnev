@@ -92,20 +92,20 @@ public class UserApplicationRepositoryCustomImpl implements UserApplicationRepos
     }
 
     @Override
-    public Integer getApplicationsCountRolePCB(Integer stateId, Integer districtId, Integer appId) {
+    public Integer getApplicationsCountRolePCB(Integer stateId, Integer districtId, Integer subcat) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<UserApplicationEntity> book = cq.from(UserApplicationEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate state_id = cb.equal(book.get("state").<Integer>get("stateID"), stateId);
         Predicate district_id = cb.equal(book.get("district").<Integer>get("districtId"), districtId);
-        Predicate app_id = cb.equal(book.get("appId"), appId);
-        cq.select(cb.count(book)).where(isActive_,state_id,district_id,app_id);
+        Predicate subCategory = cb.equal(book.get("subcategory").<Integer>get("subCategoryId"), subcat);
+        cq.select(cb.count(book)).where(isActive_,state_id,district_id,subCategory);
         return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
     }
 
     @Override
-    public Integer getApprovedApplicationsRolePCB(Integer stateId, Integer districtId, String appStatus, Integer appId) {
+    public Integer getApprovedApplicationsRolePCB(Integer stateId, Integer districtId, String appStatus, Integer subcat) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<UserApplicationEntity> book = cq.from(UserApplicationEntity.class);
@@ -113,8 +113,8 @@ public class UserApplicationRepositoryCustomImpl implements UserApplicationRepos
         Predicate state_id = cb.equal(book.get("state").<Integer>get("stateID"), stateId);
         Predicate district_id = cb.equal(book.get("district").<Integer>get("districtId"), districtId);
         Predicate app_status = cb.equal(book.get("applicationStatus"), appStatus);
-        Predicate app_id = cb.equal(book.get("appId"), appId);
-        cq.select(cb.count(book)).where(isActive_,state_id,district_id,app_status,app_id);
+        Predicate subCategory = cb.equal(book.get("subcategory").<Integer>get("subCategoryId"), subcat);
+        cq.select(cb.count(book)).where(isActive_,state_id,district_id,app_status,subCategory);
         return Math.toIntExact(entityManager.createQuery(cq).getSingleResult());
     }
 

@@ -67,26 +67,6 @@ public class HomeController {
             }
             //Get the User Data and Set Set the Data in Session
             List<LoggedInUserLocationSession> data = userRepository.getUserGeoData(username);
-
-//            List<LoggedInUserLocationSession> loggedInUserLocationSessionsList = new ArrayList<>();
-//
-//
-//            for (Object[] result : data) {
-//                LoggedInUserLocationSession userSession = new LoggedInUserLocationSession();
-//                userSession.setStateId((Integer) result[0]);
-//                userSession.setDistrictId((Integer) result[1]);
-//                userSession.setBlockId((Integer) result[2]);
-//                userSession.setTehsilId((Integer) result[3]);
-//                userSession.setPanchayatId((Integer) result[4]);
-//                userSession.setUserID((Integer)result[5]);
-//
-//                loggedInUserLocationSessionsList.add(userSession);
-//            }
-
-
-
-
-
             //Save the Object in Session
             request.getSession().setAttribute("UserData", data.get(0));
 

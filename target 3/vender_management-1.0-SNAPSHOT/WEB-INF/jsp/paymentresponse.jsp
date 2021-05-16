@@ -1,0 +1,77 @@
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<div class="content-wrapper" style="background-color:#FFFFFF;">
+   <c:if test="${not empty successMessage}">
+      <div class="row">
+         <div id="serverError" style="color:#77332F; display: block ;" class="text-center successMessage col-lg-12 breadcrumb">${successMessage}</div>
+      </div>
+   </c:if>
+   <br>
+   <c:if test="${not empty serverError}">
+      <div class="row">
+         <div id="serverError" style="color:#77332F; display: block ;" class="plErroMessage text-center  col-lg-12 breadcrumb">${serverError}</div>
+      </div>
+   </c:if>
+   <!-- Section Three -->
+   <div class="row ">
+      <div class="col-lg-3"> &nbsp;  </div>
+      <div class="col-lg-6 ">
+         <h4 class="text-left col-lg-12">Payment Status</h4>
+         <hr>
+         <table class="table table-hover table-bordered">
+            <tbody>
+               <tr>
+                  <td class="text-center"> Payment Status</td>
+                  <td class="text-center" >
+                     <%= session.getAttribute("paymentStatus") %>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="text-center">Transaction Id</td>
+                  <td class="text-center" >
+                     <%= session.getAttribute("TransactionId") %>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="text-center">Amount</td>
+                  <td class="text-center" >
+                     <%= session.getAttribute("Amount") %>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="text-center">Application ID</td>
+                  <td class="text-center" >
+                     <%= session.getAttribute("ApplicationId") %>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="text-center">Name</td>
+                  <td class="text-center" >
+                     <%= session.getAttribute("Name") %>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="text-center">Mobile Number</td>
+                  <td class="text-center" >
+                     <%= session.getAttribute("MobileNumber") %>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="text-center">Email</td>
+                  <td class="text-center" >
+                     <%= session.getAttribute("email") %>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+             <br />
+                        <a href="${pageContext.request.contextPath}/checkStatus" class="btn-success col-lg-12 text-center"> Check Status of Submitted Application </a>
+                        <br/>
+                     </div>
+                     <div class="col-lg-3"> &nbsp;  </div>
+                  </div>
+      </div>
+
+</div>

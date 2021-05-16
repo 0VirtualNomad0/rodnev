@@ -119,7 +119,7 @@
   <div class="container">
   <div class="row">
    <div class="text-center btn-success col-lg-12" style="color:white; padding: 10px;" >
-   <a href="${pageContext.request.contextPath}/generatePdf/${applicatoinId}" target= "_blank" style="color:white; padding:10px; text-decoration:none;"> <strong><spring:message code="checkstatus.download"/></strong> </a> </div>
+   <a href="${pageContext.request.contextPath}/generatePdf/${applicatoinId}"  style="color:white; padding:10px; text-decoration:none;"> <strong><spring:message code="checkstatus.download"/></strong> </a> </div>
    </div>
    </div>
    </c:if>
@@ -129,14 +129,14 @@
    <!-- autoApproved -->
    <c:if test = "${autoApproved}">
       <br>
-      <h2 class="form-signin-heading col-lg-12"><strong><spring:message code="checkstatus.downloadReport"/></strong></h2>
-         <h4 class="form-signin-heading col-lg-12"><strong><spring:message code="checkstatus.autoApproved"/></strong></h4>
+      <h2 class="form-signin-heading container"><strong><spring:message code="checkstatus.downloadReport"/></strong></h2>
+         <h4 class="form-signin-heading container"><strong class="text-danger"><spring:message code="checkstatus.autoApproved"/></strong></h4>
 
    <br>
      <div class="container">
      <div class="row">
-      <div class="text-center btn-success col-lg-12" style="color:white; padding: 10px;" >
-      <a href="${pageContext.request.contextPath}/generatePdf/${applicatoinId}" target= "_blank" style="color:white; padding:10px; text-decoration:none;"> <strong><spring:message code="checkstatus.download"/></strong> </a> </div>
+      <div class="text-center btn-success container" style="color:white; padding: 10px;" >
+      <a href="${pageContext.request.contextPath}/generatePdf/${applicatoinId}"  style="color:white; padding:10px; text-decoration:none;"> <strong><spring:message code="checkstatus.download"/></strong> </a> </div>
       </div>
       </div>
       </c:if>

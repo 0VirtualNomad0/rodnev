@@ -107,7 +107,7 @@ public class CheckAppStatusController {
                            if (DatesDifference > 7) {
                                //Application Auto Approved
                                model.addAttribute("successMessage", "Data Found Successfully.");
-                               model.addAttribute("downloadApplication", downloadApplication);
+                               model.addAttribute("downloadApplication", false);
                                model.addAttribute("appPermissions", data);
                                model.addAttribute("applicatoinId", form.getAppId());
                                model.addAttribute("autoApproved", true);
@@ -164,7 +164,7 @@ public class CheckAppStatusController {
                         if (DatesDifference > 7) {
                             //Application Auto Approved
                             model.addAttribute("successMessage", "Data Found Successfully.");
-                            model.addAttribute("downloadApplication", true);
+                            model.addAttribute("downloadApplication", false);
                             model.addAttribute("applicatoinId", form.getAppId());
                             model.addAttribute("autoApproved", true);
                             return "checkStatus";
@@ -245,7 +245,7 @@ public class CheckAppStatusController {
             ByteArrayOutputStream bis = GeneratePdfReport.generateIdCard(userApplicationEntity, userTranactionEntity);
 
             response.setContentType("application/pdf");
-            response.setHeader("Content-disposition","attachment;filename=" + userApplicationEntity.getUserId().getMobileNumber() + ".pdf");
+            response.setHeader("Content-disposition","attachment;filename=" + userApplicationEntity.getUserId().getMobileNumber()+"_"+userApplicationEntity.getUserId().getFirstName() + ".pdf");
             logger.info("We are In the End");
             logger.info("Bis Length===" + bis.size());
             DataOutputStream os = new DataOutputStream(response.getOutputStream());
