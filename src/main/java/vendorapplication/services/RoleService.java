@@ -30,7 +30,7 @@ public class RoleService {
 	}
 
 
-	public RolesModal checkRoleName(String roleName) {
+	public Boolean checkRoleName(String roleName) {
 		return rolesRepository.checkRole(roleName);
 	}
 

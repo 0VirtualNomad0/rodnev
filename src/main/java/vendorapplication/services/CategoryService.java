@@ -11,7 +11,7 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public CategoryEntity checkCategory(String categoryName) {
+    public Boolean checkCategory(String categoryName) {
         return categoryRepository.checkCategory(categoryName);
     }
 

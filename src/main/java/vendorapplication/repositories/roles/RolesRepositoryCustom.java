@@ -17,7 +17,7 @@ public interface RolesRepositoryCustom {
 
     List<RolesModal> getRoles();
 
-    RolesModal checkRole(String rolenmae);
+    Boolean checkRole(String rolenmae);
 
      @Cacheable
     List<RolesModal> getRoleVendor();

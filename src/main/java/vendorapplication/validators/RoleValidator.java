@@ -33,9 +33,8 @@ public class RoleValidator implements Validator {
         if (user.getRoleName().length() <= 3 || user.getRoleName().length() > 32) {
             errors.rejectValue("roleName", "Size.rolesForm.roleName");
         }
-        RolesModal modal = roleService.checkRoleName(user.getRoleName());
-
-        if (modal != null) {
+        Boolean flag = roleService.checkRoleName(user.getRoleName());
+        if (flag) {
             errors.rejectValue("roleName", "Duplicate.rolesForm.roleName");
         }
 

@@ -3,6 +3,7 @@ package vendorapplication.repositories.category;
 import org.springframework.stereotype.Service;
 import vendorapplication.entities.CategoryEntity;
 import vendorapplication.entities.GenderEntity;
+import vendorapplication.entities.RolesEntity;
 import vendorapplication.modal.CategoryModal;
 import vendorapplication.modal.GenderModal;
 
@@ -35,14 +36,21 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     }
 
     @Override
-    public CategoryEntity checkCategory(String rolenmae) {
+    public Boolean checkCategory(String rolenmae) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<CategoryEntity> cq = cb.createQuery(CategoryEntity.class);
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CategoryEntity> book = cq.from(CategoryEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate category = cb.equal(book.get("categoryName"), rolenmae);
         cq.where(isActive_,category);
-        TypedQuery<CategoryEntity> query =  entityManager.createQuery(cq);
-        return (CategoryEntity) query.getResultList();
+        cq.select(cb.count(book)).where(isActive_,category) ;
+        TypedQuery<Long> query =  entityManager.createQuery(cq);
+        if(Math.toIntExact(entityManager.createQuery(cq).getSingleResult())>0){
+            return true;
+        }else{
+            return false;
+        }
+
+
     }
 }

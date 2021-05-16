@@ -34,17 +34,23 @@ public class RolesRepositoryCustomImpl implements RolesRepositoryCustom{
     }
 
     @Override
-    public RolesModal checkRole(String rolenmae) {
+    public Boolean checkRole(String rolenmae) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<RolesModal> cq = cb.createQuery(RolesModal.class);
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<RolesEntity> book = cq.from(RolesEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate role_name = cb.equal(book.get("roleName"), rolenmae);
         cq.where(isActive_,role_name);
-        cq.multiselect(book.get("roleId"), book.get("roleName"));
-        TypedQuery<RolesModal> query =  entityManager.createQuery(cq);
-        return query.getSingleResult();
+        cq.select(cb.count(book)).where(isActive_,role_name) ;
+        TypedQuery<Long> query =  entityManager.createQuery(cq);
+        if(Math.toIntExact(entityManager.createQuery(cq).getSingleResult())>0){
+            return true;
+        }else{
+            return false;
+        }
     }
+
+
 
     @Override
     public List<RolesModal> getRoleVendor() {

@@ -13,7 +13,7 @@ public class SubCategoryService {
 
 
 
-    public SubCategoryEntity checkCategory(String categoryName) {
+    public Boolean checkCategory(String categoryName) {
         return subCategoryRepository.checkSubCategory(categoryName);
     }
 

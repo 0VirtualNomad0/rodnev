@@ -19,5 +19,5 @@ public interface CategoryRepositoryCustom {
     List<CategoryModal> getCategories();
 
    // @Query(value = "SELECT * from mst_category where active = true AND category_name =:role_name_" , nativeQuery = true)
-    CategoryEntity checkCategory(@Param("role_name_") String rolenmae);
+    Boolean checkCategory(String rolenmae);
 }

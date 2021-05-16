@@ -26,7 +26,7 @@ public class CategoryValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryName", "NotEmpty");
 
-        if (vendorService.checkCategory(user.getCategoryName()) != null) {
+        if (vendorService.checkCategory(user.getCategoryName())) {
             errors.rejectValue("categoryName", "Duplicate.categoryForm.categoryName");
         }
 

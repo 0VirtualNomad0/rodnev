@@ -1,6 +1,7 @@
 package vendorapplication.repositories.subcategory;
 
 import org.springframework.stereotype.Service;
+import vendorapplication.entities.CategoryEntity;
 import vendorapplication.entities.GPEntity;
 import vendorapplication.entities.SubCategoryEntity;
 import vendorapplication.modal.GramPanchayatModal;
@@ -37,16 +38,20 @@ public class SubCategoryRepositoryCustomImpl implements SubCategoryRepositoryCus
 
 
     @Override
-    public SubCategoryEntity checkSubCategory(String subCategory) {
+    public Boolean checkSubCategory(String subCategory) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<SubCategoryEntity> cq = cb.createQuery(SubCategoryEntity.class);
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<SubCategoryEntity> book = cq.from(SubCategoryEntity.class);
         Predicate isActive_ = cb.equal(book.get("active"), true);
         Predicate categoryId_ = cb.equal(book.get("subCategoryName"), subCategory);
         cq.where(isActive_,categoryId_);
-        cq.multiselect(book.get("subCategoryId"), book.get("subCategoryName")).distinct(true);
-        TypedQuery<SubCategoryEntity> query =  entityManager.createQuery(cq);
-        return query.getSingleResult();
+        cq.select(cb.count(book)).where(isActive_,categoryId_) ;
+        TypedQuery<Long> query =  entityManager.createQuery(cq);
+        if(Math.toIntExact(entityManager.createQuery(cq).getSingleResult())>0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 

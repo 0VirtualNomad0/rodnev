@@ -15,5 +15,5 @@ public interface SubCategoryRepositoryCustom {
     @Cacheable
     List<SubCategoryModal> getSubCategories(Integer categoryId);
 
-    SubCategoryEntity checkSubCategory( String subCategory);
+    Boolean checkSubCategory( String subCategory);
 }

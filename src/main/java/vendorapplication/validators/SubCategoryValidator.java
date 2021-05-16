@@ -28,7 +28,7 @@ public class SubCategoryValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "subcategoryName", "NotEmpty");
 
-        if (subCategoryService.checkCategory(user.getSubcategoryName()) != null) {
+        if (subCategoryService.checkCategory(user.getSubcategoryName())) {
             errors.rejectValue("subcategoryName", "Duplicate.categoryForm.categoryName");
         }
 
