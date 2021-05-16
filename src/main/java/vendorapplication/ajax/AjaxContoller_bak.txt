@@ -1,0 +1,587 @@
+package vendorapplication.ajax;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import vendorapplication.modal.*;
+import vendorapplication.repositories.blocks.BlockRepository;
+import vendorapplication.repositories.category.CategoryRepository;
+import vendorapplication.repositories.district.DistrictRepository;
+import vendorapplication.repositories.gender.GenderRepository;
+import vendorapplication.repositories.grampanchayat.GPRepository;
+import vendorapplication.repositories.landtype.LandTypeRepository;
+import vendorapplication.repositories.nationality.NationalityRepository;
+import vendorapplication.repositories.nationalregional.NationalRegionalRepository;
+import vendorapplication.repositories.roles.RolesRepository;
+import vendorapplication.repositories.states.StateRepository;
+import vendorapplication.repositories.subcategory.SubCategoryRepository;
+import vendorapplication.repositories.subcategoryitems.SubCategoryItemsRepository;
+import vendorapplication.repositories.tehsil.TehsilRepository;
+import vendorapplication.utilities.Constants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+public class AjaxContoller_bak {
+
+    @Autowired
+    RolesRepository rolesRepository;
+
+    @Autowired
+    GenderRepository genderRepository;
+
+    @Autowired
+    NationalityRepository nationalityRepository;
+
+    @Autowired
+    CategoryRepository vendorRepository;
+
+    @Autowired
+    SubCategoryRepository vendorTypeRepository;
+
+    @Autowired
+    DistrictRepository districtRepository;
+
+
+
+    @Autowired
+    StateRepository stateRepository;
+
+    @Autowired
+    BlockRepository blockRepository;
+
+    @Autowired
+    TehsilRepository tehsilRepository;
+
+    @Autowired
+    GPRepository gpRepository;
+
+    @Autowired
+    LandTypeRepository landTypeRepository;
+
+    @Autowired
+    NationalRegionalRepository nationalRegionalRepository;
+
+    @Autowired
+    SubCategoryItemsRepository subCategoryItemsRepository;
+
+
+
+
+
+    private static final Logger logger = LoggerFactory.getLogger(AjaxContoller_bak.class);
+
+
+    @RequestMapping(value = Constants.getRoles, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?>  getRoles() throws JsonProcessingException {
+        Map<String, Object> map = null;
+        List<RolesModal> roles = rolesRepository.getRoles();
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, roles);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+
+
+    }
+
+    @RequestMapping(value = Constants.getGender, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getGender() {
+        Map<String, Object> map = null;
+        List<GenderModal> gender = genderRepository.getGender();
+
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, gender);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //Get State
+    @RequestMapping(value = Constants.getState, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getState() {
+        Map<String, Object> map = null;
+        List<StateModal > states = stateRepository.getStates();
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, states);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //Get Districs
+    @RequestMapping(value = Constants.getDistrictsViaState, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getDistrictsViaState(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+
+        Map<String, Object> map = null;
+
+        try{
+            Integer id_ = Integer.parseInt(id);
+            List<DistrictModal> districtsObject = districtRepository.getDistrictsViaId(id_,false,true);
+
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, districtsObject);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse );
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }
+
+
+
+    }
+
+    //getBlocks
+    @RequestMapping(value = Constants.getBlocks, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getBlocks(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+        Map<String, Object> map = null;
+
+        try{
+            List<BlockModal> blockObjects = blockRepository.getBlocksViaDitricts(Integer.parseInt(id),true,false);
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, blockObjects);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }
+
+    }
+
+    // Get Blocks Two
+//    @RequestMapping(value = Constants.getBlocks, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+//    public @ResponseBody
+//    ResponseEntity<?> getBlocksTwo(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+//        Map<String, Object> map = null;
+//
+//        try{
+//            List<BlocksEntity> blockObjects = blockRepository.getBlocksViaDitricts(Integer.parseInt(id));
+//
+//            if(!blockObjects.isEmpty()){
+//                map = new HashMap<String, Object>();
+//                map.put(Constants.keyResponse, blockObjects);
+//                map.put(Constants.keyMessage, Constants.valueMessage);
+//                map.put(Constants.keyStatus, HttpStatus.OK);
+//                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//            }else{
+//                map = new HashMap<String, Object>();
+//                map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+//                map.put(Constants.keyMessage, Constants.valueMessage);
+//                map.put(Constants.keyStatus, HttpStatus.OK);
+//                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//            }
+//
+//
+//        }catch(Exception ex){
+//
+//            map = new HashMap<String, Object>();
+//            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+//            map.put(Constants.keyMessage, Constants.valueMessage);
+//            map.put(Constants.keyStatus, HttpStatus.OK);
+//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//        }
+//
+//    }
+
+    //getTehsils
+    @RequestMapping(value = Constants.getTehsils, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getTehsils(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+        Map<String, Object> map = null;
+
+        try{
+
+            List<TehsilModal> TehsilObjects = tehsilRepository.getTehsils(Integer.parseInt(id));
+
+            map = new HashMap<>();
+            map.put(Constants.keyResponse, TehsilObjects);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+
+        }catch (Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+
+    }
+
+    //getWardPanchayat
+    @RequestMapping(value = Constants.getWardPanchayat, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getWardPanchayat(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+
+
+        Map<String, Object> map = null;
+
+        try{
+            List<GramPanchayatModal> gpObjects = gpRepository.getgpViaId(Integer.parseInt(id));
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, gpObjects);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }
+
+
+
+    }
+
+
+    //getNationality
+    @RequestMapping(value = Constants.getNationality, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getNationality() {
+        Map<String, Object> map = null;
+        List<NationalityModal> nationality = nationalityRepository.getNationalality();
+
+
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, nationality);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+
+
+    //getNationalRegional
+    @RequestMapping(value = Constants.getNationalRegional, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getNationalRegional() {
+        Map<String, Object> map;
+        List<NationalRegionalModal> nationalRegional = nationalRegionalRepository.getNationalRegional();
+        map = new HashMap<>();
+        map.put(Constants.keyResponse, nationalRegional);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+
+
+    }
+
+    //LandType
+    //getNationalRegional
+    @RequestMapping(value = Constants.getLandType, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getLandType() {
+        Map<String, Object> map;
+        List<LandTypeModal> landType = landTypeRepository.getLandType();
+        map = new HashMap<>();
+        map.put(Constants.keyResponse, landType);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+
+
+    }
+
+    @RequestMapping(value = Constants.getrolesVendor, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getrolesVendor() {
+        Map<String, Object> map = null;
+        List<RolesModal> roles = rolesRepository.getRoleVendor();
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, roles);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getVendor
+    @RequestMapping(value = Constants.getVendor, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getVendor() {
+        Map<String, Object> map = null;
+        List<CategoryModal> categories = vendorRepository.getCategories();
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, categories);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+
+    //getVendorCategory
+        @RequestMapping(value = Constants.getVendorCategory, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getVendorCategory(@RequestParam(value = Constants.requestParam, required = true) String id) throws Exception {
+
+
+            Map<String, Object> map = null;
+            try{
+
+                List<SubCategoryModal> vendorsCategorys = vendorTypeRepository.getSubCategories(Integer.parseInt(id));
+
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, vendorsCategorys);
+                map.put(Constants.keyMessage, Constants.valueMessage);
+                map.put(Constants.keyStatus, HttpStatus.OK);
+                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            }catch(Exception ex){
+                map = new HashMap<String, Object>();
+                map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+                map.put(Constants.keyMessage, Constants.valueMessage);
+                map.put(Constants.keyStatus, HttpStatus.OK);
+                return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            }
+
+    }
+
+    //getItemsviaSubCategories
+    @RequestMapping(value = Constants.getItemsviaSubCategoriesTent, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getItemsviaSubCategories(
+
+            @RequestParam(value = Constants.landType, required = true) String landType,
+            @RequestParam(value = Constants.category, required = true) String category,
+            @RequestParam(value = Constants.subCategory, required = true) String subCategory
+             ) throws Exception {
+
+
+        Map<String, Object> map = null;
+
+        try {
+
+            List<Items> items = subCategoryItemsRepository.getItemsSubCategory(
+
+                    Integer.parseInt(landType),
+                    Integer.parseInt(category),
+                    Integer.parseInt(subCategory));
+
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, items);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }catch(Exception ex){
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        }
+
+
+    }
+
+
+    //getItemsviaSubCategoriesNR
+    @RequestMapping(value = Constants.getItemsviaSubCategoriesNR, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getItemsviaSubCategoriesNR(
+            @RequestParam(value = Constants.landType, required = true) String landType,
+            @RequestParam(value = Constants.category, required = true) String category,
+            @RequestParam(value = Constants.regional, required = true) String regional,
+            @RequestParam(value = Constants.subCategory, required = true) String subCategory
+    ) throws Exception {
+
+
+        Map<String, Object> map;
+        try {
+            List<Items> items = subCategoryItemsRepository.getItemsSubCategoryNR(
+
+                    Integer.parseInt(landType),
+                    Integer.parseInt(category),
+                    Integer.parseInt(regional),
+                    Integer.parseInt(subCategory));
+
+
+            map = new HashMap<>();
+            map.put(Constants.keyResponse, items);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }catch(Exception ex){
+            map = new HashMap<>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+
+
+    }
+
+// getItemsviaSubCategoriesNonTentNonRegional
+@RequestMapping(value = Constants.getItemsviaSubCategoriesNonTentNonRegional, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+public @ResponseBody
+ResponseEntity<?> getItemsviaSubCategoriesNonTentNonRegional(
+        @RequestParam(value = Constants.landType, required = true) String landType,
+        @RequestParam(value = Constants.category, required = true) String category,
+        @RequestParam(value = Constants.regional, required = true) String regional,
+        @RequestParam(value = Constants.subCategory, required = true) String subCategory
+) throws Exception {
+
+
+    Map<String, Object> map = null;
+    try {
+        List<Items> items = subCategoryItemsRepository.getItemsSubCategoryOthers(
+                Integer.parseInt(landType),
+                Integer.parseInt(category),
+                Integer.parseInt(subCategory));
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, items);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }catch(Exception ex){
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+    }
+
+
+}
+
+    //getDistrict
+    @RequestMapping(value = Constants.getDistrict, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    ResponseEntity<?> getDistrict() {
+        Map<String, Object> map = null;
+        List<DistrictModal> districts = districtRepository.getDistricts(false,true);
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, districts);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+    }
+
+    //getArea
+//    @RequestMapping(value = Constants.getArea, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+//    public @ResponseBody
+//    ResponseEntity<?> getArea(@RequestParam(value =  Constants.requestParam, required = true) String id) throws Exception {
+//
+//        Map<String, Object> map = null;
+//        try {
+//            List<Object[]> areaDistrictWise = availableAreaRepository.getAvailableAreaDistrict(Integer.parseInt(id));
+//            List<AreaModal> areaModal = new ArrayList<>();
+//
+//
+//            for (Object[] result : areaDistrictWise) {
+//                AreaModal pojo = new AreaModal();
+//                pojo.setAreaId((Integer) result[0]);
+//                pojo.setAreaName((String) result[1]);
+//                areaModal.add(pojo);
+//            }
+//
+//            map = new HashMap<String, Object>();
+//            map.put(Constants.keyResponse, areaModal);
+//            map.put(Constants.keyMessage, Constants.valueMessage);
+//            map.put(Constants.keyStatus, HttpStatus.OK);
+//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//        }catch(Exception ex){
+//            map = new HashMap<String, Object>();
+//            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+//            map.put(Constants.keyMessage, Constants.valueMessage);
+//            map.put(Constants.keyStatus, HttpStatus.OK);
+//            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+//        }
+//
+//
+//    }
+
+
+    @GetMapping("/student")
+    ResponseEntity<?> student() {
+        // Custom logic
+        return ResponseEntity.ok(new Student("John", "Wiliams", "AA"));
+    }
+
+    @RequestMapping(value = "/dest",method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Map<String,Object>> handleRequest() throws Exception{
+        List<DistrictModal> districts = districtRepository.getDistricts(false,true);
+
+        Map<String, Object> message = new HashMap<String, Object>();
+
+        message.put("severity", "info");
+        message.put("user", districts);
+        message.put("summary", "Not successfully.");
+        message.put("code", 200);
+
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("success", true);
+        json.put("message", message);
+
+        return new ResponseEntity<Map<String,Object>>(message,HttpStatus.CREATED);
+    }
+
+    @GetMapping("/hello")
+    @ResponseBody
+    public String hello() throws JsonProcessingException {
+        List<DistrictModal> districts = districtRepository.getDistricts(false,true);
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(districts);
+        logger.info(jsonStr);
+
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("success", true);
+        json.put("message", jsonStr);
+
+        logger.info("===Map is=================================== \n \t"+ json.toString());
+
+        return json.toString();
+    }
+
+
+
+
+
+}
