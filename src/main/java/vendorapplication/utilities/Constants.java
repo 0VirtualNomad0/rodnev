@@ -88,6 +88,8 @@ public class Constants {
     public static final String getItemsviaSubCategoriesTent = "/ajax/getItemsviaSubCategoriesTent";
     public static final String getVendorCategory = "/ajax/getVendorCategory";
     public static final String getVendor = "/ajax/getVendor";
+    public static final String getCasteCategories = "/ajax/getCasteCategories";
+    public static final String getQualifications = "/ajax/getQualifications";
     public static final String getrolesVendor = "/ajax/getrolesVendor";
     public static final String getLandType = "/ajax/getLandType";
     public static final String getNationalRegional = "/ajax/getNationalRegional";

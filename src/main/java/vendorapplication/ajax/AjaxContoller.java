@@ -11,12 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vendorapplication.repositories.blocks.BlockRepository;
 import vendorapplication.repositories.category.CategoryRepository;
+import vendorapplication.repositories.categorycaste.CasteCategoryRepository;
 import vendorapplication.repositories.district.DistrictRepository;
 import vendorapplication.repositories.gender.GenderRepository;
 import vendorapplication.repositories.grampanchayat.GPRepository;
 import vendorapplication.repositories.landtype.LandTypeRepository;
 import vendorapplication.repositories.nationality.NationalityRepository;
 import vendorapplication.repositories.nationalregional.NationalRegionalRepository;
+import vendorapplication.repositories.qualification.QualificationRepository;
 import vendorapplication.repositories.roles.RolesRepository;
 import vendorapplication.repositories.states.StateRepository;
 import vendorapplication.repositories.subcategory.SubCategoryRepository;
@@ -40,6 +42,12 @@ public class AjaxContoller {
 
     @Autowired
     CategoryRepository vendorRepository;
+
+    @Autowired
+    CasteCategoryRepository casteCategoryRepository;
+
+    @Autowired
+    QualificationRepository qualificationRepository;
 
     @Autowired
     SubCategoryRepository vendorTypeRepository;
@@ -448,6 +456,49 @@ public class AjaxContoller {
 
 
     }
+
+    //getVendor
+    @RequestMapping(value = Constants.getCasteCategories, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    String getCasteCategory() throws JsonProcessingException {
+        Map<String, Object> map = null;
+        List<CategoryModal> categories = casteCategoryRepository.getCategories();
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, categories);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+
+
+    }
+
+    //getQualifications
+    @RequestMapping(value = Constants.getQualifications, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody
+    String getQualifications() throws JsonProcessingException {
+        Map<String, Object> map = null;
+        List<QualificationModal> categories = qualificationRepository.getQualifications();
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, categories);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+
+
+    }
+
 
 
     //getVendorCategory

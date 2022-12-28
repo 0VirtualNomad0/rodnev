@@ -14,6 +14,9 @@ public class vendorApplicationForm implements Serializable {
      */
     private String aadhaarNumber;  //new
     private String villageName; //New
+    private String category; //new
+    private String familyHead; //New
+    private String educationalQualification; //new
     private String firstname;
     private String lastname;
     private String gender;
@@ -48,6 +51,29 @@ public class vendorApplicationForm implements Serializable {
     private String roleId;
     private String numberItems;
 
+    public String getFamilyHead() {
+        return familyHead;
+    }
+
+    public void setFamilyHead(String familyHead) {
+        this.familyHead = familyHead;
+    }
+
+    public String getEducationalQualification() {
+        return educationalQualification;
+    }
+
+    public void setEducationalQualification(String educationalQualification) {
+        this.educationalQualification = educationalQualification;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String getVillageName() {
         return villageName;
@@ -334,6 +360,9 @@ public class vendorApplicationForm implements Serializable {
         return "vendorApplicationForm{" +
                 "aadhaarNumber='" + aadhaarNumber + '\'' +
                 ", villageName='" + villageName + '\'' +
+                ", category='" + category + '\'' +
+                ", familyHead='" + familyHead + '\'' +
+                ", educationalQualification='" + educationalQualification + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", gender='" + gender + '\'' +

@@ -76,6 +76,37 @@ INSERT INTO gender ( gender_name, active) VALUES ('Female' ,true);
 INSERT INTO gender ( gender_name, active) VALUES ('Other' ,true);
 
 
+-- Category Table New Table
+CREATE TABLE category(
+     category_id serial PRIMARY KEY NOT NULL,
+     category_name character varying(50) NOT NULL,
+     active boolean DEFAULT true NOT NULL,
+     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+     lastmodifieddate timestamp with time zone
+);
+
+INSERT INTO category ( category_name, active) VALUES ('BPL' ,true);
+INSERT INTO category ( category_name, active) VALUES ('General' ,true);
+INSERT INTO category ( category_name, active) VALUES ('SC' ,true);
+INSERT INTO category ( category_name, active) VALUES ('ST' ,true);
+
+
+
+-- mst_qualification Table New Table
+CREATE TABLE mst_qualification(
+     qualification_id serial PRIMARY KEY NOT NULL,
+     qualification_name character varying(50) NOT NULL,
+     active boolean DEFAULT true NOT NULL,
+     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+     lastmodifieddate timestamp with time zone
+);
+
+INSERT INTO mst_qualification ( qualification_name, active) VALUES ('Metric' ,true);
+INSERT INTO mst_qualification ( qualification_name, active) VALUES ('10+2' ,true);
+INSERT INTO mst_qualification ( qualification_name, active) VALUES ('Graduate' ,true);
+INSERT INTO mst_qualification ( qualification_name, active) VALUES ('Post-Graduate' ,true);
+
+
 CREATE TABLE mst_nationality (
     nationality_id serial PRIMARY KEY  NOT NULL,
     nationality_name character varying(50) NOT NULL,

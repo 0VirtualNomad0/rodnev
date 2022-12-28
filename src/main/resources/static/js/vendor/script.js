@@ -163,6 +163,55 @@ function getsVendor() {
     });
 }
 
+//getCasteCategories
+function getCasteCategories() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getCasteCategories",
+        success: function(data) {
+            var json_ = JSON.parse(data);
+                        console.log(json_);
+            var selectRole = $('#castecategory'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].categoryId + " >" + json_.RESPONSE[i].categoryName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+//getQualifications
+function getQualifications() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getQualifications",
+        success: function(data) {
+            var json_ = JSON.parse(data);
+                        console.log(json_);
+            var selectRole = $('#educationalQualification'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].qualificationId + " >" + json_.RESPONSE[i].qualificationName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+
+
 //getNationalRegional
 function getNationalRegional() {
 
