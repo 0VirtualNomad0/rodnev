@@ -1,6 +1,6 @@
 package vendorapplication.repositories.usertransaction;
 
-import jdk.jfr.Percentage;
+//import jdk.jfr.Percentage;
 import org.springframework.stereotype.Service;
 import vendorapplication.entities.TehsilEntity;
 import vendorapplication.entities.UserTranactionEntity;

@@ -8,7 +8,7 @@
          <div class="container-fluid" style="margin-top:5px;" >
             <div class="row">
 
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                <!--Slider Starts-->
                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                  <ol class="carousel-indicators">
@@ -17,10 +17,10 @@
                  </ol>
                  <div class="carousel-inner">
                    <div class="carousel-item active">
-                     <img class="d-block w-100" style="max-height:300px;" src="${pageContext.request.contextPath}/resources/images/slider1.jpeg" alt="First slide">
+                     <img class="d-block w-100" style="max-height:300px;" src="${pageContext.request.contextPath}/resources/images/slider1.jpg" alt="First slide">
                    </div>
                    <div class="carousel-item">
-                     <img class="d-block w-100" style="max-height:300px;" src="${pageContext.request.contextPath}/resources/images/slider2.jpeg" alt="Second slide">
+                     <img class="d-block w-100" style="max-height:300px;" src="${pageContext.request.contextPath}/resources/images/slider2.jpg" alt="Second slide">
                    </div>
 
                  </div>
@@ -37,7 +37,7 @@
                <!-- SLIDER ENDS -->
 
                <!-- About eLahaul-->
-               <div class="col-lg-6" style="background-color:white;">
+               <div class="col-lg-8" style="background-color:white;">
 
                     <div class="card text-center" style="max-height:300px; min-height:300px;">
                         <div class="card-header">&nbsp;</div>
@@ -54,6 +54,17 @@
             </div>
          </div>
       </section>
+
+      <br>
+      <br>
+      <br>
+      <br>
+
+ <br>
+      <br>
+      <br>
+      <br>
+
       <!-- Section Marqie Working-->
      <!--  <section class="container-fluid marquee_con" >
          <div class="row">
@@ -65,50 +76,7 @@
       <!-- Section Marquee-->
       <!-- Investment Count-->
 <hr>
-<section>
-  <div class="container grey_top_bar"> <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="mainpage.vending.categories" text="Vending Categories"/></p> </div>
-         <div class="container" style=" margin-bottom:10px;">
-          <div class="row">
- <div class="col-lg-3">
-          <div class="card" >
-            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/tent.jpeg" alt="Card image cap">
-            <div class="card-body" style="max-height:150px;">
-              <p class="card-text" ><spring:message code="mainpage.vending.tentsdhabhas" text="Tents, Dhaba & Camping Sites"/></p>
-            </div>
-          </div>
-          </div>
 
-<div class="col-lg-3">
-           <div class="card" >
-                      <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/shooting.jpeg" alt="Card image cap">
-                      <div class="card-body" style="max-height:150px;">
-                        <p class="card-text" ><spring:message code="mainpage.vending.shooting" text="Film Shooting, Documentary Films, Regional and Non Regional Films"/></p>
-                      </div>
-                    </div>
-                    </div>
-
-<div class="col-lg-3">
-                     <div class="card" >
-                                <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/foodvan.jpeg" alt="Card image cap">
-                                <div class="card-body" style="max-height:150px;">
-                                  <p class="card-text" ><spring:message code="mainpage.vending.others" text="Food Van, Photography, Local Food"/></p>
-                                </div>
-                              </div>
-                              </div>
-
-<div class="col-lg-3">
-                               <div class="card" >
-                                          <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/sports.jpeg" alt="Card image cap">
-                                          <div class="card-body" style="max-height:150px;">
-                                            <p class="card-text" ><spring:message code="mainpage.vending.sports" text="Skiings, Cycling, Bike Riding etc."/></p>
-                                          </div>
-                                        </div>
-                                        </div>
-
-
-          </div>
-         </div>
-      </section>
 
       <!-- Section Marquee-->
 

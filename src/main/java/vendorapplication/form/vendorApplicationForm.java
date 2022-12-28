@@ -9,6 +9,11 @@ import java.util.List;
 public class vendorApplicationForm implements Serializable {
 
 
+    /**
+     * Commmon Details
+     */
+    private String aadhaarNumber;  //new
+    private String villageName; //New
     private String firstname;
     private String lastname;
     private String gender;
@@ -42,6 +47,23 @@ public class vendorApplicationForm implements Serializable {
     private String captcha;
     private String roleId;
     private String numberItems;
+
+
+    public String getVillageName() {
+        return villageName;
+    }
+
+    public void setVillageName(String villageName) {
+        this.villageName = villageName;
+    }
+
+    public String getAadhaarNumber() {
+        return aadhaarNumber;
+    }
+
+    public void setAadhaarNumber(String aadhaarNumber) {
+        this.aadhaarNumber = aadhaarNumber;
+    }
 
     public String getRoleId() {
         return roleId;
@@ -310,7 +332,9 @@ public class vendorApplicationForm implements Serializable {
     @Override
     public String toString() {
         return "vendorApplicationForm{" +
-                "firstname='" + firstname + '\'' +
+                "aadhaarNumber='" + aadhaarNumber + '\'' +
+                ", villageName='" + villageName + '\'' +
+                ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +

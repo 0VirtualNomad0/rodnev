@@ -21,7 +21,23 @@
          <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.one" /> </p>
       </div>
       <hr>
-      <div class="row">
+
+
+
+
+
+        <div class="row">
+       <spring:bind path="aadhaarNumber">
+                <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+                   <form:label path="aadhaarNumber"  for="aadhaarNumber"><spring:message code="form.aadhaarnumber" /></form:label>
+                   <form:input type="text"  id="aadhaarNumber" required="required" oncopy="return false" onpaste="return false" onfocus="this.removeAttribute('readonly');" autocomplete="off" path="aadhaarNumber" maxlength="12" minlength="12"  class="form-control" onKeyPress="return isNumber(event)"  name="aadhaarNumber" ></form:input>
+                   <form:errors  path="aadhaarNumber"></form:errors>
+                </div>
+             </spring:bind>
+</div><br></hr>
+
+  <div class="row">
+
          <spring:bind path="firstname">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="firstname" for="firstname"><spring:message code="form.username.first" /></form:label>
@@ -60,21 +76,8 @@
                <form:errors  path="age"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="emailAddress">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="emailAddress" for="emailAddress"><spring:message code="form.email" /></form:label>
-               <form:input type="text"  id="emailAddress"  oncopy="return false" onpaste="return false" path="emailAddress" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="40" minlength="10"  class="form-control"  name="emailAddress"  ></form:input>
-               <form:errors  path="emailAddress"></form:errors>
-            </div>
-         </spring:bind>
-         <spring:bind path="roleId">
-            <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
-               <form:label path="roleId" for="roles"><spring:message code="form.usertype" /></form:label>
-               <form:select path="roleId" name="roleId" class="form-control" id="roles">
-               </form:select>
-               <form:errors  path="roleId"></form:errors>
-            </div>
-         </spring:bind>
+
+
       </div>
       <!-- Address (Local) -->
       <br>
@@ -94,7 +97,7 @@
          <spring:bind path="localDistrict">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="localDistrict" for="localDistrict"><spring:message code="form.local.district" /></form:label>
-               <form:select path="localDistrict"  name="localDistrict" class="form-control" id="localDistrict" onchange="getBlocks(this.value);getTehsils(this.value);">
+               <form:select path="localDistrict"  name="localDistrict" class="form-control" id="localDistrict" onchange="getBlocks(this.value);">
                </form:select>
                <form:errors  path="localDistrict"></form:errors>
             </div>
@@ -107,14 +110,14 @@
                <form:errors  path="localBlock"></form:errors>
             </div>
          </spring:bind>
-         <spring:bind path="localTehsil">
+        <!-- <spring:bind path="localTehsil">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="localTehsil" for="localTehsil"><spring:message code="form.local.tehsil" /></form:label>
                <form:select path="localTehsil"  name="localTehsil" class="form-control" id="localTehsil">
                </form:select>
                <form:errors  path="localTehsil"></form:errors>
             </div>
-         </spring:bind>
+         </spring:bind> -->
          <spring:bind path="localgp">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="localgp" for="localgp"><spring:message code="form.local.grampanchayat" /></form:label>
@@ -123,7 +126,16 @@
                <form:errors  path="localgp"></form:errors>
             </div>
          </spring:bind>
-         <div class="col-lg-4">&nbsp;</div>
+
+          <spring:bind path="villageName">
+                     <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
+                        <form:label path="villageName" for="villageName"><spring:message code="form.villageName" /></form:label>
+                        <form:input id="villageName" type="text" onkeypress="return alpha(event)"  onfocus="this.removeAttribute('readonly');"  autocomplete="off" path="villageName" name="villageName" class="form-control"
+                           autofocus="true"></form:input>
+                        <form:errors  path="firstname"></form:errors>
+                     </div>
+                  </spring:bind>
+
          <spring:bind path="p_address">
             <div class="form-group  col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="p_address" for="p_address"><spring:message code="form.local.fulladdress" /></form:label>
@@ -151,7 +163,7 @@
          <spring:bind path="vlocalDistrict">
             <div class="form-group col-lg-4 ${status.error ? 'has-error' : ''}">
                <form:label path="vlocalDistrict" for="vlocalDistrict"><spring:message code="form.vending.district" /></form:label>
-               <form:select path="vlocalDistrict"  name="vlocalDistrict" class="form-control" id="vlocalDistrict" onchange="getvBlocks(this.value);getvTehsils(this.value);">
+               <form:select path="vlocalDistrict"  name="vlocalDistrict" class="form-control" id="vlocalDistrict" onchange="getvBlocks(this.value);">
                </form:select>
                <form:errors  path="vlocalDistrict"></form:errors>
             </div>
@@ -385,7 +397,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/pages/vendorApplicationForm.js"></script>
 <script type="text/javascript">
    $( document ).ready(function() {
-       getrolesVendor();
+
        getNationality();
        getLandType();
        getNationalRegional();

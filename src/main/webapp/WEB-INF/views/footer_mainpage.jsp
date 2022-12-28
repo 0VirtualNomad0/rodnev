@@ -19,7 +19,6 @@
                   <li ><a href="https://www.himachal.nic.in/en-IN/" target="_blank"><spring:message code="mainpage.footer.otherdepartmentallinks.hp" text="Government of Himachal Pradesh"/></a></li>
                   <li ><a href="https://cmsankalp.hp.gov.in/" target="_blank"><spring:message code="mainpage.footer.otherdepartmentallinks.helpline" text="CM Helpline"/></a></li>
                   <li ><a href="http://cmhimachal.nic.in/" target="_blank"><spring:message code="mainpage.footer.otherdepartmentallinks.relief" text="CM Relief Fund"/></a></li>
-                  <li ><a href="https://eflight.hp.gov.in/" target="_blank"><spring:message code="mainpage.footer.otherdepartmentallinks.eheli" text="eHeli"/></a></li>
                    <li >&nbsp;</li>
 
                </ul>

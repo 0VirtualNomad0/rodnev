@@ -8,7 +8,7 @@
       <meta charset="UTF-8">
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <meta name="viewport" content="width=device-width initial-scale=1.0">
-      <title>eVendor Dashboard</title>
+      <title>Survey (V1.0)</title>
       <!-- GLOBAL MdINLY STYLES-->
       <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/css/vendor/bootstrap.min.css" rel="stylesheet" />
       <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/css/vendor/font-awesome.min.css" rel="stylesheet" />
@@ -84,10 +84,7 @@
             <div class="hide_unhide">
                <ul class="secondary_menu">
                   <li><a href="${pageContext.request.contextPath}/"><spring:message code="mainpage.menu.home" text="Home"/></a></li>
-                  <li><a href="${pageContext.request.contextPath}/contactus"><spring:message code="mainpage.menu.contatus" text="Contact Us"/></a></li>
-                  <li><a href="https://cmsankalp.hp.gov.in/" target="_blank"><spring:message code="mainpage.menu.grienence" text="Grievance"/></a></li>
                   <li><a href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.menu.apply" text="Apply"/> </a></li>
-               <li><a href="${pageContext.request.contextPath}/checkStatus"><spring:message code="mainpage.menu.checkstatus" /> </a></li>
 
                </ul>
             </div>
@@ -96,8 +93,6 @@
                <!-- Navigation links (hidden by default) -->
                <div id="myLinks">
                   <li><a href="${pageContext.request.contextPath}/"><spring:message code="mainpage.menu.home" text="Home"/></a></li>
-                  <li><a href="${pageContext.request.contextPath}/contactus"><spring:message code="mainpage.menu.contatus" text="Contact Us"/></a></li>
-                  <li><a href="https://cmsankalp.hp.gov.in/" target="_blank"><spring:message code="mainpage.menu.grienence" text="Grievance"/></a></li>
                    <li><a href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.menu.apply" text="Apply"/></a></li>
                </div>
                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
