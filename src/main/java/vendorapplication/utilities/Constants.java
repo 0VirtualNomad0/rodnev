@@ -100,6 +100,7 @@ public class Constants {
     public static final String getDistrictsViaState = "/ajax/getDistrictsViaState";
     public static final String getState = "/ajax/getState";
     public static final String getGender = "/ajax/getGender";
+    public static final String getCropType = "/ajax/getCropType";
     public static final String getRoles = "/ajax/getRoles";
     public static final String landType = "landType";
     public static final String category = "category";

@@ -89,6 +89,55 @@ function getgender() {
     });
 }
 
+
+// getGenderTable_();
+function getGenderTable_() {
+
+    $.ajax({
+        type: "GET",
+        url: formURL + "/ajax/getGender",
+        success: function(data) {
+        var json_ = JSON.parse(data);
+        console.log(json_);
+            var selectRole = $('#genderTable'); // the state select element
+            selectRole.find('option').remove();
+            selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+            for (i = 0; i < json_.RESPONSE.length; i++) {
+                selectRole.append("<option value=" + json_.RESPONSE[i].genderId + " >" + json_.RESPONSE[i].genderName + "</option>")
+            }
+
+        },
+        error: function(data) {
+            console.log(data)
+        }
+
+    });
+}
+ function getQualificationsTable_() {
+
+     $.ajax({
+         type: "GET",
+         url: formURL + "/ajax/getQualifications",
+         success: function(data) {
+             var json_ = JSON.parse(data);
+                         console.log(json_);
+             var selectRole = $('#qualificationTable'); // the state select element
+             selectRole.find('option').remove();
+             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+             for (i = 0; i < json_.RESPONSE.length; i++) {
+                 selectRole.append("<option value=" + json_.RESPONSE[i].qualificationId + " >" + json_.RESPONSE[i].qualificationName + "</option>")
+             }
+
+         },
+         error: function(data) {
+             console.log(data)
+         }
+
+     });
+ }
+
+
+
 //getNationality
 function getNationality() {
 
@@ -328,6 +377,85 @@ function getItemsTent(landType,nationalRegional,category,subCatId,elementIdwithR
         });
 }
 
+
+//getGenderTable
+function getGenderTable(elementIdwithRow) {
+
+      $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getGender",
+            success: function(data) {
+                var json_ = JSON.parse(data);
+                                       console.log(json_);
+                var id_ = "#gender" + elementIdwithRow;
+                                          console.log(id_)
+                            var selectRole = $(id_);
+                selectRole.find('option').remove();
+                selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+                for (i = 0; i < json_.RESPONSE.length; i++) {
+                    selectRole.append("<option value=" + json_.RESPONSE[i].genderId + " >" + json_.RESPONSE[i].genderName   + "</option>")
+                }
+
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+}
+
+
+ function getCropType(elementIdwithRow) {
+
+       $.ajax({
+             type: "GET",
+             url: formURL + "/ajax/getCropType",
+             success: function(data) {
+                 var json_ = JSON.parse(data);
+                                        console.log(json_);
+                 var id_ = "#cropType" + elementIdwithRow;
+                  console.log(id_)
+                 var selectRole = $(id_);
+                 selectRole.find('option').remove();
+                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+                 for (i = 0; i < json_.RESPONSE.length; i++) {
+                     selectRole.append("<option value=" + json_.RESPONSE[i].cropTypeId + " >" + json_.RESPONSE[i].cropTypeName   + "</option>")
+                 }
+
+             },
+             error: function(data) {
+                 console.log(data)
+             }
+
+         });
+ }
+
+
+
+function getQualificationTable(elementIdwithRow) {
+
+      $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getQualifications",
+            success: function(data) {
+                var json_ = JSON.parse(data);
+                                       console.log(json_);
+                var id_ = "#qualification" + elementIdwithRow;
+                                          console.log(id_)
+                            var selectRole = $(id_);
+                selectRole.find('option').remove();
+                selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+                for (i = 0; i < json_.RESPONSE.length; i++) {
+                    selectRole.append("<option value=" + json_.RESPONSE[i].qualificationId + " >" + json_.RESPONSE[i].qualificationName  + "</option>")
+                }
+
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+}
 
 
 

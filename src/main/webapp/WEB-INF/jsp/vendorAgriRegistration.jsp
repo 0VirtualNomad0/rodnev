@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/vendor/auth-light.css">
 <div class="container" >
-   <form:form method="POST" onsubmit="return submit_form()" id="register-form" modelAttribute="vendorApplicationForm" enctype="multipart/form-data" action="${pageContext.request.contextPath}/saveapplication" class="form-signin">
+   <form:form method="POST" onsubmit="return submit_form()" id="register-form" modelAttribute="vendorAgriApplicationForm" enctype="multipart/form-data" action="${pageContext.request.contextPath}/saveapplication" class="form-signin">
       <c:if test="${not empty successMessage}">
          <div id="serverError" class="alert alert-success alert-dismissable fade show successMessage">
             <button class="close" data-dismiss="alert" aria-label="Close">?</button>
@@ -237,163 +237,126 @@
 
       <!-- Employment Type -->
       <div class="container grey_top_bar">
-         <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.four" /> </p>
+         <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.agri.land.details" /> </p>
       </div>
       <hr>
       <div class="row">
 
-     <spring:bind path="governmentEmp">
+     <spring:bind path="totalLand">
         <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-           <form:label path="governmentEmp" for="governmentEmp"><spring:message code="form.governmentEmp" /></form:label>
-           <form:input type="text" id="governmentEmp" required="required" oncopy="return false" onpaste="return false" path="governmentEmp" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="governmentEmp"  ></form:input>
-           <form:errors  path="governmentEmp"></form:errors>
+           <form:label path="totalLand" for="totalLand"><spring:message code="agri.total.land" /></form:label>
+           <form:input type="text" id="totalLand" required="required" oncopy="return false" onpaste="return false" path="totalLand" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="totalLand"  ></form:input>
+           <form:errors  path="totalLand"></form:errors>
         </div>
      </spring:bind>
 
-       <spring:bind path="selfEmp">
+       <spring:bind path="cultivatedLand">
          <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-            <form:label path="selfEmp" for="selfEmp"><spring:message code="form.selfEmp" /></form:label>
-            <form:input type="text" id="selfEmp" required="required" oncopy="return false" onpaste="return false" path="selfEmp" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="selfEmp"  ></form:input>
-            <form:errors  path="selfEmp"></form:errors>
+            <form:label path="cultivatedLand" for="cultivatedLand"><spring:message code="agri.cultivated.land" /></form:label>
+            <form:input type="text" id="cultivatedLand" required="required" oncopy="return false" onpaste="return false" path="cultivatedLand" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="cultivatedLand"  ></form:input>
+            <form:errors  path="cultivatedLand"></form:errors>
          </div>
       </spring:bind>
 
-      <spring:bind path="outsourcedEmp">
+      <spring:bind path="irrigatedLand">
        <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-          <form:label path="selfEmp" for="outsourcedEmp"><spring:message code="form.outsourcedEmp" /></form:label>
-          <form:input type="text" id="outsourcedEmp" required="required" oncopy="return false" onpaste="return false" path="outsourcedEmp" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="outsourcedEmp"  ></form:input>
-          <form:errors  path="outsourcedEmp"></form:errors>
+          <form:label path="irrigatedLand" for="irrigatedLand"><spring:message code="agri.irrigated.land" /></form:label>
+          <form:input type="text" id="irrigatedLand" required="required" oncopy="return false" onpaste="return false" path="irrigatedLand" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="irrigatedLand"  ></form:input>
+          <form:errors  path="irrigatedLand"></form:errors>
        </div>
     </spring:bind>
 
-     <spring:bind path="pmuEmp">
+     <spring:bind path="nonIrrigatedLand">
            <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-              <form:label path="selfEmp" for="pmuEmp"><spring:message code="form.pmuEmp" /></form:label>
-              <form:input type="text" id="pmuEmp" required="required" oncopy="return false" onpaste="return false" path="pmuEmp" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="pmuEmp"  ></form:input>
-              <form:errors  path="pmuEmp"></form:errors>
+              <form:label path="nonIrrigatedLand" for="nonIrrigatedLand"><spring:message code="agri.nonirrigated.land" /></form:label>
+              <form:input type="text" id="nonIrrigatedLand" required="required" oncopy="return false" onpaste="return false" path="nonIrrigatedLand" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="nonIrrigatedLand"  ></form:input>
+              <form:errors  path="nonIrrigatedLand"></form:errors>
            </div>
         </spring:bind>
-
-       <spring:bind path="privateEmp">
-                <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                   <form:label path="privateEmp" for="privateEmp"><spring:message code="form.privateEmp" /></form:label>
-                   <form:input type="text" id="privateEmp" required="required" oncopy="return false" onpaste="return false" path="privateEmp" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="privateEmp"  ></form:input>
-                   <form:errors  path="privateEmp"></form:errors>
-                </div>
-             </spring:bind>
 
 
       </div>
 
 
-        <!-- Number of Animals Being Rared (Species Wise) -->
+
+
+ <!-- form.agri.present.crops.grown -->
             <div class="container grey_top_bar">
-               <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.species" /> </p>
-            </div>
-            <hr>
-            <div class="row">
-
-           <spring:bind path="cowNum">
-              <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                 <form:label path="cowNum" for="cowNum"><spring:message code="form.cowNum" /></form:label>
-                 <form:input type="text" id="cowNum" required="required" oncopy="return false" onpaste="return false" path="cowNum" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="cowNum"  ></form:input>
-                 <form:errors  path="cowNum"></form:errors>
-              </div>
-           </spring:bind>
-
-             <spring:bind path="buffaloNum">
-               <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                  <form:label path="buffaloNum" for="buffaloNum"><spring:message code="form.buffaloNum" /></form:label>
-                  <form:input type="text" id="buffaloNum" required="required" oncopy="return false" onpaste="return false" path="buffaloNum" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="buffaloNum"  ></form:input>
-                  <form:errors  path="buffaloNum"></form:errors>
-               </div>
-            </spring:bind>
-
-            <spring:bind path="otherNum">
-             <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                <form:label path="otherNum" for="otherNum"><spring:message code="form.otherNum" /></form:label>
-                <form:input type="text" id="otherNum" required="required" oncopy="return false" onpaste="return false" path="otherNum" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="otherNum"  ></form:input>
-                <form:errors  path="otherNum"></form:errors>
-             </div>
-          </spring:bind>
-
-           <spring:bind path="totalNum">
-                 <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                    <form:label path="selfEmp" for="totalNum"><spring:message code="form.totalNum" /></form:label>
-                    <form:input type="text" id="totalNum" required="required" oncopy="return false" onpaste="return false" path="totalNum" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="totalNum"  ></form:input>
-                    <form:errors  path="totalNum"></form:errors>
-                 </div>
-              </spring:bind>
-
-            </div>
-
- <!-- Milf Production Per Litre -->
-            <div class="container grey_top_bar">
-               <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.production.milk" /> </p>
-            </div>
-            <hr>
-            <div class="row">
-
-           <spring:bind path="cowMilkProduction">
-              <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                 <form:label path="cowMilkProduction" for="cowMilkProduction"><spring:message code="form.cowNum" /></form:label>
-                 <form:input type="text" id="cowMilkProduction" required="required" oncopy="return false" onpaste="return false" path="cowMilkProduction" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="cowMilkProduction"  ></form:input>
-                 <form:errors  path="cowMilkProduction"></form:errors>
-              </div>
-           </spring:bind>
-
-             <spring:bind path="buffaloMilkProduction">
-               <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                  <form:label path="buffaloMilkProduction" for="buffaloMilkProduction"><spring:message code="form.buffaloNum" /></form:label>
-                  <form:input type="text" id="buffaloMilkProduction" required="required" oncopy="return false" onpaste="return false" path="buffaloMilkProduction" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="buffaloMilkProduction"  ></form:input>
-                  <form:errors  path="buffaloMilkProduction"></form:errors>
-               </div>
-            </spring:bind>
-
-             <spring:bind path="houseMilkProduction">
-                           <div class="form-group col-lg-5  ${status.error ? 'has-error' : ''}">
-                              <form:label path="houseMilkProduction" for="houseMilkProduction"><spring:message code="form.heading.production.milk.household" /></form:label>
-                              <form:input type="text" id="houseMilkProduction" required="required" oncopy="return false" onpaste="return false" path="houseMilkProduction" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="houseMilkProduction"  ></form:input>
-                              <form:errors  path="houseMilkProduction"></form:errors>
-                           </div>
-                        </spring:bind>
-            </div>
-
-
- <!-- Details of Milk being Sold Per day -->
-            <div class="container grey_top_bar">
-               <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.heading.milk.sold" /> </p>
+               <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.agri.present.crops.grown" /> </p>
             </div>
             <hr>
             <div class="row">
 
 
-
-             <spring:bind path="milkquantitySold">
-               <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                  <form:label path="milkquantitySold" for="milkquantitySold"><spring:message code="form.milkquantitySold" /></form:label>
-                  <form:input type="text" id="milkquantitySold" required="required" oncopy="return false" onpaste="return false" path="milkquantitySold" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="milkquantitySold"  ></form:input>
-                  <form:errors  path="milkquantitySold"></form:errors>
-               </div>
-            </spring:bind>
-
-             <spring:bind path="milkwheresold">
-                           <div class="form-group col-lg-6  ${status.error ? 'has-error' : ''}">
-                              <form:label path="milkwheresold" for="milkwheresold"><spring:message code="form.milkwheresold" /></form:label>
- <form:textarea id="milkwheresold" rows="4" type="text" autocomplete="off" onfocus="this.removeAttribute('readonly');"  required="required" oncopy="return false" onpaste="return false" path="milkwheresold" maxlength="40" minlength="10"  class="form-control"  name="milkwheresold"  />
-                                            <form:errors  path="milkwheresold"></form:errors>
-                           </div>
-                        </spring:bind>
-
-                        <spring:bind path="milksellingprice">
-                                       <div class="form-group col-lg-3  ${status.error ? 'has-error' : ''}">
-                                          <form:label path="milksellingprice" for="milksellingprice"><spring:message code="form.milksellingprice" /></form:label>
-                                          <form:input type="text" id="milksellingprice" required="required" oncopy="return false" onpaste="return false" path="milksellingprice" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="milksellingprice"  ></form:input>
-                                          <form:errors  path="milksellingprice"></form:errors>
+             <!-- tableDiv -->
+                              <div id="tableDiv_tent" class="col-lg-12">
+                                 <div class="row" style="margin-bottom:10px;">
+                                    <div class="col-lg-9">
+                                       <hr>
+                                       <strong>
+                                          <spring:message code="form.agri.present.crops.grown"/>
+                                       </strong>
+                                       <hr>
+                                    </div>
+                                    <div class="col-lg-3 ">
+                                       <br/>
+                                       <button type="button"  class="btn btn-success" data-style="slide-right" onclick="return addNewRowCropDetails();" ><spring:message code="form.tent.add.row" /></button>
+                                       <button type="button"  class="btn btn-danger" data-style="slide-right" onclick="return deleteRowCropDetails();" ><spring:message code="form.tent.delete.row" /></button>
+                                    </div>
+                                 </div>
+                                 <div class="row" style="margin-top:10px">
+                                    <spring:bind path="cropdetailsForm[0].cropType">
+                                       <div class="form-group col-lg-2 ${status.error ? 'has-error' : ''}">
+                                          <form:label path="cropdetailsForm[0].cropType" for="cropType"><spring:message code="form.agri.crop.type" /></form:label>
+                                          <form:select path="cropdetailsForm[0].cropType"   class="form-control" id="cropTypeTable">
+                                          </form:select>
+                                          <form:errors  path="cropdetailsForm[0].cropType"></form:errors>
                                        </div>
                                     </spring:bind>
-            </div>
+                                    <spring:bind path="cropdetailsForm[0].cropName">
+                                       <div class="form-group col-lg-3 ${status.error ? 'has-error' : ''}">
+                                          <form:label path="cropdetailsForm[0].cropName" for="cropdetailsForm[0].cropName"><spring:message code="form.agri.crop.name" /></form:label>
+                                          <form:input id="cropdetailsForm[0].cropName" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="cropdetailsForm[0].cropName"  class="form-control"
+                                             autofocus="true"></form:input>
+                                          <form:errors  path="cropdetailsForm[0].cropName"></form:errors>
+                                       </div>
+                                    </spring:bind>
+                                    <spring:bind path="cropdetailsForm[0].cropArea">
+                                       <div class="form-group col-lg-2 ${status.error ? 'has-error' : ''}">
+                                          <form:label path="cropdetailsForm[0].cropArea" for="cropdetailsForm[0].cropArea"><spring:message code="form.agri.crop.area" /></form:label>
+                                          <form:input id="cropdetailsForm[0].cropArea" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="cropdetailsForm[0].cropArea"  class="form-control"
+                                             autofocus="true"></form:input>
+                                          <form:errors  path="cropdetailsForm[0].cropArea"></form:errors>
+                                       </div>
+                                    </spring:bind>
+                                     <spring:bind path="cropdetailsForm[0].cropProduction">
+                                       <div class="form-group col-lg-2 ${status.error ? 'has-error' : ''}">
+                                          <form:label path="cropdetailsForm[0].cropProduction" for="cropdetailsForm[0].cropProduction"><spring:message code="form.agri.crop.production" /></form:label>
+                                          <form:input id="cropdetailsForm[0].cropProduction" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="cropdetailsForm[0].cropProduction"  class="form-control"
+                                             autofocus="true"></form:input>
+                                          <form:errors  path="cropdetailsForm[0].cropProduction"></form:errors>
+                                       </div>
+                                    </spring:bind>
+                                    <spring:bind path="cropdetailsForm[0].cropMarketing">
+                                       <div class="form-group col-lg-3 ${status.error ? 'has-error' : ''}">
+                                          <form:label path="cropdetailsForm[0].cropMarketing" for="cropdetailsForm[0].cropMarketing"><spring:message code="form.agri.crop.marketing" /></form:label>
+                                          <form:input id="cropdetailsForm[0].cropMarketing" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="cropdetailsForm[0].cropMarketing"  class="form-control"
+                                             autofocus="true"></form:input>
+                                          <form:errors  path="cropdetailsForm[0].cropMarketing"></form:errors>
+                                       </div>
+                                    </spring:bind>
 
+
+
+                                    <div id="addRowCropDetails" class="col-lg-12">
+                                    </div>
+                                 </div>
+                              </div>
+
+                           <br>
+
+
+            </div>
 
 
  <!-- Other Data -->
@@ -404,38 +367,79 @@
 
             <div class="row">
 
-             <spring:bind path="willingsellmilk">
+
+            <spring:bind path="presentIncome">
+                        <div class="form-group  col-lg-3 ${status.error ? 'has-error' : ''}">
+                           <form:label path="presentIncome" for="presentIncome"><spring:message code="form.agri.present.income" /></form:label>
+            <form:input type="text" id="presentIncome" required="required" oncopy="return false" onpaste="return false" path="presentIncome" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="presentIncome"  ></form:input>
+                           <form:errors  path="presentIncome"></form:errors>
+                        </div>
+                     </spring:bind>
+
+
+                     <spring:bind path="marketableSystem">
+                                 <div class="form-group  col-lg-3 ${status.error ? 'has-error' : ''}">
+                                    <form:label path="marketableSystem" for="marketableSystem"><spring:message code="form.agri.present.marketable.system" /></form:label>
+                                    <form:textarea id="marketableSystem" rows="4" type="text" autocomplete="off" onfocus="this.removeAttribute('readonly');"  required="required" oncopy="return false" onpaste="return false" path="marketableSystem" maxlength="40" minlength="10"  class="form-control"  name="marketableSystem"  />
+                                    <form:errors  path="marketableSystem"></form:errors>
+                                 </div>
+                              </spring:bind>
+
+
+
+                              <spring:bind path="infrareq">
+                                          <div class="form-group  col-lg-6 ${status.error ? 'has-error' : ''}">
+                                             <form:label path="infrareq" for="infrareq"><spring:message code="form.agri.infra" /></form:label>
+                                             <form:textarea id="infrareq" rows="4" type="text" autocomplete="off" onfocus="this.removeAttribute('readonly');"  required="required" oncopy="return false" onpaste="return false" path="infrareq" maxlength="40" minlength="10"  class="form-control"  name="infrareq"  />
+                                             <form:errors  path="infrareq"></form:errors>
+                                          </div>
+                                       </spring:bind>
+
+             <spring:bind path="trainingAgri">
+                        <div class="form-group  col-lg-12 ${status.error ? 'has-error' : ''}">
+                           <form:label path="trainingAgri" for="trainingAgri"><spring:message code="form.agri.natural.farming.training" /></form:label>
+                           <form:textarea id="trainingAgri" rows="4" type="text" autocomplete="off" onfocus="this.removeAttribute('readonly');"  required="required" oncopy="return false" onpaste="return false" path="trainingAgri" maxlength="40" minlength="10"  class="form-control"  name="trainingAgri"  />
+                           <form:errors  path="trainingAgri"></form:errors>
+                        </div>
+                     </spring:bind>
+
+             <spring:bind path="naturalFarming">
                <div class="form-group col-lg-6  ${status.error ? 'has-error' : ''}">
-                  <form:label path="willingsellmilk" for="willingsellmilk"><spring:message code="form.willing.sell.milk" /></form:label>
-                   <form:select path="willingsellmilk"  name="willingsellmilk" class="form-control" id="willingsellmilk">
+                  <form:label path="naturalFarming" for="naturalFarming"><spring:message code="form.agri.natural.farming" /></form:label>
+                   <form:select path="naturalFarming"  name="naturalFarming" class="form-control" id="naturalFarming">
                     <form:option value="0"> --Select--</form:option>
                      <form:option value="1"> Yes</form:option>
                       <form:option value="1"> No</form:option>
                     </form:select>
-                  <form:errors  path="willingsellmilk"></form:errors>
+                  <form:errors  path="naturalFarming"></form:errors>
                </div>
             </spring:bind>
 
-
-
-             <spring:bind path="qyantitytosell">
+             <spring:bind path="fullPartial">
                            <div class="form-group col-lg-6  ${status.error ? 'has-error' : ''}">
-                              <form:label path="qyantitytosell" for="qyantitytosell"><spring:message code="form.quantity.sell.milk" /></form:label>
-                                                                        <form:input type="text" id="qyantitytosell" required="required" oncopy="return false" onpaste="return false" path="qyantitytosell" onfocus="this.removeAttribute('readonly');" autocomplete="off" maxlength="2" minlength="2"  class="form-control" onKeyPress="return isNumber(event)"  name="qyantitytosell"  ></form:input>
-
-              <form:errors  path="qyantitytosell"></form:errors>
+                              <form:label path="fullPartial" for="fullPartial"><spring:message code="form.agri.natural.farming.fullPartial" /></form:label>
+                               <form:select path="fullPartial"  name="fullPartial" class="form-control" id="fullPartial">
+                                <form:option value="0"> --Select--</form:option>
+                                 <form:option value="1"> Full </form:option>
+                                  <form:option value="1"> Partial</form:option>
+                                </form:select>
+                              <form:errors  path="fullPartial"></form:errors>
                            </div>
                         </spring:bind>
 
-                        <spring:bind path="willingtosell">
+
+
+
+
+                        <spring:bind path="pmkisanbenifit">
                                        <div class="form-group col-lg-12  ${status.error ? 'has-error' : ''}">
-                                          <form:label path="willingtosell" for="willingtosell"><spring:message code="form.willing.govt.assistance" /></form:label>
-                                        <form:select path="willingtosell"  name="willingtosell" class="form-control" id="willingtosell">
+                                          <form:label path="pmkisanbenifit" for="pmkisanbenifit"><spring:message code="form.agri.benifit.pmkisan" /></form:label>
+                                        <form:select path="pmkisanbenifit"  name="pmkisanbenifit" class="form-control" id="pmkisanbenifit">
                                                             <form:option value="0"> --Select--</form:option>
                                                                                 <form:option value="1"> Yes</form:option>
                                                                                  <form:option value="1"> No</form:option>
                                                             </form:select>
-                                          <form:errors  path="willingtosell"></form:errors>
+                                          <form:errors  path="pmkisanbenifit"></form:errors>
                                        </div>
                                     </spring:bind>
             </div>
@@ -475,6 +479,7 @@
    console.log(add);
    var status=0;
 
+
     function addNewRow()
    {
     getGenderTable(add);
@@ -488,7 +493,6 @@
 
    	add++;
         $("#addRow").append(row);
-        $('.bootstrap-select').selectpicker('render');
    }
 
    function deleteRow()
@@ -503,21 +507,40 @@
    	}
    }
 
-   function calculateDays(){
-   var from_date = document.getElementById("fromDate").value;
-   var to_date = document.getElementById("toDate").value;
+var addCropDetails= 0+${countAddCrop+1};
+console.log(addCropDetails);
+var statusCropDetails=0;
 
-                  var date1 = new Date(from_date);
-                  var date2 = new Date(to_date);
+    function addNewRowCropDetails()
+      {
+       getCropType(addCropDetails);
+      	var row ='<div class="row " id="id'+addCropDetails+'">'
+       +'<div class="col-lg-2"><div class="form-group"><select path="cropdetailsForm['+addCropDetails+'].cropType" name="cropdetailsForm['+addCropDetails+'].cropType" id="cropType'+addCropDetails+'"   class="form-control"  ></select></div></div>'
+       +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+addCropDetails+'].cropName" name="cropdetailsForm['+addCropDetails+'].cropName"   class="form-control"   /></div></div>'
+       +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+addCropDetails+'].cropArea" name="cropdetailsForm['+addCropDetails+'].cropArea"   class="form-control"   /></div></div>'
+       +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+addCropDetails+'].cropProduction" name="cropdetailsForm['+addCropDetails+'].cropProduction"   class="form-control"   /></div></div>'
+       +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+addCropDetails+'].cropMarketing" name="cropdetailsForm['+addCropDetails+'].cropMarketing"   class="form-control"   /></div></div>'
 
-                  var time_difference = date2.getTime() - date1.getTime();
-                           var result = time_difference / (1000 * 60 * 60 * 24);
+       +'</div>'
 
-                            document.getElementById("totalDays").value = result+1;
+      	addCropDetails++;
+           $("#addRowCropDetails").append(row);
+      }
 
 
+    function deleteRowCropDetails()
+      {
 
-   }
+      	if(addCropDetails==0){
+      		alert("Last Row can Not be deleted !!")
+      	}else{
+
+      		$("#id"+(addCropDetails-1)).remove();
+      		addCropDetails--;
+      	}
+      }
+
+
 
    function changeValues(){
       getVendor();

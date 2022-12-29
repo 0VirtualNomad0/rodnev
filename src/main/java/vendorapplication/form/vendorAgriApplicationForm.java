@@ -1,12 +1,13 @@
 package vendorapplication.form;
 
 import org.springframework.web.multipart.MultipartFile;
+import vendorapplication.modal.CropDetails;
 import vendorapplication.modal.FamilyMemberList;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class vendorApplicationForm implements Serializable {
+public class vendorAgriApplicationForm implements Serializable {
 
 
     /**
@@ -18,11 +19,20 @@ public class vendorApplicationForm implements Serializable {
     private String familyHead; //New
     private String educationalQualification; //new
 
-    private String governmentEmp; //new
-    private String selfEmp; //new
-    private String outsourcedEmp; //new
-    private String pmuEmp; //new
-    private String privateEmp; //new
+    private String totalLand; //new
+    private String cultivatedLand; //new
+    private String irrigatedLand; //new
+    private String nonIrrigatedLand; //new
+
+    private String pmkisanbenifit;
+    private String naturalFarming;
+    private String fullPartial;
+    private String trainingAgri;
+
+    private String presentIncome;
+    private String marketableSystem;
+    private String infrareq;
+
 
     private String cowNum;
     private String buffaloNum;
@@ -70,11 +80,108 @@ public class vendorApplicationForm implements Serializable {
     private String regional_national;
     private String item;
     private  List<FamilyMemberList> itemsForm;
+    private List<CropDetails> cropdetailsForm;
     private MultipartFile identityDoc;
     private MultipartFile photoDoc;
     private String captcha;
     private String roleId;
     private String numberItems;
+
+    public String getPresentIncome() {
+        return presentIncome;
+    }
+
+    public void setPresentIncome(String presentIncome) {
+        this.presentIncome = presentIncome;
+    }
+
+    public String getMarketableSystem() {
+        return marketableSystem;
+    }
+
+    public void setMarketableSystem(String marketableSystem) {
+        this.marketableSystem = marketableSystem;
+    }
+
+    public String getInfrareq() {
+        return infrareq;
+    }
+
+    public void setInfrareq(String infrareq) {
+        this.infrareq = infrareq;
+    }
+
+    public String getTrainingAgri() {
+        return trainingAgri;
+    }
+
+    public void setTrainingAgri(String trainingAgri) {
+        this.trainingAgri = trainingAgri;
+    }
+
+    public String getFullPartial() {
+        return fullPartial;
+    }
+
+    public void setFullPartial(String fullPartial) {
+        this.fullPartial = fullPartial;
+    }
+
+    public String getNaturalFarming() {
+        return naturalFarming;
+    }
+
+    public void setNaturalFarming(String naturalFarming) {
+        this.naturalFarming = naturalFarming;
+    }
+
+    public String getPmkisanbenifit() {
+        return pmkisanbenifit;
+    }
+
+    public void setPmkisanbenifit(String pmkisanbenifit) {
+        this.pmkisanbenifit = pmkisanbenifit;
+    }
+
+    public List<CropDetails> getCropdetailsForm() {
+        return cropdetailsForm;
+    }
+
+    public void setCropdetailsForm(List<CropDetails> cropdetailsForm) {
+        this.cropdetailsForm = cropdetailsForm;
+    }
+
+    public String getTotalLand() {
+        return totalLand;
+    }
+
+    public void setTotalLand(String totalLand) {
+        this.totalLand = totalLand;
+    }
+
+    public String getCultivatedLand() {
+        return cultivatedLand;
+    }
+
+    public void setCultivatedLand(String cultivatedLand) {
+        this.cultivatedLand = cultivatedLand;
+    }
+
+    public String getIrrigatedLand() {
+        return irrigatedLand;
+    }
+
+    public void setIrrigatedLand(String irrigatedLand) {
+        this.irrigatedLand = irrigatedLand;
+    }
+
+    public String getNonIrrigatedLand() {
+        return nonIrrigatedLand;
+    }
+
+    public void setNonIrrigatedLand(String nonIrrigatedLand) {
+        this.nonIrrigatedLand = nonIrrigatedLand;
+    }
 
     public String getWillingsellmilk() {
         return willingsellmilk;
@@ -180,45 +287,7 @@ public class vendorApplicationForm implements Serializable {
         this.totalNum = totalNum;
     }
 
-    public String getGovernmentEmp() {
-        return governmentEmp;
-    }
 
-    public void setGovernmentEmp(String governmentEmp) {
-        this.governmentEmp = governmentEmp;
-    }
-
-    public String getSelfEmp() {
-        return selfEmp;
-    }
-
-    public void setSelfEmp(String selfEmp) {
-        this.selfEmp = selfEmp;
-    }
-
-    public String getOutsourcedEmp() {
-        return outsourcedEmp;
-    }
-
-    public void setOutsourcedEmp(String outsourcedEmp) {
-        this.outsourcedEmp = outsourcedEmp;
-    }
-
-    public String getPmuEmp() {
-        return pmuEmp;
-    }
-
-    public void setPmuEmp(String pmuEmp) {
-        this.pmuEmp = pmuEmp;
-    }
-
-    public String getPrivateEmp() {
-        return privateEmp;
-    }
-
-    public void setPrivateEmp(String privateEmp) {
-        this.privateEmp = privateEmp;
-    }
 
     public String getFamilyHead() {
         return familyHead;
@@ -532,11 +601,7 @@ public class vendorApplicationForm implements Serializable {
                 ", category='" + category + '\'' +
                 ", familyHead='" + familyHead + '\'' +
                 ", educationalQualification='" + educationalQualification + '\'' +
-                ", governmentEmp='" + governmentEmp + '\'' +
-                ", selfEmp='" + selfEmp + '\'' +
-                ", outsourcedEmp='" + outsourcedEmp + '\'' +
-                ", pmuEmp='" + pmuEmp + '\'' +
-                ", privateEmp='" + privateEmp + '\'' +
+
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", gender='" + gender + '\'' +

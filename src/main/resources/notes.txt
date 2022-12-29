@@ -91,6 +91,20 @@ INSERT INTO category ( category_name, active) VALUES ('SC' ,true);
 INSERT INTO category ( category_name, active) VALUES ('ST' ,true);
 
 
+-- Crop Type  New Table
+CREATE TABLE mst_croptype(
+     croptype_id serial PRIMARY KEY NOT NULL,
+     croptype_name character varying(50) NOT NULL,
+     active boolean DEFAULT true NOT NULL,
+     createddate timestamp without time zone DEFAULT ('now'::text)::date NOT NULL,
+     lastmodifieddate timestamp with time zone
+);
+
+INSERT INTO mst_croptype ( croptype_name, active) VALUES ('Rabi' ,true);
+INSERT INTO mst_croptype ( croptype_name, active) VALUES ('Kharif' ,true);
+
+SELECT * FROM mst_croptype
+
 
 -- mst_qualification Table New Table
 CREATE TABLE mst_qualification(

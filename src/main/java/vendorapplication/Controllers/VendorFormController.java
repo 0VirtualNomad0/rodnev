@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vendorapplication.entities.*;
+import vendorapplication.form.vendorAgriApplicationForm;
 import vendorapplication.form.vendorApplicationForm;
 import vendorapplication.modal.ApplicationsViaLocations;
 import vendorapplication.modal.LoggedInUserLocationSession;
@@ -60,6 +61,14 @@ public class VendorFormController {
         request.getSession().setAttribute("successMessage", "");
         model.addAttribute("vendorApplicationForm", new vendorApplicationForm());
         return "vendorRegistration";
+    }
+
+    //vendorAgriForm
+    @RequestMapping(value = "/vendorAgriForm", method = RequestMethod.GET)
+    public String vendorAgriForm(Model model, HttpServletRequest request) {
+        request.getSession().setAttribute("successMessage", "");
+        model.addAttribute("vendorAgriApplicationForm", new vendorAgriApplicationForm());
+        return "vendorAgriRegistration";
     }
 
     //vendorForm
@@ -212,22 +221,22 @@ public class VendorFormController {
                                     subCategoryItemsEntity = new SubCategoryItemsEntity();
 
 
-                                    if (!vendorForm.getItemsForm().get(i).getItem_number().equalsIgnoreCase("")
-                                            && vendorForm.getItemsForm().get(i).getItem_number() != null) {
-
-                                        datax.setTentNumber(Integer.parseInt(vendorForm.getItemsForm().get(i).getItem_number()));
-                                        subCategoryItemsEntity.setItemId(Integer.parseInt(vendorForm.getItemsForm().get(i).getItem()));
-                                        datax.setItem(subCategoryItemsEntity);
-                                        datax.setAppId(userApplication.getAppId());
-
-                                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                                        Date date = new Date(timestamp.getTime());
-
-                                        datax.setCreateddate(date);
-                                        datax.setActive(true);
-                                        items.add(datax);
-
-                                    }
+//                                    if (!vendorForm.getItemsForm().get(i).getItem_number().equalsIgnoreCase("")
+//                                            && vendorForm.getItemsForm().get(i).getItem_number() != null) {
+//
+//                                        datax.setTentNumber(Integer.parseInt(vendorForm.getItemsForm().get(i).getItem_number()));
+//                                        subCategoryItemsEntity.setItemId(Integer.parseInt(vendorForm.getItemsForm().get(i).getItem()));
+//                                        datax.setItem(subCategoryItemsEntity);
+//                                        datax.setAppId(userApplication.getAppId());
+//
+//                                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//                                        Date date = new Date(timestamp.getTime());
+//
+//                                        datax.setCreateddate(date);
+//                                        datax.setActive(true);
+//                                        items.add(datax);
+//
+//                                    }
                                 }
                                 availedServices.saveData(items);
                                 request.getSession().setAttribute("appId", userApplication.getAppId());

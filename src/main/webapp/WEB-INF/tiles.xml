@@ -26,6 +26,10 @@
         <put-attribute name="content" value="/WEB-INF/jsp/vendorRegistration.jsp" />
     </definition>
 
+    <definition name="vendorAgriRegistration" extends="main">
+        <put-attribute name="content" value="/WEB-INF/jsp/vendorAgriRegistration.jsp" />
+    </definition>
+
 
 
     <definition name="flightapplication" extends="main">
@@ -86,6 +90,8 @@
     <definition name="vendorForm" extends="baselayoutdashboard">
         <put-attribute name="content" value="/WEB-INF/jsp/vendorForm.jsp" />
     </definition>
+
+
 
     <definition name="paymentpage" extends="main">
         <put-attribute name="content" value="/WEB-INF/jsp/paymentProceed.jsp" />

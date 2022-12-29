@@ -85,6 +85,7 @@
                <ul class="secondary_menu">
                   <li><a href="${pageContext.request.contextPath}/"><spring:message code="mainpage.menu.home" text="Home"/></a></li>
                   <li><a href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.menu.apply" text="Apply"/> </a></li>
+                   <li><a href="${pageContext.request.contextPath}/vendorAgriForm"><spring:message code="mainpage.menu.apply.agri" text="Apply"/> </a></li>
 
                </ul>
             </div>
@@ -93,7 +94,8 @@
                <!-- Navigation links (hidden by default) -->
                <div id="myLinks">
                   <li><a href="${pageContext.request.contextPath}/"><spring:message code="mainpage.menu.home" text="Home"/></a></li>
-                   <li><a href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.menu.apply" text="Apply"/></a></li>
+                                   <li><a href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.menu.apply" text="Apply"/> </a></li>
+                                    <li><a href="${pageContext.request.contextPath}/vendorAgriForm"><spring:message code="mainpage.menu.apply.agri" text="Apply"/> </a></li>
                </div>
                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
                <a href="javascript:void(0);" class="icon" onclick="myFunction()">

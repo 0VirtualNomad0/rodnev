@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import vendorapplication.repositories.blocks.BlockRepository;
 import vendorapplication.repositories.category.CategoryRepository;
 import vendorapplication.repositories.categorycaste.CasteCategoryRepository;
+import vendorapplication.repositories.croptype.CropTypeRepository;
 import vendorapplication.repositories.district.DistrictRepository;
 import vendorapplication.repositories.gender.GenderRepository;
 import vendorapplication.repositories.grampanchayat.GPRepository;
@@ -42,6 +43,9 @@ public class AjaxContoller {
 
     @Autowired
     CategoryRepository vendorRepository;
+
+    @Autowired
+    CropTypeRepository cropTypeRepository;
 
     @Autowired
     CasteCategoryRepository casteCategoryRepository;
@@ -118,6 +122,28 @@ public class AjaxContoller {
         map.put(Constants.keyMessage, Constants.valueMessage);
         map.put(Constants.keyStatus, HttpStatus.OK);
        // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        jsonStr = Obj.writeValueAsString(map);
+        logger.info(jsonStr);
+
+        return jsonStr;
+    }
+
+    @RequestMapping(value = Constants.getCropType, method = RequestMethod.GET,  produces=Constants.consumesProducesJson)
+    public @ResponseBody   //ResponseEntity<?>
+    String getCropType() throws JsonProcessingException {
+        Map<String, Object> map = null;
+        List<CropTypeModal> gender = cropTypeRepository.getCropType();
+
+
+        map = new HashMap<String, Object>();
+        map.put(Constants.keyResponse, gender);
+        map.put(Constants.keyMessage, Constants.valueMessage);
+        map.put(Constants.keyStatus, HttpStatus.OK);
+        // return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
         ObjectMapper Obj = new ObjectMapper();
