@@ -113,6 +113,7 @@ function getGenderTable_() {
 
     });
 }
+
  function getQualificationsTable_() {
 
      $.ajax({
@@ -135,6 +136,28 @@ function getGenderTable_() {
 
      });
  }
+
+ function getCropTypeTable_() {
+     $.ajax({
+           type: "GET",
+           url: formURL + "/ajax/getCropType",
+           success: function(data) {
+               var json_ = JSON.parse(data);
+               console.log(json_);
+               var selectRole = $('#cropTypeTable');
+               selectRole.find('option').remove();
+               selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+               for (i = 0; i < json_.RESPONSE.length; i++) {
+                   selectRole.append("<option value=" + json_.RESPONSE[i].cropTypeId + " >" + json_.RESPONSE[i].cropTypeName   + "</option>")
+               }
+
+           },
+           error: function(data) {
+               console.log(data)
+           }
+       });
+ }
+
 
 
 
@@ -379,7 +402,7 @@ function getItemsTent(landType,nationalRegional,category,subCatId,elementIdwithR
 
 
 //getGenderTable
-function getGenderTable(elementIdwithRow) {
+function getGenderTable(elementIdwithRow, selected = "") {
 
       $.ajax({
             type: "GET",
@@ -393,7 +416,7 @@ function getGenderTable(elementIdwithRow) {
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
                 for (i = 0; i < json_.RESPONSE.length; i++) {
-                    selectRole.append("<option value=" + json_.RESPONSE[i].genderId + " >" + json_.RESPONSE[i].genderName   + "</option>")
+                    selectRole.append('<option value="' + json_.RESPONSE[i].genderId +'" '+(selected == json_.RESPONSE[i].genderId ? "selected": "")+ ' >' + json_.RESPONSE[i].genderName   + '</option>')
                 }
 
             },
@@ -404,8 +427,7 @@ function getGenderTable(elementIdwithRow) {
         });
 }
 
-
- function getCropType(elementIdwithRow) {
+ function getCropType(elementIdwithRow, selected="") {
 
        $.ajax({
              type: "GET",
@@ -419,7 +441,7 @@ function getGenderTable(elementIdwithRow) {
                  selectRole.find('option').remove();
                  selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
                  for (i = 0; i < json_.RESPONSE.length; i++) {
-                     selectRole.append("<option value=" + json_.RESPONSE[i].cropTypeId + " >" + json_.RESPONSE[i].cropTypeName   + "</option>")
+                     selectRole.append('<option value="' + json_.RESPONSE[i].cropTypeId +'" '+(selected == json_.RESPONSE[i].cropTypeId ? "selected": "")+ ' >' + json_.RESPONSE[i].cropTypeName   + '</option>')
                  }
 
              },
@@ -432,7 +454,7 @@ function getGenderTable(elementIdwithRow) {
 
 
 
-function getQualificationTable(elementIdwithRow) {
+function getQualificationTable(elementIdwithRow, selected = "") {
 
       $.ajax({
             type: "GET",
@@ -446,7 +468,7 @@ function getQualificationTable(elementIdwithRow) {
                 selectRole.find('option').remove();
                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
                 for (i = 0; i < json_.RESPONSE.length; i++) {
-                    selectRole.append("<option value=" + json_.RESPONSE[i].qualificationId + " >" + json_.RESPONSE[i].qualificationName  + "</option>")
+                    selectRole.append('<option value="' + json_.RESPONSE[i].qualificationId +'" '+(selected == json_.RESPONSE[i].qualificationId ? "selected": "")+ ' >' + json_.RESPONSE[i].qualificationName   + '</option>')
                 }
 
             },
@@ -664,8 +686,208 @@ function getvDistrictsViaState(id) {
     });
 }
 
+//get surveyUserData
+function getSurveyUserAnimalHusbandryData(aadhaarNumber)
+{
+    if(aadhaarNumber.length != 12 )
+    return;
+    $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getSurveyUserAnimalHusbandryData",
+            data: {
+                "aadhaarNumber": aadhaarNumber
+            },
+            beforeSend: function(){
+                 $("#loader").show();
+               },
+               complete: function(){
+                 $("#loader").hide();
+               },
+            success: function(data) {
+                var json_ = JSON.parse(data);
+                $('#register-form').trigger("reset");
+                removeFamilyAndCropDetails();
+                document.getElementById("aadhaarNumber").value = aadhaarNumber;
+                if(json_.RESPONSE == "SurveyUserNotFound"){
+                    console.log(json_);
+                    return;
+                }
+                document.getElementById("firstname").value = json_.RESPONSE.firstname;
+                document.getElementById("lastname").value = json_.RESPONSE.lastname;
+                document.getElementById("gender").value = json_.RESPONSE.gender;
+                document.getElementById("mobileNumber").value = json_.RESPONSE.mobileNumber;
+                document.getElementById("age").value = json_.RESPONSE.age;
+                document.getElementById("castecategory").value = json_.RESPONSE.category;
+                document.getElementById("familyHead").value = json_.RESPONSE.familyHead;
+                document.getElementById("educationalQualification").value = json_.RESPONSE.educationalQualification;
+                document.getElementById("state").value = json_.RESPONSE.state;
+                document.getElementById("localDistrict").value = json_.RESPONSE.localDistrict;
+                getBlocks(json_.RESPONSE.localDistrict, json_.RESPONSE.localBlock);
+                document.getElementById("localBlock").value = json_.RESPONSE.localBlock;
+                getWardPanchayat(json_.RESPONSE.localBlock, json_.RESPONSE.localgp);
+                fillFamilyFormData(json_.RESPONSE.itemsForm);
+                document.getElementById("localgp").value = json_.RESPONSE.localgp;
+                document.getElementById("villageName").value = json_.RESPONSE.villageName;
+                document.getElementById("p_address").value = json_.RESPONSE.p_address;
+                document.getElementById("governmentEmp").value = json_.RESPONSE.governmentEmp;
+                document.getElementById("selfEmp").value = json_.RESPONSE.selfEmp;
+                document.getElementById("outsourcedEmp").value = json_.RESPONSE.outsourcedEmp;
+                document.getElementById("pmuEmp").value = json_.RESPONSE.pmuEmp;
+                document.getElementById("privateEmp").value = json_.RESPONSE.privateEmp;
+                document.getElementById("cowNum").value = json_.RESPONSE.cowNum;
+                document.getElementById("buffaloNum").value = json_.RESPONSE.buffaloNum;
+                document.getElementById("otherNum").value = json_.RESPONSE.otherNum;
+                document.getElementById("totalNum").value = json_.RESPONSE.totalNum;
+                document.getElementById("buffaloMilkProduction").value = json_.RESPONSE.buffaloMilkProduction;
+                document.getElementById("cowMilkProduction").value = json_.RESPONSE.cowMilkProduction;
+                document.getElementById("houseMilkProduction").value = json_.RESPONSE.houseMilkProduction;
+                document.getElementById("milkquantitySold").value = json_.RESPONSE.milkquantitySold;
+                document.getElementById("milkwheresold").value = json_.RESPONSE.milkwheresold;
+                document.getElementById("milksellingprice").value = json_.RESPONSE.milksellingprice;
+                document.getElementById("willingsellmilk").value = json_.RESPONSE.willingsellmilk;
+                document.getElementById("qyantitytosell").value = json_.RESPONSE.qyantitytosell;
+                document.getElementById("willingtosell").value = json_.RESPONSE.willingtosell;
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+
+
+}
+
+function getSurveyUserAgricultureData(aadhaarNumber)
+{
+    if(aadhaarNumber.length != 12 )
+    return;
+    $.ajax({
+            type: "GET",
+            url: formURL + "/ajax/getSurveyUserAgricultureData",
+            data: {
+                "aadhaarNumber": aadhaarNumber
+            },
+            beforeSend: function(){
+                $("#loader").show();
+            },
+            complete: function(){
+                $("#loader").hide();
+            },
+            success: function(data) {
+                var json_ = JSON.parse(data);
+                $('#register-form').trigger("reset");
+                removeFamilyAndCropDetails();
+                document.getElementById("aadhaarNumber").value = aadhaarNumber;
+                if(json_.RESPONSE == "SurveyUserNotFound"){
+                    console.log(json_);
+                    return;
+                }
+                document.getElementById("firstname").value = json_.RESPONSE.firstname;
+                document.getElementById("lastname").value = json_.RESPONSE.lastname;
+                document.getElementById("gender").value = json_.RESPONSE.gender;
+                document.getElementById("mobileNumber").value = json_.RESPONSE.mobileNumber;
+                document.getElementById("age").value = json_.RESPONSE.age;
+                document.getElementById("castecategory").value = json_.RESPONSE.category;
+                document.getElementById("familyHead").value = json_.RESPONSE.familyHead;
+                document.getElementById("educationalQualification").value = json_.RESPONSE.educationalQualification;
+                document.getElementById("state").value = json_.RESPONSE.state;
+                document.getElementById("localDistrict").value = json_.RESPONSE.localDistrict;
+                getBlocks(json_.RESPONSE.localDistrict, json_.RESPONSE.localBlock);
+                document.getElementById("localBlock").value = json_.RESPONSE.localBlock;
+                getWardPanchayat(json_.RESPONSE.localBlock, json_.RESPONSE.localgp);
+                fillFamilyFormData(json_.RESPONSE.itemsForm);
+                fillCropFormData(json_.RESPONSE.cropdetailsForm);
+                document.getElementById("localgp").value = json_.RESPONSE.localgp;
+                document.getElementById("villageName").value = json_.RESPONSE.villageName;
+                document.getElementById("p_address").value = json_.RESPONSE.p_address;
+                document.getElementById("totalLand").value = json_.RESPONSE.totalLand;
+                document.getElementById("cultivatedLand").value = json_.RESPONSE.cultivatedLand;
+                document.getElementById("irrigatedLand").value = json_.RESPONSE.irrigatedLand;
+                document.getElementById("nonIrrigatedLand").value = json_.RESPONSE.nonIrrigatedLand;
+                document.getElementById("presentIncome").value = json_.RESPONSE.presentIncome;
+                document.getElementById("marketableSystem").value = json_.RESPONSE.marketableSystem;
+                document.getElementById("infrareq").value = json_.RESPONSE.infrareq;
+                document.getElementById("trainingAgri").value = json_.RESPONSE.trainingAgri;
+                document.getElementById("naturalFarming").value = json_.RESPONSE.naturalFarming;
+                document.getElementById("fullPartial").value = json_.RESPONSE.fullPartial;
+                document.getElementById("pmkisanbenifit").value = json_.RESPONSE.pmkisanbenifit;
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        });
+}
+
+function removeFamilyAndCropDetails()
+{
+        for(var i = 1; i <= addCropDetails; i++)
+        {
+      		$("#id"+(i)).remove();
+        }
+      	for(var i = 1; i <= add; i++)
+      	{
+            $("#id"+(i)).remove();
+        }
+        addCropDetails = 1;
+        add = 1;
+}
+function fillFamilyFormData(familyDataList)
+{
+    for(let i in familyDataList)
+    {
+        if( i == 0)
+        {
+            document.getElementById("itemsForm[0].name").value = familyDataList[0].name;
+            document.getElementById("itemsForm[0].age").value = familyDataList[0].age;
+            document.getElementById("qualificationTable").value = familyDataList[0].qualification;
+            document.getElementById("genderTable").value = familyDataList[0].gender;
+        }
+        else{
+           	var row ='<div class="row " id="id'+i+'">'
+            +'<div class="col-lg-3"><div class="form-group"><select path="itemsForm['+i+'].gender" name="itemsForm['+i+'].gender" id="gender'+i+'"   class="form-control"></select></div></div>'
+            +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" path="itemsForm['+i+'].name" name="itemsForm['+i+'].name"   class="form-control" value="'+familyDataList[i].name+'"  /></div></div>'
+            +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="3" path="itemsForm['+i+'].age" name="itemsForm['+i+'].age"   class="form-control" value="'+familyDataList[i].age+'" onKeyPress="return isNumber(event)" /></div></div>'
+            +'<div class="col-lg-3"><div class="form-group"><select path="itemsForm['+i+'].qualification" name="itemsForm['+i+'].qualification" id="qualification'+i+'"   class="form-control" ></select></div></div>'
+            +'</div>'
+           	add++;
+            $("#addRow").append(row);
+            getGenderTable(i, familyDataList[i].gender);
+            getQualificationTable(i, familyDataList[i].qualification);
+
+        }
+    }
+}
+
+function fillCropFormData(cropDetailsForm)
+{
+    for(let i in cropDetailsForm)
+    {
+        if( i == 0)
+        {
+            document.getElementById("cropdetailsForm[0].cropName").value = cropDetailsForm[0].cropName;
+            document.getElementById("cropdetailsForm[0].cropArea").value = cropDetailsForm[0].cropArea;
+            document.getElementById("cropTypeTable").value = cropDetailsForm[0].cropType;
+            document.getElementById("cropdetailsForm[0].cropProduction").value = cropDetailsForm[0].cropProduction;
+            document.getElementById("cropdetailsForm[0].cropMarketing").value = cropDetailsForm[0].cropMarketing;
+        }
+        else{
+           	var row ='<div class="row " id="id'+i+'">'
+                   +'<div class="col-lg-2"><div class="form-group"><select path="cropdetailsForm['+i+'].cropType" name="cropdetailsForm['+i+'].cropType" id="cropType'+i+'"   class="form-control"  ></select></div></div>'
+                   +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="50" path="cropdetailsForm['+i+'].cropName" name="cropdetailsForm['+i+'].cropName"   class="form-control" value="'+cropDetailsForm[i].cropName+'"   /></div></div>'
+                   +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+i+'].cropArea" name="cropdetailsForm['+i+'].cropArea"   class="form-control floatEntry" onKeyPress="return floatCheck(event)" value="'+cropDetailsForm[i].cropArea+'" /></div></div>'
+                   +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+i+'].cropProduction" name="cropdetailsForm['+i+'].cropProduction"   class="form-control floatEntry" onKeyPress="return floatCheck(event)" value="'+cropDetailsForm[i].cropProduction+'"/></div></div>'
+                   +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+i+'].cropMarketing" name="cropdetailsForm['+i+'].cropMarketing"   class="form-control floatEntry" onKeyPress="return floatCheck(event)" value="'+cropDetailsForm[i].cropMarketing+'"/></div></div>'
+                   +'</div>'
+           	addCropDetails++;
+            $("#addRowCropDetails").append(row);
+            getCropType(i, cropDetailsForm[i].cropType);
+
+        }
+    }
+}
+
 //getBlocks
-function getBlocks(id) {
+function getBlocks(id,selected="") {
 
     $.ajax({
         type: "GET",
@@ -680,7 +902,8 @@ function getBlocks(id) {
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < json_.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + json_.RESPONSE[i].blockId + " >" + json_.RESPONSE[i].blockName + "</option>")
+
+                selectRole.append('<option value="' + json_.RESPONSE[i].blockId +'" '+ (selected ==json_.RESPONSE[i].blockId? "selected": "" )+'  >' + json_.RESPONSE[i].blockName + '</option>')
             }
 
         },
@@ -773,7 +996,7 @@ function getvTehsils(id) {
 }
 
 //getWardPanchayat
-function getWardPanchayat(id) {
+function getWardPanchayat(id, selected="") {
 
     $.ajax({
         type: "GET",
@@ -788,7 +1011,7 @@ function getWardPanchayat(id) {
             selectRole.find('option').remove();
             selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
             for (i = 0; i < json_.RESPONSE.length; i++) {
-                selectRole.append("<option value=" + json_.RESPONSE[i].gpId + " >" + json_.RESPONSE[i].gpName + "</option>")
+                selectRole.append('<option value="' + json_.RESPONSE[i].gpId +'" ' + (selected ==json_.RESPONSE[i].gpId ? "selected": "" ) +' >' + json_.RESPONSE[i].gpName + '</option>')
             }
 
         },

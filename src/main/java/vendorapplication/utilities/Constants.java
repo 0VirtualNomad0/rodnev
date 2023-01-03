@@ -81,6 +81,7 @@ public class Constants {
      * AJAX Constants Parameters
      */
     public static final String requestParam = "id";
+    public static final String userDetailRequestParam = "aadhaarNumber";
     public static final String getArea = "/ajax/getArea";
     public static final String getDistrict = "/ajax/getDistrict";
     public static final String getItemsviaSubCategoriesNonTentNonRegional = "/ajax/getItemsviaSubCategoriesNonTentNonRegional";
@@ -97,6 +98,10 @@ public class Constants {
     public static final String getWardPanchayat = "/ajax/getWardPanchayat";
     public static final String getTehsils = "/ajax/getTehsils";
     public static final String getBlocks = "/ajax/getBlocks";
+
+    public static final String getSurveyUserAnimalHusbandryData = "/ajax/getSurveyUserAnimalHusbandryData";
+
+    public static final String getSurveyUserAgricultureData = "/ajax/getSurveyUserAgricultureData";
     public static final String getDistrictsViaState = "/ajax/getDistrictsViaState";
     public static final String getState = "/ajax/getState";
     public static final String getGender = "/ajax/getGender";

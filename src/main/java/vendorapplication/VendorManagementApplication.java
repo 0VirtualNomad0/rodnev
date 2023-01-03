@@ -33,8 +33,6 @@ public class VendorManagementApplication {
 		return srb;
 	}
 
-
-
 	@Bean
 	public CaptchaDetailsSource getCaptchaDetailsSource() {
 		return new CaptchaDetailsSource();
