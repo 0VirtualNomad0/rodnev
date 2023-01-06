@@ -6,7 +6,15 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/datatable/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/datatable/dataTables.bootstrap.min.css"/>
 
+<style>
+div#agriSurveyUsers_wrapper {
+    display: initial !important;
+}
 
+div#agriSurveyUsers_wrapper label {
+    display: initial !important;
+}
+</style>
 
 <div class="content-wrapper">
             <!-- START PAGE CONTENT-->
@@ -29,7 +37,7 @@
                         <div class="ibox bg-info color-white widget-stat">
                             <div class="ibox-body">
                                 <h2 class="m-b-5 font-strong">${totalAgricultureSurveys}</h2>
-                                 <a href="#" style="color:white;"> <div class="m-b-5">Agriculture Surveys count </div><i class="ti-bar-chart widget-stat-icon"></i></a>
+                                 <a href="#" onclick="loadDataTable('/agriculture-survey-users'); return false;" style="color:white;"> <div class="m-b-5">Agriculture Surveys count </div><i class="ti-bar-chart widget-stat-icon"></i></a>
                                 <div><i class="m-r-5"></i><small>&nbsp;</small></div>
                             </div>
                         </div>
@@ -41,7 +49,7 @@
                         <div class="ibox bg-warning color-white widget-stat">
                             <div class="ibox-body">
                                 <h2 class="m-b-5 font-strong">${totalAnimalHusbandrySurveys}</h2>
-                                <a href="#" style="color:white;"> <div class="m-b-5">Animal Husbandry Survey count</div><i class="fa fa-money widget-stat-icon"></i> </a>
+                                <a href="#" onclick="loadDataTable('/animal-husbandry-survey-users'); return false;" style="color:white;"> <div class="m-b-5">Animal Husbandry Survey count</div><i class="fa fa-money widget-stat-icon"></i> </a>
                                 <div><i class="m-r-5"></i><small>&nbsp;</small></div>
                             </div>
                         </div>
@@ -49,7 +57,7 @@
                     </c:if>
                 </div>
             </div>
-            <div class= "container">
+            <div class= "">
                 <table id="agriSurveyUsers" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -72,9 +80,14 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.spring-friendly.js"></script>
 
 <script type="text/javascript">
-    $('table#agriSurveyUsers').DataTable({
+
+    function loadDataTable(url) {
+        datatable.ajax.url(url).load();
+    }
+
+    var datatable = $('table#agriSurveyUsers').DataTable({
         ajax: '${userRole}' == 'animalHusbandryDept' ? '/animal-husbandry-survey-users'
-        : '/agriculture-survey-users',
+         : '/agriculture-survey-users',
         serverSide: true,
         columns: [
             {
