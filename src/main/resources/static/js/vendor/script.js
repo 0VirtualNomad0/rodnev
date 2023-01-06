@@ -145,10 +145,14 @@ function getGenderTable_() {
                var json_ = JSON.parse(data);
                console.log(json_);
                var selectRole = $('#cropTypeTable');
+               var selectFutureCrop = $('#futureCropTypeTable');
                selectRole.find('option').remove();
+               selectFutureCrop.find('option').remove();
                selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+               selectFutureCrop.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
                for (i = 0; i < json_.RESPONSE.length; i++) {
                    selectRole.append("<option value=" + json_.RESPONSE[i].cropTypeId + " >" + json_.RESPONSE[i].cropTypeName   + "</option>")
+                   selectFutureCrop.append("<option value=" + json_.RESPONSE[i].cropTypeId + " >" + json_.RESPONSE[i].cropTypeName   + "</option>")
                }
 
            },
@@ -452,7 +456,30 @@ function getGenderTable(elementIdwithRow, selected = "") {
          });
  }
 
+function getFutureCropType(elementIdwithRow, selected="") {
 
+       $.ajax({
+             type: "GET",
+             url: formURL + "/ajax/getCropType",
+             success: function(data) {
+                 var json_ = JSON.parse(data);
+                                        console.log(json_);
+                 var id_ = "#futureCropType" + elementIdwithRow;
+                  console.log(id_)
+                 var selectRole = $(id_);
+                 selectRole.find('option').remove();
+                 selectRole.append("<option value=" + 0 + " >" + "---Please Select---" + "</option>")
+                 for (i = 0; i < json_.RESPONSE.length; i++) {
+                     selectRole.append('<option value="' + json_.RESPONSE[i].cropTypeId +'" '+(selected == json_.RESPONSE[i].cropTypeId ? "selected": "")+ ' >' + json_.RESPONSE[i].cropTypeName   + '</option>')
+                 }
+
+             },
+             error: function(data) {
+                 console.log(data)
+             }
+
+         });
+ }
 
 function getQualificationTable(elementIdwithRow, selected = "") {
 
@@ -706,7 +733,7 @@ function getSurveyUserAnimalHusbandryData(aadhaarNumber)
             success: function(data) {
                 var json_ = JSON.parse(data);
                 $('#register-form').trigger("reset");
-                removeFamilyAndCropDetails();
+                removeFamilyDetails();
                 document.getElementById("aadhaarNumber").value = aadhaarNumber;
                 if(json_.RESPONSE == "SurveyUserNotFound"){
                     console.log(json_);
@@ -776,6 +803,9 @@ function getSurveyUserAgricultureData(aadhaarNumber)
             success: function(data) {
                 var json_ = JSON.parse(data);
                 $('#register-form').trigger("reset");
+                getWardPanchayat("0");
+                getBlocks("0");
+
                 removeFamilyAndCropDetails();
                 document.getElementById("aadhaarNumber").value = aadhaarNumber;
                 if(json_.RESPONSE == "SurveyUserNotFound"){
@@ -797,6 +827,7 @@ function getSurveyUserAgricultureData(aadhaarNumber)
                 getWardPanchayat(json_.RESPONSE.localBlock, json_.RESPONSE.localgp);
                 fillFamilyFormData(json_.RESPONSE.itemsForm);
                 fillCropFormData(json_.RESPONSE.cropdetailsForm);
+                fillFutureCropFormData(json_.RESPONSE.futureCropDetailsForm);
                 document.getElementById("localgp").value = json_.RESPONSE.localgp;
                 document.getElementById("villageName").value = json_.RESPONSE.villageName;
                 document.getElementById("p_address").value = json_.RESPONSE.p_address;
@@ -820,16 +851,30 @@ function getSurveyUserAgricultureData(aadhaarNumber)
 
 function removeFamilyAndCropDetails()
 {
-        for(var i = 1; i <= addCropDetails; i++)
+        for(var i = 1; i <= add; i++)
         {
       		$("#id"+(i)).remove();
         }
-      	for(var i = 1; i <= add; i++)
+        for(var i = 1; i <= addCropDetails; i++)
+        {
+      		$("#cropId"+(i)).remove();
+        }
+      	for(var i = 1; i <= addFutureCropDetails; i++)
       	{
-            $("#id"+(i)).remove();
+            $("#futureCropId"+(i)).remove();
         }
         addCropDetails = 1;
         add = 1;
+        addFutureCropDetails = 1;
+}
+
+function removeFamilyDetails()
+{
+    for(var i = 1; i <= add; i++)
+      	{
+            $("#id"+(i)).remove();
+        }
+    add = 1;
 }
 function fillFamilyFormData(familyDataList)
 {
@@ -871,7 +916,7 @@ function fillCropFormData(cropDetailsForm)
             document.getElementById("cropdetailsForm[0].cropMarketing").value = cropDetailsForm[0].cropMarketing;
         }
         else{
-           	var row ='<div class="row " id="id'+i+'">'
+           	var row ='<div class="row " id="cropId'+i+'">'
                    +'<div class="col-lg-2"><div class="form-group"><select path="cropdetailsForm['+i+'].cropType" name="cropdetailsForm['+i+'].cropType" id="cropType'+i+'"   class="form-control"  ></select></div></div>'
                    +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="50" path="cropdetailsForm['+i+'].cropName" name="cropdetailsForm['+i+'].cropName"   class="form-control" value="'+cropDetailsForm[i].cropName+'"   /></div></div>'
                    +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+i+'].cropArea" name="cropdetailsForm['+i+'].cropArea"   class="form-control floatEntry" onKeyPress="return floatCheck(event)" value="'+cropDetailsForm[i].cropArea+'" /></div></div>'
@@ -881,6 +926,30 @@ function fillCropFormData(cropDetailsForm)
            	addCropDetails++;
             $("#addRowCropDetails").append(row);
             getCropType(i, cropDetailsForm[i].cropType);
+
+        }
+    }
+}
+
+function fillFutureCropFormData(futureCropDetailsForm)
+{
+    for(let i in futureCropDetailsForm)
+    {
+        if( i == 0)
+        {
+            document.getElementById("futureCropDetailsForm[0].cropName").value = futureCropDetailsForm[0].cropName;
+            document.getElementById("futureCropDetailsForm[0].cropArea").value = futureCropDetailsForm[0].cropArea;
+            document.getElementById("futureCropTypeTable").value = futureCropDetailsForm[0].cropType;
+        }
+        else{
+           	var row ='<div class="row " id="futureCropId'+i+'">'
+                   +'<div class="col-lg-2"><div class="form-group"><select path="futureCropDetailsForm['+i+'].cropType" name="futureCropDetailsForm['+i+'].cropType" id="futureCropType'+i+'"   class="form-control"  ></select></div></div>'
+                   +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="50" path="futureCropDetailsForm['+i+'].cropName" name="futureCropDetailsForm['+i+'].cropName"   class="form-control" value="'+futureCropDetailsForm[i].cropName+'"   /></div></div>'
+                   +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="futureCropDetailsForm['+i+'].cropArea" name="futureCropDetailsForm['+i+'].cropArea"   class="form-control floatEntry" onKeyPress="return floatCheck(event)" value="'+futureCropDetailsForm[i].cropArea+'" /></div></div>'
+                   +'</div>'
+           	addFutureCropDetails++;
+            $("#addRowFutureCropDetails").append(row);
+            getFutureCropType(i, futureCropDetailsForm[i].cropType);
 
         }
     }

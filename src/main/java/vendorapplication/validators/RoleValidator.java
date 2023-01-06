@@ -39,7 +39,7 @@ public class RoleValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "roleDescription", "NotEmpty");
-        if (user.getRoleDescription().length() <= 3 || user.getRoleDescription().length() >40 ) {
+        if (user.getRoleDescription().length() <= 3 || user.getRoleDescription().length() >55 ) {
             errors.rejectValue("roleDescription", "Size.rolesForm.roleDescription");
         }
 

@@ -13,6 +13,10 @@ public class SurveyAgricultureEntity implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "surveyAgricultureId")
     List<CropDetailEntity> cropDetails;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "surveyAgricultureId")
+    List<FutureCropDetailEntity> futureCropDetails;
+
     @Id
     @GeneratedValue(generator = "survey_agriculture_id_seq", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "survey_agriculture_id_seq", sequenceName = "public.survey_agriculture_id_seq", initialValue = 1, allocationSize = 1)
@@ -116,6 +120,19 @@ public class SurveyAgricultureEntity implements Serializable {
         }
     }
 
+    public List<FutureCropDetailEntity> getFutureCropDetails() {
+        return futureCropDetails;
+    }
+
+    public void setFutureCropDetails(List<FutureCropDetailEntity> futureCropDetails) {
+        if (this.futureCropDetails == null) {
+            this.futureCropDetails = futureCropDetails;
+        } else {
+            this.futureCropDetails.retainAll(futureCropDetails);
+            this.futureCropDetails.addAll(futureCropDetails);
+        }
+    }
+
     public double getPresentIncome() {
         return presentIncome;
     }
@@ -189,6 +206,7 @@ public class SurveyAgricultureEntity implements Serializable {
                 ", irrigatedLand=" + irrigatedLand +
                 ", nonIrrigatedLand=" + nonIrrigatedLand +
                 ", cropDetails=" + cropDetails +
+                ", futureCropDetails=" + futureCropDetails +
                 ", presentIncome=" + presentIncome +
                 ", marketableIncome='" + marketableIncome + '\'' +
                 ", infraRequirements='" + infraRequirements + '\'' +

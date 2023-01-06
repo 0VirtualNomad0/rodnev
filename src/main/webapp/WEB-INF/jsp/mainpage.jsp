@@ -19,9 +19,7 @@
                    <div class="carousel-item active">
                      <img class="d-block w-100" style="max-height:300px;" src="${pageContext.request.contextPath}/resources/images/slider1.jpg" alt="First slide">
                    </div>
-                   <div class="carousel-item">
-                     <img class="d-block w-100" style="max-height:300px;" src="${pageContext.request.contextPath}/resources/images/slider2.jpg" alt="Second slide">
-                   </div>
+
 
                  </div>
                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -37,19 +35,19 @@
                <!-- SLIDER ENDS -->
 
                <!-- About eLahaul-->
-               <div class="col-lg-8" style="background-color:white;">
 
-                    <div class="card text-center" style="max-height:300px; min-height:300px;">
-                        <div class="card-header">&nbsp;</div>
-                        <div class="card-body">
-                            <h5 class="card-title"><spring:message code="mainpage.about.elahaul.heading"/></h5>
-                            <p class="card-text"><spring:message code="mainpage.about.elahaul.paragraph"/></p>
 
-                        </div>
-                        <div class="btn btn-primary"><a style="text-decoration:none; color:white;" href="${pageContext.request.contextPath}/vendorForm"><spring:message code="mainpage.about.applyhere"/></a></div>
-                    </div>
+                   <div class="card col-lg-4" style="background-color:white;">
+                     <div class="card-body"><img src="${pageContext.request.contextPath}/resources/images/vector/agri_logo.jpeg" class="img-thumbnail center" style="max-height:150px;" alt="Image"></div>
+                    <div class="card-header bg-primary text-light text-center"><a href="${pageContext.request.contextPath}/vendorAgriForm" style="text-decoration:none; color:white;">Survey Form Agriculture Department</a></div>
+                   </div>
 
-            </div>
+                      <div class="card col-lg-4" style="background-color:white;">
+                    <div class="card-body"><img src="${pageContext.request.contextPath}/resources/images/vector/animal_hus.jpeg" class="img-thumbnail center" style="max-height:150px;" alt="Image"></div>
+                    <div class="card-header bg-primary text-light text-center"><a href="${pageContext.request.contextPath}/vendorForm" style="text-decoration:none; color:white;">Survey Form Animal Husbandry Department</a></div>
+                  </div>
+
+
                <!-- CM Minister Links-->
             </div>
          </div>

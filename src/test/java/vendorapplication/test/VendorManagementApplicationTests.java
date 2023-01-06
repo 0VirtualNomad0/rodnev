@@ -1,27 +1,27 @@
 package vendorapplication.test;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.xml.sax.SAXException;
-import vendorapplication.entities.BlocksEntity;
-import vendorapplication.entities.UserEntity;
-import vendorapplication.modal.BlockModal;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.xml.sax.SAXException;
+//import vendorapplication.entities.BlocksEntity;
+//import vendorapplication.entities.UserEntity;
+//import vendorapplication.modal.BlockModal;
 import vendorapplication.repositories.blocks.BlockRepository;
-import vendorapplication.security.EncryptDecrypt;
+//import vendorapplication.security.EncryptDecrypt;
 import vendorapplication.services.UserService;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
+//import javax.crypto.BadPaddingException;
+//import javax.crypto.IllegalBlockSizeException;
+//import javax.crypto.NoSuchPaddingException;
+//import javax.xml.parsers.ParserConfigurationException;
+//import java.io.IOException;
+//import java.security.InvalidAlgorithmParameterException;
+//import java.security.InvalidKeyException;
+//import java.security.NoSuchAlgorithmException;
+//import java.util.List;
 
 @SpringBootTest
 public class VendorManagementApplicationTests {

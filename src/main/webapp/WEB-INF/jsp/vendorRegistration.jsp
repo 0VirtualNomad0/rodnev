@@ -445,7 +445,7 @@
 
          </div>
          <div class="form-group col-lg-12">
-            <button class="btn btn-success btn-block" type="submit">Submit</button>
+            <button class="btn btn-success btn-block" type="submit">Save/Update</button>
             <c:remove var="successMessage" scope="session" />
          </div>
       </div>

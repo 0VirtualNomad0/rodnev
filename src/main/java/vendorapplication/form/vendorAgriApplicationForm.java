@@ -1,7 +1,7 @@
 package vendorapplication.form;
 
-import org.springframework.web.multipart.MultipartFile;
 import vendorapplication.modal.CropDetails;
+import vendorapplication.modal.FutureCropDetails;
 import vendorapplication.modal.FamilyMemberList;
 
 import java.io.Serializable;
@@ -35,6 +35,7 @@ public class vendorAgriApplicationForm implements Serializable {
     private String irrigatedLand; //new
     private String nonIrrigatedLand; //new
     private List<CropDetails> cropdetailsForm;
+    private List<FutureCropDetails> futureCropDetailsForm;
     private String presentIncome;
     private String marketableSystem;
     private String infrareq;
@@ -268,25 +269,48 @@ public class vendorAgriApplicationForm implements Serializable {
         this.itemsForm = itemsForm;
     }
 
+
+    public List<FutureCropDetails> getFutureCropDetailsForm() {
+        return futureCropDetailsForm;
+    }
+
+    public void setFutureCropDetailsForm(List<FutureCropDetails> futureCropDetailsForm) {
+        this.futureCropDetailsForm = futureCropDetailsForm;
+    }
+
     @Override
     public String toString() {
-        return "vendorApplicationForm{" +
+        return "vendorAgriApplicationForm{" +
                 "aadhaarNumber='" + aadhaarNumber + '\'' +
-                ", villageName='" + villageName + '\'' +
-                ", category='" + category + '\'' +
-                ", familyHead='" + familyHead + '\'' +
-                ", educationalQualification='" + educationalQualification + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", age='" + age + '\'' +
+                ", category='" + category + '\'' +
+                ", familyHead='" + familyHead + '\'' +
+                ", educationalQualification='" + educationalQualification + '\'' +
                 ", state='" + state + '\'' +
                 ", localBlock='" + localBlock + '\'' +
                 ", localDistrict='" + localDistrict + '\'' +
                 ", localgp='" + localgp + '\'' +
+                ", villageName='" + villageName + '\'' +
                 ", p_address='" + p_address + '\'' +
                 ", itemsForm=" + itemsForm +
+                ", totalLand='" + totalLand + '\'' +
+                ", cultivatedLand='" + cultivatedLand + '\'' +
+                ", irrigatedLand='" + irrigatedLand + '\'' +
+                ", nonIrrigatedLand='" + nonIrrigatedLand + '\'' +
+                ", cropdetailsForm=" + cropdetailsForm +
+                ", futureCropDetailsForm=" + futureCropDetailsForm +
+                ", presentIncome='" + presentIncome + '\'' +
+                ", marketableSystem='" + marketableSystem + '\'' +
+                ", infrareq='" + infrareq + '\'' +
+                ", pmkisanbenifit='" + pmkisanbenifit + '\'' +
+                ", naturalFarming='" + naturalFarming + '\'' +
+                ", fullPartial='" + fullPartial + '\'' +
+                ", trainingAgri='" + trainingAgri + '\'' +
                 '}';
     }
+
 }

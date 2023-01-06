@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import vendorapplication.modal.ApplicationsViaLocations;
 import vendorapplication.modal.LoggedInUserLocationSession;
+import vendorapplication.services.SurveyUserService;
 import vendorapplication.services.UserApplicationService;
 import vendorapplication.utilities.Constants;
 
@@ -28,6 +29,8 @@ public class Dashboard {
     @Autowired
     UserApplicationService userApplicationService;
 
+    @Autowired
+    SurveyUserService surveyUserService;
 
 
     //dashboard  homepage_new
@@ -57,41 +60,27 @@ public class Dashboard {
 
             if (user != null) {
 
-                if(authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin")){
-                    Integer applicationCountTotal = userApplicationService.getTotalApplications();
-                    Integer approvedApplications = userApplicationService.getApprovedApplications(Constants.APPROVED);
-                    Integer rejectedApplications = userApplicationService.getApprovedApplications(Constants.REJECTED);
-                    Integer pendingApplications = userApplicationService.getApprovedApplications(Constants.PENDING);
-                    System.out.println(applicationCountTotal);
-                    model.addAttribute("totalApplications", applicationCountTotal);
-                    model.addAttribute("approvedApplications", approvedApplications);
-                    model.addAttribute("rejectedApplications", rejectedApplications);
-                    model.addAttribute("pendingApplications", pendingApplications);
-                }else if(authority_.equalsIgnoreCase("PCB")){
-                    Integer applicationCountTotal = userApplicationService.getTotalApplicationsRolePCB(user.getStateId(),user.getDistrictId(),2);
-                    Integer approvedApplications = userApplicationService.getApprovedApplicationsRolePCB(user.getStateId(),user.getDistrictId(),Constants.APPROVED,2);
-                    Integer rejectedApplications = userApplicationService.getApprovedApplicationsRolePCB(user.getStateId(),user.getDistrictId(),Constants.REJECTED,2);
-                    Integer pendingApplications = userApplicationService.getApprovedApplicationsRolePCB(user.getStateId(),user.getDistrictId(),Constants.PENDING,2);
-                    System.out.println(applicationCountTotal);
-                    model.addAttribute("totalApplications", applicationCountTotal);
-                    model.addAttribute("approvedApplications", approvedApplications);
-                    model.addAttribute("rejectedApplications", rejectedApplications);
-                    model.addAttribute("pendingApplications", pendingApplications);
+                if (authority_.equalsIgnoreCase("Super Admin") || authority_.equalsIgnoreCase("Admin")) {
+                    Long animalHusbandrySurveyCount = surveyUserService.getAnimalHusbandrySurveyCount();
+                    System.out.println(animalHusbandrySurveyCount);
+                    Long agricultureSurveyCount = surveyUserService.getAgricultureSurveyCount();
+                    System.out.println(agricultureSurveyCount);
+                    model.addAttribute("totalUsers", agricultureSurveyCount + animalHusbandrySurveyCount);
+                    model.addAttribute("totalAgricultureSurveys", agricultureSurveyCount);
+                    model.addAttribute("totalAnimalHusbandrySurveys", animalHusbandrySurveyCount);
+                    model.addAttribute("userRole", "superAdmin");
+                } else if (authority_.equalsIgnoreCase("ANIHUSDEPT")) {
+                    Long animalHusbandrySurveyCount = surveyUserService.getAnimalHusbandrySurveyCount();
+                    System.out.println(animalHusbandrySurveyCount);
+                    model.addAttribute("totalAnimalHusbandrySurveys", animalHusbandrySurveyCount);
+                    model.addAttribute("userRole", "animalHusbandryDept");
+
+                } else if (authority_.equalsIgnoreCase("AGRICULTURE")) {
+                    Long agricultureSurveyCount = surveyUserService.getAgricultureSurveyCount();
+                    System.out.println(agricultureSurveyCount);
+                    model.addAttribute("totalAgricultureSurveys", agricultureSurveyCount);                    model.addAttribute("userRole", "animalHusbandryDept");
+                    model.addAttribute("userRole", "agricultureDept");
                 }
-                else{
-                    Integer applicationCountTotal = userApplicationService.getTotalApplicationsRole(user.getStateId(),user.getDistrictId());
-                    Integer approvedApplications = userApplicationService.getApprovedApplicationsRole(user.getStateId(),user.getDistrictId(),Constants.APPROVED);
-                    Integer rejectedApplications = userApplicationService.getApprovedApplicationsRole(user.getStateId(),user.getDistrictId(),Constants.REJECTED);
-                    Integer pendingApplications = userApplicationService.getApprovedApplicationsRole(user.getStateId(),user.getDistrictId(),Constants.PENDING);
-                    System.out.println(applicationCountTotal);
-                    model.addAttribute("totalApplications", applicationCountTotal);
-                    model.addAttribute("approvedApplications", approvedApplications);
-                    model.addAttribute("rejectedApplications", rejectedApplications);
-                    model.addAttribute("pendingApplications", pendingApplications);
-                }
-
-
-
                 return "homepage_new";
             } else {
                 return "errorPage";
@@ -101,13 +90,8 @@ public class Dashboard {
     }
 
 
-
-
-
-
-
-    @RequestMapping(value = "/getApplications/{status}", method= RequestMethod.GET)
-    public String getApplicationsStatus(@PathVariable("status")String status,
+    @RequestMapping(value = "/getApplications/{status}", method = RequestMethod.GET)
+    public String getApplicationsStatus(@PathVariable("status") String status,
                                         Model model, HttpServletRequest request) {
 
         request.getSession().setAttribute("successMessage", "");
@@ -129,18 +113,16 @@ public class Dashboard {
             System.out.println(user.toString());
 
 
-
             if (user != null) {
 
                 List<Object[]> dashboardDataServerList = null;
-                if(authority_.equalsIgnoreCase("PCB")){
-                    dashboardDataServerList = userApplicationService.getApplicationsLocationWiseStatusPcb(user.getStateId(), user.getDistrictId(), status,2);
+                if (authority_.equalsIgnoreCase("PCB")) {
+                    dashboardDataServerList = userApplicationService.getApplicationsLocationWiseStatusPcb(user.getStateId(), user.getDistrictId(), status, 2);
 
-                }else{
-                   dashboardDataServerList = userApplicationService.getApplicationsLocationWiseStatus(user.getStateId(), user.getDistrictId(), status);
+                } else {
+                    dashboardDataServerList = userApplicationService.getApplicationsLocationWiseStatus(user.getStateId(), user.getDistrictId(), status);
 
                 }
-
 
 
                 List<ApplicationsViaLocations> applications = new ArrayList<>();

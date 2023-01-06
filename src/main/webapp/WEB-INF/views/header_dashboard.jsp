@@ -24,7 +24,7 @@
          <header class="header">
             <div class="page-brand">
                <a class="link" href="index.html">
-               <span class="brand">eVendor
+               <span class="brand">Survey
                </span>
                </a>
             </div>
@@ -64,7 +64,7 @@
                   </div>
                </div>
                <ul class="side-menu metismenu">
-                  <sec:authorize access="hasAnyAuthority('Super Admin','Admin','DC','BDO','DFO','PCB')">
+                  <sec:authorize access="hasAnyAuthority('Super Admin','Admin', 'ANIHUSDEPT', 'AGRICULTURE')">
                      <li>
                         <a class="active" href="${pageContext.request.contextPath}/dashboard"><i class="sidebar-item-icon fa fa-th-large"></i>
                         <span class="nav-label">Dashboard</span>
@@ -72,7 +72,7 @@
                      </li>
                   </sec:authorize>
                   <li class="heading">OPTIONS</li>
-                  <sec:authorize access="hasAnyAuthority('Super Admin', 'Admin','DC')">
+                  <sec:authorize access="hasAnyAuthority('Super Admin', 'Admin')">
                      <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
                         <span class="nav-label">Super Admin Features</span><i class="fa fa-angle-left arrow"></i></a>
@@ -85,51 +85,8 @@
                            </li>
                         </ul>
                      </li>
-                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                        <span class="nav-label">Categories Masters</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                           <li>
-                              <a href="${pageContext.request.contextPath}/getcategory">Create Category</a>
-                           </li>
-                           <li>
-                              <a href="${pageContext.request.contextPath}/addsubcategories">Create Sub-Category</a>
-                           </li>
-                           <li>
-                              <a href="${pageContext.request.contextPath}/subcategoriesitems">Create Sub-Category Items</a>
-                           </li>
-                        </ul>
-                     </li>
-                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                        <span class="nav-label">Verify Payment</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                           <li>
-                              <a href="${pageContext.request.contextPath}/checkpayment">Check Payment (PayU)</a>
-                           </li>
-                           <li>
-                              <a href="${pageContext.request.contextPath}/checkpaymentdb">Check Payment (eVendor App)</a>
-                           </li>
-                        </ul>
-                     </li>
+                  </sec:authorize>
 
-                  </sec:authorize>
-                  <sec:authorize access="hasAnyAuthority('BDO', 'DFO','DC','PCB')">
-                     <li>
-                        <a href="${pageContext.request.contextPath}/applications"><i class="sidebar-item-icon fa fa-dashboard"></i>
-                        <span class="nav-label">Applications List </span></a>
-                     </li>
-                  </sec:authorize>
-                  <sec:authorize access="hasAuthority('Vendor')">
-                     <li>
-                        <a href="${pageContext.request.contextPath}/vendorIndex"><i class="sidebar-item-icon fa fa-dashboard"></i>
-                        <span class="nav-label">Vendor Dashboard</span></a>
-                     </li>
-                     <li>
-                        <a href="${pageContext.request.contextPath}/vendorForm"><i class="sidebar-item-icon fa fa-edit"></i>
-                        <span class="nav-label">Vendor Application Form</span><i class="fa fa-angle-left arrow"></i></a>
-                     </li>
-                  </sec:authorize>
                </ul>
             </div>
          </nav>

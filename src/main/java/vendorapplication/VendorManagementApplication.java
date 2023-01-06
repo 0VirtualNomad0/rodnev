@@ -1,6 +1,8 @@
 package vendorapplication;
 
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepositoryFactoryBean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import vendorapplication.captcha.CaptchaDetailsSource;
 import vendorapplication.captcha.CaptchaGenServlet;
@@ -17,6 +19,8 @@ import java.io.UnsupportedEncodingException;
 @EnableCaching
 @EnableScheduling
 @EnableConfigurationProperties({FileStorageProperties.class})
+@EnableJpaRepositories(repositoryFactoryBeanClass = DataTablesRepositoryFactoryBean.class)
+
 public class VendorManagementApplication {
 
 	public static void main(String[] args) throws UnsupportedEncodingException { SpringApplication.run(VendorManagementApplication.class, args);

@@ -349,6 +349,64 @@
 
             </div>
 
+             <!-- form.agri.future.crops.grown -->
+                                    <div class="container grey_top_bar">
+                                       <p style="color:#FFFFFF; margin-top:30px; font-weight: bold; font-size: 20px;"> <spring:message code="form.agri.future.crops.grown" /> </p>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+
+
+                                     <!-- tableDiv -->
+                                                      <div id="tableDiv_tent" class="col-lg-12">
+                                                         <div class="row" style="margin-bottom:10px;">
+                                                            <div class="col-lg-9">
+                                                               <hr>
+                                                               <strong>
+                                                                  <spring:message code="form.agri.future.crops.grown"/>
+                                                               </strong>
+                                                               <hr>
+                                                            </div>
+                                                            <div class="col-lg-3 ">
+                                                               <br/>
+                                                               <button type="button"  class="btn btn-success" data-style="slide-right" onclick="return addNewRowFutureCropDetails();" ><spring:message code="form.tent.add.row" /></button>
+                                                               <button type="button"  class="btn btn-danger" data-style="slide-right" onclick="return deleteRowFutureCropDetails();" ><spring:message code="form.tent.delete.row" /></button>
+                                                            </div>
+                                                         </div>
+                                                         <div class="row" style="margin-top:10px">
+                                                            <spring:bind path="futureCropDetailsForm[0].cropType">
+                                                               <div class="form-group col-lg-2 ${status.error ? 'has-error' : ''}">
+                                                                  <form:label path="futureCropDetailsForm[0].cropType" for="cropType"><spring:message code="form.agri.crop.type" /></form:label>
+                                                                  <form:select path="futureCropDetailsForm[0].cropType"   class="form-control" id="futureCropTypeTable">
+                                                                  </form:select>
+                                                                  <form:errors style="color: red;"  path="futureCropDetailsForm[0].cropType"></form:errors>
+                                                               </div>
+                                                            </spring:bind>
+                                                            <spring:bind path="futureCropDetailsForm[0].cropName">
+                                                               <div class="form-group col-lg-3 ${status.error ? 'has-error' : ''}">
+                                                                  <form:label path="futureCropDetailsForm[0].cropName" for="futureCropDetailsForm[0].cropName"><spring:message code="form.agri.crop.name" /></form:label>
+                                                                  <form:input id="futureCropDetailsForm[0].cropName" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" onkeypress="return alpha(event)" oncopy="return false" onpaste="return false"  path="futureCropDetailsForm[0].cropName"  class="form-control"
+                                                                     autofocus="true"></form:input>
+                                                                  <form:errors style="color: red;"  path="futureCropDetailsForm[0].cropName"></form:errors>
+                                                               </div>
+                                                            </spring:bind>
+                                                            <spring:bind path="futureCropDetailsForm[0].cropArea">
+                                                               <div class="form-group col-lg-2 ${status.error ? 'has-error' : ''}">
+                                                                  <form:label path="futureCropDetailsForm[0].cropArea" for="futureCropDetailsForm[0].cropArea"><spring:message code="form.agri.crop.area" /></form:label>
+                                                                  <form:input id="futureCropDetailsForm[0].cropArea" autocomplete="off" onfocus="this.removeAttribute('readonly');" type="text" oncopy="return false" onpaste="return false"  path="futureCropDetailsForm[0].cropArea"  class="form-control floatEntry"
+                                                                     autofocus="true"></form:input>
+                                                                  <form:errors style="color: red;"  path="futureCropDetailsForm[0].cropArea"></form:errors>
+                                                               </div>
+                                                            </spring:bind>
+                                                            <div id="addRowFutureCropDetails" class="col-lg-12">
+                                                            </div>
+                                                         </div>
+                                                      </div>
+
+                                                   <br>
+
+
+                                    </div>
 
  <!-- Other Data -->
             <div class="container grey_top_bar">
@@ -444,7 +502,7 @@
 
          </div>
          <div class="form-group col-lg-12">
-            <button class="btn btn-success btn-block" type="submit">Submit</button>
+            <button class="btn btn-success btn-block" type="submit">Save/Update</button>
             <c:remove var="successMessage" scope="session" />
          </div>
       </div>
@@ -505,7 +563,7 @@ var statusCropDetails=0;
     function addNewRowCropDetails()
       {
        getCropType(addCropDetails);
-      	var row ='<div class="row " id="id'+addCropDetails+'">'
+      	var row ='<div class="row " id="cropId'+addCropDetails+'">'
        +'<div class="col-lg-2"><div class="form-group"><select path="cropdetailsForm['+addCropDetails+'].cropType" name="cropdetailsForm['+addCropDetails+'].cropType" id="cropType'+addCropDetails+'"   class="form-control"  ></select></div></div>'
        +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="50" path="cropdetailsForm['+addCropDetails+'].cropName" name="cropdetailsForm['+addCropDetails+'].cropName"   class="form-control"   /></div></div>'
        +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="cropdetailsForm['+addCropDetails+'].cropArea" name="cropdetailsForm['+addCropDetails+'].cropArea"   class="form-control floatEntry" onKeyPress="return floatCheck(event)"/></div></div>'
@@ -526,11 +584,39 @@ var statusCropDetails=0;
       		alert("Last Row can Not be deleted !!")
       	}else{
 
-      		$("#id"+(addCropDetails-1)).remove();
+      		$("#cropId"+(addCropDetails-1)).remove();
       		addCropDetails--;
       	}
       }
 
+var addFutureCropDetails= 0+${countAddFutureCrop+1};
+console.log(addFutureCropDetails);
+
+    function addNewRowFutureCropDetails()
+      {
+       getFutureCropType(addFutureCropDetails);
+      	var row ='<div class="row " id="futureCropId'+addFutureCropDetails+'">'
+       +'<div class="col-lg-2"><div class="form-group"><select path="futureCropDetailsForm['+addFutureCropDetails+'].cropType" name="futureCropDetailsForm['+addFutureCropDetails+'].cropType" id="futureCropType'+addFutureCropDetails+'"   class="form-control"  ></select></div></div>'
+       +'<div class="col-lg-3"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="50" path="futureCropDetailsForm['+addFutureCropDetails+'].cropName" name="futureCropDetailsForm['+addFutureCropDetails+'].cropName"   class="form-control"   /></div></div>'
+       +'<div class="col-lg-2"><div class="form-group"><input oncopy="return false" onpaste="return false" maxlength="10" path="futureCropDetailsForm['+addFutureCropDetails+'].cropArea" name="futureCropDetailsForm['+addFutureCropDetails+'].cropArea"   class="form-control floatEntry" onKeyPress="return floatCheck(event)"/></div></div>'
+       +'</div>'
+
+      	addFutureCropDetails++;
+           $("#addRowFutureCropDetails").append(row);
+      }
+
+
+    function deleteRowFutureCropDetails()
+      {
+
+      	if(addFutureCropDetails==0){
+      		alert("Last Row can Not be deleted !!")
+      	}else{
+
+      		$("#futureCropId"+(addFutureCropDetails-1)).remove();
+      		addFutureCropDetails--;
+      	}
+      }
 
 
    function changeValues(){

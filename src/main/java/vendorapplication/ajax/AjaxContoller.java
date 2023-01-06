@@ -479,7 +479,6 @@ public class AjaxContoller {
             return formData;
         List<CropDetails> cropdetailsForm = new ArrayList<>();
 //Check if there are family members added and if added then add to surveyUser
-        List<CropDetailEntity> cropDetails = new ArrayList<>();
         for (CropDetailEntity cropDetailEntity : surveyAgricultureData.getCropDetails()) {
             CropDetails cropDetail = new CropDetails();
             cropDetail.setCropArea(String.valueOf(cropDetailEntity.getCropArea()));
@@ -491,6 +490,18 @@ public class AjaxContoller {
             cropdetailsForm.add(cropDetail);
         }
         formData.setCropdetailsForm(cropdetailsForm);
+
+        List<FutureCropDetails> formCropDetails = new ArrayList<>();
+        for (FutureCropDetailEntity futureCropDetailEntity : surveyAgricultureData.getFutureCropDetails()) {
+            FutureCropDetails futureCropDetail = new FutureCropDetails();
+            futureCropDetail.setCropArea(String.valueOf(futureCropDetailEntity.getCropArea()));
+            futureCropDetail.setCropName(futureCropDetailEntity.getCropName());
+            futureCropDetail.setCropType(futureCropDetailEntity.getCropTypeId() == null ? "0"
+                    :String.valueOf(futureCropDetailEntity.getCropTypeId().getCropTypeId()));
+            formCropDetails.add(futureCropDetail);
+        }
+        formData.setFutureCropDetailsForm(formCropDetails);
+
         formData.setTotalLand(String.valueOf(surveyAgricultureData.getTotalLand()));
         formData.setCultivatedLand(String.valueOf(surveyAgricultureData.getCultivatedLand()));
         formData.setIrrigatedLand(String.valueOf(surveyAgricultureData.getIrrigatedLand()));

@@ -21,6 +21,14 @@ public class SurveyUserService {
     @Autowired
     private SurveyAgricultureRepository agricultureRepository;
 
+    public long getAnimalHusbandrySurveyCount(){
+        return animalHusbandryRepository.count();
+    }
+
+    public long getAgricultureSurveyCount(){
+        return agricultureRepository.count();
+    }
+
     public SurveyUserEntity saveSurveyUser(SurveyUserEntity entity) {
         return surveyUserRepository.save(entity);
     }

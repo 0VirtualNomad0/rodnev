@@ -16,10 +16,8 @@ import vendorapplication.form.vendorAgriApplicationForm;
 import vendorapplication.form.vendorApplicationForm;
 import vendorapplication.modal.CropDetails;
 import vendorapplication.modal.FamilyMemberList;
-import vendorapplication.repositories.survey.CropDetailRepository;
-import vendorapplication.repositories.survey.FamilyMembersRepository;
-import vendorapplication.repositories.survey.SurveyAgricultureRepository;
-import vendorapplication.repositories.survey.SurveyAnimalHusbandryRepository;
+import vendorapplication.modal.FutureCropDetails;
+import vendorapplication.repositories.survey.*;
 import vendorapplication.repositories.user.UserRepository;
 import vendorapplication.services.SurveyUserService;
 import vendorapplication.validators.SurveyAgricultureFormValidator;
@@ -55,7 +53,8 @@ public class VendorFormController {
 
     @Autowired
     private CropDetailRepository cropDetailRepository;
-
+    @Autowired
+    private FutureCropDetailRepository futureCropDetailRepository;
     public static int parseIntegerWithDefault(String number) {
         try {
             return Integer.parseInt(number);
@@ -549,6 +548,29 @@ public class VendorFormController {
             cropDetails.add(cropDetailEntity);
         }
         cropDetailRepository.saveAll(cropDetails);
+
+        if(surveyAgricultureEntity.getFutureCropDetails() != null) {
+            futureCropDetailRepository.deleteAll(surveyAgricultureEntity.getFutureCropDetails());
+            surveyAgricultureEntity.getFutureCropDetails().removeAll(
+                    surveyAgricultureEntity.getFutureCropDetails());
+        }
+
+        List<FutureCropDetailEntity> futureCropDetails = new ArrayList<>();
+        for (FutureCropDetails cropDetail : vendorAgriForm.getFutureCropDetailsForm()) {
+            FutureCropDetailEntity cropDetailEntity = new FutureCropDetailEntity();
+            cropDetailEntity.setCropArea(parseFloatWithDefault(cropDetail.getCropArea()));
+            cropDetailEntity.setCropName(cropDetail.getCropName());
+
+            if (parseIntegerWithDefault(cropDetail.getCropType()) > 0) {
+                CropTypeEntity cropType = new CropTypeEntity();
+                cropType.setCropTypeId(parseIntegerWithDefault(cropDetail.getCropType()));
+                cropDetailEntity.setCropTypeId(cropType);
+            }
+            cropDetailEntity.setSurveyAgricultureId(surveyAgricultureEntity);
+            futureCropDetails.add(cropDetailEntity);
+        }
+        futureCropDetailRepository.saveAll(futureCropDetails);
+
         return surveyAgricultureEntity;
     }
 
