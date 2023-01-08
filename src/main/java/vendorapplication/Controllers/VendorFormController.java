@@ -135,7 +135,7 @@ public class VendorFormController {
                         request.getSession().setAttribute("serverError", "Unable to save data. Please try again.");
                         return "vendorRegistration";
                     }
-                    model.addAttribute("successMessage", "survey submitted successfully with Id :" + surveyUser.getSurveyUserId());
+                    model.addAttribute("successMessage", "Survey submitted successfully");
                     model.addAttribute("vendorApplicationForm", new vendorApplicationForm());
                     return "vendorRegistration";
 
@@ -188,7 +188,7 @@ public class VendorFormController {
                         request.getSession().setAttribute("serverError", "Unable to save data. Please try again.");
                         return "vendorAgriRegistration";
                     }
-                    model.addAttribute("successMessage", "survey submitted successfully with Id :" + surveyUser.getSurveyUserId());
+                    model.addAttribute("successMessage", "Survey submitted successfully");
                     model.addAttribute("vendorAgriApplicationForm", new vendorAgriApplicationForm());
                     return "vendorAgriRegistration";
 
@@ -287,7 +287,7 @@ public class VendorFormController {
             }
 
             if (vendorForm.getLocalBlock() != null && parseIntegerWithDefault(vendorForm.getLocalBlock()) > 0) {
-                block.setDistrictId(parseIntegerWithDefault(vendorForm.getLocalBlock()));
+                block.setBlockId(parseIntegerWithDefault(vendorForm.getLocalBlock()));
                 surveyUser.setBlockId(block);
                 logger.info("User block :- " + surveyUser.getBlockId());
                 logger.info("\n");
@@ -397,7 +397,7 @@ public class VendorFormController {
             }
 
             if (vendorForm.getLocalBlock() != null && parseIntegerWithDefault(vendorForm.getLocalBlock()) > 0) {
-                block.setDistrictId(parseIntegerWithDefault(vendorForm.getLocalBlock()));
+                block.setBlockId(parseIntegerWithDefault(vendorForm.getLocalBlock()));
                 surveyUser.setBlockId(block);
                 logger.info("User block :- " + surveyUser.getBlockId());
                 logger.info("\n");

@@ -67,6 +67,8 @@ div#agriSurveyUsers_wrapper label {
                            <th>Lastname</th>
                            <th>MobileNumber</th>
                            <th>Age</th>
+                           <th>District</th>
+                           <th>Block</th>
                            <th>Permanent Address</th>
                            <th>Created On</th>
                         </tr>
@@ -108,6 +110,12 @@ div#agriSurveyUsers_wrapper label {
             {
                 data: 'surveyUserId.age',
                 render: function (data) { return data != 0 ? data : '-'; }
+            },
+            {
+                data: 'surveyUserId.districtId.districtName'
+            },
+            {
+                data: 'surveyUserId.blockId.blockName'
             },
             {
                 data: 'surveyUserId.permanentAddress'

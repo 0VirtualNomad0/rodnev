@@ -1,9 +1,6 @@
 package vendorapplication.modal;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class SurveyUserBasicModal {
 
@@ -22,6 +19,10 @@ public class SurveyUserBasicModal {
     private String permanentAddress;
 
     private int age;
+
+    private DistrictModal districtId;
+
+    private BlockModal blockId;
 
     private Date createdDate;
 
@@ -95,16 +96,27 @@ public class SurveyUserBasicModal {
 
     public void setCreatedDate(Date createdDate) {
         try {
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-            String dateString = sdf.format(createdDate);
-            calendar.setTime(sdf.parse(dateString));
-            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date date = calendar.getTime();
-            this.createdDate = date;
-        }catch (Exception ex){
+            this.createdDate = createdDate;
+        } catch (Exception ex) {
             this.createdDate = new Date();
         }
+    }
+
+    public DistrictModal getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(DistrictModal districtId) {
+        this.districtId = districtId;
+
+    }
+
+    public BlockModal getBlockId() {
+        return blockId;
+    }
+
+    public void setBlockId(BlockModal blockId) {
+        this.blockId = blockId;
     }
 
     @Override
@@ -118,7 +130,10 @@ public class SurveyUserBasicModal {
                 ", mobileNumber=" + mobileNumber +
                 ", permanentAddress='" + permanentAddress + '\'' +
                 ", age=" + age +
+                ", districtId=" + districtId +
+                ", blockId=" + blockId +
                 ", createdDate=" + createdDate +
                 '}';
     }
+
 }

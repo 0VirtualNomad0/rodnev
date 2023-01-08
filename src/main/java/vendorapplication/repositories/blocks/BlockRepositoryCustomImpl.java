@@ -41,11 +41,11 @@ public class BlockRepositoryCustomImpl implements BlockRepositoryCustom{
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<BlockModal> cq = cb.createQuery(BlockModal.class);
         Root book = cq.from(BlocksEntity.class);
-        Predicate authorNamePredicate = cb.equal(book.get("districtid"), districtId);
+        Predicate authorNamePredicate = cb.equal(book.get("districtId"), districtId);
         Predicate isActive = cb.equal(book.get("active"), active);
         Predicate isDeleated = cb.equal(book.get("deleted"), deleted);
         cq.where(authorNamePredicate,isActive,isDeleated);
-        cq.multiselect(book.get("districtId"), book.get("districtName")).distinct(true);
+        cq.multiselect(book.get("blockId"), book.get("blockName")).distinct(true);
         TypedQuery<BlockModal> query = entityManager.createQuery(cq);
         return query.getResultList();
     }

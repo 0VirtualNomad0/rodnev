@@ -1,8 +1,5 @@
 package vendorapplication.entities;
 
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,16 +12,16 @@ public class BlocksEntity implements Serializable {
     @GeneratedValue(generator = "mst_block_block_id_seq", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "mst_block_block_id_seq", sequenceName = "public.mst_block_block_id_seq", initialValue = 1, allocationSize = 1)
     @Column(name = "block_id")
-    private Integer districtId;
+    private Integer blockId;
 
     @Column(name = "block_name")
-    private String districtName;
+    private String blockName;
 
     @Column(name = "is_active")
     private Boolean active;
 
     @Column(name = "district_id")
-    private Integer districtid;
+    private Integer districtId;
 
 
     @Column(name = "is_deleted")
@@ -43,12 +40,12 @@ public class BlocksEntity implements Serializable {
         this.deleted = deleted;
     }
 
-    public Integer getDistrictid() {
-        return districtid;
+    public Integer getDistrictId() {
+        return districtId;
     }
 
-    public void setDistrictid(Integer districtid) {
-        this.districtid = districtid;
+    public void setDistrictId(Integer districtId) {
+        this.districtId = districtId;
     }
 
     public Boolean getActive() {
@@ -59,20 +56,20 @@ public class BlocksEntity implements Serializable {
         this.active = active;
     }
 
-    public Integer getDistrictId() {
-        return districtId;
+    public Integer getBlockId() {
+        return blockId;
     }
 
-    public void setDistrictId(Integer districtId) {
-        this.districtId = districtId;
+    public void setBlockId(Integer blockId) {
+        this.blockId = blockId;
     }
 
-    public String getDistrictName() {
-        return districtName;
+    public String getBlockName() {
+        return blockName;
     }
 
-    public void setDistrictName(String districtName) {
-        this.districtName = districtName;
+    public void setBlockName(String blockName) {
+        this.blockName = blockName;
     }
 
     public Date getCreatedDate() {
@@ -86,10 +83,10 @@ public class BlocksEntity implements Serializable {
     @Override
     public String toString() {
         return "BlocksEntity{" +
-                "districtId=" + districtId +
-                ", districtName='" + districtName + '\'' +
+                "blockId=" + blockId +
+                ", blockName='" + blockName + '\'' +
                 ", active=" + active +
-                ", districtid=" + districtid +
+                ", districtId=" + districtId +
                 ", deleted=" + deleted +
                 ", createdDate=" + createdDate +
                 '}';

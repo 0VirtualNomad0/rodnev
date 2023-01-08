@@ -7,6 +7,9 @@ public class BlockModal implements Serializable {
     private Integer blockId;
     private String blockName;
 
+    public BlockModal() {
+    }
+
     public BlockModal(Integer blockId, String blockName) {
         this.blockId = blockId;
         this.blockName = blockName;

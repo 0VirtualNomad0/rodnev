@@ -733,10 +733,18 @@ function getSurveyUserAnimalHusbandryData(aadhaarNumber)
             success: function(data) {
                 var json_ = JSON.parse(data);
                 $('#register-form').trigger("reset");
+                getWardPanchayat("0");
+                getBlocks("0");
                 removeFamilyDetails();
                 document.getElementById("aadhaarNumber").value = aadhaarNumber;
-                if(json_.RESPONSE == "SurveyUserNotFound"){
+                if(json_.RESPONSE == "SurveyUserNotFound" || json_.MSG == "AadhaarDataNotFound"){
                     console.log(json_);
+                    return;
+                } else if(json_.MSG == "AadhaarDataFound"){
+                    console.log(json_);
+                    document.getElementById("firstname").value = json_.RESPONSE.firstName;
+                    document.getElementById("lastname").value = json_.RESPONSE.lastName;
+                    document.getElementById("age").value = json_.RESPONSE.age;
                     return;
                 }
                 document.getElementById("firstname").value = json_.RESPONSE.firstname;
@@ -808,10 +816,17 @@ function getSurveyUserAgricultureData(aadhaarNumber)
 
                 removeFamilyAndCropDetails();
                 document.getElementById("aadhaarNumber").value = aadhaarNumber;
-                if(json_.RESPONSE == "SurveyUserNotFound"){
+                if(json_.RESPONSE == "SurveyUserNotFound" || json_.MSG == "AadhaarDataNotFound"){
                     console.log(json_);
                     return;
+                } else if(json_.MSG == "AadhaarDataFound"){
+                    console.log(json_);
+                    document.getElementById("firstname").value = json_.RESPONSE.firstName;
+                    document.getElementById("lastname").value = json_.RESPONSE.lastName;
+                    document.getElementById("age").value = json_.RESPONSE.age;
+                    return;
                 }
+
                 document.getElementById("firstname").value = json_.RESPONSE.firstname;
                 document.getElementById("lastname").value = json_.RESPONSE.lastname;
                 document.getElementById("gender").value = json_.RESPONSE.gender;

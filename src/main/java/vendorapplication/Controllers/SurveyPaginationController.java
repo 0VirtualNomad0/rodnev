@@ -3,23 +3,25 @@ package vendorapplication.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.data.jpa.datatables.mapping.Order;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import vendorapplication.entities.SurveyAgricultureEntity;
 import vendorapplication.entities.SurveyAnimalHusbandryEntity;
 import vendorapplication.entities.SurveyUserEntity;
+import vendorapplication.modal.BlockModal;
+import vendorapplication.modal.DistrictModal;
 import vendorapplication.modal.SurveyFormBasicModal;
 import vendorapplication.modal.SurveyUserBasicModal;
 import vendorapplication.repositories.survey.SurveyAgriculturePaginationRepository;
 import vendorapplication.repositories.survey.SurveyAnimalHusbandryPaginationRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.Join;
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static java.util.Collections.singletonList;
 
 @RestController
 public class SurveyPaginationController {
@@ -35,10 +37,12 @@ public class SurveyPaginationController {
 
     @RequestMapping(value = "/agriculture-survey-users", method = RequestMethod.GET)
     public DataTablesOutput<SurveyFormBasicModal> listAgricultureSurveyUsers(@Valid DataTablesInput input) {
+        input.setOrder(singletonList(new Order(9, "desc")));
+
         List<SurveyFormBasicModal> surveyFormList = new ArrayList<>();
 
         DataTablesOutput<SurveyFormBasicModal> surveyUsersDatatable =
-                new DataTablesOutput<SurveyFormBasicModal>();
+                new DataTablesOutput<>();
         DataTablesOutput<SurveyAgricultureEntity> surveyAgricultureDatatable =
                 surveyAgriculturePaginationRepository.findAll(input);
         surveyUsersDatatable.setDraw(surveyAgricultureDatatable.getDraw());
@@ -53,6 +57,10 @@ public class SurveyPaginationController {
             SurveyUserEntity surveyUserDao = surveyAgriculture.getSurveyUserId();
             if (surveyUserDao == null) continue;
 
+            DistrictModal district = new DistrictModal();
+            BlockModal block = new BlockModal();
+            district.setDistrictName(surveyUserDao.getDistrictId().getDistrictName());
+            block.setBlockName(surveyUserDao.getBlockId().getBlockName());
             surveyUser.setSurveyUserId(surveyUserDao.getSurveyUserId());
             surveyUser.setAge(surveyUserDao.getAge());
             surveyUser.setMobileNumber(surveyUserDao.getMobileNumber());
@@ -61,11 +69,11 @@ public class SurveyPaginationController {
             surveyUser.setLastName(surveyUserDao.getLastName());
             surveyUser.setPermanentAddress(surveyUserDao.getPermanentAddress());
             surveyUser.setCreatedDate(surveyUserDao.getCreatedDate());
-            //surveyUser.setGender(surveyUserDao.getGenderId().getGenderName());
+            surveyUser.setDistrictId(district);
+            surveyUser.setBlockId(block);
             surveyForm.setSurveyUserId(surveyUser);
             surveyFormList.add(surveyForm);
         }
-        Collections.sort(surveyFormList, byDate);
         surveyUsersDatatable.setData(surveyFormList);
 
         return surveyUsersDatatable;
@@ -75,6 +83,7 @@ public class SurveyPaginationController {
     @RequestMapping(value = "/animal-husbandry-survey-users", method = RequestMethod.GET)
     public DataTablesOutput<SurveyFormBasicModal> listAnimalHusbandrySurveyUsers(
             @Valid DataTablesInput input) {
+        input.setOrder(singletonList(new Order(9, "desc")));
         List<SurveyFormBasicModal> surveyFormList = new ArrayList<>();
 
         DataTablesOutput<SurveyFormBasicModal> surveyUsersDatatable =
@@ -92,7 +101,10 @@ public class SurveyPaginationController {
             SurveyUserBasicModal surveyUser = new SurveyUserBasicModal();
             SurveyUserEntity surveyUserDao = surveyAnimalHusbandry.getSurveyUserId();
             if (surveyUserDao == null) continue;
-
+            DistrictModal district = new DistrictModal();
+            BlockModal block = new BlockModal();
+            district.setDistrictName(surveyUserDao.getDistrictId().getDistrictName());
+            block.setBlockName(surveyUserDao.getBlockId().getBlockName());
             surveyUser.setSurveyUserId(surveyUserDao.getSurveyUserId());
             surveyUser.setAge(surveyUserDao.getAge());
             surveyUser.setMobileNumber(surveyUserDao.getMobileNumber());
@@ -100,32 +112,14 @@ public class SurveyPaginationController {
             surveyUser.setFirstName(surveyUserDao.getFirstName());
             surveyUser.setLastName(surveyUserDao.getLastName());
             surveyUser.setPermanentAddress(surveyUserDao.getPermanentAddress());
-            surveyUser.setGender(surveyUserDao.getGenderId().getGenderName());
+            surveyUser.setCreatedDate(surveyUserDao.getCreatedDate());
+            surveyUser.setDistrictId(district);
+            surveyUser.setBlockId(block);
             surveyForm.setSurveyUserId(surveyUser);
             surveyFormList.add(surveyForm);
         }
         surveyUsersDatatable.setData(surveyFormList);
         return surveyUsersDatatable;
     }
-
-    static final Comparator<SurveyFormBasicModal> byDate = new Comparator<SurveyFormBasicModal>() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
-
-        public int compare(SurveyFormBasicModal ord1, SurveyFormBasicModal ord2) {
-            Date d1 = null;
-            Date d2 = null;
-            try {
-                d1 = sdf.parse(sdf.format(ord1.getSurveyUserId().getCreatedDate()));
-                d2 = sdf.parse(sdf.format(ord2.getSurveyUserId().getCreatedDate()));
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
-            return (d1.getTime() > d2.getTime() ? -1 : 1);     //descending
-        }
-    };
-
 
 }

@@ -12,6 +12,9 @@ public class DistrictModal implements Serializable {
         this.districtName = districtName;
     }
 
+    public DistrictModal() {
+    }
+
     public Integer getDistrictId() {
         return districtId;
     }

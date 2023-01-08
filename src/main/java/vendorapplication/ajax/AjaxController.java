@@ -2,11 +2,19 @@ package vendorapplication.ajax;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import vendorapplication.entities.*;
 import vendorapplication.form.vendorAgriApplicationForm;
 import vendorapplication.form.vendorApplicationForm;
@@ -26,21 +34,21 @@ import vendorapplication.repositories.roles.RolesRepository;
 import vendorapplication.repositories.states.StateRepository;
 import vendorapplication.repositories.subcategory.SubCategoryRepository;
 import vendorapplication.repositories.subcategoryitems.SubCategoryItemsRepository;
-import vendorapplication.repositories.survey.SurveyAgricultureRepository;
-import vendorapplication.repositories.survey.SurveyAnimalHusbandryRepository;
 import vendorapplication.repositories.survey.SurveyUserRepository;
 import vendorapplication.repositories.tehsil.TehsilRepository;
 import vendorapplication.utilities.Constants;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.net.ssl.SSLContext;
+import java.security.cert.X509Certificate;
+import java.util.*;
 
 @RestController
-public class AjaxContoller {
+public class AjaxController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AjaxContoller.class);
+    private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
+
+    final String uri = "https://himparivar.hp.gov.in/api/v1/get-himparivar-aadhaar-data";
+
     @Autowired
     RolesRepository rolesRepository;
     @Autowired
@@ -213,18 +221,29 @@ public class AjaxContoller {
 
         try {
             Long aadhaar = Long.valueOf(aadhaarNumber);
+
+
             SurveyUserEntity surveyUser =
                     surveyUserRepository.getByAadhaarNumber(Long.valueOf(aadhaarNumber));
             map = new HashMap<String, Object>();
             if (surveyUser == null) {
-                map.put(Constants.keyResponse, "SurveyUserNotFound");
+                Optional<AadhaarApiResponse> apiResponse = getAadhaarData(aadhaar);
+                if ( apiResponse == null || !apiResponse.isPresent()
+                        || (apiResponse.isPresent() && apiResponse.get().getStatus() == 404)
+                        || (apiResponse.isPresent() && apiResponse.get().getRecords().isEmpty())) {
+                    map.put(Constants.keyResponse, "SurveyUserNotFound");
+                    map.put(Constants.keyMessage, "AadhaarDataNotFound");
+                } else {
+                    map.put(Constants.keyMessage, "AadhaarDataFound");
+                    AadhaarData data = apiResponse.get().getRecords().get(0);
+                    map.put(Constants.keyResponse, data);
+                }
             } else {
                 vendorApplicationForm formData = populateSurveyUserAnimalHusbandryFormData(surveyUser);
                 map.put(Constants.keyResponse, formData);
+                map.put(Constants.keyMessage, Constants.valueMessage);
             }
-            map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
             ObjectMapper Obj = new ObjectMapper();
             String jsonStr = null;
             jsonStr = Obj.writeValueAsString(map);
@@ -297,7 +316,7 @@ public class AjaxContoller {
         }
 
         if (surveyUser.getBlockId() != null) {
-            formData.setLocalBlock(String.valueOf(surveyUser.getBlockId().getDistrictId()));
+            formData.setLocalBlock(String.valueOf(surveyUser.getBlockId().getBlockId()));
         } else {
             formData.setLocalBlock("0");
         }
@@ -311,16 +330,15 @@ public class AjaxContoller {
         formData.setVillageName(surveyUser.getVillageName());
         formData.setP_address(surveyUser.getPermanentAddress());
         List<FamilyMemberList> formFamilyData = new ArrayList<>();
-        for(FamilyMembersEntity familyMember : surveyUser.getFamilyMembers())
-        {
+        for (FamilyMembersEntity familyMember : surveyUser.getFamilyMembers()) {
             FamilyMemberList familyMemberForm = new FamilyMemberList();
             familyMemberForm.setName(familyMember.getName());
-            familyMemberForm.setAge(familyMember.getAge()== 0 ? null
+            familyMemberForm.setAge(familyMember.getAge() == 0 ? null
                     : String.valueOf(familyMember.getAge()));
             familyMemberForm.setGender(familyMember.getGenderId() == null ? "0"
-                    :String.valueOf(familyMember.getGenderId().getGenderId()));
+                    : String.valueOf(familyMember.getGenderId().getGenderId()));
             familyMemberForm.setQualification(familyMember.getQualificationId() == null ? "0"
-                    :String.valueOf(familyMember.getQualificationId().getQualificationId()));
+                    : String.valueOf(familyMember.getQualificationId().getQualificationId()));
             formFamilyData.add(familyMemberForm);
         }
         formData.setItemsForm(formFamilyData);
@@ -365,14 +383,23 @@ public class AjaxContoller {
 
             map = new HashMap<String, Object>();
             if (surveyUser == null) {
-                map.put(Constants.keyResponse, "SurveyUserNotFound");
+                Optional<AadhaarApiResponse> apiResponse = getAadhaarData(aadhaar);
+                if ( apiResponse == null || !apiResponse.isPresent()
+                        || (apiResponse.isPresent() && apiResponse.get().getStatus() == 404)
+                        || (apiResponse.isPresent() && apiResponse.get().getRecords().isEmpty())) {
+                    map.put(Constants.keyResponse, "SurveyUserNotFound");
+                    map.put(Constants.keyMessage, "AadhaarDataNotFound");
+                } else {
+                    map.put(Constants.keyMessage, "AadhaarDataFound");
+                    AadhaarData data = apiResponse.get().getRecords().get(0);
+                    map.put(Constants.keyResponse, data);
+                }
             } else {
                 vendorAgriApplicationForm formData = populateSurveyUserAgricultureFormData(surveyUser);
                 map.put(Constants.keyResponse, formData);
+                map.put(Constants.keyMessage, Constants.valueMessage);
             }
-            map.put(Constants.keyMessage, Constants.valueMessage);
             map.put(Constants.keyStatus, HttpStatus.OK);
-            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
             ObjectMapper Obj = new ObjectMapper();
             String jsonStr = null;
             jsonStr = Obj.writeValueAsString(map);
@@ -445,7 +472,7 @@ public class AjaxContoller {
         }
 
         if (surveyUser.getBlockId() != null) {
-            formData.setLocalBlock(String.valueOf(surveyUser.getBlockId().getDistrictId()));
+            formData.setLocalBlock(String.valueOf(surveyUser.getBlockId().getBlockId()));
         } else {
             formData.setLocalBlock("0");
         }
@@ -459,16 +486,15 @@ public class AjaxContoller {
         formData.setVillageName(surveyUser.getVillageName());
         formData.setP_address(surveyUser.getPermanentAddress());
         List<FamilyMemberList> formFamilyData = new ArrayList<>();
-        for(FamilyMembersEntity familyMember : surveyUser.getFamilyMembers())
-        {
+        for (FamilyMembersEntity familyMember : surveyUser.getFamilyMembers()) {
             FamilyMemberList familyMemberForm = new FamilyMemberList();
             familyMemberForm.setName(familyMember.getName());
-            familyMemberForm.setAge(familyMember.getAge()== 0 ? null
+            familyMemberForm.setAge(familyMember.getAge() == 0 ? null
                     : String.valueOf(familyMember.getAge()));
             familyMemberForm.setGender(familyMember.getGenderId() == null ? "0"
-                    :String.valueOf(familyMember.getGenderId().getGenderId()));
+                    : String.valueOf(familyMember.getGenderId().getGenderId()));
             familyMemberForm.setQualification(familyMember.getQualificationId() == null ? "0"
-                    :String.valueOf(familyMember.getQualificationId().getQualificationId()));
+                    : String.valueOf(familyMember.getQualificationId().getQualificationId()));
             formFamilyData.add(familyMemberForm);
         }
         formData.setItemsForm(formFamilyData);
@@ -486,7 +512,7 @@ public class AjaxContoller {
             cropDetail.setCropMarketing(String.valueOf(cropDetailEntity.getCropMarketing()));
             cropDetail.setCropProduction(String.valueOf(cropDetailEntity.getCropProduction()));
             cropDetail.setCropType(cropDetailEntity.getCropTypeId() == null ? "0"
-                    :String.valueOf(cropDetailEntity.getCropTypeId().getCropTypeId()));
+                    : String.valueOf(cropDetailEntity.getCropTypeId().getCropTypeId()));
             cropdetailsForm.add(cropDetail);
         }
         formData.setCropdetailsForm(cropdetailsForm);
@@ -497,7 +523,7 @@ public class AjaxContoller {
             futureCropDetail.setCropArea(String.valueOf(futureCropDetailEntity.getCropArea()));
             futureCropDetail.setCropName(futureCropDetailEntity.getCropName());
             futureCropDetail.setCropType(futureCropDetailEntity.getCropTypeId() == null ? "0"
-                    :String.valueOf(futureCropDetailEntity.getCropTypeId().getCropTypeId()));
+                    : String.valueOf(futureCropDetailEntity.getCropTypeId().getCropTypeId()));
             formCropDetails.add(futureCropDetail);
         }
         formData.setFutureCropDetailsForm(formCropDetails);
@@ -519,6 +545,51 @@ public class AjaxContoller {
         else
             formData.setFullPartial("1");
         return formData;
+    }
+
+    private Optional<AadhaarApiResponse> getAadhaarData(Long aadhaar) {
+        try {
+            TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
+
+            SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
+                    .loadTrustMaterial(null, acceptingTrustStrategy)
+                    .build();
+
+            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
+
+            CloseableHttpClient httpClient = HttpClients.custom()
+                    .setSSLSocketFactory(csf)
+                    .build();
+
+            HttpComponentsClientHttpRequestFactory requestFactory =
+                    new HttpComponentsClientHttpRequestFactory();
+
+            requestFactory.setHttpClient(httpClient);
+
+            RestTemplate restTemplate = new RestTemplate(requestFactory);
+
+            restTemplate.getInterceptors().add(
+                    new BasicAuthenticationInterceptor("HIMPARIVAR@908@nT", "JovpQy2Cez6545sKDRvhX3p")
+            );
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+            LinkedMultiValueMap<String, Object> apiMap = new LinkedMultiValueMap<>();
+            apiMap.add("aadhaar_no", aadhaar);
+            HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity =
+                    new HttpEntity<>(apiMap, headers);
+
+
+            ResponseEntity<AadhaarApiResponse> responseEntity =
+                    restTemplate.postForEntity(uri, requestEntity, AadhaarApiResponse.class);
+            HttpStatus statusCode = responseEntity.getStatusCode();
+            if (statusCode != HttpStatus.OK)
+                return null;
+            AadhaarApiResponse apiResponse = responseEntity.getBody();
+            return Optional.of(apiResponse);
+        } catch (Exception ex) {
+            return null;
+        }
+
     }
 
     //getBlocks

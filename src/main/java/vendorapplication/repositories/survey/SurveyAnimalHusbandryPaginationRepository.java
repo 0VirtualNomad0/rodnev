@@ -6,7 +6,6 @@ import vendorapplication.entities.SurveyAnimalHusbandryEntity;
 
 import javax.transaction.Transactional;
 
-@Transactional
 public interface SurveyAnimalHusbandryPaginationRepository  extends
         DataTablesRepository<SurveyAnimalHusbandryEntity, Long>{
 

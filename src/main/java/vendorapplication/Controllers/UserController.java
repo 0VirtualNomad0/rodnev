@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,7 +108,7 @@ public class UserController {
                     genderEntity.setGenderId(Integer.parseInt(registerUser.getGender()));
                     state.setStateID(Integer.parseInt(registerUser.getState()));
                     district.setDistrictId(Integer.parseInt(registerUser.getLocalDistrict()));
-                    block.setDistrictId(Integer.parseInt(registerUser.getLocalBlock()));
+                    block.setBlockId(Integer.parseInt(registerUser.getLocalBlock()));
                     tehsilEntity.setDistrictId(Integer.parseInt(registerUser.getLocalTehsil()));
                     gp.setPanchayatId(Integer.parseInt(registerUser.getLocalgp()));
                     PasswordEncoder encoder = new BCryptPasswordEncoder();

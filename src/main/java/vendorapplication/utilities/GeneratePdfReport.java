@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import vendorapplication.entities.UserApplicationEntity;
 import vendorapplication.entities.UserTranactionEntity;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -142,7 +140,7 @@ public class GeneratePdfReport {
             userDetailPermanetAddressTable.addCell(getCell("District:", boldFont21));
             userDetailPermanetAddressTable.addCell(getCell(userApplicationEntity.getUserId().getDistrict().getDistrictName(), boldFont2));
             userDetailPermanetAddressTable.addCell(getCell("Block:", boldFont21));
-            userDetailPermanetAddressTable.addCell(getCell(userApplicationEntity.getUserId().getBlock().getDistrictName(), boldFont2));
+            userDetailPermanetAddressTable.addCell(getCell(userApplicationEntity.getUserId().getBlock().getBlockName(), boldFont2));
             userDetailPermanetAddressTable.addCell(getCell("Tehsil:", boldFont21));
             userDetailPermanetAddressTable.addCell(getCell(userApplicationEntity.getUserId().getTehsil().getDistrictName(), boldFont2));
             userDetailPermanetAddressTable.addCell(getCell("Gram Panchayat/ Ward:", boldFont21));
@@ -170,7 +168,7 @@ public class GeneratePdfReport {
             userDetailVendingAddressTable.addCell(getCell("District:", boldFont21));
             userDetailVendingAddressTable.addCell(getCell(userApplicationEntity.getDistrict().getDistrictName(), boldFont2));
             userDetailVendingAddressTable.addCell(getCell("Block:", boldFont21));
-            userDetailVendingAddressTable.addCell(getCell(userApplicationEntity.getBlock().getDistrictName(), boldFont2));
+            userDetailVendingAddressTable.addCell(getCell(userApplicationEntity.getBlock().getBlockName(), boldFont2));
             userDetailVendingAddressTable.addCell(getCell("Tehsil:", boldFont21));
             userDetailVendingAddressTable.addCell(getCell(userApplicationEntity.getTehsil().getDistrictName(), boldFont2));
             userDetailVendingAddressTable.addCell(getCell("Gram Panchayat/ Ward:", boldFont21));
