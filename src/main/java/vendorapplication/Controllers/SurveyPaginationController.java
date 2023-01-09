@@ -6,14 +6,12 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.data.jpa.datatables.mapping.Order;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vendorapplication.entities.SurveyAgricultureEntity;
 import vendorapplication.entities.SurveyAnimalHusbandryEntity;
 import vendorapplication.entities.SurveyUserEntity;
-import vendorapplication.modal.BlockModal;
-import vendorapplication.modal.DistrictModal;
-import vendorapplication.modal.SurveyFormBasicModal;
-import vendorapplication.modal.SurveyUserBasicModal;
+import vendorapplication.modal.*;
 import vendorapplication.repositories.survey.SurveyAgriculturePaginationRepository;
 import vendorapplication.repositories.survey.SurveyAnimalHusbandryPaginationRepository;
 
@@ -38,7 +36,6 @@ public class SurveyPaginationController {
     @RequestMapping(value = "/agriculture-survey-users", method = RequestMethod.GET)
     public DataTablesOutput<SurveyFormBasicModal> listAgricultureSurveyUsers(@Valid DataTablesInput input) {
         input.setOrder(singletonList(new Order(9, "desc")));
-
         List<SurveyFormBasicModal> surveyFormList = new ArrayList<>();
 
         DataTablesOutput<SurveyFormBasicModal> surveyUsersDatatable =
@@ -56,11 +53,12 @@ public class SurveyPaginationController {
             SurveyUserBasicModal surveyUser = new SurveyUserBasicModal();
             SurveyUserEntity surveyUserDao = surveyAgriculture.getSurveyUserId();
             if (surveyUserDao == null) continue;
-
+            GenderModal gender = new GenderModal();
             DistrictModal district = new DistrictModal();
             BlockModal block = new BlockModal();
             district.setDistrictName(surveyUserDao.getDistrictId().getDistrictName());
             block.setBlockName(surveyUserDao.getBlockId().getBlockName());
+            gender.setGenderName(surveyUserDao.getGenderId().getGenderName());
             surveyUser.setSurveyUserId(surveyUserDao.getSurveyUserId());
             surveyUser.setAge(surveyUserDao.getAge());
             surveyUser.setMobileNumber(surveyUserDao.getMobileNumber());
@@ -71,6 +69,7 @@ public class SurveyPaginationController {
             surveyUser.setCreatedDate(surveyUserDao.getCreatedDate());
             surveyUser.setDistrictId(district);
             surveyUser.setBlockId(block);
+            surveyUser.setGenderId(gender);
             surveyForm.setSurveyUserId(surveyUser);
             surveyFormList.add(surveyForm);
         }
@@ -103,8 +102,10 @@ public class SurveyPaginationController {
             if (surveyUserDao == null) continue;
             DistrictModal district = new DistrictModal();
             BlockModal block = new BlockModal();
+            GenderModal gender = new GenderModal();
             district.setDistrictName(surveyUserDao.getDistrictId().getDistrictName());
             block.setBlockName(surveyUserDao.getBlockId().getBlockName());
+            gender.setGenderName(surveyUserDao.getGenderId().getGenderName());
             surveyUser.setSurveyUserId(surveyUserDao.getSurveyUserId());
             surveyUser.setAge(surveyUserDao.getAge());
             surveyUser.setMobileNumber(surveyUserDao.getMobileNumber());
@@ -115,6 +116,7 @@ public class SurveyPaginationController {
             surveyUser.setCreatedDate(surveyUserDao.getCreatedDate());
             surveyUser.setDistrictId(district);
             surveyUser.setBlockId(block);
+            surveyUser.setGenderId(gender);
             surveyForm.setSurveyUserId(surveyUser);
             surveyFormList.add(surveyForm);
         }

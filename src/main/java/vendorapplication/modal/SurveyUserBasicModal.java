@@ -12,8 +12,6 @@ public class SurveyUserBasicModal {
 
     private String lastName;
 
-    private String gender;
-
     private long mobileNumber;
 
     private String permanentAddress;
@@ -23,6 +21,8 @@ public class SurveyUserBasicModal {
     private DistrictModal districtId;
 
     private BlockModal blockId;
+
+    private GenderModal genderId;
 
     private Date createdDate;
 
@@ -56,14 +56,6 @@ public class SurveyUserBasicModal {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public long getMobileNumber() {
@@ -119,6 +111,14 @@ public class SurveyUserBasicModal {
         this.blockId = blockId;
     }
 
+    public GenderModal getGenderId() {
+        return genderId;
+    }
+
+    public void setGenderId(GenderModal genderId) {
+        this.genderId = genderId;
+    }
+
     @Override
     public String toString() {
         return "SurveyUserBasicModal{" +
@@ -126,12 +126,12 @@ public class SurveyUserBasicModal {
                 ", aadhaarNumber=" + aadhaarNumber +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
                 ", mobileNumber=" + mobileNumber +
                 ", permanentAddress='" + permanentAddress + '\'' +
                 ", age=" + age +
                 ", districtId=" + districtId +
                 ", blockId=" + blockId +
+                ", genderId=" + genderId +
                 ", createdDate=" + createdDate +
                 '}';
     }

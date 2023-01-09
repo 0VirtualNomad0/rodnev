@@ -57,33 +57,53 @@ div#agriSurveyUsers_wrapper label {
                     </c:if>
                 </div>
             </div>
-            <div class= "">
-                <table id="agriSurveyUsers" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                           <th>ID</th>
-                           <th>Aadhaar Number</th>
-                           <th>Firstname</th>
-                           <th>Lastname</th>
-                           <th>MobileNumber</th>
-                           <th>Age</th>
-                           <th>District</th>
-                           <th>Block</th>
-                           <th>Permanent Address</th>
-                           <th>Created On</th>
-                        </tr>
-                    </thead>
-                </table>
+            <table id="agriSurveyUsers" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                       <th>ID</th>
+                       <th>Aadhaar Number</th>
+                       <th>Firstname</th>
+                       <th>Lastname</th>
+                       <th>MobileNumber</th>
+                       <th>Age</th>
+                       <th>District</th>
+                       <th>Block</th>
+                       <th>Gender</th>
+                       <th>Permanent Address</th>
+                       <th>Created On</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="modal fade" id="detailModal" tabindex="-1" role="dialog"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg" style="max-height: 400px; overflow-y: auto;" role="document">
+                <div class="modal-content">
+                  <!--Header-->
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <!--Body-->
+                  <div class="modal-body">
+                  </div>
+                  <!--Footer-->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datatable/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/datatable/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.spring-friendly.js"></script>
 
 <script type="text/javascript">
-
+var activeURL;
     function loadDataTable(url) {
+    activeURL = url;
         datatable.ajax.url(url).load();
     }
 
@@ -118,6 +138,9 @@ div#agriSurveyUsers_wrapper label {
                 data: 'surveyUserId.blockId.blockName'
             },
             {
+                data: 'surveyUserId.genderId.genderName'
+            },
+            {
                 data: 'surveyUserId.permanentAddress'
             },
             {
@@ -138,5 +161,35 @@ div#agriSurveyUsers_wrapper label {
             },
         ]
     });
+
+   $('table#agriSurveyUsers').on('click', 'tbody tr', function() {
+        var surveyUserId = datatable.row(this).data()['surveyUserId']['surveyUserId'];
+        console.log('API row values : ', surveyUserId);
+        console.log('active url is: ', activeURL);
+        if(activeURL=== undefined){
+        activeURL = '${userRole}' == 'animalHusbandryDept' ? '/ajax/animal-husbandry-survey-details'
+                                                               : '/ajax/agriculture-survey-details';
+        }else if(activeURL == '/animal-husbandry-survey-users'
+          || activeURL == '/ajax/animal-husbandry-survey-details'){
+            activeURL = '/ajax/animal-husbandry-survey-details';
+        }else{
+            activeURL = '/ajax/agriculture-survey-details';
+        }
+
+        $.ajax({
+                   url: activeURL,
+                   type: 'GET',
+                   data: {userid: surveyUserId},
+                   success: function(data){
+                       var json_ = JSON.parse(data);
+
+                       // Add response in Modal body
+                       $('.modal-body').html(json_.RESPONSE);
+
+                       // Display Modal
+                       $('#detailModal').modal('show');
+                   }
+               });
+   })
 </script>
 

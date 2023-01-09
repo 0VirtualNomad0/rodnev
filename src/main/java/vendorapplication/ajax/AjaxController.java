@@ -34,6 +34,7 @@ import vendorapplication.repositories.roles.RolesRepository;
 import vendorapplication.repositories.states.StateRepository;
 import vendorapplication.repositories.subcategory.SubCategoryRepository;
 import vendorapplication.repositories.subcategoryitems.SubCategoryItemsRepository;
+import vendorapplication.repositories.survey.SurveyAnimalHusbandryPaginationRepository;
 import vendorapplication.repositories.survey.SurveyUserRepository;
 import vendorapplication.repositories.tehsil.TehsilRepository;
 import vendorapplication.utilities.Constants;
@@ -83,6 +84,8 @@ public class AjaxController {
     SubCategoryItemsRepository subCategoryItemsRepository;
     @Autowired
     SurveyUserRepository surveyUserRepository;
+    @Autowired
+    private SurveyAnimalHusbandryPaginationRepository surveyAnimalHusbandryPaginationRepository;
 
 
     @RequestMapping(value = Constants.getRoles, method = RequestMethod.GET, produces = Constants.consumesProducesJson)
@@ -228,7 +231,7 @@ public class AjaxController {
             map = new HashMap<String, Object>();
             if (surveyUser == null) {
                 Optional<AadhaarApiResponse> apiResponse = getAadhaarData(aadhaar);
-                if ( apiResponse == null || !apiResponse.isPresent()
+                if (apiResponse == null || !apiResponse.isPresent()
                         || (apiResponse.isPresent() && apiResponse.get().getStatus() == 404)
                         || (apiResponse.isPresent() && apiResponse.get().getRecords().isEmpty())) {
                     map.put(Constants.keyResponse, "SurveyUserNotFound");
@@ -384,7 +387,7 @@ public class AjaxController {
             map = new HashMap<String, Object>();
             if (surveyUser == null) {
                 Optional<AadhaarApiResponse> apiResponse = getAadhaarData(aadhaar);
-                if ( apiResponse == null || !apiResponse.isPresent()
+                if (apiResponse == null || !apiResponse.isPresent()
                         || (apiResponse.isPresent() && apiResponse.get().getStatus() == 404)
                         || (apiResponse.isPresent() && apiResponse.get().getRecords().isEmpty())) {
                     map.put(Constants.keyResponse, "SurveyUserNotFound");
@@ -590,6 +593,543 @@ public class AjaxController {
             return null;
         }
 
+    }
+
+    @RequestMapping(value = Constants.getAnimalHusbandryData, method = RequestMethod.GET, produces = Constants.consumesProducesJson)
+    public @ResponseBody
+    String getAnimalHusbandryData(@RequestParam(value = Constants.surveyDetailRequestParam, required = true) String aadhaarNumber) throws Exception {
+        Map<String, Object> map = null;
+
+        try {
+            String data;
+            map = new HashMap<String, Object>();
+            SurveyUserEntity surveyUser =
+                    surveyUserRepository.findById(Long.valueOf(aadhaarNumber)).orElse(null);
+            if (surveyUser == null) {
+                data = "<div>Invalid user id</div>";
+                map.put(Constants.keyResponse, data);
+            } else {
+
+                StringBuilder userDataSB = populateUserData(surveyUser);
+                StringBuilder animalHusbandrySB = populateAnimalHusbandryData(surveyUser);
+                data = userDataSB.append(animalHusbandrySB).toString();
+            }
+            map.put(Constants.keyResponse, data);
+
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
+        } catch (Exception ex) {
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            //return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
+        }
+
+    }
+
+    @RequestMapping(value = Constants.getAgricultureData, method = RequestMethod.GET, produces = Constants.consumesProducesJson)
+    public @ResponseBody
+    String getAgricultureData(@RequestParam(value = Constants.surveyDetailRequestParam, required = true) String aadhaarNumber) throws Exception {
+        Map<String, Object> map = null;
+
+        try {
+            String data;
+            map = new HashMap<String, Object>();
+            SurveyUserEntity surveyUser =
+                    surveyUserRepository.findById(Long.valueOf(aadhaarNumber)).orElse(null);
+            if (surveyUser == null) {
+                data = "<div>Invalid user id</div>";
+                map.put(Constants.keyResponse, data);
+            } else {
+                StringBuilder userDataSB = populateUserData(surveyUser);
+                StringBuilder agricultureDataSB = populateAgricultureData(surveyUser);
+                data = userDataSB.append(agricultureDataSB).toString();
+            }
+            map.put(Constants.keyResponse, data);
+
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
+        } catch (Exception ex) {
+
+            map = new HashMap<String, Object>();
+            map.put(Constants.keyResponse, Constants.ErrorAjaxResponse);
+            map.put(Constants.keyMessage, Constants.valueMessage);
+            map.put(Constants.keyStatus, HttpStatus.OK);
+            ObjectMapper Obj = new ObjectMapper();
+            String jsonStr = null;
+            jsonStr = Obj.writeValueAsString(map);
+            logger.info(jsonStr);
+
+            return jsonStr;
+        }
+
+    }
+
+    private StringBuilder populateUserData(SurveyUserEntity surveyUser) {
+        StringBuilder sb = new StringBuilder();
+
+        String data =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Survey User Details</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-4\">" +
+                        "<label> Aadhaar Number: </label>\n" +
+                        "<label>" + surveyUser.getAadhaarNumber() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-4\">" +
+                        "<label> Full Name: </label>\n" +
+                        "<label>" + surveyUser.getFirstName() + " " + surveyUser.getLastName() + "</label>\n" +
+                        "</div>\n";
+        sb.append(data);
+        if (surveyUser.getGenderId() != null) {
+            String genderData =
+                    "<div class=\"col-lg-4\">\n" +
+                            "<label> Gender: </label>\n" +
+                            "<label>" + surveyUser.getGenderId().getGenderName() + "</label>\n" +
+                            "</div>\n" +
+                            "</div>\n";
+            sb.append(genderData);
+        }
+        String data2 =
+                "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-4\">\n" +
+                        "<label> Mobile Number: </label>\n" +
+                        "<label>" + surveyUser.getMobileNumber() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-4\">\n" +
+                        "<label> Age: </label>\n" +
+                        "<label>" + surveyUser.getAge() + "</label>\n" +
+                        "</div>\n";
+        sb.append(data2);
+
+        if (surveyUser.getCategoryId() != null) {
+            String categoryData =
+                    "<div class=\"col-lg-4\">\n" +
+                            "<label> Category: </label>\n" +
+                            "<label>" + surveyUser.getCategoryId().getCategoryName() + "</label>\n" +
+                            "</div>\n" +
+                            "</div>\n";
+            sb.append(categoryData);
+        }
+
+        String data3 =
+                "<div class=\"row\">\n" +
+                        "<div class=\"clearfix\"></div>\n" +
+                        "<div class=\"col-md-6\">\n" +
+                        "<label> Family Head Name: </label>\n" +
+                        "<label>" + surveyUser.getFamilyHeadName() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"clearfix\"></div>\n";
+        sb.append(data3);
+        if (surveyUser.getQualificationId() != null) {
+            String qualificationData =
+                    "<div class=\"col-lg-6\">\n" +
+                            "<label> Education Qualification: </label>\n" +
+                            "<label>" + surveyUser.getQualificationId().getQualificationName() + "</label>\n" +
+                            "</div>\n" +
+                            "</div>\n";
+            sb.append(qualificationData);
+        }
+
+        String userDataClose =
+                "</div>\n" +
+                        "<br><br>";
+        sb.append(userDataClose);
+
+        String addressData =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Survey User Address</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-4\">" +
+                        "<label> State: </label>\n" +
+                        "<label>" + surveyUser.getStateId().getStateName() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-4\">" +
+                        "<label> District: </label>\n" +
+                        "<label>" + surveyUser.getDistrictId().getDistrictName() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-4\">" +
+                        "<label> Block: </label>\n" +
+                        "<label>" + surveyUser.getBlockId().getBlockName() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-4\">" +
+                        "<label> Panchayat/Ward: </label>\n" +
+                        "<label>" + surveyUser.getPanchayatId().getPanchayatName() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-4\">" +
+                        "<label> Village Name: </label>\n" +
+                        "<label>" + surveyUser.getVillageName() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Permanent Address: </label>\n" +
+                        "<label>" + surveyUser.getPermanentAddress() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(addressData);
+
+        if (surveyUser.getFamilyMembers() != null && surveyUser.getFamilyMembers().stream().count() > 0) {
+            String familyDetailData =
+                    "<div class=\"timeline-post\">\n" +
+                            "<h4>Survey User Family Details</h4>\n" +
+                            "<hr>\n" +
+                            "<table class=\"table table-bordered table-striped\">\n" +
+                            "<thead>\n" +
+                            "<tr>\n" +
+                            "<th>Gender</th>\n" +
+                            "<th>Name</th>\n" +
+                            "<th>Age</th>\n" +
+                            "<th>Qualification</th>\n" +
+                            "</tr>\n" +
+                            "</thead>\n" +
+                            "<tbody>";
+            sb.append(familyDetailData);
+            for (FamilyMembersEntity familyMember : surveyUser.getFamilyMembers()) {
+                String familyRowData =
+                        "<tr>" +
+                                "<td>" + (familyMember.getGenderId() != null ?
+                                familyMember.getGenderId().getGenderName() : "") + "</td>" +
+                                "<td>" + familyMember.getName() + "</td>" +
+                                "<td>" + familyMember.getAge() + "</td>" +
+                                "<td>" + (familyMember.getQualificationId() != null ?
+                                familyMember.getQualificationId().getQualificationName() : "") + "</td>" +
+                                "</tr>";
+                sb.append(familyRowData);
+            }
+
+            String familyDataClose =
+                    "</tbody>" +
+                            "</table>" +
+                            "</div>"+
+                            "<br><br>";
+            sb.append(familyDataClose);
+
+        }
+        return sb;
+    }
+
+    private StringBuilder populateAnimalHusbandryData(SurveyUserEntity surveyUser) {
+        StringBuilder sb = new StringBuilder();
+
+        SurveyAnimalHusbandryEntity animalHusbandryData = surveyUser.getSurveyAnimalHusbandryId();
+        if (animalHusbandryData == null)
+            return sb;
+
+        String familyMemberEmploymentData =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Family Members Employment Data</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Government Employed: </label>\n" +
+                        "<label>" + animalHusbandryData.getGovtEmplFamilyNumber() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Self Employed: </label>\n" +
+                        "<label>" + animalHusbandryData.getSelfEmplFamilyNumber() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-2\">" +
+                        "<label> Outsourced: </label>\n" +
+                        "<label>" + animalHusbandryData.getOutsourcedEmplFamilyNumber() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-2\">" +
+                        "<label> PSU: </label>\n" +
+                        "<label>" + animalHusbandryData.getPmuEmplFamilyNumber() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-2\">" +
+                        "<label> Private: </label>\n" +
+                        "<label>" + animalHusbandryData.getPmuEmplFamilyNumber() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(familyMemberEmploymentData);
+
+        String farmAnimalData =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Number of Animals Being Reared (Species Wise)</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Cow: </label>\n" +
+                        "<label>" + animalHusbandryData.getCows() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Buffalo: </label>\n" +
+                        "<label>" + animalHusbandryData.getBuffaloes() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Other: </label>\n" +
+                        "<label>" + animalHusbandryData.getOtherAnimals() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Total: </label>\n" +
+                        "<label>" + animalHusbandryData.getTotalAnimals() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(farmAnimalData);
+
+        String farmMilkData =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Quantity of Milk being produced per day (per litre)</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Cow: </label>\n" +
+                        "<label>" + animalHusbandryData.getCowMilkQuantity() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Buffalo: </label>\n" +
+                        "<label>" + animalHusbandryData.getBuffaloMilkQuantity() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-6\">" +
+                        "<label> Milk kept for personal use per day: </label>\n" +
+                        "<label>" + animalHusbandryData.getPersonalUseMilkQuantity() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(farmMilkData);
+
+        String farmSoldData =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Details of Milk being sold per day</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Quantity Being Sold (in Litres): </label>\n" +
+                        "<label>" + animalHusbandryData.getMilkSoldQuantity() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Where Sold Local Market/ Milk fed: </label>\n" +
+                        "<label>" + animalHusbandryData.getMilkSoldTo() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Milk Selling price (Rs. Per litre): </label>\n" +
+                        "<label>" + animalHusbandryData.getSellingPrice() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(farmSoldData);
+
+        String otherInformation =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Other Information</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Is willing to sell milk to HP milk Fed (If option is given): </label>\n" +
+                        "<label>" + (animalHusbandryData.isWillingToSell() ? "Yes" : "No") + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> If yes, quantity (in Litres) available for selling: </label>\n" +
+                        "<label>" + (animalHusbandryData.isWillingToSell() ? animalHusbandryData.getQuantityToSell() : "") + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Is having capacity/willing to increase no. of cows/buffaloed, if any assistance is provided by the Govt.: </label>\n" +
+                        "<label>" + (animalHusbandryData.isCanIncreaseAnimal() ? "Yes" : "No") + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(otherInformation);
+        return sb;
+    }
+
+    private StringBuilder populateAgricultureData(SurveyUserEntity surveyUser) {
+        StringBuilder sb = new StringBuilder();
+
+        SurveyAgricultureEntity surveyAgricultureData = surveyUser.getSurveyAgricultureId();
+        if (surveyAgricultureData == null)
+            return sb;
+
+        String landDetailData =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Farmer Land Details(in Bigha)</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Total Land: </label>\n" +
+                        "<label>" + surveyAgricultureData.getTotalLand() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Cultivated Land: </label>\n" +
+                        "<label>" + surveyAgricultureData.getCultivatedLand() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Irrigated Land: </label>\n" +
+                        "<label>" + surveyAgricultureData.getIrrigatedLand() + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-3\">" +
+                        "<label> Non Irrigated Land: </label>\n" +
+                        "<label>" + surveyAgricultureData.getNonIrrigatedLand() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(landDetailData);
+
+        if (surveyAgricultureData.getCropDetails() != null
+                && surveyAgricultureData.getCropDetails().stream().count() > 0) {
+            String cropDetailData =
+                    "<div class=\"timeline-post\">\n" +
+                            "<h4>Present Crops Grown</h4>\n" +
+                            "<hr>\n" +
+                            "<table class=\"table table-bordered table-striped\">\n" +
+                            "<thead>\n" +
+                            "<tr>\n" +
+                            "<th>Crop Type</th>\n" +
+                            "<th>Crop Name</th>\n" +
+                            "<th>Crop Area(Bigha)</th>\n" +
+                            "<th>Production(quintal)</th>\n" +
+                            "<th>Quantity for Marketing(quintal)</th>\n" +
+                            "</tr>\n" +
+                            "</thead>\n" +
+                            "<tbody>";
+            sb.append(cropDetailData);
+            for (CropDetailEntity cropDetail : surveyAgricultureData.getCropDetails()) {
+                String cropData =
+                        "<tr>" +
+                                "<td>" + (cropDetail.getCropTypeId() != null ?
+                                cropDetail.getCropTypeId().getCropTypeName() : "") + "</td>" +
+                                "<td>" + cropDetail.getCropName() + "</td>" +
+                                "<td>" + cropDetail.getCropArea() + "</td>" +
+                                "<td>" + cropDetail.getCropProduction() + "</td>" +
+                                "<td>" + cropDetail.getCropMarketing() + "</td>" +
+                                "</tr>";
+                sb.append(cropData);
+            }
+
+            String cropDetailDataClose =
+                    "</tbody>" +
+                            "</table>" +
+                            "</div>" +
+                            "<br><br>";
+            sb.append(cropDetailDataClose);
+
+        }
+
+        if (surveyAgricultureData.getFutureCropDetails() != null
+                && surveyAgricultureData.getFutureCropDetails().stream().count() > 0) {
+            String cropDetailData =
+                    "<div class=\"timeline-post\">\n" +
+                            "<h4>Present Crops Grown</h4>\n" +
+                            "<hr>\n" +
+                            "<table class=\"table table-bordered table-striped\">\n" +
+                            "<thead>\n" +
+                            "<tr>\n" +
+                            "<th>Crop Type</th>\n" +
+                            "<th>Crop Name</th>\n" +
+                            "<th>Crop Area(Bigha)</th>\n" +
+                            "</tr>\n" +
+                            "</thead>\n" +
+                            "<tbody>";
+            sb.append(cropDetailData);
+            for (FutureCropDetailEntity cropDetail : surveyAgricultureData.getFutureCropDetails()) {
+                String cropData =
+                        "<tr>" +
+                                "<td>" + (cropDetail.getCropTypeId() != null ?
+                                cropDetail.getCropTypeId().getCropTypeName() : "") + "</td>" +
+                                "<td>" + cropDetail.getCropName() + "</td>" +
+                                "<td>" + cropDetail.getCropArea() + "</td>" +
+                                "</tr>";
+                sb.append(cropData);
+            }
+
+            String cropDetailDataClose =
+                    "</tbody>" +
+                            "</table>" +
+                            "</div>" +
+                            "<br><br>";
+            sb.append(cropDetailDataClose);
+
+        }
+
+        String otherInformation =
+                "<div class=\"timeline-post\">\n" +
+                        "<h4>Other Information</h4>\n" +
+                        "<hr>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Present Agriculture Income: </label>\n" +
+                        "<label>" + surveyAgricultureData.getPresentIncome() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Present Marketing System: </label>\n" +
+                        "<label>" + surveyAgricultureData.getMarketableIncome() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Infrastructure required to increase agriculture income: </label>\n" +
+                        "<label>" + surveyAgricultureData.getInfraRequirements() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> Whether attended any agriculture related training programme? (Please use comma , for entering different programme): </label>\n" +
+                        "<label>" + surveyAgricultureData.getTrainingAgri() + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-6\">" +
+                        "<label>Are you doing natural Farming?: </label>\n" +
+                        "<label>" + (surveyAgricultureData.isNaturalFarming() ? "Yes" : "No") + "</label>\n" +
+                        "</div>\n" +
+                        "<div class=\"col-lg-6\">" +
+                        "<label> If Yes (Full/Partial): </label>\n" +
+                        "<label>" + (surveyAgricultureData.isNaturalFarming() ?
+                        (surveyAgricultureData.isPartial() ? "Partial" : "Full") : "") + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"row\">\n" +
+                        "<div class=\"col-lg-12\">" +
+                        "<label> whether benefited with Pradhan Mantri Kisan Samman Nidhi Scheme: </label>\n" +
+                        "<label>" + (surveyAgricultureData.isPmkisanBenifit() ? "Yes" : "No") + "</label>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<br><br>";
+        sb.append(otherInformation);
+        return sb;
     }
 
     //getBlocks

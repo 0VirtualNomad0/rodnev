@@ -6,6 +6,8 @@ public class GenderModal implements Serializable {
 
     private Integer genderId;
     private String genderName;
+    public GenderModal() {
+    }
 
     public GenderModal(Integer genderId, String genderName) {
         this.genderId = genderId;
